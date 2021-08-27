@@ -194,8 +194,8 @@ class ButtonConversation extends Conversation
             Button::create('uzbek')->value('uz'),
             Button::create('русский')->value('ru'),
         ]);
-        $this->ask(QUESTIONS["TELL_NAME"]["uz"], function($name){
-            $this->ask(QUESTIONS["TELL_PHONE"]["uz"], function($phone){
+        $this->ask(QUESTIONS["ASK_NAME"]["uz"], function($name){
+            $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function($phone){
 
             //     $this->askForContact('PHONE', function(Contact $contact){
 
@@ -204,7 +204,7 @@ class ButtonConversation extends Conversation
             //     null,
             //     $this->ContactKeyboard()
             // );
-                $this->ask(QUESTIONS["TELL_EMAIL"]["uz"], function($email){
+                $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function($email){
                     $this->say("Ok" . $email->getText());
                     // $pstext = str_random(8);
                     // $hashed_random_password = Hash::make($pstext);
