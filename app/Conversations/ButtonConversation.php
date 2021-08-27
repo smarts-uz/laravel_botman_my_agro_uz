@@ -2,8 +2,10 @@
 
 namespace App\Conversations;
 
+use App\Models\Action;
 use App\Models\Region;
 use App\Models\Routes;
+use App\Models\User;
 use App\Services\Mailer\MailService;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Question;
@@ -12,6 +14,7 @@ use BotMan\BotMan\Messages\Attachments\Contact;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -45,7 +48,10 @@ const keyboard = [
     'Маъмурий-хўжалик хизмати муассасаси',
     'Агросаноатни рақамлаштириш маркази',
 ];
+const LANGUAGE = ["uz", "ru"];
 const QUESTIONS = [
+    'ASK_LANGUAGE' => ['uz' => 'Tilni belgilang', 'ru'=>'Tilni belgilang! Ru'],
+    'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! Ru'],
     'ASK_NAME' => ['uz' => 'Ismingizni ?','ru' => 'Ismingizni ? Ru'],
     'ASK_PHONE' => ['uz' => 'Telefon raqamingiz?', 'ru'=>'Telefon raqamingiz?'],
     'ASK_EMAIL' => ['uz' => 'Email?', 'ru'=>'Email Ru?'],
@@ -55,12 +61,12 @@ const QUESTIONS = [
 
     'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер Ru'],
 ];
-const KEY_ACTIONS = [
-    'Задать вопрос',
-    'Оставить обращение',
-    'Консультация',
+const KEY_INDIVIDUALS = [
+    'ru' => [['name'=>'Физическое лицо', 'val' => '1'], ['name'=>'Юридическое лицо', 'val' => '0']],
+    'uz' => ['Физическое лицо', 'Юридическое лицо']
+
 ];
-const Messages = [
+const MESSAGES = [
     'TELL_ME_APPEAL' => ['uz' => 'Вы можете отправить все ваши сообщения в необходимом Вам формате (видео / аудио / фото / текст), Также вы можете прикреплять файлы.', 'ru' => 'Вы можете отправить все ваши сообщения в необходимом Вам формате (видео / аудио / фото / текст), Также вы можете прикреплять файлы.'],
 ];
 const msgUz = '🗣 Хурматли фуқоролар Қишлоқ хўжалиги вазирлиги тизимида коррупцияга дуч келсангиз, бизга хабар беринг.
@@ -72,6 +78,8 @@ const msgRu = '🗣 Уважаемые граждане! Если вы стол�
 class ButtonConversation extends Conversation
 {
     private $memory;
+    private $user_mamory;
+    private $language;
     public function ContactKeyboard()
     {
         return Keyboard::create()
@@ -81,28 +89,45 @@ class ButtonConversation extends Conversation
             ->resizeKeyboard()
             ->toArray();
     }
+    public function keyLanguages(){
+        $ar = [];
+        foreach (LANGUAGE as $key) {
+            array_push($ar,Button::create($key)->value($key));
+        }
+        return Question::create(QUESTIONS["ASK_LANGUAGE"]["uz"])
+        ->addButtons($ar);
+    }
+    public function keyUserType(){
+        $ar = [];
+        foreach (KEY_INDIVIDUALS["uz"] as $key) {
+            array_push($ar,Button::create($key["name"])->value($key["val"]));
+        }
+        return Question::create(QUESTIONS["ASK_LANGUAGE"]["uz"])
+        ->addButtons($ar);
+    }
     public function keyActions(){
         $ar = [];
-        foreach (KEY_ACTIONS as $key) {
-            array_push($ar,Button::create($key)->value($key));
+        $actions = Action::all();
+        foreach ($actions as $key) {
+            array_push($ar,Button::create($key->uz)->value($key->id));
         }
         return Question::create(QUESTIONS["ASK_ACTION"]["uz"])
         ->addButtons($ar);
     }
     public function keyRegions(){
         $ar = [];
-        $regions = Region::select('uz')->get();
+        $regions = Region::all();
         foreach ($regions as $key) {
-            array_push($ar,Button::create($key->uz)->value($key->uz));
+            array_push($ar,Button::create($key->uz)->value($key->id));
         }
         return Question::create(QUESTIONS["ASK_REGION"]["uz"])
         ->addButtons($ar);
     }
     public function keyRoutes(){
         $ar = [];
-        $routes = Routes::select('uz')->get();
+        $routes = Routes::all();
         foreach ($routes as $key) {
-            array_push($ar,Button::create($key->uz)->value($key->uz));
+            array_push($ar,Button::create($key->uz)->value($key->id));
         }
         return Question::create(QUESTIONS["ASK_ROUTE"]["uz"])
         ->addButtons($ar);
@@ -110,227 +135,107 @@ class ButtonConversation extends Conversation
 
     public function run()
     {
-        // $this->askUser();
-        $question = Question::create('tilni tanlang!')
-        ->addButtons([
-            Button::create('uzbek')->value('uz'),
-            Button::create('русский')->value('ru'),
-        ]);
+        $this->askLanguage();
+    }
+    public function askLanguage(){
+        $this->ask($this->keyLanguages(), function($language){
+            if ($language->isInteractiveMessageReply()) {
+                $this->language = $language->getValue();
+                $this->askUserType();
+            } else {
+
+            }
+        });
+    }
+    public function askUserType(){
+        $this->ask($this->keyUserType(), function($usertype){
+            if ($usertype->isInteractiveMessageReply()) {
+                $this->user_mamory["usertype"] = $usertype->getValue();
+                $this->askUser();
+            } else $this->repeat();
+        });
+    }
+    public function askUser(){
         $this->ask(QUESTIONS["ASK_NAME"]["uz"], function($name){
+            $this->user_mamory["name"] = $name->getText();
             $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function($phone){
+                $this->user_mamory["phone"] = $phone->getText();
 
-            //     $this->askForContact('PHONE', function(Contact $contact){
-
-            //         $this->say("Your phone number is ".$contact->getPhoneNumber());
-            //     },
-            //     null,
-            //     $this->ContactKeyboard()
-            // );
                 $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function($email){
+                    $this->user_mamory["email"] = $email->getText();
                     $this->say("Ok" . $email->getText());
-                    // $pstext = str_random(8);
-                    // $hashed_random_password = Hash::make($pstext);
-                    // $mailer = new MailService();
-                    // $mailer->sendMail($email->getText(), 'Asadbek',"OK");
+                    //
 
-                    $this->ask($this->keyActions(), function($actions){
-                        if ($actions->isInteractiveMessageReply()) {
-                            $this->say("You selected ".$actions->getValue());
+                    $this->askAction();
 
-                            $this->ask($this->keyRegions(), function($regions){
-                                if ($regions->isInteractiveMessageReply()) {
-                                    $this->say("You selected ".$regions->getValue());
-
-                                    $this->ask($this->keyRoutes(), function($routes){
-                                        if ($routes->isInteractiveMessageReply()) {
-                                            $this->say("You selected ".$routes->getValue());
-                                        } else $this->repeat();
-                                    });
-
-                                } else $this->repeat();
-                            });
-
-                        } else $this->repeat();
-                    });
                 });
             });
 
             }
         );
-        // $this->ask($question, function($answer){
-            // if ($answer->isInteractiveMessageReply()) {
-            //     if($answer->getValue() == 'uz') {
-            //         $this->say(msgUz);
-            //         $questionn = Question::create('Бўлимни танланг!')
-            //             ->addButtons([
-            //                 Button::create('Вилоятлар')->value('regions'),
-            //                 Button::create('Тузилмалар')->value('structs'),
-            //             ]);
-            //         $this->ask($questionn,function ($answerr) {
-            //             if ($answerr->isInteractiveMessageReply()) {
-            //                 if($answerr->getValue() == 'regions') {
-            //                     $ar = [];
 
-            //                     foreach (keyboardd as $key) {
-            //                         array_push($ar,Button::create($key)->value($key));
-            //                     }
-            //                     $questionn = Question::create('Керакли вилоят танланг!')
-            //                         ->addButtons($ar);
-            //                     $this->ask($questionn,function ($answerr) {
-            //                         if ($answerr->isInteractiveMessageReply()) {
-            //                             $ar = [];
-
-            //                             foreach (keyboarddd as $key) {
-            //                                 array_push($ar,Button::create($key)->value($key));
-            //                             }
-            //                             $questionn = Question::create('Керакли йўналишни танланг!')
-            //                                 ->addButtons($ar);
-
-            //                             $this->ask($questionn,function ($answer){
-            //                                 if ($answer->isInteractiveMessageReply()) {
-            //                                     $questionn = Question::create('Сизда ушбу йўналишга оид қандайдир маълумот (видео/аудио/фото/в.х.) бўлса, илова қилган ҳолда бизга юборишингиз мумкин!')
-
-            //                                         ->addButtons([Button::create('')->value('fd')]);
-
-            //                                     $this->ask($questionn,function ($answer){
-            //                                         $this->say('✅Юборган хабарингиз белгиланган тартибда кўриб чиқилади. Маълумот учун рахмат!');
-            //                                         $this->say('✅boshlashj uchun /start ni yuboring');
-            //                                     });
-            //                                 }else {
-            //                                     $this->repeat();
-            //                                 }
-
-
-            //                             });
-
-            //                         }else {
-            //                             $this->repeat();
-            //                         }
-
-
-            //                     });
-
-            //                 }
-            //                 elseif ($answerr->getValue() == 'structs') {
-            //                     $ar = [];
-
-            //                     foreach (keyboard as $key) {
-            //                         array_push($ar,Button::create($key)->value($key));
-            //                     }
-            //                     $questionn = Question::create('Керакли тузилмани танланг!')
-            //                         ->addButtons($ar);
-            //                     $this->ask($questionn,function ($answer) {
-            //                         if ($answer->isInteractiveMessageReply()) {
-            //                             $questionn = Question::create('Сизда ушбу йўналишга оид қандайдир маълумот (видео/аудио/фото/в.х.) бўлса, илова қилган ҳолда бизга юборишингиз мумкин!')->addButton(Button::create('')->value('fd'));
-            //                             $this->ask($questionn,function ($answer){
-            //                                 $this->say('✅Юборган хабарингиз белгиланган тартибда кўриб чиқилади. Маълумот учун рахмат!');
-            //                                 $this->say('✅boshlashj uchun /start ni yuboring');
-            //                             });
-            //                         }else {
-            //                             $this->repeat();
-            //                         }
-
-
-            //                     });
-            //                 }
-            //             }else {
-            //                 $this->repeat();
-            //             }
-
-            //         });
-            //     }
-            //     elseif ($answer->getValue() == 'ru') {
-
-            //         $this->say(msgRu);
-            //         $questionn = Question::create('Выберите раздел!')
-            //             ->addButtons([
-            //                 Button::create('Провинции')->value('vi'),
-            //                 Button::create('Структуры')->value('tu'),
-            //             ]);
-            //         $this->ask($questionn,function ($answerr) {
-            //             if($answerr->isInteractiveMessageReply()) {
-            //                 if($answerr->getValue() == 'vi') {
-            //                     $ar = [];
-
-            //                     foreach (keyboardRu as $key) {
-            //                         array_push($ar,Button::create($key)->value($key));
-            //                     }
-            //                     $questionn = Question::create('Выберите желаемый регион!')
-            //                         ->addButtons($ar);
-            //                     $this->ask($questionn,function ($answerr) {
-            //                         if ($answerr->isInteractiveMessageReply()) {
-            //                             $ar = [];
-
-            //                             foreach (keyboardddRu as $key) {
-            //                                 array_push($ar,Button::create($key)->value($key));
-            //                             }
-            //                             $questionn = Question::create('Выберите желаемое направление!')
-            //                                 ->addButtons($ar);
-
-            //                             $this->ask($questionn,function ($answer){
-            //                                 if ($answer->isInteractiveMessageReply()) {
-            //                                     $questionn = Question::create('Если у вас есть какая-либо информация по этому направлению (видео / аудио / фото / и т. Д.), Вы можете прислать ее нам с приложением.!')
-
-            //                                         ->addButtons([Button::create('')->value('fd')]);
-
-            //                                     $this->ask($questionn,function ($answer){
-            //                                         $this->say('✅Ваше сообщение будет рассмотрено в установленном порядке. Спасибо за информацию!');
-            //                                         $this->say('✅Отправить /start, чтобы начать');
-            //                                     });
-            //                                 } else {
-            //                                     $this->repeat();
-            //                                 }
-
-            //                             });
-            //                         } else {
-            //                             $this->repeat();
-            //                         }
-
-            //                     });
-
-            //                 }
-            //                 elseif ($answerr->getValue() == 'tu') {
-
-            //                     $ar = [];
-
-            //                     foreach (keyboarddRu as $key) {
-            //                         array_push($ar,Button::create($key)->value($key));
-            //                     }
-            //                     $questionn = Question::create('Выберите желаемую структуру!')
-            //                         ->addButtons($ar);
-            //                     $this->ask($questionn,function ($answer) {
-            //                         if ($answer->isInteractiveMessageReply()) {
-            //                             $questionn = Question::create('Если у вас есть какая-либо информация по этому направлению (видео / аудио / фото / и т. Д.), Вы можете прислать ее нам с приложением!')->addButton(Button::create('')->value('fd'));
-            //                             $this->ask($questionn,function ($answer){
-            //                                 $this->say('✅Ваше сообщение будет рассмотрено в установленном порядке. Спасибо за информацию!. ');
-            //                                 $this->say('✅Отправить /start, чтобы начать');
-            //                             });
-            //                         }else {
-            //                             $this->repeat();
-            //                         }
-
-            //                     });
-            //                 }
-            //             }else {
-            //                 $this->repeat();
-            //             }
-
-            //         });
-
-            //     }
-            // }else {
-            //     $this->repeat();
-            // }
-
-
-        // });
     }
-    public function askUser(){
+    public function askAction(){
+        $this->ask($this->keyActions(), function($actions){
+            if ($actions->isInteractiveMessageReply()) {
+                $this->say("You selected ".$actions->getValue());
+                $this->memory["action"] = $actions->getValue();
 
-        $this->ask('Salom', function(Answer $answer){
-                $this->say('Your name is a', $answer->getValue());
+                $this->askRegion();
 
-            }
-        );
+            } else $this->repeat();
+        });
+    }
+    public function askRegion(){
+        $this->ask($this->keyRegions(), function($regions){
+            if ($regions->isInteractiveMessageReply()) {
+                $this->say("You selected ".$regions->getValue());
+                $this->memory["region"] = $regions->getValue();
+
+                $this->askRoute();
+
+            } else $this->repeat();
+        });
+    }
+    public function askRoute(){
+        $this->ask($this->keyRoutes(), function($routes){
+            if ($routes->isInteractiveMessageReply()) {
+                $this->say("You selected ".$routes->getValue());
+                $this->memory["route"] = $routes->getValue();
+
+
+
+            } else $this->repeat();
+        });
+        $this->askAppeal();
+
+    }
+
+
+    public function UserLogin(){
+        $user = User::where('email', $this->user_mamory["email"])->first();
+        if(!$user){
+            $mailer = new MailService();
+            $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->generatePass(). ' for Cabinet';
+            $mailer->sendMail($this->user_mamory["email"], 'Asadbek', $text);
+            User::create([
+                'name' => $this->user_mamory["name"],
+                'role_id' => 2,
+                'phone' => $this->user_mamory["phone"],
+                'individual' => $this->user_mamory["usertype"],
+                "email" => $this->user_mamory["email"],
+                "password" => Hash::make($this->generatePass())
+            ]);
+
+        }
+
+    }
+    public function askAppeal(){
+        $this->say(MESSAGES["TELL_ME_APPEAL"]);
+        $this->bot->startConversation(new LiveConversation());
+
+    }
+    private function generatePass(){
+       return str_random(8);
     }
 }
