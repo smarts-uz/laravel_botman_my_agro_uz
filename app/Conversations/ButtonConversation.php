@@ -267,13 +267,14 @@ class ButtonConversation extends Conversation
                 "email" => $this->user_mamory["email"],
                 "password" => Hash::make($this->generatePass())
             ]);
+            Auth::login($user);
 
         }
         $this->askAppeal();
 
     }
     public function askAppeal(){
-        $this->bot->startConversation(new LiveConversation());
+        $this->bot->startConversation(new LiveConversation($this->user_mamory));
 
     }
     function generatePass($length = 8) {
