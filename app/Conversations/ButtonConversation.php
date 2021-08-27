@@ -58,12 +58,16 @@ const QUESTIONS = [
     'ASK_ACTION' => ['uz' => 'Выберите действие!', 'ru'=>'Выберите действие! Ru'],
     'ASK_REGION' => ['uz' => 'Выберите регион!', 'ru'=>'Выберите регион! Ru'],
     'ASK_ROUTE' => ['uz' => 'Выберите необходимое направление или сферу!', 'ru'=>'Выберите необходимое направление или сферу! Ru'],
+    'ASK_1' => ['uz' => 'Просим предоставить необходимую информацию! Место работы и организация ', 'ru'=>'Просим предоставить необходимую информацию! Место работы и организация '],
+    'ASK_11' => ['uz' => 'Просим предоставить необходимую информацию! Название организации ', 'ru'=>'Просим предоставить необходимую информацию! Название организации '],
+    'ASK_2' =>  ['uz' => 'Просим предоставить необходимую информацию! Должность и род занятия ', 'ru'=>'Просим предоставить необходимую информацию! Должность и род занятия '],
+    'ASK_22' => ['uz' => 'Просим предоставить необходимую информацию! Направление деятельности ', 'ru'=>'Просим предоставить необходимую информацию! Направление деятельности '],
 
     'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер Ru'],
 ];
 const KEY_INDIVIDUALS = [
-    'ru' => [['name'=>'Физическое лицо', 'val' => '1'], ['name'=>'Юридическое лицо', 'val' => '0']],
-    'uz' => ['Физическое лицо', 'Юридическое лицо']
+    'ru' => [['name'=>'Физическое лицо', 'val' => 0], ['name'=>'Юридическое лицо', 'val' => 1]],
+    'uz' => [['name'=>'Физическое лицо', 'val' => 0], ['name'=>'Юридическое лицо', 'val' => 1]],
 
 ];
 const MESSAGES = [
@@ -77,9 +81,10 @@ const msgRu = '🗣 Уважаемые граждане! Если вы стол�
         ‼ ️Отправленные сообщения будут рассмотрены в установленном порядке, и конфиденциальность заявителя будет гарантирована.';
 class ButtonConversation extends Conversation
 {
-    private $memory;
-    private $user_mamory;
+    public $memory=[];
+    public $user_mamory = [];
     private $language;
+    private $usertype;
     public function ContactKeyboard()
     {
         return Keyboard::create()
@@ -143,7 +148,7 @@ class ButtonConversation extends Conversation
                 $this->language = $language->getValue();
                 $this->askUserType();
             } else {
-
+                return $this->repeat();
             }
         });
     }
@@ -156,23 +161,59 @@ class ButtonConversation extends Conversation
         });
     }
     public function askUser(){
-        $this->ask(QUESTIONS["ASK_NAME"]["uz"], function($name){
-            $this->user_mamory["name"] = $name->getText();
-            $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function($phone){
-                $this->user_mamory["phone"] = $phone->getText();
+        if($this->user_mamory["usertype"]==0){
+            $this->ask(QUESTIONS["ASK_1"]["uz"], function($ask1){
+                $this->memory["data"]["a"] = $ask1->getText();
+                $this->ask(QUESTIONS["ASK_11"]["uz"], function($ask2) {
+                    $this->memory["data"]['b'] = $ask2->getText();
+                    $this->ask(
+                        QUESTIONS["ASK_NAME"]["uz"],
+                        function ($name) {
+                        $this->user_mamory["name"] = $name->getText();
+                        $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function ($phone) {
+                            $this->user_mamory["phone"] = $phone->getText();
+                            $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
+                                $this->user_mamory["email"] = $email->getText();
+                                $this->say($email->getText());
+                                $this->say($this->user_mamory["email"]);
 
-                $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function($email){
-                    $this->user_mamory["email"] = $email->getText();
-                    $this->say("Ok" . $email->getText());
-                    //
+                                $this->say("Ok" . $email->getText());
+                                //
 
-                    $this->askAction();
-
+                                $this->askAction();
+                            });
+                        });
+                    }
+                    );
                 });
             });
+        } else{
 
-            }
-        );
+            $this->ask(QUESTIONS["ASK_2"]["uz"], function($ask1){
+                $this->memory["data"]["a"] = $ask1->getText();
+                $this->ask(QUESTIONS["ASK_22"]["uz"], function($ask2) {
+                    $this->memory["data"]['b'] = $ask2->getText();
+                    $this->ask(
+                        QUESTIONS["ASK_NAME"]["uz"],
+                        function ($name) {
+                        $this->user_mamory["name"] = $name->getText();
+                        $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function ($phone) {
+                            $this->user_mamory["phone"] = $phone->getText();
+                            $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
+                                $this->user_mamory["email"] = $email->getText();
+                                $this->say("Ok" . $email->getText());
+                                //
+
+                                $this->askAction();
+                            });
+                        });
+                    }
+                    );
+                });
+            });
+        }
+
+
 
     }
     public function askAction(){
@@ -207,12 +248,12 @@ class ButtonConversation extends Conversation
 
             } else $this->repeat();
         });
-        $this->askAppeal();
-
+        $this->userLogin();
     }
 
 
     public function UserLogin(){
+        Log::info(json_encode($this->user_mamory));
         $user = User::where('email', $this->user_mamory["email"])->first();
         if(!$user){
             $mailer = new MailService();
@@ -228,14 +269,20 @@ class ButtonConversation extends Conversation
             ]);
 
         }
+        $this->askAppeal();
 
     }
     public function askAppeal(){
-        $this->say(MESSAGES["TELL_ME_APPEAL"]);
         $this->bot->startConversation(new LiveConversation());
 
     }
-    private function generatePass(){
-       return str_random(8);
+    function generatePass($length = 8) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
