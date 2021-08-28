@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LiveConversation extends Conversation
 {
-    public $data = [];
+    public $data;
     public function __construct($data)
     {
         $this->$data = $data;

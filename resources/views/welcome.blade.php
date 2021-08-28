@@ -16,7 +16,6 @@
             introMessage: "<img draggable="false" role="img" class="emoji" alt="✋" src="https://s.w.org/images/core/emoji/13.1.0/svg/270b.svg"> Hi! I'm form Tutsmake.org"
         };
     </script>
-
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 
 </html>
