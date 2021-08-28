@@ -19,42 +19,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
-const keyboard = [
-    'Ўзбекистон Республикаси қишлоқ хўжалиги вазирлиги',
-    'Қорақалпоғистон Республикаси қишлоқ хўжалиги вазирлиги',
-    'Андижон вилояти қишлоқ хўжалиги бошқармаси',
-    'Фарғона вилояти қишлоқ хўжалиги бошқармаси',
-    'Жиззах вилояти қишлоқ хўжалиги бошқармаси',
-    'Хоразм вилояти қишлоқ хўжалиги бошқармаси',
-    'Наманган вилояти қишлоқ хўжалиги бошқармаси',
-    'Навоий вилояти қишлоқ хўжалиги бошқармаси',
-    'Қашқадарё вилояти қишлоқ хўжалиги бошқармаси',
-    'Самарқанд вилояти қишлоқ хўжалиги бошқармаси',
-    'Сирдарё вилояти қишлоқ хўжалиги бошқармаси',
-    'Сурхондарё вилояти қишлоқ хўжалиги бошқармаси',
-    'Тошкент вилояти қишлоқ хўжалиги бошқармаси',
-    '"Ўздаверлойиҳа" илмий-лойиҳалаш институти',
-    '"Академик М.Мирзаев номидаги боғдорчилик, узумчилик
-            ва виночилик илмий-тадқиқот институти"',
-    'Боғдорчилик ва иссиқхона хўжалигини ривожлантириш агентлиги',
-    'Қишлоқ хўжалигида билим ва инновациялар миллий маркази',
-    'Уруғчиликни ривожлантириш маркази',
-    'Қишлоқ хўжалиги экинлари навларини синаш маркази',
-    'Тупроқ таркиби ва репозиторийси, сифати таҳлил маркази',
-    'Қишлоқ хўжалиги техникаси ва технологияларини сертификатлаш ва синаш давлат маркази',
-    'Қишлоқ хўжалигини стандартлаштириш маркази',
-    'Кимёлаштириш ва ўсимликларни ҳимоя қилиш воситаларини синовдан ўтказиш ва рўйхатга олиш бўйича давлат комиссияси Ишчи органи',
-    'Тошкент давлат аграр университети',
-    'Андижон қишлоқ хўжалиги ва агротехнологиялар институти',
-    'Маъмурий-хўжалик хизмати муассасаси',
-    'Агросаноатни рақамлаштириш маркази',
-];
 const LANGUAGE = ["uz", "ru"];
 const QUESTIONS = [
     'ASK_LANGUAGE' => ['uz' => 'Tilni belgilang', 'ru'=>'Tilni belgilang! Ru'],
     'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! Ru'],
     'ASK_NAME' => ['uz' => 'Ismingizni ?','ru' => 'Ismingizni ? Ru'],
-    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz?', 'ru'=>'Telefon raqamingiz?'],
+    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz? (998)', 'ru'=>'Telefon raqamingiz? (998)'],
     'ASK_EMAIL' => ['uz' => 'Email?', 'ru'=>'Email Ru?'],
     'ASK_ACTION' => ['uz' => 'Выберите действие!', 'ru'=>'Выберите действие! Ru'],
     'ASK_REGION' => ['uz' => 'Выберите регион!', 'ru'=>'Выберите регион! Ru'],
@@ -172,11 +142,26 @@ class ButtonConversation extends Conversation
                         function ($name) {
                         $this->user_mamory["name"] = $name->getText();
                         $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function ($phone) {
-                            $this->user_mamory["phone"] = $phone->getText();
-                            $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
-                                $this->user_mamory["email"] = $email->getText();
-                                $this->askAction();
-                            });
+                            $x = preg_match('/^9989[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
+                            if($x == true) {
+                                $this->user_mamory["phone"] = $phone->getText();
+                                $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
+                                    $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
+                                    if($x == true) {
+                                        $this->user_mamory["email"] = $email->getText();
+                                        $this->askAction();
+                                    }elseif ($x == false) {
+                                        $this->say("incorrect format");
+                                        $this->repeat();
+                                    }
+
+
+                                });
+                            }elseif ($x == false) {
+                                $this->say("incorrect format");
+                                $this->repeat();
+                            }
+
                         });
                     }
                     );
