@@ -8,6 +8,7 @@ use App\Models\Region;
 use App\Models\Routes;
 use App\Models\User;
 use App\Services\Mailer\MailService;
+use App\Services\SmsService\SmsService;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -154,8 +155,6 @@ class ButtonConversation extends Conversation
                                         $this->say("incorrect format");
                                         $this->repeat();
                                     }
-
-
                                 });
                             }elseif ($x == false) {
                                 $this->say("incorrect format");
@@ -242,7 +241,7 @@ class ButtonConversation extends Conversation
                 "email" => $this->user_mamory["email"],
                 "password" => Hash::make($this->generatePass())
             ]);
-            Auth::login($user);
+            // Auth::login($user);
 
         }
         $this->askAppeal();
@@ -258,8 +257,10 @@ class ButtonConversation extends Conversation
                 $appeal->route = $this->memory["route"];
                 $appeal->type = $this->memory["action"];
                 $appeal->save();
-
-            } else $this->askAppeal();
+                $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz'.$appeal->id;
+                $smsSender = new SmsService();
+                $smsSender->send($this->user_mamory["phone"], $text);
+            } else return $this->askAppeal();
             $this->say("Murojaat uchun rahmat");
         });
 

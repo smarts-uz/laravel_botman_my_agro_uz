@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SmsService;
+namespace App\Services\SmsService;
 
 class SmsHelperService
 {

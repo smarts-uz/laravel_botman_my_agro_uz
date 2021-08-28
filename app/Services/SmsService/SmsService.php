@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SmsService;
+namespace App\Services\SmsService;
 
 class SmsService
 {
@@ -13,8 +13,8 @@ class SmsService
     public function __construct()
     {
         $this->url = 'http://91.204.239.44/broker-api/send';
-        $this->login = 'reestrtehniki';
-        $this->password = 'pX543HM4rk';
+        $this->login = env('PLAY_MOBILE_LOGIN', '');
+        $this->password = env('PLAY_MOBILE_PASSWORD', '');
     }
 
     /**
@@ -49,7 +49,7 @@ class SmsService
      * @param $message
      * @return mixed
      */
-    
+
     public function send($phone, $message)
     {
 //        $request = $this->makeRequest([['phone' => $phone, 'message' => $message]]);
