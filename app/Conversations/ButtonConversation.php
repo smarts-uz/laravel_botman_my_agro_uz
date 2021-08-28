@@ -53,7 +53,7 @@ const QUESTIONS = [
     'ASK_LANGUAGE' => ['uz' => 'Tilni belgilang', 'ru'=>'Tilni belgilang! Ru'],
     'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! Ru'],
     'ASK_NAME' => ['uz' => 'Ismingizni ?','ru' => 'Ismingizni ? Ru'],
-    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz?', 'ru'=>'Telefon raqamingiz?'],
+    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz? (998)', 'ru'=>'Telefon raqamingiz? (998)'],
     'ASK_EMAIL' => ['uz' => 'Email?', 'ru'=>'Email Ru?'],
     'ASK_ACTION' => ['uz' => 'Выберите действие!', 'ru'=>'Выберите действие! Ru'],
     'ASK_REGION' => ['uz' => 'Выберите регион!', 'ru'=>'Выберите регион! Ru'],
@@ -171,17 +171,32 @@ class ButtonConversation extends Conversation
                         function ($name) {
                         $this->user_mamory["name"] = $name->getText();
                         $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function ($phone) {
-                            $this->user_mamory["phone"] = $phone->getText();
-                            $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
-                                $this->user_mamory["email"] = $email->getText();
-                                $this->say($email->getText());
-                                $this->say($this->user_mamory["email"]);
+                            $x = preg_match('/^9989[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
+                            if($x == true) {
+                                $this->user_mamory["phone"] = $phone->getText();
+                                $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
+                                    $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
+                                    if($x == true) {
+                                        $this->user_mamory["email"] = $email->getText();
+                                        $this->say($email->getText());
+                                        $this->say($this->user_mamory["email"]);
 
-                                $this->say("Ok" . $email->getText());
-                                //
+                                        $this->say("Ok" . $email->getText());
+                                        //
 
-                                $this->askAction();
-                            });
+                                        $this->askAction();
+                                    }elseif ($x == false) {
+                                        $this->say("incorrect format");
+                                        $this->repeat();
+                                    }
+
+
+                                });
+                            }elseif ($x == false) {
+                                $this->say("incorrect format");
+                                $this->repeat();
+                            }
+
                         });
                     }
                     );
