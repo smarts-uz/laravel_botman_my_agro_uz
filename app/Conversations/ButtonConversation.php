@@ -231,7 +231,9 @@ class ButtonConversation extends Conversation
         $user = User::where('email', $this->user_mamory["email"])->first();
         if(!$user){
             $mailer = new MailService();
-            $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->generatePass(). ' for Cabinet';
+            $this->memory["pass"] = $this->generatePass();
+
+            $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
             $mailer->sendMail($this->user_mamory["email"], 'Asadbek', $text);
             User::create([
                 'name' => $this->user_mamory["name"],
@@ -239,7 +241,7 @@ class ButtonConversation extends Conversation
                 'phone' => $this->user_mamory["phone"],
                 'individual' => $this->user_mamory["usertype"],
                 "email" => $this->user_mamory["email"],
-                "password" => Hash::make($this->generatePass())
+                "password" => Hash::make($this->memory["pass"])
             ]);
             // Auth::login($user);
 
@@ -257,7 +259,7 @@ class ButtonConversation extends Conversation
                 $appeal->route = $this->memory["route"];
                 $appeal->type = $this->memory["action"];
                 $appeal->save();
-                $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz'.$appeal->id;
+                $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz:  '.$appeal->id . '  Shahsiy cabinet'.'       Login: ' . $this->user_mamory["phone"].' Parol:'. $this->memory["pass"];
                 $smsSender = new SmsService();
                 $smsSender->send($this->user_mamory["phone"], $text);
             } else return $this->askAppeal();
@@ -265,7 +267,7 @@ class ButtonConversation extends Conversation
         });
 
     }
-    function generatePass($length = 8) {
+    static function generatePass($length = 8) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
