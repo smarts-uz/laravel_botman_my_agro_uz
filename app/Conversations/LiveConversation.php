@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LiveConversation extends Conversation
 {
-    public $data;
+    public $data = array();
     public function __construct($data)
     {
         $this->$data = $data;
@@ -21,6 +21,7 @@ class LiveConversation extends Conversation
                 $appeal->user_id = Auth::user()->id;
                 $appeal->region = $this->data["region"];
                 $appeal->route = $this->data["route"];
+                $appeal->type = $this->data["type"];
 
 
                 $appeal->save();

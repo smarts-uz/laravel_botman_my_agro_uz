@@ -3,6 +3,7 @@
 namespace App\Conversations;
 
 use App\Models\Action;
+use App\Models\Appeal;
 use App\Models\Region;
 use App\Models\Routes;
 use App\Models\User;
@@ -82,7 +83,7 @@ const msgRu = '🗣 Уважаемые граждане! Если вы стол�
 class ButtonConversation extends Conversation
 {
     public $memory=[];
-    public $user_mamory = [];
+    public $user_mamory;
     private $language;
     private $usertype;
     public function ContactKeyboard()
@@ -174,12 +175,6 @@ class ButtonConversation extends Conversation
                             $this->user_mamory["phone"] = $phone->getText();
                             $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
                                 $this->user_mamory["email"] = $email->getText();
-                                $this->say($email->getText());
-                                $this->say($this->user_mamory["email"]);
-
-                                $this->say("Ok" . $email->getText());
-                                //
-
                                 $this->askAction();
                             });
                         });
@@ -201,7 +196,6 @@ class ButtonConversation extends Conversation
                             $this->user_mamory["phone"] = $phone->getText();
                             $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
                                 $this->user_mamory["email"] = $email->getText();
-                                $this->say("Ok" . $email->getText());
                                 //
 
                                 $this->askAction();
@@ -219,7 +213,6 @@ class ButtonConversation extends Conversation
     public function askAction(){
         $this->ask($this->keyActions(), function($actions){
             if ($actions->isInteractiveMessageReply()) {
-                $this->say("You selected ".$actions->getValue());
                 $this->memory["action"] = $actions->getValue();
 
                 $this->askRegion();
@@ -230,7 +223,6 @@ class ButtonConversation extends Conversation
     public function askRegion(){
         $this->ask($this->keyRegions(), function($regions){
             if ($regions->isInteractiveMessageReply()) {
-                $this->say("You selected ".$regions->getValue());
                 $this->memory["region"] = $regions->getValue();
 
                 $this->askRoute();
@@ -241,14 +233,12 @@ class ButtonConversation extends Conversation
     public function askRoute(){
         $this->ask($this->keyRoutes(), function($routes){
             if ($routes->isInteractiveMessageReply()) {
-                $this->say("You selected ".$routes->getValue());
-                $this->memory["route"] = $routes->getValue();
+                    $this->memory["route"] = $routes->getValue();
+                    $this->userLogin();
 
+                } else $this->repeat();
 
-
-            } else $this->repeat();
         });
-        $this->userLogin();
     }
 
 
@@ -274,7 +264,19 @@ class ButtonConversation extends Conversation
 
     }
     public function askAppeal(){
-        $this->bot->startConversation(new LiveConversation($this->user_mamory));
+        $this->ask("Savol yuboring", function($conversation){
+            if ($conversation->getText() != "tugat") {
+                $appeal = new Appeal();
+                $appeal->text = $conversation->getText();
+                $appeal->user_id = Auth::user()->id;
+                $appeal->region = $this->memory["region"];
+                $appeal->route = $this->memory["route"];
+                $appeal->type = $this->memory["action"];
+                $appeal->save();
+
+            } else $this->askAppeal();
+            $this->say("Murojaat uchun rahmat");
+        });
 
     }
     function generatePass($length = 8) {
