@@ -260,7 +260,7 @@ class ButtonConversation extends Conversation
                 $appeal->route = $this->memory["route"];
                 $appeal->type = $this->memory["action"];
                 $appeal->save();
-                $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz:  '.$appeal->id . '  Shahsiy cabinet'.'       Login: ' . $this->user_mamory["phone"].' Parol:'. $this->memory["pass"];
+                $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz:    Shahsiy cabinet'.'       Login: ' . $this->user_mamory["phone"].' Parol:'. $this->memory["pass"];
                 $smsSender = new SmsService();
                 $smsSender->send($this->user_mamory["phone"], $text);
 
