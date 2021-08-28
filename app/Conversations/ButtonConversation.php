@@ -229,10 +229,10 @@ class ButtonConversation extends Conversation
     public function UserLogin(){
         Log::info(json_encode($this->user_mamory));
         $user = User::where('email', $this->user_mamory["email"])->first();
+        $this->memory["pass"] = $this->generatePass();
+
         if(!$user){
             $mailer = new MailService();
-            $this->memory["pass"] = $this->generatePass();
-
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
             $mailer->sendMail($this->user_mamory["email"], 'Asadbek', $text);
             User::create([
@@ -240,6 +240,7 @@ class ButtonConversation extends Conversation
                 'role_id' => 2,
                 'phone' => $this->user_mamory["phone"],
                 'individual' => $this->user_mamory["usertype"],
+                'remember_token' => csrf_field(),
                 "email" => $this->user_mamory["email"],
                 "password" => Hash::make($this->memory["pass"])
             ]);
@@ -262,7 +263,8 @@ class ButtonConversation extends Conversation
                 $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz:  '.$appeal->id . '  Shahsiy cabinet'.'       Login: ' . $this->user_mamory["phone"].' Parol:'. $this->memory["pass"];
                 $smsSender = new SmsService();
                 $smsSender->send($this->user_mamory["phone"], $text);
-            } else return $this->askAppeal();
+
+            } else $this->repeat();
             $this->say("Murojaat uchun rahmat");
         });
 
