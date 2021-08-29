@@ -12,7 +12,7 @@
 
                     <div class="panel panel-bordered">
                         <!-- form start -->
-                        <form role="form" class="form-edit-add" action="{{ route('voyager.appeal-asnwers.store') }}"
+                        <form role="form" class="form-edit-add" action="{{ route('voyager.appeal-answers.store') }}"
                             method="POST" enctype="multipart/form-data">
                             <!-- PUT Method if we are editing -->
 
