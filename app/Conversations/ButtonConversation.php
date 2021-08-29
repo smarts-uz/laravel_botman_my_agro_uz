@@ -16,6 +16,8 @@ use BotMan\BotMan\Messages\Attachments\Contact;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -190,9 +192,6 @@ class ButtonConversation extends Conversation
                 });
             });
         }
-
-
-
     }
     public function askAction(){
         $this->ask($this->keyActions(), function($actions){
@@ -221,13 +220,11 @@ class ButtonConversation extends Conversation
                     $this->userLogin();
 
                 } else $this->repeat();
-
         });
     }
 
 
     public function UserLogin(){
-        Log::info(json_encode($this->user_mamory));
         $user = User::where('email', $this->user_mamory["email"])->first();
         $this->memory["pass"] = $this->generatePass();
 
@@ -248,26 +245,42 @@ class ButtonConversation extends Conversation
 
         }
         $this->askAppeal();
-
     }
     public function askAppeal(){
         $this->ask("Savol yuboring", function($conversation){
             if ($conversation->getText() != "tugat") {
-                $appeal = new Appeal();
-                $appeal->text = $conversation->getText();
-                $appeal->user_id = Auth::user()->id;
-                $appeal->region = $this->memory["region"];
-                $appeal->route = $this->memory["route"];
-                $appeal->type = $this->memory["action"];
-                $appeal->save();
+                $this->memory["answer"] = $conversation->getText();
                 $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz:    Shahsiy cabinet'.'       Login: ' . $this->user_mamory["phone"].' Parol:'. $this->memory["pass"];
                 $smsSender = new SmsService();
                 $smsSender->send($this->user_mamory["phone"], $text);
 
             } else $this->repeat();
-            $this->say("Murojaat uchun rahmat");
+            $this->askEnd();
         });
 
+    }
+    public function askEnd() {
+        $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
+        $this->ask($question, function ($answer) {
+            if($answer->isInteractiveMessageReply()) {
+                if ($answer->getValue() == "ha") {
+                    $appeal = new Appeal();
+                    $appeal->text = $this->memory["answer"];
+                    $appeal->user_id = Auth::user()->id;
+                    $appeal->region = $this->memory["region"];
+                    $appeal->route = $this->memory["route"];
+                    $appeal->type = $this->memory["action"];
+                    $appeal->save();
+                    $this->say("✅Sizning murojaatingiz belgilangan tartibda ko\'rib chiqiladi va 1-3 kun ichida Qishloq xo\'jaligi vazirligining My.Agro.Uz shaxsiy kabinetiga javob olasiz.");
+                }else {
+                    $this->askUserType();
+                }
+            }else {
+                $this->repeat();
+            }
+
+
+        });
     }
     static function generatePass($length = 8) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
