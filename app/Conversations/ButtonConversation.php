@@ -242,22 +242,25 @@ class ButtonConversation extends Conversation
                 'role_id' => 2,
                 'phone' => $this->user_mamory["phone"],
                 'individual' => $this->user_mamory["usertype"],
-                'remember_token' => csrf_field(),
+                'remember_token' => $this->generatePass(32),
                 "email" => $this->user_mamory["email"],
                 "password" => Hash::make($this->memory["pass"])
             ]);
-            // Auth::login($user);
+            $text = 'Login: ' . $this->user_mamory["email"].' Parol:'. $this->memory["pass"];
+            $smsSender = new SmsService();
+            $smsSender->send($this->user_mamory["phone"], $text);
 
         }
+        $this->user_mamory["id"] = $user->id;
+        // Auth::login($user);
+
         $this->askAppeal();
     }
     public function askAppeal(){
         $this->ask("Savol yuboring", function($conversation){
             if ($conversation->getText() != "tugat") {
                 $this->memory["answer"] = $conversation->getText();
-                $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz:    Shahsiy cabinet'.'       Login: ' . $this->user_mamory["phone"].' Parol:'. $this->memory["pass"];
-                $smsSender = new SmsService();
-                $smsSender->send($this->user_mamory["phone"], $text);
+
 
             } else $this->repeat();
             $this->askEnd();
@@ -271,7 +274,7 @@ class ButtonConversation extends Conversation
                 if ($answer->getValue() == "ha") {
                     $appeal = new Appeal();
                     $appeal->text = $this->memory["answer"];
-                    $appeal->user_id = 1;
+                    $appeal->user_id = $this->user_mamory["id"];
                     $appeal->region = $this->memory["region"];
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];

@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/myTestEmail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Actions/ReplyAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Actions/ReplyAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Conversations/ButtonConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Conversations/ButtonConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/SendMail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/SendMail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BotManController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BotManController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Appeal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Appeal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/AppealAnswer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/AppealAnswer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Widgets/AnswersDimmer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Widgets/AnswersDimmer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Widgets/AppealDimmer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Widgets/AppealDimmer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/appeal/answerappeal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/appeal/answerappeal.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +208,7 @@
       <workItem from="1630146149541" duration="3490000" />
       <workItem from="1630238412513" duration="1276000" />
       <workItem from="1630239754314" duration="10876000" />
-      <workItem from="1630251434065" duration="4246000" />
+      <workItem from="1630251434065" duration="4515000" />
     </task>
     <servers />
   </component>

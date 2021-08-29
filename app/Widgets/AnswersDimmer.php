@@ -38,7 +38,7 @@ class AnswersDimmer extends BaseDimmer
                 'text' => 'View all answers',
                 'link' => route('voyager.appeals.index'),
             ],
-            'image' => voyager_asset('images/widget-backgrounds/02.jpg'),
+            'image' => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEVguSIPyqLvAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII=",
         ]));
     }
 
