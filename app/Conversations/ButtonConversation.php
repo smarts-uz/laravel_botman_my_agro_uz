@@ -22,23 +22,23 @@ use Illuminate\Support\Facades\Log;
 
 const LANGUAGE = ["uz", "ru"];
 const QUESTIONS = [
-    'ASK_LANGUAGE' => ['uz' => 'Tilni belgilang', 'ru'=>'Tilni belgilang! Ru'],
-    'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! Ru'],
-    'ASK_NAME' => ['uz' => 'Ismingizni ?','ru' => 'Ismingizni ? Ru'],
-    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz? (998)', 'ru'=>'Telefon raqamingiz? (998)'],
-    'ASK_EMAIL' => ['uz' => 'Email?', 'ru'=>'Email Ru?'],
-    'ASK_ACTION' => ['uz' => 'Выберите действие!', 'ru'=>'Выберите действие! Ru'],
-    'ASK_REGION' => ['uz' => 'Выберите регион!', 'ru'=>'Выберите регион! Ru'],
-    'ASK_ROUTE' => ['uz' => 'Выберите необходимое направление или сферу!', 'ru'=>'Выберите необходимое направление или сферу! Ru'],
-    'ASK_1' => ['uz' => 'Просим предоставить необходимую информацию! Место работы и организация ', 'ru'=>'Просим предоставить необходимую информацию! Место работы и организация '],
-    'ASK_11' => ['uz' => 'Просим предоставить необходимую информацию! Название организации ', 'ru'=>'Просим предоставить необходимую информацию! Название организации '],
-    'ASK_2' =>  ['uz' => 'Просим предоставить необходимую информацию! Должность и род занятия ', 'ru'=>'Просим предоставить необходимую информацию! Должность и род занятия '],
-    'ASK_22' => ['uz' => 'Просим предоставить необходимую информацию! Направление деятельности ', 'ru'=>'Просим предоставить необходимую информацию! Направление деятельности '],
-
-    'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер Ru'],
+    'ASK_LANGUAGE' => ['uz' => 'Тилни танланг', 'ru'=>'Выберите язык '],
+    'ASK_LANGUAGE1' => ['uz' => 'Рўйхатдан отиш', 'ru'=>'Зарегистрироваться '],
+    'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! '],
+    'ASK_NAME' => ['uz' => 'Ф.И.О','ru' => 'Ф.И.О Ru'],
+    'ASK_PHONE' => ['uz' => 'Телефон рақамингиз', 'ru'=>'Номер телефона'],
+    'ASK_EMAIL' => ['uz' => 'Асосий электрон почтангиз', 'ru'=>'Выберите оснавную электронную почту '],
+    'ASK_ACTION' => ['uz' => 'Бўлимни танланг!', 'ru'=>'Выберите действие! '],
+    'ASK_REGION' => ['uz' => 'Керакли вилоятни танланг!', 'ru'=>'Выберите регион! '],
+    'ASK_ROUTE' => ['uz' => 'Керакли йўналишни танланг!', 'ru'=>'Выберите необходимое направление или сферу! '],
+    'ASK_1' => ['uz' => 'Иш жойи\Ташкилот ', 'ru'=>'Просим предоставить необходимую информацию! Место работы и организация '],
+    'ASK_11' => ['uz' => 'Ташкилот номи ', 'ru'=>'Просим предоставить необходимую информацию! Название организации '],
+    'ASK_2' =>  ['uz' => 'Лавозим\касб', 'ru'=>'Просим предоставить необходимую информацию! Должность и род занятия '],
+    'ASK_22' => ['uz' => 'Ташкилот йўналиши', 'ru'=>'Просим предоставить необходимую информацию! Направление деятельности '],
+    // 'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер '],
 ];
 const KEY_INDIVIDUALS = [
-    'ru' => [['name'=>'Физическое лицо', 'val' => 0], ['name'=>'Юридическое лицо', 'val' => 1]],
+    'ru' => [['name'=>'Физическое лицо RU', 'val' => 0], ['name'=>'Юридическое лицо RU', 'val' => 1]],
     'uz' => [['name'=>'Физическое лицо', 'val' => 0], ['name'=>'Юридическое лицо', 'val' => 1]],
 
 ];
@@ -55,12 +55,12 @@ class ButtonConversation extends Conversation
 {
     public $memory=[];
     public $user_mamory;
-    private $language;
-    private $usertype;
+    public $language;
+    public $usertype;
     public function ContactKeyboard()
     {
         return Keyboard::create()
-            ->addRow(KeyboardButton::create(QUESTIONS["TELL_PHONE_SEND"]["uz"])->requestContact())
+            ->addRow(KeyboardButton::create(QUESTIONS["TELL_PHONE_SEND"][$this->language])->requestContact())
             ->type(Keyboard::TYPE_KEYBOARD)
             ->oneTimeKeyboard()
             ->resizeKeyboard()
@@ -76,37 +76,37 @@ class ButtonConversation extends Conversation
     }
     public function keyUserType(){
         $ar = [];
-        foreach (KEY_INDIVIDUALS["uz"] as $key) {
+        foreach (KEY_INDIVIDUALS[$this->language] as $key) {
             array_push($ar,Button::create($key["name"])->value($key["val"]));
         }
-        return Question::create(QUESTIONS["ASK_LANGUAGE"]["uz"])
+        return Question::create(QUESTIONS["ASK_LANGUAGE"][$this->language])
         ->addButtons($ar);
     }
     public function keyActions(){
         $ar = [];
-        $actions = Action::all();
+        $actions = Action::all()->toArray();
         foreach ($actions as $key) {
-            array_push($ar,Button::create($key->uz)->value($key->id));
+            array_push($ar,Button::create($key["uz"])->value($key["id"]));
         }
-        return Question::create(QUESTIONS["ASK_ACTION"]["uz"])
+        return Question::create(QUESTIONS["ASK_ACTION"][$this->language])
         ->addButtons($ar);
     }
     public function keyRegions(){
         $ar = [];
-        $regions = Region::all();
+        $regions = Region::all()->toArray();
         foreach ($regions as $key) {
-            array_push($ar,Button::create($key->uz)->value($key->id));
+            array_push($ar,Button::create($key[$this->language])->value($key["id"]));
         }
-        return Question::create(QUESTIONS["ASK_REGION"]["uz"])
+        return Question::create(QUESTIONS["ASK_REGION"][$this->language])
         ->addButtons($ar);
     }
     public function keyRoutes(){
         $ar = [];
-        $routes = Routes::all();
+        $routes = Routes::all()->toArray();
         foreach ($routes as $key) {
-            array_push($ar,Button::create($key->uz)->value($key->id));
+            array_push($ar,Button::create($key[$this->language])->value($key["id"]));
         }
-        return Question::create(QUESTIONS["ASK_ROUTE"]["uz"])
+        return Question::create(QUESTIONS["ASK_ROUTE"][$this->language])
         ->addButtons($ar);
     }
 
@@ -134,19 +134,19 @@ class ButtonConversation extends Conversation
     }
     public function askUser(){
         if($this->user_mamory["usertype"]==0){
-            $this->ask(QUESTIONS["ASK_1"]["uz"], function($ask1){
+            $this->ask(QUESTIONS["ASK_1"][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask(QUESTIONS["ASK_11"]["uz"], function($ask2) {
+                $this->ask(QUESTIONS["ASK_11"][$this->language], function($ask2) {
                     $this->memory["data"]['b'] = $ask2->getText();
                     $this->ask(
-                        QUESTIONS["ASK_NAME"]["uz"],
+                        QUESTIONS["ASK_NAME"][$this->language],
                         function ($name) {
                         $this->user_mamory["name"] = $name->getText();
-                        $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function ($phone) {
+                        $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
                             $x = preg_match('/^9989[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
                             if($x == true) {
                                 $this->user_mamory["phone"] = $phone->getText();
-                                $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
+                                $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
                                     $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
                                     if($x == true) {
                                         $this->user_mamory["email"] = $email->getText();
@@ -167,18 +167,18 @@ class ButtonConversation extends Conversation
                 });
             });
         } else{
-
-            $this->ask(QUESTIONS["ASK_2"]["uz"], function($ask1){
+            Log::info('      '.$this->language);
+            $this->ask(QUESTIONS["ASK_2"][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask(QUESTIONS["ASK_22"]["uz"], function($ask2) {
+                $this->ask(QUESTIONS["ASK_22"][$this->language], function($ask2) {
                     $this->memory["data"]['b'] = $ask2->getText();
                     $this->ask(
-                        QUESTIONS["ASK_NAME"]["uz"],
+                        QUESTIONS["ASK_NAME"][$this->language],
                         function ($name) {
                         $this->user_mamory["name"] = $name->getText();
-                        $this->ask(QUESTIONS["ASK_PHONE"]["uz"], function ($phone) {
+                        $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
                             $this->user_mamory["phone"] = $phone->getText();
-                            $this->ask(QUESTIONS["ASK_EMAIL"]["uz"], function ($email) {
+                            $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
                                 $this->user_mamory["email"] = $email->getText();
                                 //
 
