@@ -32,3 +32,16 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
+use Illuminate\Support\Facades\Mail;
+
+Route::get('send-mail', function () {
+
+    $details = [
+        'title' => 'Asror Zokirov',
+        'body' => 'Test mail sent by Laravel 8 using SMTP.'
+    ];
+
+    Mail::to('xolmuhammedovm@gmail.com')->send(new \App\Mail\SendMail($details));
+
+    dd("Email is Sent, please check your inbox.");
+});
