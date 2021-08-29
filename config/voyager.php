@@ -144,6 +144,8 @@ return [
         ],
 
         'widgets' => [
+            'App\Widgets\AppealDimmer',
+            'App\Widgets\AnswersDimmer',
 
         ],
 
