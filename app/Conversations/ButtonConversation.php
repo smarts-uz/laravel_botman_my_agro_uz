@@ -2,6 +2,7 @@
 
 namespace App\Conversations;
 
+use App\Mail\SendMail;
 use App\Models\Action;
 use App\Models\Appeal;
 use App\Models\Region;
@@ -21,6 +22,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 const LANGUAGE = ["uz", "ru"];
 const QUESTIONS = [
@@ -229,9 +231,12 @@ class ButtonConversation extends Conversation
         $this->memory["pass"] = $this->generatePass();
 
         if(!$user){
-            $mailer = new MailService();
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
-            $mailer->sendMail($this->user_mamory["email"], 'Asadbek', $text);
+            $details = [
+                'title' => 'Asror Zokirov',
+                'body' => 'Test mail sent by Laravel 8 using SMTP.'
+            ];
+            Mail::to($this->user_mamory["email"])->send(new SendMail($details));
             User::create([
                 'name' => $this->user_mamory["name"],
                 'role_id' => 2,
@@ -266,7 +271,7 @@ class ButtonConversation extends Conversation
                 if ($answer->getValue() == "ha") {
                     $appeal = new Appeal();
                     $appeal->text = $this->memory["answer"];
-                    $appeal->user_id = Auth::user()->id;
+                    $appeal->user_id = 1;
                     $appeal->region = $this->memory["region"];
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
