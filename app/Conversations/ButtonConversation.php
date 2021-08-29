@@ -232,9 +232,10 @@ class ButtonConversation extends Conversation
 
         if(!$user){
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
+
             $details = [
-                'title' => 'Asror Zokirov',
-                'body' => 'Test mail sent by Laravel 8 using SMTP.'
+                'title' => 'your cabinate login and password',
+                'body' => $text
             ];
             Mail::to($this->user_mamory["email"])->send(new SendMail($details));
             User::create([
@@ -251,6 +252,7 @@ class ButtonConversation extends Conversation
             $smsSender->send($this->user_mamory["phone"], $text);
 
         }
+
         $this->user_mamory["id"] = $user->id;
         // Auth::login($user);
 
