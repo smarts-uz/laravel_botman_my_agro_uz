@@ -2,6 +2,7 @@
 namespace App\Actions;
 
 use App\Models\Appeal;
+use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Actions\AbstractAction;
 
 class ReplyAction extends AbstractAction {
@@ -28,6 +29,9 @@ class ReplyAction extends AbstractAction {
     }
     public function shouldActionDisplayOnDataType()
     {
-        return $this->dataType->slug == 'appeals';
+        if(Auth::user()->role->name != "user"){
+            return $this->dataType->slug == 'appeals';
+
+        }
     }
 }

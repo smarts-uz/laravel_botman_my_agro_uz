@@ -16,4 +16,8 @@ class AppealAnswer extends Model
 
         parent::save();
     }
+    public function scopeCurrentUser($query)
+    {
+        return Auth::user()->hasRole('admin') ? $query : $query->where('answered_by', Auth::user()->id);
+    }
 }

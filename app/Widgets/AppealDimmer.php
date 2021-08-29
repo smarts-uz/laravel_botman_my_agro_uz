@@ -37,7 +37,7 @@ class AppealDimmer extends BaseDimmer
                 'text' => 'View all appeals',
                 'link' => route('voyager.appeals.index'),
             ],
-            'image' => voyager_asset('images/widget-backgrounds/02.jpg'),
+            'image' => "https://www.solidbackgrounds.com/images/1920x1080/1920x1080-red-solid-color-background.jpg",
         ]));
     }
 

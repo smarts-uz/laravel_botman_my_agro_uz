@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="panel panel-bordered">
+                    <div class="panel panel-bor dered">
                         <!-- form start -->
                         <form role="form" class="form-edit-add" action="{{ route('voyager.appeal-answers.store') }}"
                             method="POST" enctype="multipart/form-data">

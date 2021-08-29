@@ -16,18 +16,7 @@ class BotManController extends Controller
 
         $botman = app('botman');
 
-        // $botman->hears('{message}', function($botman, $message) {
-
-        //     if ($message == 'hi') {
-        //         $this->askName($botman);
-        //     }else{
-        //         $notifier = new Notify();
-        //         $notifier->notify($message);
-        //         $botman->reply("write 'hi' for testing...");
-        //     }
-
-        // });
-        $botman->hears('/start', function ($bot) {
+        $botman->hears('(.*)', function ($bot) {
             $bot->startConversation(new ButtonConversation());
         });
         $botman->listen();
