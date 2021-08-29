@@ -232,7 +232,7 @@ class ButtonConversation extends Conversation
             $mailer = new MailService();
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
             $mailer->sendMail($this->user_mamory["email"], 'Asadbek', $text);
-            User::create([
+            $user = User::create([
                 'name' => $this->user_mamory["name"],
                 'role_id' => 2,
                 'phone' => $this->user_mamory["phone"],
@@ -241,6 +241,10 @@ class ButtonConversation extends Conversation
                 "email" => $this->user_mamory["email"],
                 "password" => Hash::make($this->memory["pass"])
             ]);
+            $text = 'Login: ' . $this->user_mamory["email"].' Parol:'. $this->memory["pass"];
+            $smsSender = new SmsService();
+            $smsSender->send($this->user_mamory["phone"], $text);
+
         }
         $this->user_mamory["id"] = $user->id;
         // Auth::login($user);
@@ -251,9 +255,7 @@ class ButtonConversation extends Conversation
         $this->ask("Savol yuboring", function($conversation){
             if ($conversation->getText() != "tugat") {
                 $this->memory["answer"] = $conversation->getText();
-                $text = 'Murojaatingiz qabul qilindi. Sizning murojaat raqamingiz:    Shahsiy cabinet'.'       Login: ' . $this->user_mamory["phone"].' Parol:'. $this->memory["pass"];
-                $smsSender = new SmsService();
-                $smsSender->send($this->user_mamory["phone"], $text);
+
 
             } else $this->repeat();
             $this->askEnd();
