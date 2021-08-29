@@ -14,11 +14,7 @@
 
     var channel = pusher.subscribe('notify-channel');
     channel.bind('App\\Events\\Notify', function(data) {
-        if(data) {
-            <?php
-            Alert::success('Success Title', 'Success Message');
- ?>
-        }
+            alert(data.message);
     });
   </script>
 

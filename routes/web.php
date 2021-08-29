@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\NotificationController;
@@ -19,19 +20,15 @@ use Illuminate\Support\Facades\Hash;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/admin/answer/appeal/{appeal}', [AnswerController::class, 'answer'])->name('answer.reply');
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('/botman/tinker', [BotManController::class, 'tinker']);
 
 Route::get('notify',[NotificationController::class, 'notify']);
 Route::view('/notification', 'notification');
-Route::get('send', function(){
-    $mailer = new MailService();
-    $password = $hashed_random_password = Hash::make(str_random(8));
-    $mailer->sendMail('Markoletter0@gmail.com', 'Asadbek', "test");
-});
-
 
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
