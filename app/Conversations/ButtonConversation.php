@@ -17,7 +17,9 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use App\services\SmsService;
+use App\services\SmsService\SmsService;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 const LANGUAGE = ["uz", "ru"];
 const QUESTIONS = [
