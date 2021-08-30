@@ -252,15 +252,13 @@ class ButtonConversation extends Conversation
 
     public function UserLogin(){
         $user = User::where('email', $this->user_mamory["email"])->first();
-        $this->memory["pass"] = $this->generatePass();
+        $this->memory["pass"] = "nopass";
 
         if(!$user){
+            $this->memory["pass"] = $this->generatePass();
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
-            $details = [
-                'title' => 'Asror Zokirov',
-                'body' => 'Test mail sent by Laravel 8 using SMTP.'
-            ];
-            Mail::to($this->user_mamory["email"])->send(new SendMail($details));
+
+
             User::create([
                 'name' => $this->user_mamory["name"],
                 'role_id' => 2,
@@ -273,8 +271,15 @@ class ButtonConversation extends Conversation
             $text = 'Login: ' . $this->user_mamory["email"].' Parol:'. $this->memory["pass"];
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
+            $details = [
+                'title' => 'your cabinate login and password',
+                'body' => $text
+            ];
+            Mail::to($this->user_mamory["email"])->send(new SendMail($details));
+
 
         }
+
         $this->user_mamory["id"] = $user->id;
         // Auth::login($user);
 
