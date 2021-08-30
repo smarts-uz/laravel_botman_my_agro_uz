@@ -15,9 +15,8 @@
                         <form role="form" class="form-edit-add" action="{{ route('voyager.appeal-answers.store') }}"
                             method="POST" enctype="multipart/form-data">
                             <!-- PUT Method if we are editing -->
-
+                            @csrf
                             <!-- CSRF TOKEN -->
-                            <input type="hidden" name="_token" value="732C36Z9vY7TaQhIX2Yp8JufZMJtjWnEKBlIAptr">
 
                             <div class="panel-body">
 
