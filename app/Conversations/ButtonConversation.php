@@ -232,7 +232,7 @@ class ButtonConversation extends Conversation
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
 
 
-            User::create([
+            $user = User::create([
                 'name' => $this->user_mamory["name"],
                 'role_id' => 2,
                 'phone' => $this->user_mamory["phone"],
@@ -248,7 +248,7 @@ class ButtonConversation extends Conversation
                 'title' => 'your cabinate login and password',
                 'body' => $text
             ];
-            Mail::to($this->user_mamory["email"])->send(new SendMail($details));
+            // Mail::to($this->user_mamory["email"])->send(new SendMail($details));
 
 
         }

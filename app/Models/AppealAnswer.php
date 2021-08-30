@@ -18,6 +18,7 @@ class AppealAnswer extends Model
     }
     public function scopeCurrentUser($query)
     {
-        return Auth::user()->hasRole('admin') ? $query : $query->where('answered_by', Auth::user()->id);
+        $appeals = Appeal::where('user_id', Auth::user()->id)->get();
+        return Auth::user()->hasRole('admin') ? $query : $query->whereIn('appeal_id', $appeals);
     }
 }
