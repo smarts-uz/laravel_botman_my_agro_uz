@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AnswerController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\NotificationController;
 use App\Services\Mailer\MailService;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\FormController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,3 +47,7 @@ Route::get('send-mail', function () {
 
     dd("Email is Sent, please check your inbox.");
 });
+
+Route::view("form", "form");
+
+Route::post("/form/send", [FormController::class,"run"]);
