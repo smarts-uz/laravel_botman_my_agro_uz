@@ -20,6 +20,6 @@ class AppealAnswer extends Model
     {
         // $appeals = Appeal::where('user_id', Auth::user()->id)->get();
         // dd($query->whereIn('appeal_id', $appeals));
-        return Auth::user()->hasRole('admin') ? $query : $query->where('answered_by', 1);
+        return Auth::user()->hasRole('admin') ? $query : $query->where('user_id', Auth::user()->id);
     }
 }
