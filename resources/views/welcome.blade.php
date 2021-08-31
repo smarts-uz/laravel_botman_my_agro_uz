@@ -26,7 +26,7 @@
             justify-content:center;
             height: 100vh;
             align-items:center;
-            
+
         }
         .start-btn{
             text-decoration:none;
@@ -94,11 +94,8 @@
 
 </body>
 
-<script>
-    let div = document.getElementById('botmanWidgetRoot')
-    console.log(div)
-</script>
-  
+
+
     <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css">
 
 
@@ -113,6 +110,6 @@
 			placeholderText: "S E N D   M E S S A G E ........"
 	    };
     </script>
+    <script src='/package/build/js/widget.js'></script>
 
-    <script src='/package/botman-web-widget-0.0.20/package/build/js/widget.js'></script>
 </html>
