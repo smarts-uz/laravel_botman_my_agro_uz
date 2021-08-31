@@ -71,7 +71,6 @@
     <div class="input-area"></div>
 </div>
 
-<script src="/js/app.js"></script>
 <script>
 
     let ull = document.getElementsByClassName('btn')
@@ -100,7 +99,9 @@
     console.log(div)
 </script>
   
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
+    <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css">
+
+
 
 </link>
     <script>
@@ -113,5 +114,5 @@
 	    };
     </script>
 
-    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    <script src='/package/botman-web-widget-0.0.20/package/build/js/widget.js'></script>
 </html>

@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="" />
+    <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/package/Asset-Packagist.Org Package Npm-Asset Botman-Web-Widget.url" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/.eslintrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/assets/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/assets/sounds/ping.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/chat.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/js/chat.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/js/widget.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/assets/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/assets/css/chat.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/botman.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/chat-action.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/chat.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/message-area.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/message-holder.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/messages/action.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/messages/buttons.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/messages/list.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/messages/messagetype.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/messages/text.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/chat/messages/typing-indicator.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/typings/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/arrow-icon.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/chat-floating-button.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/chat-frame.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/chat-title-msg.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/configuration.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/src/widget/widget.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/test/setup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/webpack.config.babel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -166,12 +213,15 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1xLFkvwPkzqOOmdOAmVrR7sRGJm" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -222,5 +272,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
