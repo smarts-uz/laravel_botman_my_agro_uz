@@ -264,6 +264,7 @@
                                     </div> --}}
                                     <textarea class="form-control richTextBox" name="text" id="richtexttext">
                                     </textarea>
+                                    <input name="user_id" value="{{\App\Models\Appeal::where('id', $appeal)->first()->user_id}}" hidden >
 
 
 

@@ -248,7 +248,7 @@ class ButtonConversation extends Conversation
                 'title' => 'your cabinate login and password',
                 'body' => $text
             ];
-            // Mail::to($this->user_mamory["email"])->send(new SendMail($details));
+            Mail::to($this->user_mamory["email"])->send(new SendMail($details));
 
 
         }
