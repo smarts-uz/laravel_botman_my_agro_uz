@@ -97,10 +97,6 @@
 
 
     <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css">
-
-
-
-</link>
     <script>
 	    var botmanWidget = {
             aboutLink: 'https://agro.uz',
