@@ -1045,7 +1045,7 @@ let apps;
                     e.currentTarget.childNodes[0].appendChild(y)
                     e.currentTarget.childNodes[0].appendChild(x)
                     y.onchange = function () {
-                        botmanChatWidget.say(`file jo/'natildi`);
+                        botmanChatWidget.say(`file jo'natildi`);
                     }
                     x.onclick = function () {
                         botmanChatWidget.say('/start');
