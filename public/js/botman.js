@@ -905,18 +905,18 @@
 
     function r() {
         var t = document.createElement("div");
-        let fileUpload = document.createElement("div");
-        let input = document.createElement("input");
-        let sendAttachment = document.createElement("button");
-        input.type = "file";
-        input.id = "kozel";
-        sendAttachment.innerHTML = "Yuborish";
-        fileUpload.appendChild(input);
-        fileUpload.appendChild(sendAttachment);
-              t.appendChild(fileUpload);
-              sendAttachment.onclick = function(){
-                  botmanChatWidget.say(input.value);
-              }
+        let forma = document.createElement("form");
+        forma.setAttribute('method',"post");
+        forma.setAttribute('action',"http://127.0.0.1:8000/");
+        let fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.name = "attachment";
+        let fileSendButton = document.createElement("input");
+        fileSendButton.type = "submit";
+        fileSendButton.innerHTML = "Yuborish";
+        forma.appendChild(fileInput);
+        forma.appendChild(fileSendButton);
+        t.appendChild(forma);
               
         t.id = "botmanChatRoot", document.getElementsByTagName("body")[0].appendChild(t), Object(a.c)(Object(a.b)(s.a, {
             userId: o(),
