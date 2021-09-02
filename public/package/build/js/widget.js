@@ -1,6 +1,6 @@
 let apps;
 
-    !(function (t) {
+!(function (t) {
     function e(o) {
         if (n[o]) return n[o].exports;
         var r = (n[o] = { i: o, l: !1, exports: {} });
@@ -700,6 +700,7 @@ let apps;
         "use strict";
         var o = n(5);
         t.exports = function (t, e, n) {
+            console.log(n)
             var r = n.config.validateStatus;
             n.status && r && !r(n.status) ? e(o("Request failed with status code " + n.status, n.config, null, n.request, n)) : t(n);
         };
@@ -1035,10 +1036,17 @@ let apps;
             t.onclick = (e) => {
                 if(isTrust == false) {
                     let x = document.createElement("button")
+                    let y = document.querySelector("#form")
+                    console.log(y)
+                    y.style.display = "inline-block"
                     x.textContent = "/start"
                     x.style.width = "100%"
                     x.style.height = "100%"
+                    e.currentTarget.childNodes[0].appendChild(y)
                     e.currentTarget.childNodes[0].appendChild(x)
+                    y.onchange = function () {
+                        botmanChatWidget.say(`file jo/'natildi`);
+                    }
                     x.onclick = function () {
                         botmanChatWidget.say('/start');
                         x.style.display = "none"
@@ -1177,7 +1185,9 @@ let apps;
                         t.append("driver", "web"),
                             t.append("eventName", "widgetOpened"),
                             t.append("eventData", this.props.conf.widgetOpenedEventData),
+
                             r.a.post(this.props.conf.chatServer, t).then(function (t) {
+                                console.log(this.props.conf.chatServer)
                                 (t.data.messages || []).forEach(function (t) {
                                     window.botmanChatWidget.writeToMessages(t);
                                 });
@@ -1472,18 +1482,18 @@ let apps;
 
     function salom (t, e, n) {
         "use strict";
-console.log(t);
-console.log(e);
-console.log(n);
+        console.log(t);
+        console.log(e);
+        console.log(n);
 
 
 
 
-apps =
-    {
-       x: `<button id="myapp">start gsdfgdfg</button>`
-    }
-           ;
+        apps =
+            {
+                x: `<button id="myapp">start gsdfgdfg</button>`
+            }
+        ;
         var o = {
             chatServer: "/botman",
             frameEndpoint: "/botman/chat",
