@@ -909,6 +909,7 @@
         let input = document.createElement("input");
         let sendAttachment = document.createElement("button");
         input.type = "file";
+        input.name = "attachment";
         input.id = "kozel";
         sendAttachment.innerHTML = "Yuborish";
         fileUpload.appendChild(input);
@@ -917,7 +918,7 @@
               sendAttachment.onclick = function(){
                   botmanChatWidget.say(input.value);
               }
-              
+
         t.id = "botmanChatRoot", document.getElementsByTagName("body")[0].appendChild(t), Object(a.c)(Object(a.b)(s.a, {
             userId: o(),
             conf: c

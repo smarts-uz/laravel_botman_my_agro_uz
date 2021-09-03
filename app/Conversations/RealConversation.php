@@ -32,10 +32,9 @@ const QUESTIONS = [
     'ASK_ACTION' => ['uz' => 'Bo\'limni tanlang!', 'ru'=>'Выберите действие! '],
     'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
     'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
-    'ASK_1' => ['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация '],
-    'ASK_11' => ['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],
-    'ASK_2' =>  ['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],
-    'ASK_22' => ['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности '],
+    'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
+    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности ']],
+    
     // 'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер '],
 ];
 const KEY_INDIVIDUALS = [
@@ -52,12 +51,13 @@ const msgUz = '🗣 Хурматли фуқоролар Қишлоқ хўжал�
 const msgRu = '🗣 Уважаемые граждане! Если вы столкнетесь с коррупцией в системе Минсельхоза, сообщите нам об этом.
         🤳 Информацию о коррупции в системе Минсельхоза, в том числе сельскохозяйственных ведомствах и отделах, предприятиях, организациях и образовательных учреждениях в системе министерства, можно отправить боту @UzAgroAnticorruptionBot в телеграмме и на горячую линию министерства +998 71 206-70-65.
         ‼ ️Отправленные сообщения будут рассмотрены в установленном порядке, и конфиденциальность заявителя будет гарантирована.';
-class ButtonConversation extends Conversation
+class RealConversation extends Conversation
 {
     public $memory=[];
     public $user_mamory;
     public $language;
     public $usertype;
+    protected $verify;
     public function ContactKeyboard()
     {
         return Keyboard::create()
@@ -114,84 +114,28 @@ class ButtonConversation extends Conversation
     public function run()
     {
 
-        // $this->askLanguage();
+        $this->askLanguage();
     }
     public function askLanguage(){
         $this->ask($this->keyLanguages(), function($language){
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
-                $this->askUserType();
+                $this->askAppeal();
             } else {
                 return $this->repeat();
             }
         });
     }
-    public function askUserType(){
-        $this->ask($this->keyUserType(), function($usertype){
-            if ($usertype->isInteractiveMessageReply()) {
-                $this->user_mamory["usertype"] = $usertype->getValue();
-                $this->askUser();
+    public function askAppeal(){
+        $this->ask("Savol yuboring", function($conversation){
+            if ($conversation->getText() != "tugat") {
+                $this->memory["answer"] = $conversation->getText();
+
+
             } else $this->repeat();
+            $this->askAction();
         });
-    }
-    public function askUser(){
-        if($this->user_mamory["usertype"]==0){
-            $this->ask(QUESTIONS["ASK_1"][$this->language], function($ask1){
-                $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask(QUESTIONS["ASK_11"][$this->language], function($ask2) {
-                    $this->memory["data"]['b'] = $ask2->getText();
-                    $this->ask(
-                        QUESTIONS["ASK_NAME"][$this->language],
-                        function ($name) {
-                        $this->user_mamory["name"] = $name->getText();
-                        $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
-                            $x = preg_match('/^9989[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
-                            if($x == true) {
-                                $this->user_mamory["phone"] = $phone->getText();
-                                $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
-                                    $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
-                                    if($x == true) {
-                                        $this->user_mamory["email"] = $email->getText();
-                                        $this->askAction();
-                                    }elseif ($x == false) {
-                                        $this->say("incorrect format");
-                                        $this->repeat();
-                                    }
-                                });
-                            }elseif ($x == false) {
-                                $this->say("incorrect format");
-                                $this->repeat();
-                            }
 
-                        });
-                    }
-                    );
-                });
-            });
-        } else{
-            Log::info('      '.$this->language);
-            $this->ask(QUESTIONS["ASK_2"][$this->language], function($ask1){
-                $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask(QUESTIONS["ASK_22"][$this->language], function($ask2) {
-                    $this->memory["data"]['b'] = $ask2->getText();
-                    $this->ask(
-                        QUESTIONS["ASK_NAME"][$this->language],
-                        function ($name) {
-                        $this->user_mamory["name"] = $name->getText();
-                        $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
-                            $this->user_mamory["phone"] = $phone->getText();
-                            $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
-                                $this->user_mamory["email"] = $email->getText();
-                                //
-
-                                $this->askAction();
-                            });
-                        });
-                    }
-                    );
-                });
-            });
-        }
     }
     public function askAction(){
         $this->ask($this->keyActions(), function($actions){
@@ -217,13 +161,11 @@ class ButtonConversation extends Conversation
         $this->ask($this->keyRoutes(), function($routes){
             if ($routes->isInteractiveMessageReply()) {
                     $this->memory["route"] = $routes->getValue();
-                    $this->userLogin();
+                    $this->askEmail();
 
                 } else $this->repeat();
         });
     }
-
-
     public function UserLogin(){
         $user = User::where('email', $this->user_mamory["email"])->first();
         $this->memory["pass"] = "nopass";
@@ -252,24 +194,98 @@ class ButtonConversation extends Conversation
             Mail::to($this->user_mamory["email"])->send(new SendMail($details));
 
 
+        } else {
+            // $this->fillUserData($user);
         }
-
         $this->user_mamory["id"] = $user->id;
         // Auth::login($user);
 
-        $this->askAppeal();
+        $this->askEnd();
     }
-    public function askAppeal(){
-        $this->ask("Savol yuboring", function($conversation){
-            if ($conversation->getText() != "tugat") {
-                $this->memory["answer"] = $conversation->getText();
+    public function fillUserData(User $user){
 
-
-            } else $this->repeat();
-            $this->askEnd();
+    }
+    
+    public function askEmail(){
+        $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
+            $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
+            if($x == true) {
+                $this->user_mamory["email"] = $email->getText();
+                $user = User::where('email', $this->user_mamory["email"])->first();
+                if($user) $this->UserLogin(); else $this->askUserType();
+            }elseif ($x == false) {
+                $this->say("incorrect format");
+                $this->repeat();
+            }
         });
-
     }
+    public function askPhone(){
+        $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
+            $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
+            if($x == true) {
+                $this->user_mamory["phone"] = $phone->getText();
+                $this->verifyPhone();
+            }elseif ($x == false) {
+                $this->say("incorrect format");
+                $this->repeat();
+            }
+
+        });
+    }
+    public function verifyPhone(){
+        $this->verify = $this->generatePass(4);
+        $smsSender = new SmsService();
+        $smsSender->send('998'.$this->user_mamory["phone"], $this->verify);
+        $this->ask('Telefonga yuborilgan smsni tasdiqlang', function($verifycode){
+            Log::info($this->verify);
+            if($verifycode == $this->verify){
+                $this->UserLogin();
+
+            } else {
+                $this->say("Kod notogri");
+                $this->repeat();
+            }
+        });
+        
+    }
+    public function askName(){
+        $this->ask(
+            QUESTIONS["ASK_NAME"][$this->language],
+            function ($name) {
+            $this->user_mamory["name"] = $name->getText();
+            $this->askPhone();
+        }
+        );
+    }
+    public function askUser(){
+        
+            $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
+                $this->memory["data"]["a"] = $ask1->getText();
+                $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask2) {
+                    $this->memory["data"]['b'] = $ask2->getText();
+                    $this->askName();
+                });
+            });
+        
+    }
+    public function askUserType(){
+        $this->ask($this->keyUserType(), function($usertype){
+            if ($usertype->isInteractiveMessageReply()) {
+                $this->user_mamory["usertype"] = $usertype->getValue();
+                $this->askUser();
+            } else $this->repeat();
+        });
+    }
+    
+    
+   
+    
+
+
+    
+
+        
+   
     public function askEnd() {
         $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
         $this->ask($question, function ($answer) {
@@ -284,7 +300,7 @@ class ButtonConversation extends Conversation
                     $appeal->save();
                     $this->say("✅Sizning murojaatingiz belgilangan tartibda ko\'rib chiqiladi va 1-3 kun ichida Qishloq xo\'jaligi vazirligining My.Agro.Uz shaxsiy kabinetiga javob olasiz.");
                 }else {
-                    $this->askUserType();
+                    $this->askAppeal();
                 }
             }else {
                 $this->repeat();
