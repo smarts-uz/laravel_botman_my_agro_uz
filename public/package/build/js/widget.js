@@ -1032,25 +1032,35 @@ let apps;
         }
         function r() {
             var t = document.createElement("div");
-            let isTrust = false
+            let isTrust = true
+            let x = document.createElement("button")
             t.onclick = (e) => {
-                if(isTrust == false) {
-                    let x = document.createElement("button")
-                    let y = document.querySelector("#form")
-                    console.log(y)
-                    y.style.display = "inline-block"
-                    x.textContent = "/start"
-                    x.style.width = "100%"
-                    x.style.height = "100%"
-                    e.currentTarget.childNodes[0].appendChild(y)
+                if(isTrust == true) {
+                    isTrust = false
+                    x.textContent = "start"
+                    x.style.width = "96%"
+                    x.style.height = "59px"
+                    x.style.position = "absolute"
+                    x.style.bottom = "1px"
+                    x.style.backgroundColor = "greenyellow"
+                    x.style.border = "none"
+                    x.style.fontSize = "25px"
+                    x.style.fontWeight = "bold"
+                    x.style.borderRadius = "4px"
+                    x.style.cursor = "pointer"
+                    // x.style
                     e.currentTarget.childNodes[0].appendChild(x)
 
                     x.onclick = function () {
                         botmanChatWidget.say('/start');
                         x.style.display = "none"
                     }
+
+                }else if(isTrust == false) {
+                    e.currentTarget.childNodes[0].removeChild(x)
+                    x.style.display = "none"
+                    isTrust = true
                 }
-                isTrust = true
             }
             (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
             var e = {};

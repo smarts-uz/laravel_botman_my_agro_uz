@@ -48,6 +48,19 @@
         .chat-box {
             width: 100%;height: 20%;padding: 0.2rem 1rem;display: flex;align-items: center;overflow-y: auto;
         }
+
+        .button {
+            width: 96%;
+            height: 59px;
+            position: absolute;
+            bottom: 1px;
+            background-color: greenyellow;
+            font-size: 20px;
+            color: red;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
         .input-area {
             display: flex;
             align-items: center;
@@ -72,18 +85,12 @@
 
 
 </body>
-
-
-
     <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css">
-
-
-
 </link>
 
     <form  action="{{route('fileUpload')}}" id="form" method="post" style="display: none" enctype="multipart/form-data">
         @csrf
-        <input type="file" name="file" onchange="this.form.submit();botmanChatWidget.say(`fayl jo'natildi`)" class="custom-file-input" id="chooseFile">
+        <input type="file" name="file" onchange="this.form.submit();" class="custom-file-input" id="chooseFile">
     </form>
     </div>
     <script>
