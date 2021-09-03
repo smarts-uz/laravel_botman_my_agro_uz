@@ -27,8 +27,8 @@ const QUESTIONS = [
     'ASK_LANGUAGE1' => ['uz' => 'Ro\'yxatdan o\'tish', 'ru'=>'Зарегистрироваться '],
     'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! '],
     'ASK_NAME' => ['uz' => 'F.I.O','ru' => 'Ф.И.О '],
-    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz', 'ru'=>'Номер телефона'],
-    'ASK_EMAIL' => ['uz' => 'Asosiy elektron poshtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
+    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz (901234567 formatda)', 'ru'=>'Номер телефона(на формате 901234567)'],
+    'ASK_EMAIL' => ['uz' => 'Asosiy elektron pochtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
     'ASK_ACTION' => ['uz' => 'Bo\'limni tanlang!', 'ru'=>'Выберите действие! '],
     'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
     'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
@@ -145,11 +145,11 @@ class ButtonConversation extends Conversation
                         function ($name) {
                         $this->user_mamory["name"] = $name->getText();
                         $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
-                            $x = preg_match('/^9989[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
+                            $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
                             if($x == true) {
                                 $this->user_mamory["phone"] = $phone->getText();
                                 $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
-                                    $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
+                                    $x = preg_match('/^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
                                     if($x == true) {
                                         $this->user_mamory["email"] = $email->getText();
                                         $this->askAction();

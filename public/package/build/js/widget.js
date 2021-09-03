@@ -1,6 +1,6 @@
 let apps;
 
-    !(function (t) {
+!(function (t) {
     function e(o) {
         if (n[o]) return n[o].exports;
         var r = (n[o] = { i: o, l: !1, exports: {} });
@@ -700,6 +700,7 @@ let apps;
         "use strict";
         var o = n(5);
         t.exports = function (t, e, n) {
+            console.log(n)
             var r = n.config.validateStatus;
             n.status && r && !r(n.status) ? e(o("Request failed with status code " + n.status, n.config, null, n.request, n)) : t(n);
         };
@@ -1031,20 +1032,35 @@ let apps;
         }
         function r() {
             var t = document.createElement("div");
-            let isTrust = false
+            let isTrust = true
+            let x = document.createElement("button")
             t.onclick = (e) => {
-                if(isTrust == false) {
-                    let x = document.createElement("button")
-                    x.textContent = "/start"
-                    x.style.width = "100%"
-                    x.style.height = "100%"
+                if(isTrust == true) {
+                    isTrust = false
+                    x.textContent = "start"
+                    x.style.width = "96%"
+                    x.style.height = "59px"
+                    x.style.position = "absolute"
+                    x.style.bottom = "1px"
+                    x.style.backgroundColor = "greenyellow"
+                    x.style.border = "none"
+                    x.style.fontSize = "25px"
+                    x.style.fontWeight = "bold"
+                    x.style.borderRadius = "4px"
+                    x.style.cursor = "pointer"
+                    // x.style
                     e.currentTarget.childNodes[0].appendChild(x)
+
                     x.onclick = function () {
                         botmanChatWidget.say('/start');
                         x.style.display = "none"
                     }
+
+                }else if(isTrust == false) {
+                    e.currentTarget.childNodes[0].removeChild(x)
+                    x.style.display = "none"
+                    isTrust = true
                 }
-                isTrust = true
             }
             (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
             var e = {};
@@ -1177,7 +1193,9 @@ let apps;
                         t.append("driver", "web"),
                             t.append("eventName", "widgetOpened"),
                             t.append("eventData", this.props.conf.widgetOpenedEventData),
+
                             r.a.post(this.props.conf.chatServer, t).then(function (t) {
+                                console.log(this.props.conf.chatServer)
                                 (t.data.messages || []).forEach(function (t) {
                                     window.botmanChatWidget.writeToMessages(t);
                                 });
@@ -1472,18 +1490,18 @@ let apps;
 
     function salom (t, e, n) {
         "use strict";
-console.log(t);
-console.log(e);
-console.log(n);
+        console.log(t);
+        console.log(e);
+        console.log(n);
 
 
 
 
-apps =
-    {
-       x: `<button id="myapp">start gsdfgdfg</button>`
-    }
-           ;
+        apps =
+            {
+                x: `<button id="myapp">start gsdfgdfg</button>`
+            }
+        ;
         var o = {
             chatServer: "/botman",
             frameEndpoint: "/botman/chat",

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\FileUpload;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotManController;
@@ -55,3 +56,5 @@ Route::get('send-mail', function () {
 Route::view("form", "form");
 
 Route::post("/form/send", [FormController::class,"run"]);
+Route::get('/', [FileUpload::class, 'createForm']);
+Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');

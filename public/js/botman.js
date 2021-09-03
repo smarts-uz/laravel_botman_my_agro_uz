@@ -905,6 +905,7 @@
 
     function r() {
         var t = document.createElement("div");
+
         let fileUpload = document.createElement("div");
         let input = document.createElement("input");
         let sendAttachment = document.createElement("button");

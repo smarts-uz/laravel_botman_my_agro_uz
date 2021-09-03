@@ -14,9 +14,7 @@ html, body {
     overflow-y: scroll;
     background-image: url("patric.jpg");
   }
-  #kozel {
-    display: inline-block;
-  }
+
   
   .chat {
     list-style: none;
