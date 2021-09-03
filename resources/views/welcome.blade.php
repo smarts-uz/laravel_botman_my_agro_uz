@@ -83,7 +83,7 @@
 
     <form  action="{{route('fileUpload')}}" id="form" method="post" style="display: none" enctype="multipart/form-data">
         @csrf
-        <input type="file" name="file" onchange="this.form.submit()" class="custom-file-input" id="chooseFile">
+        <input type="file" name="file" onchange="this.form.submit();botmanChatWidget.say(`fayl jo'natildi`)" class="custom-file-input" id="chooseFile">
     </form>
     </div>
     <script>

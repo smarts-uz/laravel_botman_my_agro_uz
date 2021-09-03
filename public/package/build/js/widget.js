@@ -1044,9 +1044,7 @@ let apps;
                     x.style.height = "100%"
                     e.currentTarget.childNodes[0].appendChild(y)
                     e.currentTarget.childNodes[0].appendChild(x)
-                    y.onchange = function () {
-                        botmanChatWidget.say(`file jo'natildi`);
-                    }
+
                     x.onclick = function () {
                         botmanChatWidget.say('/start');
                         x.style.display = "none"
