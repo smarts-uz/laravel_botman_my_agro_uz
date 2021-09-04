@@ -1504,8 +1504,8 @@ let apps;
         //     }
         // ;
         var o = {
-            chatServer: window.location.href+"/botman",
-            frameEndpoint: window.location.href+"/botman/chat",
+            chatServer:"/botman",
+            frameEndpoint: "/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             title: "BotMan Widget",
@@ -1517,7 +1517,7 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: "#408591",
             headerTextColor: "#333",
-            bubbleBackground: "#408591",
+            bubbleAvatarUrl: "patric.jpg",
             bubbleAvatarUrl: "",
             desktopHeight: 450,
             desktopWidth: 370,
