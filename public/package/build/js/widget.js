@@ -1504,8 +1504,8 @@ let apps;
         //     }
         // ;
         var o = {
-            chatServer: window.location.href+"/botman",
-            frameEndpoint: window.location.href+"/botman/chat",
+            chatServer:"/botman",
+            frameEndpoint: "/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             title: "BotMan Widget",
