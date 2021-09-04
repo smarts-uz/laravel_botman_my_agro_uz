@@ -1504,11 +1504,11 @@ let apps;
         //     }
         // ;
         var o = {
-            chatServer: window.location.href+"/botman",
-            frameEndpoint: window.location.href+"/botman/chat",
+            chatServer: "https://agromy.teampro.uz/botman",
+            frameEndpoint: "https://agromy.teampro.uz/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
-            title: "BotMan Widget",
+            title: "Agro.uz",
             cookieValidInDays: 1,
             introMessage: "Salom bu yerda into",
             placeholderText: "",
@@ -1524,8 +1524,8 @@ let apps;
             mobileHeight: "100%",
             mobileWidth: "300px",
             videoHeight: 160,
-            aboutLink: "https://botman.io",
-            aboutText: "⚡ Powered by Muhammad",
+            aboutLink: "https://teamprodev.com",
+            aboutText: "⚡ Powered by TEAMPRO",
             chatId: "",
             userId: "",
             alwaysUseFloatingButton: !1,
