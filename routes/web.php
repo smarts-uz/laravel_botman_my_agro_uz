@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\FileUpload;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotManController;
@@ -23,6 +24,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/admin/answer/appeal/{appeal}', [AnswerController::class, 'answer'])->name('answer.reply');
+Route::get('/admin/redirect/appeal/{appeal}', [AnswerController::class, 'redirect'])->name('answer.redirect');
+Route::get('/admin/appeal/update/{appeal}', [AnswerController::class, 'update'])->name('answer.update');
+
+
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('/botman/tinker', [BotManController::class, 'tinker']);
 
@@ -51,3 +56,5 @@ Route::get('send-mail', function () {
 Route::view("form", "form");
 
 Route::post("/form/send", [FormController::class,"run"]);
+Route::get('/', [FileUpload::class, 'createForm']);
+Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');

@@ -9,6 +9,6 @@ class Appeal extends Model
 {
     public function scopeCurrentUser($query)
     {
-        return Auth::user()->hasRole('admin') ? $query : $query->where('user_id', Auth::user()->id);
+        return Auth::user()->hasRole('admin') ? $query : (Auth::user()->hasRole('moderator') ? $query->where('responsible', Auth::user()->id) : $query->where('user_id', Auth::user()->id));
     }
 }

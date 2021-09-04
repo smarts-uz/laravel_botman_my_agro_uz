@@ -14,11 +14,19 @@ use TCG\Voyager\Events\BreadDeleted;
 use TCG\Voyager\Events\BreadUpdated;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\VoyagerBreadController;
-
+use App\Models\Appeal;
 class AnswerController extends VoyagerBreadController
 
 {
     public function answer($appeal){
         return view('appeal.answerappeal', compact('appeal'));
+    }
+    public function redirect($appeal){
+        return view('appeal.responsible', compact('appeal'));
+    }
+    public function update(Request $request, $appeal){
+        // dd($request);
+        Appeal::where('id', $appeal)->update(['responsible' => $request->responsible]);
+        return redirect()->route('voyager.appeals.index');
     }
 }

@@ -2,8 +2,10 @@ import {h, render} from 'preact';
 import Widget from './widget';
 import {defaultConfiguration} from './configuration';
 
+
 if (window.attachEvent) {
     window.attachEvent('onload', injectChat);
+
 } else {
     window.addEventListener('load', injectChat, false);
 }

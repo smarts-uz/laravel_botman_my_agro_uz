@@ -1,1 +1,1590 @@
-!function(t){function e(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var n={};e.m=t,e.c=n,e.d=function(t,n,o){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:o})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="/",e(e.s=30)}([function(t,e,n){"use strict";function o(t){return"[object Array]"===C.call(t)}function r(t){return"[object ArrayBuffer]"===C.call(t)}function i(t){return"undefined"!=typeof FormData&&t instanceof FormData}function a(t){return"undefined"!=typeof ArrayBuffer&&ArrayBuffer.isView?ArrayBuffer.isView(t):t&&t.buffer&&t.buffer instanceof ArrayBuffer}function s(t){return"string"==typeof t}function c(t){return"number"==typeof t}function u(t){return void 0===t}function p(t){return null!==t&&"object"==typeof t}function f(t){return"[object Date]"===C.call(t)}function l(t){return"[object File]"===C.call(t)}function d(t){return"[object Blob]"===C.call(t)}function h(t){return"[object Function]"===C.call(t)}function m(t){return p(t)&&h(t.pipe)}function b(t){return"undefined"!=typeof URLSearchParams&&t instanceof URLSearchParams}function v(t){return t.replace(/^\s*/,"").replace(/\s*$/,"")}function g(){return("undefined"==typeof navigator||"ReactNative"!==navigator.product)&&("undefined"!=typeof window&&"undefined"!=typeof document)}function y(t,e){if(null!==t&&void 0!==t)if("object"!=typeof t&&(t=[t]),o(t))for(var n=0,r=t.length;r>n;n++)e.call(null,t[n],n,t);else for(var i in t)Object.prototype.hasOwnProperty.call(t,i)&&e.call(null,t[i],i,t)}function w(){function t(t,n){e[n]="object"==typeof e[n]&&"object"==typeof t?w(e[n],t):t}for(var e={},n=0,o=arguments.length;o>n;n++)y(arguments[n],t);return e}function x(t,e,n){return y(e,function(e,o){t[o]=n&&"function"==typeof e?_(e,n):e}),t}var _=n(3),O=n(12),C=Object.prototype.toString;t.exports={isArray:o,isArrayBuffer:r,isBuffer:O,isFormData:i,isArrayBufferView:a,isString:s,isNumber:c,isObject:p,isUndefined:u,isDate:f,isFile:l,isBlob:d,isFunction:h,isStream:m,isURLSearchParams:b,isStandardBrowserEnv:g,forEach:y,merge:w,extend:x,trim:v}},function(t,e,n){"use strict";function o(){}function r(t,e){var n,r,i,a,s=R;for(a=arguments.length;a-- >2;)U.push(arguments[a]);for(e&&null!=e.children&&(U.length||U.push(e.children),delete e.children);U.length;)if((r=U.pop())&&void 0!==r.pop)for(a=r.length;a--;)U.push(r[a]);else"boolean"==typeof r&&(r=null),(i="function"!=typeof t)&&(null==r?r="":"number"==typeof r?r+="":"string"!=typeof r&&(i=!1)),i&&n?s[s.length-1]+=r:s===R?s=[r]:s.push(r),n=i;var c=new o;return c.nodeName=t,c.children=s,c.attributes=null==e?void 0:e,c.key=null==e?void 0:e.key,void 0!==T.vnode&&T.vnode(c),c}function i(t,e){for(var n in e)t[n]=e[n];return t}function a(t){!t._dirty&&(t._dirty=!0)&&1==M.push(t)&&(T.debounceRendering||P)(s)}function s(){var t,e=M;for(M=[];t=e.pop();)t._dirty&&S(t)}function c(t,e,n){return"string"==typeof e||"number"==typeof e?void 0!==t.splitText:"string"==typeof e.nodeName?!t._componentConstructor&&u(t,e.nodeName):n||t._componentConstructor===e.nodeName}function u(t,e){return t.normalizedNodeName===e||t.nodeName.toLowerCase()===e.toLowerCase()}function p(t){var e=i({},t.attributes);e.children=t.children;var n=t.nodeName.defaultProps;if(void 0!==n)for(var o in n)void 0===e[o]&&(e[o]=n[o]);return e}function f(t,e){var n=e?document.createElementNS("http://www.w3.org/2000/svg",t):document.createElement(t);return n.normalizedNodeName=t,n}function l(t){var e=t.parentNode;e&&e.removeChild(t)}function d(t,e,n,o,r){if("className"===e&&(e="class"),"key"===e);else if("ref"===e)n&&n(null),o&&o(t);else if("class"!==e||r)if("style"===e){if(o&&"string"!=typeof o&&"string"!=typeof n||(t.style.cssText=o||""),o&&"object"==typeof o){if("string"!=typeof n)for(var i in n)i in o||(t.style[i]="");for(var i in o)t.style[i]="number"==typeof o[i]&&!1===F.test(i)?o[i]+"px":o[i]}}else if("dangerouslySetInnerHTML"===e)o&&(t.innerHTML=o.__html||"");else if("o"==e[0]&&"n"==e[1]){var a=e!==(e=e.replace(/Capture$/,""));e=e.toLowerCase().substring(2),o?n||t.addEventListener(e,m,a):t.removeEventListener(e,m,a),(t._listeners||(t._listeners={}))[e]=o}else if("list"!==e&&"type"!==e&&!r&&e in t)h(t,e,null==o?"":o),null!=o&&!1!==o||t.removeAttribute(e);else{var s=r&&e!==(e=e.replace(/^xlink\:?/,""));null==o||!1===o?s?t.removeAttributeNS("http://www.w3.org/1999/xlink",e.toLowerCase()):t.removeAttribute(e):"function"!=typeof o&&(s?t.setAttributeNS("http://www.w3.org/1999/xlink",e.toLowerCase(),o):t.setAttribute(e,o))}else t.className=o||""}function h(t,e,n){try{t[e]=n}catch(t){}}function m(t){return this._listeners[t.type](T.event&&T.event(t)||t)}function b(){for(var t;t=L.pop();)T.afterMount&&T.afterMount(t),t.componentDidMount&&t.componentDidMount()}function v(t,e,n,o,r,i){q++||(H=null!=r&&void 0!==r.ownerSVGElement,z=null!=t&&!("__preactattr_"in t));var a=g(t,e,n,o,i);return r&&a.parentNode!==r&&r.appendChild(a),--q||(z=!1,i||b()),a}function g(t,e,n,o,r){var i=t,a=H;if(null!=e&&"boolean"!=typeof e||(e=""),"string"==typeof e||"number"==typeof e)return t&&void 0!==t.splitText&&t.parentNode&&(!t._component||r)?t.nodeValue!=e&&(t.nodeValue=e):(i=document.createTextNode(e),t&&(t.parentNode&&t.parentNode.replaceChild(i,t),w(t,!0))),i.__preactattr_=!0,i;var s=e.nodeName;if("function"==typeof s)return E(t,e,n,o);if(H="svg"===s||"foreignObject"!==s&&H,s+="",(!t||!u(t,s))&&(i=f(s,H),t)){for(;t.firstChild;)i.appendChild(t.firstChild);t.parentNode&&t.parentNode.replaceChild(i,t),w(t,!0)}var c=i.firstChild,p=i.__preactattr_,l=e.children;if(null==p){p=i.__preactattr_={};for(var d=i.attributes,h=d.length;h--;)p[d[h].name]=d[h].value}return!z&&l&&1===l.length&&"string"==typeof l[0]&&null!=c&&void 0!==c.splitText&&null==c.nextSibling?c.nodeValue!=l[0]&&(c.nodeValue=l[0]):(l&&l.length||null!=c)&&y(i,l,n,o,z||null!=p.dangerouslySetInnerHTML),_(i,e.attributes,p),H=a,i}function y(t,e,n,o,r){var i,a,s,u,p,f=t.childNodes,d=[],h={},m=0,b=0,v=f.length,y=0,x=e?e.length:0;if(0!==v)for(var _=0;v>_;_++){var O=f[_],C=O.__preactattr_,j=x&&C?O._component?O._component.__key:C.key:null;null!=j?(m++,h[j]=O):(C||(void 0!==O.splitText?!r||O.nodeValue.trim():r))&&(d[y++]=O)}if(0!==x)for(var _=0;x>_;_++){u=e[_],p=null;var j=u.key;if(null!=j)m&&void 0!==h[j]&&(p=h[j],h[j]=void 0,m--);else if(!p&&y>b)for(i=b;y>i;i++)if(void 0!==d[i]&&c(a=d[i],u,r)){p=a,d[i]=void 0,i===y-1&&y--,i===b&&b++;break}p=g(p,u,n,o),s=f[_],p&&p!==t&&p!==s&&(null==s?t.appendChild(p):p===s.nextSibling?l(s):t.insertBefore(p,s))}if(m)for(var _ in h)void 0!==h[_]&&w(h[_],!1);for(;y>=b;)void 0!==(p=d[y--])&&w(p,!1)}function w(t,e){var n=t._component;n?B(n):(null!=t.__preactattr_&&t.__preactattr_.ref&&t.__preactattr_.ref(null),!1!==e&&null!=t.__preactattr_||l(t),x(t))}function x(t){for(t=t.lastChild;t;){var e=t.previousSibling;w(t,!0),t=e}}function _(t,e,n){var o;for(o in n)e&&null!=e[o]||null==n[o]||d(t,o,n[o],n[o]=void 0,H);for(o in e)"children"===o||"innerHTML"===o||o in n&&e[o]===("value"===o||"checked"===o?t[o]:n[o])||d(t,o,n[o],n[o]=e[o],H)}function O(t){var e=t.constructor.name;(W[e]||(W[e]=[])).push(t)}function C(t,e,n){var o,r=W[t.name];if(t.prototype&&t.prototype.render?(o=new t(e,n),N.call(o,e,n)):(o=new N(e,n),o.constructor=t,o.render=j),r)for(var i=r.length;i--;)if(r[i].constructor===t){o.nextBase=r[i].nextBase,r.splice(i,1);break}return o}function j(t,e,n){return this.constructor(t,n)}function k(t,e,n,o,r){t._disable||(t._disable=!0,(t.__ref=e.ref)&&delete e.ref,(t.__key=e.key)&&delete e.key,!t.base||r?t.componentWillMount&&t.componentWillMount():t.componentWillReceiveProps&&t.componentWillReceiveProps(e,o),o&&o!==t.context&&(t.prevContext||(t.prevContext=t.context),t.context=o),t.prevProps||(t.prevProps=t.props),t.props=e,t._disable=!1,0!==n&&(1!==n&&!1===T.syncComponentUpdates&&t.base?a(t):S(t,1,r)),t.__ref&&t.__ref(t))}function S(t,e,n,o){if(!t._disable){var r,a,s,c=t.props,u=t.state,f=t.context,l=t.prevProps||c,d=t.prevState||u,h=t.prevContext||f,m=t.base,g=t.nextBase,y=m||g,x=t._component,_=!1;if(m&&(t.props=l,t.state=d,t.context=h,2!==e&&t.shouldComponentUpdate&&!1===t.shouldComponentUpdate(c,u,f)?_=!0:t.componentWillUpdate&&t.componentWillUpdate(c,u,f),t.props=c,t.state=u,t.context=f),t.prevProps=t.prevState=t.prevContext=t.nextBase=null,t._dirty=!1,!_){r=t.render(c,u,f),t.getChildContext&&(f=i(i({},f),t.getChildContext()));var O,j,E=r&&r.nodeName;if("function"==typeof E){var N=p(r);a=x,a&&a.constructor===E&&N.key==a.__key?k(a,N,1,f,!1):(O=a,t._component=a=C(E,N,f),a.nextBase=a.nextBase||g,a._parentComponent=t,k(a,N,0,f,!1),S(a,1,n,!0)),j=a.base}else s=y,O=x,O&&(s=t._component=null),(y||1===e)&&(s&&(s._component=null),j=v(s,r,f,n||!m,y&&y.parentNode,!0));if(y&&j!==y&&a!==x){var A=y.parentNode;A&&j!==A&&(A.replaceChild(j,y),O||(y._component=null,w(y,!1)))}if(O&&B(O),t.base=j,j&&!o){for(var U=t,R=t;R=R._parentComponent;)(U=R).base=j;j._component=U,j._componentConstructor=U.constructor}}if(!m||n?L.unshift(t):_||(t.componentDidUpdate&&t.componentDidUpdate(l,d,h),T.afterUpdate&&T.afterUpdate(t)),null!=t._renderCallbacks)for(;t._renderCallbacks.length;)t._renderCallbacks.pop().call(t);q||o||b()}}function E(t,e,n,o){for(var r=t&&t._component,i=r,a=t,s=r&&t._componentConstructor===e.nodeName,c=s,u=p(e);r&&!c&&(r=r._parentComponent);)c=r.constructor===e.nodeName;return r&&c&&(!o||r._component)?(k(r,u,3,n,o),t=r.base):(i&&!s&&(B(i),t=a=null),r=C(e.nodeName,u,n),t&&!r.nextBase&&(r.nextBase=t,a=null),k(r,u,1,n,o),t=r.base,a&&t!==a&&(a._component=null,w(a,!1))),t}function B(t){T.beforeUnmount&&T.beforeUnmount(t);var e=t.base;t._disable=!0,t.componentWillUnmount&&t.componentWillUnmount(),t.base=null;var n=t._component;n?B(n):e&&(e.__preactattr_&&e.__preactattr_.ref&&e.__preactattr_.ref(null),t.nextBase=e,l(e),O(t),x(e)),t.__ref&&t.__ref(null)}function N(t,e){this._dirty=!0,this.context=e,this.props=t,this.state=this.state||{}}function A(t,e,n){return v(n,t,{},!1,e,!1)}n.d(e,"b",function(){return r}),n.d(e,"a",function(){return N}),n.d(e,"c",function(){return A});var T={},U=[],R=[],P="function"==typeof Promise?Promise.resolve().then.bind(Promise.resolve()):setTimeout,F=/acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i,M=[],L=[],q=0,H=!1,z=!1,W={};i(N.prototype,{setState:function(t,e){var n=this.state;this.prevState||(this.prevState=i({},n)),i(n,"function"==typeof t?t(n,this.props):t),e&&(this._renderCallbacks=this._renderCallbacks||[]).push(e),a(this)},forceUpdate:function(t){t&&(this._renderCallbacks=this._renderCallbacks||[]).push(t),S(this,2)},render:function(){}})},function(t,e,n){"use strict";function o(t,e){!r.isUndefined(t)&&r.isUndefined(t["Content-Type"])&&(t["Content-Type"]=e)}var r=n(0),i=n(14),a={"Content-Type":"application/x-www-form-urlencoded"},s={adapter:function(){var t;return"undefined"!=typeof XMLHttpRequest?t=n(4):"undefined"!=typeof process&&(t=n(4)),t}(),transformRequest:[function(t,e){return i(e,"Content-Type"),r.isFormData(t)||r.isArrayBuffer(t)||r.isBuffer(t)||r.isStream(t)||r.isFile(t)||r.isBlob(t)?t:r.isArrayBufferView(t)?t.buffer:r.isURLSearchParams(t)?(o(e,"application/x-www-form-urlencoded;charset=utf-8"),""+t):r.isObject(t)?(o(e,"application/json;charset=utf-8"),JSON.stringify(t)):t}],transformResponse:[function(t){if("string"==typeof t)try{t=JSON.parse(t)}catch(t){}return t}],timeout:0,xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",maxContentLength:-1,validateStatus:function(t){return t>=200&&300>t}};s.headers={common:{Accept:"application/json, text/plain, */*"}},r.forEach(["delete","get","head"],function(t){s.headers[t]={}}),r.forEach(["post","put","patch"],function(t){s.headers[t]=r.merge(a)}),t.exports=s},function(t){"use strict";t.exports=function(t,e){return function(){for(var n=Array(arguments.length),o=0;n.length>o;o++)n[o]=arguments[o];return t.apply(e,n)}}},function(t,e,n){"use strict";var o=n(0),r=n(15),i=n(17),a=n(18),s=n(19),c=n(5),u="undefined"!=typeof window&&window.btoa&&window.btoa.bind(window)||n(20);t.exports=function(t){return new Promise(function(e,p){var f=t.data,l=t.headers;o.isFormData(f)&&delete l["Content-Type"];var d=new XMLHttpRequest,h="onreadystatechange",m=!1;if("undefined"==typeof window||!window.XDomainRequest||"withCredentials"in d||s(t.url)||(d=new window.XDomainRequest,h="onload",m=!0,d.onprogress=function(){},d.ontimeout=function(){}),t.auth){l.Authorization="Basic "+u((t.auth.username||"")+":"+(t.auth.password||""))}if(d.open(t.method.toUpperCase(),i(t.url,t.params,t.paramsSerializer),!0),d.timeout=t.timeout,d[h]=function(){if(d&&(4===d.readyState||m)&&(0!==d.status||d.responseURL&&0===d.responseURL.indexOf("file:"))){var n="getAllResponseHeaders"in d?a(d.getAllResponseHeaders()):null;r(e,p,{data:t.responseType&&"text"!==t.responseType?d.response:d.responseText,status:1223===d.status?204:d.status,statusText:1223===d.status?"No Content":d.statusText,headers:n,config:t,request:d}),d=null}},d.onerror=function(){p(c("Network Error",t,null,d)),d=null},d.ontimeout=function(){p(c("timeout of "+t.timeout+"ms exceeded",t,"ECONNABORTED",d)),d=null},o.isStandardBrowserEnv()){var b=n(21),v=(t.withCredentials||s(t.url))&&t.xsrfCookieName?b.read(t.xsrfCookieName):void 0;v&&(l[t.xsrfHeaderName]=v)}if("setRequestHeader"in d&&o.forEach(l,function(t,e){void 0===f&&"content-type"===e.toLowerCase()?delete l[e]:d.setRequestHeader(e,t)}),t.withCredentials&&(d.withCredentials=!0),t.responseType)try{d.responseType=t.responseType}catch(e){if("json"!==t.responseType)throw e}"function"==typeof t.onDownloadProgress&&d.addEventListener("progress",t.onDownloadProgress),"function"==typeof t.onUploadProgress&&d.upload&&d.upload.addEventListener("progress",t.onUploadProgress),t.cancelToken&&t.cancelToken.promise.then(function(t){d&&(d.abort(),p(t),d=null)}),void 0===f&&(f=null),d.send(f)})}},function(t,e,n){"use strict";var o=n(16);t.exports=function(t,e,n,r,i){var a=Error(t);return o(a,e,n,r,i)}},function(t){"use strict";t.exports=function(t){return!(!t||!t.__CANCEL__)}},function(t){"use strict";function e(t){this.message=t}e.prototype.toString=function(){return"Cancel"+(this.message?": "+this.message:"")},e.prototype.__CANCEL__=!0,t.exports=e},,,function(t,e,n){t.exports=n(11)},function(t,e,n){"use strict";function o(t){var e=new a(t),n=i(a.prototype.request,e);return r.extend(n,a.prototype,e),r.extend(n,e),n}var r=n(0),i=n(3),a=n(13),s=n(2),c=o(s);c.Axios=a,c.create=function(t){return o(r.merge(s,t))},c.Cancel=n(7),c.CancelToken=n(27),c.isCancel=n(6),c.all=function(t){return Promise.all(t)},c.spread=n(28),t.exports=c,t.exports.default=c},function(t){function e(t){return!!t.constructor&&"function"==typeof t.constructor.isBuffer&&t.constructor.isBuffer(t)}function n(t){return"function"==typeof t.readFloatLE&&"function"==typeof t.slice&&e(t.slice(0,0))}t.exports=function(t){return null!=t&&(e(t)||n(t)||!!t._isBuffer)}},function(t,e,n){"use strict";function o(t){this.defaults=t,this.interceptors={request:new a,response:new a}}var r=n(2),i=n(0),a=n(22),s=n(23);o.prototype.request=function(t){"string"==typeof t&&(t=i.merge({url:arguments[0]},arguments[1])),t=i.merge(r,{method:"get"},this.defaults,t),t.method=t.method.toLowerCase();var e=[s,void 0],n=Promise.resolve(t);for(this.interceptors.request.forEach(function(t){e.unshift(t.fulfilled,t.rejected)}),this.interceptors.response.forEach(function(t){e.push(t.fulfilled,t.rejected)});e.length;)n=n.then(e.shift(),e.shift());return n},i.forEach(["delete","get","head","options"],function(t){o.prototype[t]=function(e,n){return this.request(i.merge(n||{},{method:t,url:e}))}}),i.forEach(["post","put","patch"],function(t){o.prototype[t]=function(e,n,o){return this.request(i.merge(o||{},{method:t,url:e,data:n}))}}),t.exports=o},function(t,e,n){"use strict";var o=n(0);t.exports=function(t,e){o.forEach(t,function(n,o){o!==e&&o.toUpperCase()===e.toUpperCase()&&(t[e]=n,delete t[o])})}},function(t,e,n){"use strict";var o=n(5);t.exports=function(t,e,n){var r=n.config.validateStatus;n.status&&r&&!r(n.status)?e(o("Request failed with status code "+n.status,n.config,null,n.request,n)):t(n)}},function(t){"use strict";t.exports=function(t,e,n,o,r){return t.config=e,n&&(t.code=n),t.request=o,t.response=r,t}},function(t,e,n){"use strict";function o(t){return encodeURIComponent(t).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"+").replace(/%5B/gi,"[").replace(/%5D/gi,"]")}var r=n(0);t.exports=function(t,e,n){if(!e)return t;var i;if(n)i=n(e);else if(r.isURLSearchParams(e))i=""+e;else{var a=[];r.forEach(e,function(t,e){null!==t&&void 0!==t&&(r.isArray(t)?e+="[]":t=[t],r.forEach(t,function(t){r.isDate(t)?t=t.toISOString():r.isObject(t)&&(t=JSON.stringify(t)),a.push(o(e)+"="+o(t))}))}),i=a.join("&")}return i&&(t+=(-1===t.indexOf("?")?"?":"&")+i),t}},function(t,e,n){"use strict";var o=n(0),r=["age","authorization","content-length","content-type","etag","expires","from","host","if-modified-since","if-unmodified-since","last-modified","location","max-forwards","proxy-authorization","referer","retry-after","user-agent"];t.exports=function(t){var e,n,i,a={};return t?(o.forEach(t.split("\n"),function(t){if(i=t.indexOf(":"),e=o.trim(t.substr(0,i)).toLowerCase(),n=o.trim(t.substr(i+1)),e){if(a[e]&&r.indexOf(e)>=0)return;a[e]="set-cookie"===e?(a[e]?a[e]:[]).concat([n]):a[e]?a[e]+", "+n:n}}),a):a}},function(t,e,n){"use strict";var o=n(0);t.exports=o.isStandardBrowserEnv()?function(){function t(t){var e=t;return n&&(r.setAttribute("href",e),e=r.href),r.setAttribute("href",e),{href:r.href,protocol:r.protocol?r.protocol.replace(/:$/,""):"",host:r.host,search:r.search?r.search.replace(/^\?/,""):"",hash:r.hash?r.hash.replace(/^#/,""):"",hostname:r.hostname,port:r.port,pathname:"/"===r.pathname.charAt(0)?r.pathname:"/"+r.pathname}}var e,n=/(msie|trident)/i.test(navigator.userAgent),r=document.createElement("a");return e=t(window.location.href),function(n){var r=o.isString(n)?t(n):n;return r.protocol===e.protocol&&r.host===e.host}}():function(){return function(){return!0}}()},function(t){"use strict";function e(){this.message="String contains an invalid character"}function n(t){for(var n,r,i=t+"",a="",s=0,c=o;i.charAt(0|s)||(c="=",s%1);a+=c.charAt(63&n>>8-s%1*8)){if((r=i.charCodeAt(s+=.75))>255)throw new e;n=n<<8|r}return a}var o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";e.prototype=Error(),e.prototype.code=5,e.prototype.name="InvalidCharacterError",t.exports=n},function(t,e,n){"use strict";var o=n(0);t.exports=o.isStandardBrowserEnv()?function(){return{write:function(t,e,n,r,i,a){var s=[];s.push(t+"="+encodeURIComponent(e)),o.isNumber(n)&&s.push("expires="+new Date(n).toGMTString()),o.isString(r)&&s.push("path="+r),o.isString(i)&&s.push("domain="+i),!0===a&&s.push("secure"),document.cookie=s.join("; ")},read:function(t){var e=document.cookie.match(RegExp("(^|;\\s*)("+t+")=([^;]*)"));return e?decodeURIComponent(e[3]):null},remove:function(t){this.write(t,"",Date.now()-864e5)}}}():function(){return{write:function(){},read:function(){return null},remove:function(){}}}()},function(t,e,n){"use strict";function o(){this.handlers=[]}var r=n(0);o.prototype.use=function(t,e){return this.handlers.push({fulfilled:t,rejected:e}),this.handlers.length-1},o.prototype.eject=function(t){this.handlers[t]&&(this.handlers[t]=null)},o.prototype.forEach=function(t){r.forEach(this.handlers,function(e){null!==e&&t(e)})},t.exports=o},function(t,e,n){"use strict";function o(t){t.cancelToken&&t.cancelToken.throwIfRequested()}var r=n(0),i=n(24),a=n(6),s=n(2),c=n(25),u=n(26);t.exports=function(t){return o(t),t.baseURL&&!c(t.url)&&(t.url=u(t.baseURL,t.url)),t.headers=t.headers||{},t.data=i(t.data,t.headers,t.transformRequest),t.headers=r.merge(t.headers.common||{},t.headers[t.method]||{},t.headers||{}),r.forEach(["delete","get","head","post","put","patch","common"],function(e){delete t.headers[e]}),(t.adapter||s.adapter)(t).then(function(e){return o(t),e.data=i(e.data,e.headers,t.transformResponse),e},function(e){return a(e)||(o(t),e&&e.response&&(e.response.data=i(e.response.data,e.response.headers,t.transformResponse))),Promise.reject(e)})}},function(t,e,n){"use strict";var o=n(0);t.exports=function(t,e,n){return o.forEach(n,function(n){t=n(t,e)}),t}},function(t){"use strict";t.exports=function(t){return/^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(t)}},function(t){"use strict";t.exports=function(t,e){return e?t.replace(/\/+$/,"")+"/"+e.replace(/^\/+/,""):t}},function(t,e,n){"use strict";function o(t){if("function"!=typeof t)throw new TypeError("executor must be a function.");var e;this.promise=new Promise(function(t){e=t});var n=this;t(function(t){n.reason||(n.reason=new r(t),e(n.reason))})}var r=n(7);o.prototype.throwIfRequested=function(){if(this.reason)throw this.reason},o.source=function(){var t;return{token:new o(function(e){t=e}),cancel:t}},t.exports=o},function(t){"use strict";t.exports=function(t){return function(e){return t.apply(null,e)}}},function(t,e,n){"use strict";n.d(e,"e",function(){return o}),n.d(e,"c",function(){return r}),n.d(e,"g",function(){return i}),n.d(e,"h",function(){return a}),n.d(e,"d",function(){return s}),n.d(e,"b",function(){return c}),n.d(e,"f",function(){return u}),n.d(e,"a",function(){return p});var o={position:"fixed",bottom:"20px",right:"20px",zIndex:2147483647,borderRadius:"5px",boxSizing:"content-box",boxShadow:"0px 0px 20px rgba(0, 0, 0, 0.2)",overflow:"hidden"},r={position:"fixed",bottom:"0px",right:"0px",zIndex:2147483647,minWidth:"400px",boxSizing:"content-box",overflow:"hidden",minHeight:"120px"},i={position:"fixed",bottom:"0px",right:"0px",zIndex:2147483647,minWidth:"400px",boxSizing:"content-box",overflow:"hidden",minHeight:"120px"},a={position:"fixed",top:0,right:0,bottom:0,left:0,zIndex:2147483647,width:"100%",height:"100%",overflowY:"visible",boxSizing:"content-box"},s={height:"40px",lineHeight:"30px",fontSize:"20px",display:"flex",justifyContent:"space-between",padding:"5px 0 5px 20px",fontFamily:"Lato, sans-serif",color:"#fff",cursor:"pointer",boxSizing:"content-box",mozBoxSizing:"content-box",webkitBoxSizing:"content-box"},c={display:"flex",justifyContent:"center",position:"absolute",top:"38px",right:"20px",height:"60px",width:"60px",border:0,borderRadius:"50%",boxShadow:"0px 0px 20px rgba(0, 0, 0, 0.2)"},u={display:"block",position:"absolute",top:"46px",right:"20px",height:"52px",width:"52px",border:0,borderRadius:"50%",boxShadow:"0px 0px 20px rgba(0, 0, 0, 0.2)"},p={width:"100%",height:"auto",borderRadius:"999px"}},function(t,e,n){"use strict";function o(t,e){void 0===e&&(e=""),t=t.replace(/[[]/,"\\[").replace(/[]]/,"\\]");var n=RegExp("[\\?&]"+t+"=([^&#]*)"),o=n.exec(document.getElementById("botmanWidget").getAttribute("src"));return null===o?e:decodeURIComponent(o[1].replace(/\+/g," "))}function r(){var t=document.createElement("div");t.id="botmanWidgetRoot",document.getElementsByTagName("body")[0].appendChild(t);var e={};try{e=JSON.parse(o("settings","{}"))}catch(t){}var n=window.botmanWidget||{},r=c({},s.a,e,n),u=r.frameEndpoint;Object(i.c)(Object(i.b)(a.a,{isMobile:500>window.screen.width,iFrameSrc:u,conf:r}),t)}Object.defineProperty(e,"__esModule",{value:!0});var i=n(1),a=n(31),s=n(37),c=this&&this.__assign||Object.assign||function(t){for(var e,n=1,o=arguments.length;o>n;n++){e=arguments[n];for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r])}return t};window.attachEvent?window.attachEvent("onload",r):window.addEventListener("load",r,!1)},function(t,e,n){"use strict";var o=n(10),r=n.n(o),i=n(1),a=n(32),s=n(33),c=n(34),u=n(35),p=n(36),f=n(29),l=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function o(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(o.prototype=n.prototype,new o)}}(),d=this&&this.__assign||Object.assign||function(t){for(var e,n=1,o=arguments.length;o>n;n++){e=arguments[n];for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r])}return t};e.a=function(t){function e(){var e=t.call(this)||this;return e.toggle=function(){var t={pristine:!1,isChatOpen:!e.state.isChatOpen,wasChatOpened:e.state.wasChatOpened};e.state.isChatOpen||e.state.wasChatOpened||(e.props.conf.sendWidgetOpenedEvent&&setTimeout(function(){e.sendOpenEvent()},500),t.wasChatOpened=!0),e.setState(t)},e.state.isChatOpen=!1,e.state.pristine=!0,e.state.wasChatOpened=!1,e}return l(e,t),e.prototype.componentDidMount=function(){window.botmanChatWidget=new p.a(this)},e.prototype.render=function(t,e){var n=t.conf,o=t.isMobile,r=e.isChatOpen,p=e.pristine,l={width:o?n.mobileWidth:n.desktopWidth},h=window.innerHeight-100<n.desktopHeight?window.innerHeight-90:n.desktopHeight;n.wrapperHeight=h;var m;return m=r||!o&&!n.alwaysUseFloatingButton?o?f.h:(r||this.state.wasChatOpened)&&r?d({},f.e,l):d({},f.c):d({},f.g),Object(i.b)("div",{style:m},!o&&!n.alwaysUseFloatingButton||r?(r||this.state.wasChatOpened)&&r?Object(i.b)("div",{style:d({background:n.mainColor},f.d),onClick:this.toggle},Object(i.b)("div",{style:{display:"flex",alignItems:"center",padding:"0px 30px 0px 0px",fontSize:"15px",fontWeight:"normal",color:n.headerTextColor}},n.title),Object(i.b)(u.a,{isOpened:r})):Object(i.b)(c.a,{onClick:this.toggle,conf:n}):Object(i.b)(s.a,{onClick:this.toggle,conf:n}),Object(i.b)("div",{key:"chatframe",style:{display:r?"block":"none",height:o?n.mobileHeight:h}},p?null:Object(i.b)(a.a,d({},this.props))))},e.prototype.open=function(){this.setState({pristine:!1,isChatOpen:!0,wasChatOpened:!0})},e.prototype.close=function(){this.setState({pristine:!1,isChatOpen:!1})},e.prototype.sendOpenEvent=function(){var t=new FormData;t.append("driver","web"),t.append("eventName","widgetOpened"),t.append("eventData",this.props.conf.widgetOpenedEventData),r.a.post(this.props.conf.chatServer,t).then(function(t){(t.data.messages||[]).forEach(function(t){window.botmanChatWidget.writeToMessages(t)})})},e}(i.a)},function(t,e,n){"use strict";var o=n(1),r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function o(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(o.prototype=n.prototype,new o)}}(),i=this&&this.__assign||Object.assign||function(t){for(var e,n=1,o=arguments.length;o>n;n++){e=arguments[n];for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r])}return t};e.a=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return r(e,t),e.prototype.shouldComponentUpdate=function(){return!1},e.prototype.render=function(t){var e=t.iFrameSrc,n=t.isMobile,r=t.conf,a=window.botmanWidget||{},s=encodeURIComponent(JSON.stringify(i({},r,a)));return Object(o.b)("iframe",{id:"chatBotManFrame",src:e+"?conf="+s,width:"100%",height:n?"94%":"100%",frameBorder:"0",allowTransparency:!0,style:"background-color:transparent"})},e}(o.a)},function(t,e,n){"use strict";var o=n(1),r=n(29),i=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function o(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(o.prototype=n.prototype,new o)}}(),a=this&&this.__assign||Object.assign||function(t){for(var e,n=1,o=arguments.length;o>n;n++){e=arguments[n];for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r])}return t};e.a=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return i(e,t),e.prototype.render=function(t){var e=t.conf;return Object(o.b)("div",{style:{position:"relative",cursor:"pointer"},onClick:this.props.onClick},Object(o.b)("div",{className:"mobile-closed-message-avatar",style:a({background:e.bubbleBackground},r.f)},""===e.bubbleAvatarUrl?Object(o.b)("svg",{style:{paddingTop:4},fill:"#FFFFFF",height:"24",viewBox:"0 0 24 24",width:"24",xmlns:"http://www.w3.org/2000/svg"},Object(o.b)("path",{d:"M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"}),Object(o.b)("path",{d:"M0 0h24v24H0z",fill:"none"})):-1!==e.bubbleAvatarUrl.indexOf("/")?Object(o.b)("img",{src:e.bubbleAvatarUrl,style:a({},r.a)}):Object(o.b)("div",{style:{display:"flex",alignItems:"center"}},Object(o.b)("br",null),e.bubbleAvatarUrl)))},e}(o.a)},function(t,e,n){"use strict";var o=n(1),r=n(29),i=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function o(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(o.prototype=n.prototype,new o)}}(),a=this&&this.__assign||Object.assign||function(t){for(var e,n=1,o=arguments.length;o>n;n++){e=arguments[n];for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r])}return t};e.a=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return i(e,t),e.prototype.render=function(t){var e=t.conf;return Object(o.b)("div",{style:{position:"relative",cursor:"pointer"},onClick:this.props.onClick},Object(o.b)("div",{className:"desktop-closed-message-avatar",style:a({background:e.bubbleBackground},r.b)},""===e.bubbleAvatarUrl?Object(o.b)("svg",{style:{width:"60%",height:"auto"},width:"1792",height:"1792",viewBox:"0 0 1792 1792",xmlns:"http://www.w3.org/2000/svg"},Object(o.b)("path",{d:"M1664 1504v-768q-32 36-69 66-268 206-426 338-51 43-83 67t-86.5 48.5-102.5 24.5h-2q-48 0-102.5-24.5t-86.5-48.5-83-67q-158-132-426-338-37-30-69-66v768q0 13 9.5 22.5t22.5 9.5h1472q13 0 22.5-9.5t9.5-22.5zm0-1051v-24.5l-.5-13-3-12.5-5.5-9-9-7.5-14-2.5h-1472q-13 0-22.5 9.5t-9.5 22.5q0 168 147 284 193 152 401 317 6 5 35 29.5t46 37.5 44.5 31.5 50.5 27.5 43 9h2q20 0 43-9t50.5-27.5 44.5-31.5 46-37.5 35-29.5q208-165 401-317 54-43 100.5-115.5t46.5-131.5zm128-37v1088q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1472q66 0 113 47t47 113z",fill:"#fff"})):-1!==e.bubbleAvatarUrl.indexOf("/")?Object(o.b)("img",{src:e.bubbleAvatarUrl,style:a({},r.a)}):Object(o.b)("div",{style:{display:"flex",alignItems:"center"}},Object(o.b)("br",null),e.bubbleAvatarUrl)))},e}(o.a)},function(t,e,n){"use strict";var o=n(1),r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function o(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(o.prototype=n.prototype,new o)}}();e.a=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return r(e,t),e.prototype.render=function(t){var e=t.isOpened;return Object(o.b)("div",null,e?Object(o.b)("svg",{style:{marginRight:15,marginTop:6,verticalAlign:"middle"},fill:"#FFFFFF",height:"15",viewBox:"0 0 15 15",width:"15",xmlns:"http://www.w3.org/2000/svg"},Object(o.b)("line",{x1:"1",y1:"15",x2:"15",y2:"1",stroke:"white","stroke-width":"1"}),Object(o.b)("line",{x1:"1",y1:"1",x2:"15",y2:"15",stroke:"white","stroke-width":"1"})):Object(o.b)("svg",{style:{marginRight:15,marginTop:6,verticalAlign:"middle"},fill:"#FFFFFF",height:"24",viewBox:"0 0 24 24",width:"24",xmlns:"http://www.w3.org/2000/svg"},Object(o.b)("path",{d:"M2.582 13.891c-0.272 0.268-0.709 0.268-0.979 0s-0.271-0.701 0-0.969l7.908-7.83c0.27-0.268 0.707-0.268 0.979 0l7.908 7.83c0.27 0.268 0.27 0.701 0 0.969s-0.709 0.268-0.978 0l-7.42-7.141-7.418 7.141z"})))},e}(o.a)},function(t,e){"use strict";e.a=function(){function t(t){this.widget=t}return t.prototype.open=function(){this.widget.open()},t.prototype.close=function(){this.widget.close()},t.prototype.toggle=function(){this.widget.toggle()},t.prototype.isOpen=function(){return!0===this.widget.state.isChatOpen},t.prototype.callChatWidget=function(t){if(this.isOpen())document.getElementById("chatBotManFrame").contentWindow.postMessage(t,"*");else try{this.open(),setTimeout(function(){document.getElementById("chatBotManFrame").contentWindow.postMessage(t,"*")},750)}catch(t){}},t.prototype.writeToMessages=function(t){this.callChatWidget({method:"writeToMessages",params:[t]})},t.prototype.sayAsBot=function(t){this.callChatWidget({method:"sayAsBot",params:[t]})},t.prototype.say=function(t){this.callChatWidget({method:"say",params:[t]})},t.prototype.whisper=function(t){this.callChatWidget({method:"whisper",params:[t]})},t}()},function(t,e,n){"use strict";n.d(e,"a",function(){return o});var o={chatServer:"/botman",frameEndpoint:"/botman/chat",timeFormat:"HH:MM",dateTimeFormat:"m/d/yy HH:MM",title:"BotMan Widget",cookieValidInDays:1,introMessage:"",placeholderText:"Send a message...",displayMessageTime:!0,sendWidgetOpenedEvent:!1,widgetOpenedEventData:"",mainColor:"#408591",headerTextColor:"#333",bubbleBackground:"#408591",bubbleAvatarUrl:"",desktopHeight:450,desktopWidth:370,mobileHeight:"100%",mobileWidth:"300px",videoHeight:160,aboutLink:"https://botman.io",aboutText:"⚡ Powered by BotMan",chatId:"",userId:"",alwaysUseFloatingButton:!1}}]);
+! function(t) {
+    function e(r) {
+        if (n[r]) return n[r].exports;
+        var o = n[r] = {
+            i: r,
+            l: !1,
+            exports: {}
+        };
+        return t[r].call(o.exports, o, o.exports, e), o.l = !0, o.exports
+    }
+    var n = {};
+    e.m = t, e.c = n, e.d = function(t, n, r) {
+        e.o(t, n) || Object.defineProperty(t, n, {
+            configurable: !1,
+            enumerable: !0,
+            get: r
+        })
+    }, e.n = function(t) {
+        var n = t && t.__esModule ? function() {
+            return t.default
+        } : function() {
+            return t
+        };
+        return e.d(n, "a", n), n
+    }, e.o = function(t, e) {
+        return Object.prototype.hasOwnProperty.call(t, e)
+    }, e.p = "/", e(e.s = 38)
+}([function(t, e, n) {
+    "use strict";
+
+    function r(t) {
+        return "[object Array]" === C.call(t)
+    }
+
+    function o(t) {
+        return "[object ArrayBuffer]" === C.call(t)
+    }
+
+    function i(t) {
+        return "undefined" != typeof FormData && t instanceof FormData
+    }
+
+    function a(t) {
+        return "undefined" != typeof ArrayBuffer && ArrayBuffer.isView ? ArrayBuffer.isView(t) : t && t.buffer && t.buffer instanceof ArrayBuffer
+    }
+
+    function s(t) {
+        return "string" == typeof t
+    }
+
+    function c(t) {
+        return "number" == typeof t
+    }
+
+    function u(t) {
+        return void 0 === t
+    }
+
+    function p(t) {
+        return null !== t && "object" == typeof t
+    }
+
+    function l(t) {
+        return "[object Date]" === C.call(t)
+    }
+
+    function f(t) {
+        return "[object File]" === C.call(t)
+    }
+
+    function d(t) {
+        return "[object Blob]" === C.call(t)
+    }
+
+    function h(t) {
+        return "[object Function]" === C.call(t)
+    }
+
+    function m(t) {
+        return p(t) && h(t.pipe)
+    }
+
+    function y(t) {
+        return "undefined" != typeof URLSearchParams && t instanceof URLSearchParams
+    }
+
+    function v(t) {
+        return t.replace(/^\s*/, "").replace(/\s*$/, "")
+    }
+
+    function b() {
+        return ("undefined" == typeof navigator || "ReactNative" !== navigator.product) && ("undefined" != typeof window && "undefined" != typeof document)
+    }
+
+    function g(t, e) {
+        if (null !== t && void 0 !== t)
+            if ("object" != typeof t && (t = [t]), r(t))
+                for (var n = 0, o = t.length; o > n; n++) e.call(null, t[n], n, t);
+            else
+                for (var i in t) Object.prototype.hasOwnProperty.call(t, i) && e.call(null, t[i], i, t)
+    }
+
+    function _() {
+        function t(t, n) {
+            e[n] = "object" == typeof e[n] && "object" == typeof t ? _(e[n], t) : t
+        }
+        for (var e = {}, n = 0, r = arguments.length; r > n; n++) g(arguments[n], t);
+        return e
+    }
+
+    function x(t, e, n) {
+        return g(e, function(e, r) {
+            t[r] = n && "function" == typeof e ? w(e, n) : e
+        }), t
+    }
+    var w = n(3),
+        O = n(12),
+        C = Object.prototype.toString;
+    t.exports = {
+        isArray: r,
+        isArrayBuffer: o,
+        isBuffer: O,
+        isFormData: i,
+        isArrayBufferView: a,
+        isString: s,
+        isNumber: c,
+        isObject: p,
+        isUndefined: u,
+        isDate: l,
+        isFile: f,
+        isBlob: d,
+        isFunction: h,
+        isStream: m,
+        isURLSearchParams: y,
+        isStandardBrowserEnv: b,
+        forEach: g,
+        merge: _,
+        extend: x,
+        trim: v
+    }
+}, function(t, e, n) {
+    "use strict";
+
+    function r() {}
+
+    function o(t, e) {
+        var n, o, i, a, s = D;
+        for (a = arguments.length; a-- > 2;) k.push(arguments[a]);
+        for (e && null != e.children && (k.length || k.push(e.children), delete e.children); k.length;)
+            if ((o = k.pop()) && void 0 !== o.pop)
+                for (a = o.length; a--;) k.push(o[a]);
+            else "boolean" == typeof o && (o = null), (i = "function" != typeof t) && (null == o ? o = "" : "number" == typeof o ? o += "" : "string" != typeof o && (i = !1)), i && n ? s[s.length - 1] += o : s === D ? s = [o] : s.push(o), n = i;
+        var c = new r;
+        return c.nodeName = t, c.children = s, c.attributes = null == e ? void 0 : e, c.key = null == e ? void 0 : e.key, void 0 !== E.vnode && E.vnode(c), c
+    }
+
+    function i(t, e) {
+        for (var n in e) t[n] = e[n];
+        return t
+    }
+
+    function a(t) {
+        !t._dirty && (t._dirty = !0) && 1 == H.push(t) && (E.debounceRendering || U)(s)
+    }
+
+    function s() {
+        var t, e = H;
+        for (H = []; t = e.pop();) t._dirty && M(t)
+    }
+
+    function c(t, e, n) {
+        return "string" == typeof e || "number" == typeof e ? void 0 !== t.splitText : "string" == typeof e.nodeName ? !t._componentConstructor && u(t, e.nodeName) : n || t._componentConstructor === e.nodeName
+    }
+
+    function u(t, e) {
+        return t.normalizedNodeName === e || t.nodeName.toLowerCase() === e.toLowerCase()
+    }
+
+    function p(t) {
+        var e = i({}, t.attributes);
+        e.children = t.children;
+        var n = t.nodeName.defaultProps;
+        if (void 0 !== n)
+            for (var r in n) void 0 === e[r] && (e[r] = n[r]);
+        return e
+    }
+
+    function l(t, e) {
+        var n = e ? document.createElementNS("http://www.w3.org/2000/svg", t) : document.createElement(t);
+        return n.normalizedNodeName = t, n
+    }
+
+    function f(t) {
+        var e = t.parentNode;
+        e && e.removeChild(t)
+    }
+
+    function d(t, e, n, r, o) {
+        if ("className" === e && (e = "class"), "key" === e);
+        else if ("ref" === e) n && n(null), r && r(t);
+        else if ("class" !== e || o)
+            if ("style" === e) {
+                if (r && "string" != typeof r && "string" != typeof n || (t.style.cssText = r || ""), r && "object" == typeof r) {
+                    if ("string" != typeof n)
+                        for (var i in n) i in r || (t.style[i] = "");
+                    for (var i in r) t.style[i] = "number" == typeof r[i] && !1 === B.test(i) ? r[i] + "px" : r[i]
+                }
+            } else if ("dangerouslySetInnerHTML" === e) r && (t.innerHTML = r.__html || "");
+        else if ("o" == e[0] && "n" == e[1]) {
+            var a = e !== (e = e.replace(/Capture$/, ""));
+            e = e.toLowerCase().substring(2), r ? n || t.addEventListener(e, m, a) : t.removeEventListener(e, m, a), (t._listeners || (t._listeners = {}))[e] = r
+        } else if ("list" !== e && "type" !== e && !o && e in t) h(t, e, null == r ? "" : r), null != r && !1 !== r || t.removeAttribute(e);
+        else {
+            var s = o && e !== (e = e.replace(/^xlink\:?/, ""));
+            null == r || !1 === r ? s ? t.removeAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase()) : t.removeAttribute(e) : "function" != typeof r && (s ? t.setAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase(), r) : t.setAttribute(e, r))
+        } else t.className = r || ""
+    }
+
+    function h(t, e, n) {
+        try {
+            t[e] = n
+        } catch (t) {}
+    }
+
+    function m(t) {
+        return this._listeners[t.type](E.event && E.event(t) || t)
+    }
+
+    function y() {
+        for (var t; t = R.pop();) E.afterMount && E.afterMount(t), t.componentDidMount && t.componentDidMount()
+    }
+
+    function v(t, e, n, r, o, i) {
+        L++ || (q = null != o && void 0 !== o.ownerSVGElement, I = null != t && !("__preactattr_" in t));
+        var a = b(t, e, n, r, i);
+        return o && a.parentNode !== o && o.appendChild(a), --L || (I = !1, i || y()), a
+    }
+
+    function b(t, e, n, r, o) {
+        var i = t,
+            a = q;
+        if (null != e && "boolean" != typeof e || (e = ""), "string" == typeof e || "number" == typeof e) return t && void 0 !== t.splitText && t.parentNode && (!t._component || o) ? t.nodeValue != e && (t.nodeValue = e) : (i = document.createTextNode(e), t && (t.parentNode && t.parentNode.replaceChild(i, t), _(t, !0))), i.__preactattr_ = !0, i;
+        var s = e.nodeName;
+        if ("function" == typeof s) return N(t, e, n, r);
+        if (q = "svg" === s || "foreignObject" !== s && q, s += "", (!t || !u(t, s)) && (i = l(s, q), t)) {
+            for (; t.firstChild;) i.appendChild(t.firstChild);
+            t.parentNode && t.parentNode.replaceChild(i, t), _(t, !0)
+        }
+        var c = i.firstChild,
+            p = i.__preactattr_,
+            f = e.children;
+        if (null == p) {
+            p = i.__preactattr_ = {};
+            for (var d = i.attributes, h = d.length; h--;) p[d[h].name] = d[h].value
+        }
+        return !I && f && 1 === f.length && "string" == typeof f[0] && null != c && void 0 !== c.splitText && null == c.nextSibling ? c.nodeValue != f[0] && (c.nodeValue = f[0]) : (f && f.length || null != c) && g(i, f, n, r, I || null != p.dangerouslySetInnerHTML), w(i, e.attributes, p), q = a, i
+    }
+
+    function g(t, e, n, r, o) {
+        var i, a, s, u, p, l = t.childNodes,
+            d = [],
+            h = {},
+            m = 0,
+            y = 0,
+            v = l.length,
+            g = 0,
+            x = e ? e.length : 0;
+        if (0 !== v)
+            for (var w = 0; v > w; w++) {
+                var O = l[w],
+                    C = O.__preactattr_,
+                    T = x && C ? O._component ? O._component.__key : C.key : null;
+                null != T ? (m++, h[T] = O) : (C || (void 0 !== O.splitText ? !o || O.nodeValue.trim() : o)) && (d[g++] = O)
+            }
+        if (0 !== x)
+            for (var w = 0; x > w; w++) {
+                u = e[w], p = null;
+                var T = u.key;
+                if (null != T) m && void 0 !== h[T] && (p = h[T], h[T] = void 0, m--);
+                else if (!p && g > y)
+                    for (i = y; g > i; i++)
+                        if (void 0 !== d[i] && c(a = d[i], u, o)) {
+                            p = a, d[i] = void 0, i === g - 1 && g--, i === y && y++;
+                            break
+                        } p = b(p, u, n, r), s = l[w], p && p !== t && p !== s && (null == s ? t.appendChild(p) : p === s.nextSibling ? f(s) : t.insertBefore(p, s))
+            }
+        if (m)
+            for (var w in h) void 0 !== h[w] && _(h[w], !1);
+        for (; g >= y;) void 0 !== (p = d[g--]) && _(p, !1)
+    }
+
+    function _(t, e) {
+        var n = t._component;
+        n ? S(n) : (null != t.__preactattr_ && t.__preactattr_.ref && t.__preactattr_.ref(null), !1 !== e && null != t.__preactattr_ || f(t), x(t))
+    }
+
+    function x(t) {
+        for (t = t.lastChild; t;) {
+            var e = t.previousSibling;
+            _(t, !0), t = e
+        }
+    }
+
+    function w(t, e, n) {
+        var r;
+        for (r in n) e && null != e[r] || null == n[r] || d(t, r, n[r], n[r] = void 0, q);
+        for (r in e) "children" === r || "innerHTML" === r || r in n && e[r] === ("value" === r || "checked" === r ? t[r] : n[r]) || d(t, r, n[r], n[r] = e[r], q)
+    }
+
+    function O(t) {
+        var e = t.constructor.name;
+        (F[e] || (F[e] = [])).push(t)
+    }
+
+    function C(t, e, n) {
+        var r, o = F[t.name];
+        if (t.prototype && t.prototype.render ? (r = new t(e, n), A.call(r, e, n)) : (r = new A(e, n), r.constructor = t, r.render = T), o)
+            for (var i = o.length; i--;)
+                if (o[i].constructor === t) {
+                    r.nextBase = o[i].nextBase, o.splice(i, 1);
+                    break
+                } return r
+    }
+
+    function T(t, e, n) {
+        return this.constructor(t, n)
+    }
+
+    function j(t, e, n, r, o) {
+        t._disable || (t._disable = !0, (t.__ref = e.ref) && delete e.ref, (t.__key = e.key) && delete e.key, !t.base || o ? t.componentWillMount && t.componentWillMount() : t.componentWillReceiveProps && t.componentWillReceiveProps(e, r), r && r !== t.context && (t.prevContext || (t.prevContext = t.context), t.context = r), t.prevProps || (t.prevProps = t.props), t.props = e, t._disable = !1, 0 !== n && (1 !== n && !1 === E.syncComponentUpdates && t.base ? a(t) : M(t, 1, o)), t.__ref && t.__ref(t))
+    }
+
+    function M(t, e, n, r) {
+        if (!t._disable) {
+            var o, a, s, c = t.props,
+                u = t.state,
+                l = t.context,
+                f = t.prevProps || c,
+                d = t.prevState || u,
+                h = t.prevContext || l,
+                m = t.base,
+                b = t.nextBase,
+                g = m || b,
+                x = t._component,
+                w = !1;
+            if (m && (t.props = f, t.state = d, t.context = h, 2 !== e && t.shouldComponentUpdate && !1 === t.shouldComponentUpdate(c, u, l) ? w = !0 : t.componentWillUpdate && t.componentWillUpdate(c, u, l), t.props = c, t.state = u, t.context = l), t.prevProps = t.prevState = t.prevContext = t.nextBase = null, t._dirty = !1, !w) {
+                o = t.render(c, u, l), t.getChildContext && (l = i(i({}, l), t.getChildContext()));
+                var O, T, N = o && o.nodeName;
+                if ("function" == typeof N) {
+                    var A = p(o);
+                    a = x, a && a.constructor === N && A.key == a.__key ? j(a, A, 1, l, !1) : (O = a, t._component = a = C(N, A, l), a.nextBase = a.nextBase || b, a._parentComponent = t, j(a, A, 0, l, !1), M(a, 1, n, !0)), T = a.base
+                } else s = g, O = x, O && (s = t._component = null), (g || 1 === e) && (s && (s._component = null), T = v(s, o, l, n || !m, g && g.parentNode, !0));
+                if (g && T !== g && a !== x) {
+                    var P = g.parentNode;
+                    P && T !== P && (P.replaceChild(T, g), O || (g._component = null, _(g, !1)))
+                }
+                if (O && S(O), t.base = T, T && !r) {
+                    for (var k = t, D = t; D = D._parentComponent;)(k = D).base = T;
+                    T._component = k, T._componentConstructor = k.constructor
+                }
+            }
+            if (!m || n ? R.unshift(t) : w || (t.componentDidUpdate && t.componentDidUpdate(f, d, h), E.afterUpdate && E.afterUpdate(t)), null != t._renderCallbacks)
+                for (; t._renderCallbacks.length;) t._renderCallbacks.pop().call(t);
+            L || r || y()
+        }
+    }
+
+    function N(t, e, n, r) {
+        for (var o = t && t._component, i = o, a = t, s = o && t._componentConstructor === e.nodeName, c = s, u = p(e); o && !c && (o = o._parentComponent);) c = o.constructor === e.nodeName;
+        return o && c && (!r || o._component) ? (j(o, u, 3, n, r), t = o.base) : (i && !s && (S(i), t = a = null), o = C(e.nodeName, u, n), t && !o.nextBase && (o.nextBase = t, a = null), j(o, u, 1, n, r), t = o.base, a && t !== a && (a._component = null, _(a, !1))), t
+    }
+
+    function S(t) {
+        E.beforeUnmount && E.beforeUnmount(t);
+        var e = t.base;
+        t._disable = !0, t.componentWillUnmount && t.componentWillUnmount(), t.base = null;
+        var n = t._component;
+        n ? S(n) : e && (e.__preactattr_ && e.__preactattr_.ref && e.__preactattr_.ref(null), t.nextBase = e, f(e), O(t), x(e)), t.__ref && t.__ref(null)
+    }
+
+    function A(t, e) {
+        this._dirty = !0, this.context = e, this.props = t, this.state = this.state || {}
+    }
+
+    function P(t, e, n) {
+        return v(n, t, {}, !1, e, !1)
+    }
+    n.d(e, "b", function() {
+        return o
+    }), n.d(e, "a", function() {
+        return A
+    }), n.d(e, "c", function() {
+        return P
+    });
+    var E = {},
+        k = [],
+        D = [],
+        U = "function" == typeof Promise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout,
+        B = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i,
+        H = [],
+        R = [],
+        L = 0,
+        q = !1,
+        I = !1,
+        F = {};
+    i(A.prototype, {
+        setState: function(t, e) {
+            var n = this.state;
+            this.prevState || (this.prevState = i({}, n)), i(n, "function" == typeof t ? t(n, this.props) : t), e && (this._renderCallbacks = this._renderCallbacks || []).push(e), a(this)
+        },
+        forceUpdate: function(t) {
+            t && (this._renderCallbacks = this._renderCallbacks || []).push(t), M(this, 2)
+        },
+        render: function() {}
+    })
+}, function(t, e, n) {
+    "use strict";
+
+    function r(t, e) {
+        !o.isUndefined(t) && o.isUndefined(t["Content-Type"]) && (t["Content-Type"] = e)
+    }
+    var o = n(0),
+        i = n(14),
+        a = {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        s = {
+            adapter: function() {
+                var t;
+                return "undefined" != typeof XMLHttpRequest ? t = n(4) : "undefined" != typeof process && (t = n(4)), t
+            }(),
+            transformRequest: [function(t, e) {
+                return i(e, "Content-Type"), o.isFormData(t) || o.isArrayBuffer(t) || o.isBuffer(t) || o.isStream(t) || o.isFile(t) || o.isBlob(t) ? t : o.isArrayBufferView(t) ? t.buffer : o.isURLSearchParams(t) ? (r(e, "application/x-www-form-urlencoded;charset=utf-8"), "" + t) : o.isObject(t) ? (r(e, "application/json;charset=utf-8"), JSON.stringify(t)) : t
+            }],
+            transformResponse: [function(t) {
+                if ("string" == typeof t) try {
+                    t = JSON.parse(t)
+                } catch (t) {}
+                return t
+            }],
+            timeout: 0,
+            xsrfCookieName: "XSRF-TOKEN",
+            xsrfHeaderName: "X-XSRF-TOKEN",
+            maxContentLength: -1,
+            validateStatus: function(t) {
+                return t >= 200 && 300 > t
+            }
+        };
+    s.headers = {
+        common: {
+            Accept: "application/json, text/plain, */*"
+        }
+    }, o.forEach(["delete", "get", "head"], function(t) {
+        s.headers[t] = {}
+    }), o.forEach(["post", "put", "patch"], function(t) {
+        s.headers[t] = o.merge(a)
+    }), t.exports = s
+}, function(t) {
+    "use strict";
+    t.exports = function(t, e) {
+        return function() {
+            for (var n = Array(arguments.length), r = 0; n.length > r; r++) n[r] = arguments[r];
+            return t.apply(e, n)
+        }
+    }
+}, function(t, e, n) {
+    "use strict";
+    var r = n(0),
+        o = n(15),
+        i = n(17),
+        a = n(18),
+        s = n(19),
+        c = n(5),
+        u = "undefined" != typeof window && window.btoa && window.btoa.bind(window) || n(20);
+    t.exports = function(t) {
+        return new Promise(function(e, p) {
+            var l = t.data,
+                f = t.headers;
+            r.isFormData(l) && delete f["Content-Type"];
+            var d = new XMLHttpRequest,
+                h = "onreadystatechange",
+                m = !1;
+            if ("undefined" == typeof window || !window.XDomainRequest || "withCredentials" in d || s(t.url) || (d = new window.XDomainRequest, h = "onload", m = !0, d.onprogress = function() {}, d.ontimeout = function() {}), t.auth) {
+                f.Authorization = "Basic " + u((t.auth.username || "") + ":" + (t.auth.password || ""))
+            }
+            if (d.open(t.method.toUpperCase(), i(t.url, t.params, t.paramsSerializer), !0), d.timeout = t.timeout, d[h] = function() {
+                    if (d && (4 === d.readyState || m) && (0 !== d.status || d.responseURL && 0 === d.responseURL.indexOf("file:"))) {
+                        var n = "getAllResponseHeaders" in d ? a(d.getAllResponseHeaders()) : null;
+                        o(e, p, {
+                            data: t.responseType && "text" !== t.responseType ? d.response : d.responseText,
+                            status: 1223 === d.status ? 204 : d.status,
+                            statusText: 1223 === d.status ? "No Content" : d.statusText,
+                            headers: n,
+                            config: t,
+                            request: d
+                        }), d = null
+                    }
+                }, d.onerror = function() {
+                    p(c("Network Error", t, null, d)), d = null
+                }, d.ontimeout = function() {
+                    p(c("timeout of " + t.timeout + "ms exceeded", t, "ECONNABORTED", d)), d = null
+                }, r.isStandardBrowserEnv()) {
+                var y = n(21),
+                    v = (t.withCredentials || s(t.url)) && t.xsrfCookieName ? y.read(t.xsrfCookieName) : void 0;
+                v && (f[t.xsrfHeaderName] = v)
+            }
+            if ("setRequestHeader" in d && r.forEach(f, function(t, e) {
+                    void 0 === l && "content-type" === e.toLowerCase() ? delete f[e] : d.setRequestHeader(e, t)
+                }), t.withCredentials && (d.withCredentials = !0), t.responseType) try {
+                d.responseType = t.responseType
+            } catch (e) {
+                if ("json" !== t.responseType) throw e
+            }
+            "function" == typeof t.onDownloadProgress && d.addEventListener("progress", t.onDownloadProgress), "function" == typeof t.onUploadProgress && d.upload && d.upload.addEventListener("progress", t.onUploadProgress), t.cancelToken && t.cancelToken.promise.then(function(t) {
+                d && (d.abort(), p(t), d = null)
+            }), void 0 === l && (l = null), d.send(l)
+        })
+    }
+}, function(t, e, n) {
+    "use strict";
+    var r = n(16);
+    t.exports = function(t, e, n, o, i) {
+        var a = Error(t);
+        return r(a, e, n, o, i)
+    }
+}, function(t) {
+    "use strict";
+    t.exports = function(t) {
+        return !(!t || !t.__CANCEL__)
+    }
+}, function(t) {
+    "use strict";
+
+    function e(t) {
+        this.message = t
+    }
+    e.prototype.toString = function() {
+        return "Cancel" + (this.message ? ": " + this.message : "")
+    }, e.prototype.__CANCEL__ = !0, t.exports = e
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }();
+    e.a = function(t) {
+        function e() {
+            var e = t.call(this) || this;
+            return e.onVisibilityChange = function() {}, e.state = {
+                visible: !1,
+                visibilityChanged: !1,
+                attachmentsVisible: !0
+            }, e
+        }
+        return o(e, t), e.prototype.componentDidMount = function() {
+            var t = this;
+            setTimeout(function() {
+                t.state.visible = !0, t.state.visibilityChanged = !0, t.onVisibilityChange(), t.props.onVisibilityChange(t.props.message, t.state)
+            }, this.props.timeout || 0)
+        }, e
+    }(r.a)
+}, function(t, e, n) {
+    "use strict";
+    n.d(e, "a", function() {
+        return a
+    });
+    var r = n(10),
+        o = n.n(r),
+        i = function() {
+            function t() {
+                var t = this;
+                this.callAPI = function(e, n, r, i, a) {
+                    void 0 === n && (n = !1), void 0 === r && (r = null);
+                    var s = new FormData,
+                        c = {
+                            driver: "web",
+                            userId: t.userId,
+                            message: e,
+                            attachment: r,
+                            interactive: n ? "1" : "0"
+                        };
+                    Object.keys(c).forEach(function(t) {
+                        return s.append(t, c[t])
+                    }), o.a.post(t.chatServer, s).then(function(t) {
+                        var e = t.data.messages || [];
+                        i && e.forEach(function(t) {
+                            i(t)
+                        }), a && a(t.data)
+                    })
+                }
+            }
+            return t.prototype.setUserId = function(t) {
+                this.userId = t
+            }, t.prototype.setChatServer = function(t) {
+                this.chatServer = t
+            }, t
+        }(),
+        a = new i
+}, function(t, e, n) {
+    t.exports = n(11)
+}, function(t, e, n) {
+    "use strict";
+
+    function r(t) {
+        var e = new a(t),
+            n = i(a.prototype.request, e);
+        return o.extend(n, a.prototype, e), o.extend(n, e), n
+    }
+    var o = n(0),
+        i = n(3),
+        a = n(13),
+        s = n(2),
+        c = r(s);
+    c.Axios = a, c.create = function(t) {
+        return r(o.merge(s, t))
+    }, c.Cancel = n(7), c.CancelToken = n(27), c.isCancel = n(6), c.all = function(t) {
+        return Promise.all(t)
+    }, c.spread = n(28), t.exports = c, t.exports.default = c
+}, function(t) {
+    function e(t) {
+        return !!t.constructor && "function" == typeof t.constructor.isBuffer && t.constructor.isBuffer(t)
+    }
+
+    function n(t) {
+        return "function" == typeof t.readFloatLE && "function" == typeof t.slice && e(t.slice(0, 0))
+    }
+    t.exports = function(t) {
+        return null != t && (e(t) || n(t) || !!t._isBuffer)
+    }
+}, function(t, e, n) {
+    "use strict";
+
+    function r(t) {
+        this.defaults = t, this.interceptors = {
+            request: new a,
+            response: new a
+        }
+    }
+    var o = n(2),
+        i = n(0),
+        a = n(22),
+        s = n(23);
+    r.prototype.request = function(t) {
+        "string" == typeof t && (t = i.merge({
+            url: arguments[0]
+        }, arguments[1])), t = i.merge(o, {
+            method: "get"
+        }, this.defaults, t), t.method = t.method.toLowerCase();
+        var e = [s, void 0],
+            n = Promise.resolve(t);
+        for (this.interceptors.request.forEach(function(t) {
+                e.unshift(t.fulfilled, t.rejected)
+            }), this.interceptors.response.forEach(function(t) {
+                e.push(t.fulfilled, t.rejected)
+            }); e.length;) n = n.then(e.shift(), e.shift());
+        return n
+    }, i.forEach(["delete", "get", "head", "options"], function(t) {
+        r.prototype[t] = function(e, n) {
+            return this.request(i.merge(n || {}, {
+                method: t,
+                url: e
+            }))
+        }
+    }), i.forEach(["post", "put", "patch"], function(t) {
+        r.prototype[t] = function(e, n, r) {
+            return this.request(i.merge(r || {}, {
+                method: t,
+                url: e,
+                data: n
+            }))
+        }
+    }), t.exports = r
+}, function(t, e, n) {
+    "use strict";
+    var r = n(0);
+    t.exports = function(t, e) {
+        r.forEach(t, function(n, r) {
+            r !== e && r.toUpperCase() === e.toUpperCase() && (t[e] = n, delete t[r])
+        })
+    }
+}, function(t, e, n) {
+    "use strict";
+    var r = n(5);
+    t.exports = function(t, e, n) {
+        var o = n.config.validateStatus;
+        n.status && o && !o(n.status) ? e(r("Request failed with status code " + n.status, n.config, null, n.request, n)) : t(n)
+    }
+}, function(t) {
+    "use strict";
+    t.exports = function(t, e, n, r, o) {
+        return t.config = e, n && (t.code = n), t.request = r, t.response = o, t
+    }
+}, function(t, e, n) {
+    "use strict";
+
+    function r(t) {
+        return encodeURIComponent(t).replace(/%40/gi, "@").replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]")
+    }
+    var o = n(0);
+    t.exports = function(t, e, n) {
+        if (!e) return t;
+        var i;
+        if (n) i = n(e);
+        else if (o.isURLSearchParams(e)) i = "" + e;
+        else {
+            var a = [];
+            o.forEach(e, function(t, e) {
+                null !== t && void 0 !== t && (o.isArray(t) ? e += "[]" : t = [t], o.forEach(t, function(t) {
+                    o.isDate(t) ? t = t.toISOString() : o.isObject(t) && (t = JSON.stringify(t)), a.push(r(e) + "=" + r(t))
+                }))
+            }), i = a.join("&")
+        }
+        return i && (t += (-1 === t.indexOf("?") ? "?" : "&") + i), t
+    }
+}, function(t, e, n) {
+    "use strict";
+    var r = n(0),
+        o = ["age", "authorization", "content-length", "content-type", "etag", "expires", "from", "host", "if-modified-since", "if-unmodified-since", "last-modified", "location", "max-forwards", "proxy-authorization", "referer", "retry-after", "user-agent"];
+    t.exports = function(t) {
+        var e, n, i, a = {};
+        return t ? (r.forEach(t.split("\n"), function(t) {
+            if (i = t.indexOf(":"), e = r.trim(t.substr(0, i)).toLowerCase(), n = r.trim(t.substr(i + 1)), e) {
+                if (a[e] && o.indexOf(e) >= 0) return;
+                a[e] = "set-cookie" === e ? (a[e] ? a[e] : []).concat([n]) : a[e] ? a[e] + ", " + n : n
+            }
+        }), a) : a
+    }
+}, function(t, e, n) {
+    "use strict";
+    var r = n(0);
+    t.exports = r.isStandardBrowserEnv() ? function() {
+        function t(t) {
+            var e = t;
+            return n && (o.setAttribute("href", e), e = o.href), o.setAttribute("href", e), {
+                href: o.href,
+                protocol: o.protocol ? o.protocol.replace(/:$/, "") : "",
+                host: o.host,
+                search: o.search ? o.search.replace(/^\?/, "") : "",
+                hash: o.hash ? o.hash.replace(/^#/, "") : "",
+                hostname: o.hostname,
+                port: o.port,
+                pathname: "/" === o.pathname.charAt(0) ? o.pathname : "/" + o.pathname
+            }
+        }
+        var e, n = /(msie|trident)/i.test(navigator.userAgent),
+            o = document.createElement("a");
+        return e = t(window.location.href),
+            function(n) {
+                var o = r.isString(n) ? t(n) : n;
+                return o.protocol === e.protocol && o.host === e.host
+            }
+    }() : function() {
+        return function() {
+            return !0
+        }
+    }()
+}, function(t) {
+    "use strict";
+
+    function e() {
+        this.message = "String contains an invalid character"
+    }
+
+    function n(t) {
+        for (var n, o, i = t + "", a = "", s = 0, c = r; i.charAt(0 | s) || (c = "=", s % 1); a += c.charAt(63 & n >> 8 - s % 1 * 8)) {
+            if ((o = i.charCodeAt(s += .75)) > 255) throw new e;
+            n = n << 8 | o
+        }
+        return a
+    }
+    var r = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    e.prototype = Error(), e.prototype.code = 5, e.prototype.name = "InvalidCharacterError", t.exports = n
+}, function(t, e, n) {
+    "use strict";
+    var r = n(0);
+    t.exports = r.isStandardBrowserEnv() ? function() {
+        return {
+            write: function(t, e, n, o, i, a) {
+                var s = [];
+                s.push(t + "=" + encodeURIComponent(e)), r.isNumber(n) && s.push("expires=" + new Date(n).toGMTString()), r.isString(o) && s.push("path=" + o), r.isString(i) && s.push("domain=" + i), !0 === a && s.push("secure"), document.cookie = s.join("; ")
+            },
+            read: function(t) {
+                var e = document.cookie.match(RegExp("(^|;\\s*)(" + t + ")=([^;]*)"));
+                return e ? decodeURIComponent(e[3]) : null
+            },
+            remove: function(t) {
+                this.write(t, "", Date.now() - 864e5)
+            }
+        }
+    }() : function() {
+        return {
+            write: function() {},
+            read: function() {
+                return null
+            },
+            remove: function() {}
+        }
+    }()
+}, function(t, e, n) {
+    "use strict";
+
+    function r() {
+        this.handlers = []
+    }
+    var o = n(0);
+    r.prototype.use = function(t, e) {
+        return this.handlers.push({
+            fulfilled: t,
+            rejected: e
+        }), this.handlers.length - 1
+    }, r.prototype.eject = function(t) {
+        this.handlers[t] && (this.handlers[t] = null)
+    }, r.prototype.forEach = function(t) {
+        o.forEach(this.handlers, function(e) {
+            null !== e && t(e)
+        })
+    }, t.exports = r
+}, function(t, e, n) {
+    "use strict";
+
+    function r(t) {
+        t.cancelToken && t.cancelToken.throwIfRequested()
+    }
+    var o = n(0),
+        i = n(24),
+        a = n(6),
+        s = n(2),
+        c = n(25),
+        u = n(26);
+    t.exports = function(t) {
+        return r(t), t.baseURL && !c(t.url) && (t.url = u(t.baseURL, t.url)), t.headers = t.headers || {}, t.data = i(t.data, t.headers, t.transformRequest), t.headers = o.merge(t.headers.common || {}, t.headers[t.method] || {}, t.headers || {}), o.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function(e) {
+            delete t.headers[e]
+        }), (t.adapter || s.adapter)(t).then(function(e) {
+            return r(t), e.data = i(e.data, e.headers, t.transformResponse), e
+        }, function(e) {
+            return a(e) || (r(t), e && e.response && (e.response.data = i(e.response.data, e.response.headers, t.transformResponse))), Promise.reject(e)
+        })
+    }
+}, function(t, e, n) {
+    "use strict";
+    var r = n(0);
+    t.exports = function(t, e, n) {
+        return r.forEach(n, function(n) {
+            t = n(t, e)
+        }), t
+    }
+}, function(t) {
+    "use strict";
+    t.exports = function(t) {
+        return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(t)
+    }
+}, function(t) {
+    "use strict";
+    t.exports = function(t, e) {
+        return e ? t.replace(/\/+$/, "") + "/" + e.replace(/^\/+/, "") : t
+    }
+}, function(t, e, n) {
+    "use strict";
+
+    function r(t) {
+        if ("function" != typeof t) throw new TypeError("executor must be a function.");
+        var e;
+        this.promise = new Promise(function(t) {
+            e = t
+        });
+        var n = this;
+        t(function(t) {
+            n.reason || (n.reason = new o(t), e(n.reason))
+        })
+    }
+    var o = n(7);
+    r.prototype.throwIfRequested = function() {
+        if (this.reason) throw this.reason
+    }, r.source = function() {
+        var t;
+        return {
+            token: new r(function(e) {
+                t = e
+            }),
+            cancel: t
+        }
+    }, t.exports = r
+}, function(t) {
+    "use strict";
+    t.exports = function(t) {
+        return function(e) {
+            return t.apply(null, e)
+        }
+    }
+}, , , , , , , , , , function(t, e, n) {
+    "use strict";
+
+    function r() {
+        var t = document.createElement("div");
+
+        let fileUpload = document.createElement("div");
+        let input = document.createElement("input");
+        let sendAttachment = document.createElement("button");
+        input.type = "file";
+        input.name = "attachment";
+        input.id = "kozel";
+        sendAttachment.innerHTML = "Yuborish";
+        fileUpload.appendChild(input);
+        fileUpload.appendChild(sendAttachment);
+              t.appendChild(fileUpload);
+              sendAttachment.onclick = function(){
+                  botmanChatWidget.say(input.value);
+              }
+
+        t.id = "botmanChatRoot", document.getElementsByTagName("body")[0].appendChild(t), Object(a.c)(Object(a.b)(s.a, {
+            userId: o(),
+            conf: c
+        }), t)
+    }
+
+    function o() {
+        return c.userId || i()
+    }
+
+    function i() {
+        return Math.random().toString(36).substr(2, 6)
+    }
+    Object.defineProperty(e, "__esModule", {
+        value: !0
+    });
+    var a = n(1),
+        s = n(39);
+    window.attachEvent ? window.attachEvent("onload", r) : window.addEventListener("load", r, !1);
+    var c = {},
+        u = function(t) {
+            t = t.replace(/[[]/, "\\[").replace(/[]]/, "\\]");
+            var e = RegExp("[\\?&]" + t + "=([^&#]*)"),
+                n = e.exec(location.search);
+            return null === n ? "" : decodeURIComponent(n[1].replace(/\+/g, " "))
+        }("conf");
+    if (u) try {
+        c = JSON.parse(u)
+    } catch (t) {}
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = n(40),
+        i = n(9),
+        a = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }();
+    e.a = function(t) {
+        function e(n) {
+            var r = t.call(this, n) || this;
+            return r.handleKeyPress = function(t) {
+                13 === t.keyCode && r.input.value.replace(/\s/g, "") && (r.say(r.input.value), r.input.value = "")
+            }, r.handleSendClick = function() {
+                r.say(r.textarea.value), r.textarea.value = ""
+            }, r.writeToMessages = function(t) {
+                void 0 === t.time && (t.time = (new Date).toJSON()), void 0 === t.visible && (t.visible = !1), void 0 === t.timeout && (t.timeout = 0), void 0 === t.id && (t.id = e.generateUuid()), null === t.attachment && (t.attachment = {}), r.state.messages.push(t), r.setState({
+                    messages: r.state.messages
+                }), t.additionalParameters && t.additionalParameters.replyType && r.setState({
+                    replyType: t.additionalParameters.replyType
+                })
+            }, r.botman = i.a, r.botman.setUserId(r.props.userId), r.botman.setChatServer(r.props.conf.chatServer), r.state.messages = [], r.state.replyType = s.Text, r
+        }
+        return a(e, t), e.prototype.componentDidMount = function() {
+            var t = this;
+            !this.state.messages.length && this.props.conf.introMessage && this.writeToMessages({
+                text: this.props.conf.introMessage,
+                type: "text",
+                from: "chatbot"
+            }), window.addEventListener("message", function(e) {
+                try {
+                    t[e.data.method].apply(t, e.data.params)
+                } catch (t) {}
+            })
+        }, e.prototype.sayAsBot = function(t) {
+            this.writeToMessages({
+                text: t,
+                type: "text",
+                from: "chatbot"
+            })
+        }, e.prototype.say = function(t, e) {
+            var n = this;
+            void 0 === e && (e = !0);
+            var r = {
+                text: t,
+                type: "text",
+                from: "visitor"
+            };
+            this.botman.callAPI(r.text, !1, null, function(t) {
+                t.from = "chatbot", n.writeToMessages(t)
+            }), e && this.writeToMessages(r)
+        }, e.prototype.whisper = function(t) {
+            this.say(t, !1)
+        }, e.prototype.render = function(t, e) {
+            var n = this;
+            return Object(r.b)("div", null, Object(r.b)("div", {
+                id: "messageArea"
+            }, Object(r.b)(o.a, {
+                messages: e.messages,
+                conf: this.props.conf,
+                messageHandler: this.writeToMessages
+            })), this.state.replyType === s.Text ? Object(r.b)("input", {
+                id: "userText",
+                class: "textarea",
+                type: "text",
+                placeholder: this.props.conf.placeholderText,
+                ref: function(t) {
+                    n.input = t
+                },
+                onKeyPress: this.handleKeyPress,
+                autofocus: !0
+            }) : "", this.state.replyType === s.TextArea ? Object(r.b)("div", null, Object(r.b)("svg", {
+                xmlns: "http://www.w3.org/2000/svg",
+                x: "0px",
+                y: "0px",
+                onClick: this.handleSendClick,
+                style: "cursor: pointer; position: absolute; width: 25px; bottom: 19px; right: 16px; z-index: 1000",
+                viewBox: "0 0 535.5 535.5"
+            }, Object(r.b)("g", null, Object(r.b)("g", {
+                id: "send"
+            }, Object(r.b)("polygon", {
+                points: "0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"
+            })))), Object(r.b)("textarea", {
+                id: "userText",
+                class: "textarea",
+                placeholder: this.props.conf.placeholderText,
+                ref: function(t) {
+                    n.textarea = t
+                },
+                autofocus: !0
+            })) : "", Object(r.b)("a", {
+                class: "banner",
+                href: this.props.conf.aboutLink,
+                target: "_blank"
+            }, "AboutIcon" === this.props.conf.aboutText ? Object(r.b)("svg", {
+                style: "position: absolute; width: 14px; bottom: 6px; right: 6px;",
+                fill: "#EEEEEE",
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 1536 1792"
+            }, Object(r.b)("path", {
+                d: "M1024 1376v-160q0-14-9-23t-23-9h-96v-512q0-14-9-23t-23-9h-320q-14 0-23 9t-9 23v160q0 14 9 23t23 9h96v320h-96q-14 0-23 9t-9 23v160q0 14 9 23t23 9h448q14 0 23-9t9-23zm-128-896v-160q0-14-9-23t-23-9h-192q-14 0-23 9t-9 23v160q0 14 9 23t23 9h192q14 0 23-9t9-23zm640 416q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"
+            })) : this.props.conf.aboutText))
+        }, e.generateUuid = function() {
+            var t, e = "";
+            for (t = 0; 32 > t; t += 1) switch (t) {
+                case 8:
+                case 20:
+                    e += "-", e += (16 * Math.random() | 0).toString(16);
+                    break;
+                case 12:
+                    e += "-", e += "4";
+                    break;
+                case 16:
+                    e += "-", e += (4 * Math.random() | 8).toString(16);
+                    break;
+                default:
+                    e += (16 * Math.random() | 0).toString(16)
+            }
+            return e
+        }, e
+    }(r.a);
+    var s;
+    ! function(t) {
+        t.Text = "text", t.TextArea = "textarea"
+    }(s || (s = {}))
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = n(41),
+        i = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }();
+    e.a = function(t) {
+        function e() {
+            return null !== t && t.apply(this, arguments) || this
+        }
+        return i(e, t), e.prototype.render = function(t) {
+            var e = "height:" + (t.conf.wrapperHeight - 60) + "px;",
+                n = 0;
+            return Object(r.b)("ol", {
+                class: "chat",
+                style: e
+            }, t.messages.map(function(e) {
+                var i = Object(r.b)(o.a, {
+                    message: e,
+                    calculatedTimeout: n,
+                    messageHandler: t.messageHandler,
+                    conf: t.conf
+                });
+                return n += 1e3 * e.timeout, i
+            }))
+        }, e
+    }(r.a)
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = n(42),
+        i = (n.n(o), n(43)),
+        a = n(44),
+        s = n(45),
+        c = n(46),
+        u = n(47),
+        p = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }(),
+        l = {
+            actions: a.a,
+            buttons: u.a,
+            list: c.a,
+            text: i.a,
+            typing_indicator: s.a
+        };
+    e.a = function(t) {
+        function e() {
+            var e = null !== t && t.apply(this, arguments) || this;
+            return e.scrollToBottom = function() {
+                var t = document.getElementById("messageArea");
+                t.scrollTop = t.scrollHeight
+            }, e.messageVisibilityChange = function(t, n) {
+                var r = e.props.message;
+                r.id === t.id && r.visible !== n.visible && (r.visible = n.visible, r.timeout = 0, e.forceUpdate())
+            }, e
+        }
+        return p(e, t), e.prototype.componentDidMount = function() {
+            this.scrollToBottom()
+        }, e.prototype.componentDidUpdate = function() {
+            this.scrollToBottom()
+        }, e.prototype.render = function(t) {
+            var e = new Date,
+                n = t.message,
+                a = new Date(n.time),
+                s = l[n.type] || i.a,
+                c = this.props,
+                u = c.messageHandler,
+                p = c.conf,
+                f = "";
+            !1 !== n.visible && !1 !== n.visibilityChanged || (f += "display:none");
+            var d = t.calculatedTimeout;
+            return Object(r.b)("li", {
+                "data-message-id": n.id,
+                class: n.from,
+                style: f
+            }, Object(r.b)("div", {
+                class: "msg"
+            }, Object(r.b)(s, {
+                onVisibilityChange: this.messageVisibilityChange,
+                message: n,
+                timeout: d,
+                messageHandler: u,
+                conf: p
+            }), t.conf.displayMessageTime ? Object(r.b)("div", {
+                class: "time"
+            }, 864e5 > e.getMilliseconds() - a.getMilliseconds() ? o(a, t.conf.timeFormat) : o(a, t.conf.dateTimeFormat)) : ""))
+        }, e
+    }(r.a)
+}, function(t, e, n) {
+    var r;
+    ! function() {
+        "use strict";
+
+        function o(t, e) {
+            for (t += "", e = e || 2; e > t.length;) t = "0" + t;
+            return t
+        }
+
+        function i(t) {
+            var e = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+            e.setDate(e.getDate() - (e.getDay() + 6) % 7 + 3);
+            var n = new Date(e.getFullYear(), 0, 4);
+            n.setDate(n.getDate() - (n.getDay() + 6) % 7 + 3);
+            var r = e.getTimezoneOffset() - n.getTimezoneOffset();
+            e.setHours(e.getHours() - r);
+            var o = (e - n) / 6048e5;
+            return 1 + Math.floor(o)
+        }
+
+        function a(t) {
+            var e = t.getDay();
+            return 0 === e && (e = 7), e
+        }
+
+        function s(t) {
+            return null === t ? "null" : void 0 === t ? "undefined" : "object" != typeof t ? typeof t : Array.isArray(t) ? "array" : {}.toString.call(t).slice(8, -1).toLowerCase()
+        }
+        var c = function() {
+            var t = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZWN]|"[^"]*"|'[^']*'/g,
+                e = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+                n = /[^-+\dA-Z]/g;
+            return function(r, u, p, l) {
+                if (1 !== arguments.length || "string" !== s(r) || /\d/.test(r) || (u = r, r = void 0), r = r || new Date, r instanceof Date || (r = new Date(r)), isNaN(r)) throw TypeError("Invalid date");
+                u = (c.masks[u] || u || c.masks.default) + "";
+                var f = u.slice(0, 4);
+                "UTC:" !== f && "GMT:" !== f || (u = u.slice(4), p = !0, "GMT:" === f && (l = !0));
+                var d = p ? "getUTC" : "get",
+                    h = r[d + "Date"](),
+                    m = r[d + "Day"](),
+                    y = r[d + "Month"](),
+                    v = r[d + "FullYear"](),
+                    b = r[d + "Hours"](),
+                    g = r[d + "Minutes"](),
+                    _ = r[d + "Seconds"](),
+                    x = r[d + "Milliseconds"](),
+                    w = p ? 0 : r.getTimezoneOffset(),
+                    O = i(r),
+                    C = a(r),
+                    T = {
+                        d: h,
+                        dd: o(h),
+                        ddd: c.i18n.dayNames[m],
+                        dddd: c.i18n.dayNames[m + 7],
+                        m: y + 1,
+                        mm: o(y + 1),
+                        mmm: c.i18n.monthNames[y],
+                        mmmm: c.i18n.monthNames[y + 12],
+                        yy: (v + "").slice(2),
+                        yyyy: v,
+                        h: b % 12 || 12,
+                        hh: o(b % 12 || 12),
+                        H: b,
+                        HH: o(b),
+                        M: g,
+                        MM: o(g),
+                        s: _,
+                        ss: o(_),
+                        l: o(x, 3),
+                        L: o(Math.round(x / 10)),
+                        t: 12 > b ? c.i18n.timeNames[0] : c.i18n.timeNames[1],
+                        tt: 12 > b ? c.i18n.timeNames[2] : c.i18n.timeNames[3],
+                        T: 12 > b ? c.i18n.timeNames[4] : c.i18n.timeNames[5],
+                        TT: 12 > b ? c.i18n.timeNames[6] : c.i18n.timeNames[7],
+                        Z: l ? "GMT" : p ? "UTC" : ((r + "").match(e) || [""]).pop().replace(n, ""),
+                        o: (w > 0 ? "-" : "+") + o(100 * Math.floor(Math.abs(w) / 60) + Math.abs(w) % 60, 4),
+                        S: ["th", "st", "nd", "rd"][h % 10 > 3 ? 0 : (h % 100 - h % 10 != 10) * h % 10],
+                        W: O,
+                        N: C
+                    };
+                return u.replace(t, function(t) {
+                    return t in T ? T[t] : t.slice(1, t.length - 1)
+                })
+            }
+        }();
+        c.masks = {
+            default: "ddd mmm dd yyyy HH:MM:ss",
+            shortDate: "m/d/yy",
+            mediumDate: "mmm d, yyyy",
+            longDate: "mmmm d, yyyy",
+            fullDate: "dddd, mmmm d, yyyy",
+            shortTime: "h:MM TT",
+            mediumTime: "h:MM:ss TT",
+            longTime: "h:MM:ss TT Z",
+            isoDate: "yyyy-mm-dd",
+            isoTime: "HH:MM:ss",
+            isoDateTime: "yyyy-mm-dd'T'HH:MM:sso",
+            isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'",
+            expiresHeaderFormat: "ddd, dd mmm yyyy HH:MM:ss Z"
+        }, c.i18n = {
+            dayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            timeNames: ["a", "p", "am", "pm", "A", "P", "AM", "PM"]
+        }, void 0 !== (r = function() {
+            return c
+        }.call(e, n, e, t)) && (t.exports = r)
+    }()
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = n(8),
+        i = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }();
+    e.a = function(t) {
+        function e() {
+            return null !== t && t.apply(this, arguments) || this
+        }
+        return i(e, t), e.prototype.render = function(t) {
+            var e = t.message,
+                n = e.attachment,
+                o = {
+                    __html: e.text
+                };
+            return Object(r.b)("div", null, Object(r.b)("p", {
+                dangerouslySetInnerHTML: o
+            }), n && "image" === n.type ? Object(r.b)("img", {
+                src: n.url,
+                style: "max-width: 100%;"
+            }) : "", n && "audio" === n.type ? Object(r.b)("audio", {
+                controls: !0,
+                autoPlay: !1,
+                style: "max-width: 100%;"
+            }, Object(r.b)("source", {
+                src: n.url,
+                type: "audio/mp3"
+            })) : "", n && "video" === n.type ? Object(r.b)("video", {
+                height: t.conf.videoHeight,
+                controls: !0,
+                autoPlay: !1,
+                style: "max-width: 100%;"
+            }, Object(r.b)("source", {
+                src: n.url,
+                type: "video/mp4"
+            })) : "")
+        }, e
+    }(o.a)
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = n(9),
+        i = n(8),
+        a = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }();
+    e.a = function(t) {
+        function e() {
+            return null !== t && t.apply(this, arguments) || this
+        }
+        return a(e, t), e.prototype.render = function(t) {
+            var e = this,
+                n = t.message,
+                o = n.actions.map(function(t) {
+                    return Object(r.b)("div", {
+                        class: "btn",
+                        onClick: function() {
+                            return e.performAction(t)
+                        }
+                    }, t.text)
+                });
+            return Object(r.b)("div", null, n.text && Object(r.b)("div", null, n.text), this.state.attachmentsVisible ? Object(r.b)("div", null, o) : "")
+        }, e.prototype.performAction = function(t) {
+            var e = this;
+            o.a.callAPI(t.value, !0, null, function(t) {
+                e.state.attachmentsVisible = !1, e.props.messageHandler({
+                    text: t.text,
+                    type: t.type,
+                    timeout: t.timeout,
+                    actions: t.actions,
+                    attachment: t.attachment,
+                    additionalParameters: t.additionalParameters,
+                    from: "chatbot"
+                })
+            }, null)
+        }, e
+    }(i.a)
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = n(8),
+        i = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }();
+    e.a = function(t) {
+        function e() {
+            var e = null !== t && t.apply(this, arguments) || this;
+            return e.onVisibilityChange = function() {
+                setTimeout(function() {
+                    e.state.visible = !1, e.props.onVisibilityChange(e.props.message, e.state)
+                }, 1e3 * e.props.message.timeout)
+            }, e
+        }
+        return i(e, t), e.prototype.render = function() {
+            return Object(r.b)("div", {
+                class: "loading-dots"
+            }, Object(r.b)("span", {
+                class: "dot"
+            }), Object(r.b)("span", {
+                class: "dot"
+            }), Object(r.b)("span", {
+                class: "dot"
+            }))
+        }, e
+    }(o.a)
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = n(9),
+        i = n(8),
+        a = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }();
+    e.a = function(t) {
+        function e() {
+            return null !== t && t.apply(this, arguments) || this
+        }
+        return a(e, t), e.prototype.getButton = function(t) {
+            var e = this;
+            return "postback" === t.type ? Object(r.b)("div", {
+                class: "btn",
+                onClick: function() {
+                    return e.performAction(t)
+                }
+            }, t.title) : "web_url" === t.type ? Object(r.b)("a", {
+                class: "btn",
+                href: t.url,
+                target: "_blank"
+            }, t.title) : void 0
+        }, e.prototype.render = function(t) {
+            var e = this,
+                n = t.message,
+                o = n.globalButtons.map(function(t) {
+                    return e.getButton(t)
+                }),
+                i = n.elements.map(function(t) {
+                    var n = t.buttons.map(function(t) {
+                        return e.getButton(t)
+                    });
+                    return Object(r.b)("div", {
+                        style: {
+                            minWidth: "200px"
+                        }
+                    }, Object(r.b)("img", {
+                        src: t.image_url
+                    }), Object(r.b)("p", null, t.title), Object(r.b)("p", null, t.subtitle), n)
+                });
+            return Object(r.b)("div", null, Object(r.b)("div", {
+                style: {
+                    overflowX: "scroll",
+                    display: "flex"
+                }
+            }, i), o)
+        }, e.prototype.performAction = function(t) {
+            var e = this;
+            o.a.callAPI(t.payload, !0, null, function(t) {
+                e.props.messageHandler({
+                    text: t.text,
+                    type: t.type,
+                    actions: t.actions,
+                    attachment: t.attachment,
+                    additionalParameters: t.additionalParameters,
+                    from: "chatbot"
+                })
+            }, null)
+        }, e
+    }(i.a)
+}, function(t, e, n) {
+    "use strict";
+    var r = n(1),
+        o = n(9),
+        i = n(8),
+        a = this && this.__extends || function() {
+            var t = Object.setPrototypeOf || {
+                __proto__: []
+            }
+            instanceof Array && function(t, e) {
+                t.__proto__ = e
+            } || function(t, e) {
+                for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n])
+            };
+            return function(e, n) {
+                function r() {
+                    this.constructor = e
+                }
+                t(e, n), e.prototype = null === n ? Object.create(n) : (r.prototype = n.prototype, new r)
+            }
+        }();
+    e.a = function(t) {
+        function e() {
+            return null !== t && t.apply(this, arguments) || this
+        }
+        return a(e, t), e.prototype.render = function(t) {
+            var e = this,
+                n = t.message,
+                o = n.buttons.map(function(t) {
+                    return "postback" === t.type ? Object(r.b)("div", {
+                        class: "btn",
+                        onClick: function() {
+                            return e.performAction(t)
+                        }
+                    }, t.title) : "web_url" === t.type ? Object(r.b)("a", {
+                        class: "btn",
+                        href: t.url,
+                        target: "_blank"
+                    }, t.title) : void 0
+                });
+            return Object(r.b)("div", null, n.text, this.state.attachmentsVisible ? o : "")
+        }, e.prototype.performAction = function(t) {
+            var e = this;
+            o.a.callAPI(t.payload, !0, null, function(t) {
+                e.state.attachmentsVisible = !1, e.props.messageHandler({
+                    text: t.text,
+                    type: t.type,
+                    actions: t.actions,
+                    attachment: t.attachment,
+                    additionalParameters: t.additionalParameters,
+                    from: "chatbot"
+                })
+            }, null)
+        }, e
+    }(i.a)
+}]);

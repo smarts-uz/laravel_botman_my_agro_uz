@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="" />
+
+    <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/js/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/js/chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/js/widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/package/botman-web-widget-0.0.20/package/build/js/widget.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -208,7 +213,7 @@
       <workItem from="1630238412513" duration="1276000" />
       <workItem from="1630239754314" duration="10876000" />
       <workItem from="1630251434065" duration="4754000" />
-      <workItem from="1630305301117" duration="2941000" />
+      <workItem from="1630305301117" duration="5485000" />
     </task>
     <servers />
   </component>

@@ -26,7 +26,7 @@
             justify-content:center;
             height: 100vh;
             align-items:center;
-            
+
         }
         .start-btn{
             text-decoration:none;
@@ -48,6 +48,19 @@
         .chat-box {
             width: 100%;height: 20%;padding: 0.2rem 1rem;display: flex;align-items: center;overflow-y: auto;
         }
+
+        .button {
+            width: 96%;
+            height: 59px;
+            position: absolute;
+            bottom: 1px;
+            background-color: greenyellow;
+            font-size: 20px;
+            color: red;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
         .input-area {
             display: flex;
             align-items: center;
@@ -67,45 +80,23 @@
         }
     </style>
 </head>
-<body>
-    <div class="input-area"></div>
-</div>
 
-<script>
-
-    let ull = document.getElementsByClassName('btn')
-    for(let i of ull) {
-        if(i.textContent == "") {
-            i.style.display = "none"
-        }
-    }
-    let wrappInp = document.getElementsByClassName('input-area')
-    let ul = document.getElementsByClassName('ChatLog')
-    let ChatInput = document.getElementsByClassName('ChatInput')
-    let attachment = document.getElementsByTagName('label')
-    let wrap = ChatInput[0].parentElement
-    attachment[0].classList.add('fas')
-    attachment[0].classList.add('fa-paper-plane')
-
-     ChatInput[0].value = '/start'
-    wrappInp[0].appendChild(ChatInput[0])
-    wrappInp[0].appendChild(attachment[0])
-</script>
-
-</body>
-
-<script>
-    let div = document.getElementById('botmanWidgetRoot')
-    console.log(div)
-</script>
-  
-    <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css">
 
 
 
-</link>
+</body>
+    <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css"/>
+
+
+    <form  action="{{route('fileUpload')}}" id="form" method="post" style="display: none" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="file" onchange="this.form.submit();" class="custom-file-input" id="chooseFile">
+    </form>
+    </div>
+
     <script>
 	    var botmanWidget = {
+            frameEndpoint: "chat.html",
             aboutLink: 'https://agro.uz',
 	        aboutText: 'AgroChat',
             introMessage: '⚖️  Qishloq xo\'jaligi vazirligi va vazirlikning elektron resurslaridan foydalanuvchi jismoniy va yuridik shaxslar o\'rtasida onlayn muloqot tizimiga hush kelibsiz.<br>📝  Iltimos asosiy elektron pochta (E-Mail) manzilingizni kiriting.<br>-----------------------------------------------------------<br>⚖️  Добро пожаловать в систему онлайн взаимодействия между Министерством сельского хозяйства РУз и пользователями электронных ресурсов министерства.<br>📝 Пожалуйста, введите ваш основной адрес электронной почты (E-Mail).',
@@ -113,6 +104,6 @@
 			placeholderText: "S E N D   M E S S A G E ........"
 	    };
     </script>
-
-    <script src='/package/botman-web-widget-0.0.20/package/build/js/widget.js'></script>
+    <script src='/package/build/js/widget.js'></script>
+    <body>
 </html>
