@@ -149,7 +149,7 @@ class ButtonConversation extends Conversation
                             if($x == true) {
                                 $this->user_mamory["phone"] = $phone->getText();
                                 $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
-                                    $x = preg_match('/^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
+                                    $x = preg_match('/^([a-zA-Z0-9_\.-]+)@([\da-zA-Z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
                                     if($x == true) {
                                         $this->user_mamory["email"] = $email->getText();
                                         $this->askAction();

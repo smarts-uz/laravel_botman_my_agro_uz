@@ -21,6 +21,7 @@ use App\services\SmsService\SmsService;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
+use App\Models\QuestionText;
 const LANGUAGE = ["uz", "ru"];
 const QUESTIONS = [
     'ASK_LANGUAGE' => ['uz' => 'Tilni tanlang', 'ru'=>'Выберите язык '],
@@ -34,7 +35,7 @@ const QUESTIONS = [
     'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
     'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
     'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности ']],
-    
+
     // 'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер '],
 ];
 const KEY_INDIVIDUALS = [
@@ -58,6 +59,57 @@ class RealConversation extends Conversation
     public $language;
     public $usertype;
     protected $verify;
+    public $questions = [
+        'ASK_LANGUAGE' => ['uz' => 'Tilni tanlang', 'ru'=>'Выберите язык '],
+        'ASK_LANGUAGE1' => ['uz' => 'Ro\'yxatdan o\'tish', 'ru'=>'Зарегистрироваться '],
+        'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! '],
+        'ASK_NAME' => ['uz' => 'F.I.O','ru' => 'Ф.И.О '],
+        'ASK_PHONE' => ['uz' => 'Telefon raqamingiz', 'ru'=>'Номер телефона'],
+        'ASK_EMAIL' => ['uz' => 'Asosiy elektron poshtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
+        'ASK_ACTION' => ['uz' => 'Bo\'limni tanlang!', 'ru'=>'Выберите действие! '],
+        'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
+        'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
+        'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
+        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности ']],
+    ];
+    public function __construct()
+    {
+        $this->questions["ASK_LANGUAGE"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
+
+        $this->questions["ASK_LANGUAGE"]["uz"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
+
+
+        $this->questions["ASK_QUESTION"]["uz"] = QuestionText::where('name', 'ASK_QUESTION')->first()->uz;
+        $this->questions["ASK_QUESTION"]["ru"] = QuestionText::where('name', 'ASK_QUESTION')->first()->ru;
+
+        $this->questions["ASK_INDIVIDUAL"]["uz"] = QuestionText::where('name', 'ASK_INDIVIDUAL')->first()->uz;
+        $this->questions["ASK_INDIVIDUAL"]["ru"] = QuestionText::where('name', 'ASK_INDIVIDUAL')->first()->ru;
+
+        $this->questions["ASK_ACTION"]["uz"] = QuestionText::where('name', 'ASK_ACTION')->first()->uz;
+        $this->questions["ASK_ACTION"]["ru"] = QuestionText::where('name', 'ASK_ACTION')->first()->ru;
+
+        $this->questions["ASK_NAME"]["uz"] = QuestionText::where('name', 'ASK_NAME')->first()->uz;
+        $this->questions["ASK_NAME"]["ru"] = QuestionText::where('name', 'ASK_NAME')->first()->ru;
+
+        $this->questions["ASK_PHONE"]["uz"] = QuestionText::where('name', 'ASK_PHONE')->first()->uz;
+        $this->questions["ASK_PHONE"]["ru"] = QuestionText::where('name', 'ASK_PHONE')->first()->ru;
+
+        $this->questions["ASK_EMAIL"]["uz"] = QuestionText::where('name', 'ASK_EMAIL')->first()->uz;
+        $this->questions["ASK_EMAIL"]["ru"] = QuestionText::where('name', 'ASK_EMAIL')->first()->ru;
+
+        $this->questions["ASK_REGION"]["uz"] = QuestionText::where('name', 'ASK_REGION')->first()->uz;
+        $this->questions["ASK_REGION"]["ru"] = QuestionText::where('name', 'ASK_REGION')->first()->ru;
+
+        $this->questions["ASK_ROUTE"]["uz"] = QuestionText::where('name', 'ASK_ROUTE')->first()->uz;
+        $this->questions["ASK_ROUTE"]["ru"] = QuestionText::where('name', 'ASK_ROUTE')->first()->ru;
+
+        $this->questions["SAY_INCORRECT_FORMAT"]["uz"] = QuestionText::where('name', 'SAY_INCORRECT_FORMAT')->first()->uz;
+        $this->questions["SAY_INCORRECT_FORMAT"]["ru"] = QuestionText::where('name', 'SAY_INCORRECT_FORMAT')->first()->ru;
+
+        $this->questions["SAY_INCORRECT_CODE"]["uz"] = QuestionText::where('name', 'SAY_INCORRECT_CODE')->first()->uz;
+        $this->questions["SAY_INCORRECT_CODE"]["ru"] = QuestionText::where('name', 'SAY_INCORRECT_CODE')->first()->ru;
+
+    }
     public function ContactKeyboard()
     {
         return Keyboard::create()
@@ -72,7 +124,7 @@ class RealConversation extends Conversation
         foreach (LANGUAGE as $key) {
             array_push($ar,Button::create($key)->value($key));
         }
-        return Question::create(QUESTIONS["ASK_LANGUAGE"]["uz"])
+        return Question::create($this->questions["ASK_LANGUAGE"])
         ->addButtons($ar);
     }
     public function keyUserType(){
@@ -89,7 +141,7 @@ class RealConversation extends Conversation
         foreach ($actions as $key) {
             array_push($ar,Button::create($key["uz"])->value($key["id"]));
         }
-        return Question::create(QUESTIONS["ASK_ACTION"][$this->language])
+        return Question::create($this->questions["ASK_ACTION"][$this->language])
         ->addButtons($ar);
     }
     public function keyRegions(){
@@ -98,7 +150,7 @@ class RealConversation extends Conversation
         foreach ($regions as $key) {
             array_push($ar,Button::create($key[$this->language])->value($key["id"]));
         }
-        return Question::create(QUESTIONS["ASK_REGION"][$this->language])
+        return Question::create($this->questions["ASK_REGION"][$this->language])
         ->addButtons($ar);
     }
     public function keyRoutes(){
@@ -107,7 +159,7 @@ class RealConversation extends Conversation
         foreach ($routes as $key) {
             array_push($ar,Button::create($key[$this->language])->value($key["id"]));
         }
-        return Question::create(QUESTIONS["ASK_ROUTE"][$this->language])
+        return Question::create($this->questions["ASK_ROUTE"][$this->language])
         ->addButtons($ar);
     }
 
@@ -127,7 +179,7 @@ class RealConversation extends Conversation
         });
     }
     public function askAppeal(){
-        $this->ask("Savol yuboring", function($conversation){
+        $this->ask($this->questions["ASK_QUESTION"][$this->language], function($conversation){
             if ($conversation->getText() != "tugat") {
                 $this->memory["answer"] = $conversation->getText();
 
@@ -205,28 +257,29 @@ class RealConversation extends Conversation
     public function fillUserData(User $user){
 
     }
-    
+
     public function askEmail(){
-        $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
+        $this->ask($this->questions["ASK_EMAIL"][$this->language], function ($email) {
             $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
             if($x == true) {
                 $this->user_mamory["email"] = $email->getText();
                 $user = User::where('email', $this->user_mamory["email"])->first();
                 if($user) $this->UserLogin(); else $this->askUserType();
             }elseif ($x == false) {
-                $this->say("incorrect format");
+                $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
+
             }
         });
     }
     public function askPhone(){
-        $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
+        $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
             $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
             if($x == true) {
                 $this->user_mamory["phone"] = $phone->getText();
                 $this->verifyPhone();
             }elseif ($x == false) {
-                $this->say("incorrect format");
+                $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
             }
 
@@ -236,21 +289,21 @@ class RealConversation extends Conversation
         $this->verify = $this->generatePass(4);
         $smsSender = new SmsService();
         $smsSender->send('998'.$this->user_mamory["phone"], $this->verify);
-        $this->ask('Telefonga yuborilgan smsni tasdiqlang', function($verifycode){
+        $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function($verifycode){
             Log::info($this->verify);
             if($verifycode == $this->verify){
                 $this->UserLogin();
 
             } else {
-                $this->say("Kod notogri");
+                $this->say($this->questions["SAY_INCORRECT_CODE"][$this->language]);
                 $this->repeat();
             }
         });
-        
+
     }
     public function askName(){
         $this->ask(
-            QUESTIONS["ASK_NAME"][$this->language],
+            $this->questions["ASK_NAME"][$this->language],
             function ($name) {
             $this->user_mamory["name"] = $name->getText();
             $this->askPhone();
@@ -258,7 +311,7 @@ class RealConversation extends Conversation
         );
     }
     public function askUser(){
-        
+
             $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask2) {
@@ -266,7 +319,7 @@ class RealConversation extends Conversation
                     $this->askName();
                 });
             });
-        
+
     }
     public function askUserType(){
         $this->ask($this->keyUserType(), function($usertype){
@@ -276,16 +329,16 @@ class RealConversation extends Conversation
             } else $this->repeat();
         });
     }
-    
-    
-   
-    
 
 
-    
 
-        
-   
+
+
+
+
+
+
+
     public function askEnd() {
         $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
         $this->ask($question, function ($answer) {
