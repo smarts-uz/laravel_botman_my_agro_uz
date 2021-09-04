@@ -9,6 +9,8 @@ use App\Http\Controllers\NotificationController;
 use App\Services\Mailer\MailService;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\HelperController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,3 +60,5 @@ Route::view("form", "form");
 Route::post("/form/send", [FormController::class,"run"]);
 Route::get('/', [FileUpload::class, 'createForm']);
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
+
+Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');

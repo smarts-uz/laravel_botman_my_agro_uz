@@ -84,7 +84,6 @@
 
 
 
-</body>
     <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css"/>
 
 
@@ -94,7 +93,7 @@
     </form>
     </div>
 
-    <script>
+    {{-- <script>
 	    var botmanWidget = {
             frameEndpoint: "chat.html",
             aboutLink: 'https://agro.uz',
@@ -103,7 +102,8 @@
 			title: "AgroChat",
 			placeholderText: "S E N D   M E S S A G E ........"
 	    };
-    </script>
+    </script> --}}
     <script src='/package/build/js/widget.js'></script>
-    <body>
+    <script src='/js/botmanJS.php'></script>
+
 </html>
