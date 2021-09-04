@@ -1064,6 +1064,7 @@ let apps;
             }
             (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
             var e = {};
+            console.log(e);
             try {
                 e = JSON.parse(o("settings", "{}"));
             } catch (t) {}
@@ -1497,19 +1498,19 @@ let apps;
 
 
 
-        apps =
-            {
-                x: `<button id="myapp">start gsdfgdfg</button>`
-            }
-        ;
+        // apps =
+        //     {
+        //         x: `<button id="myapp">start gsdfgdfg</button>`
+        //     }
+        // ;
         var o = {
-            chatServer: "/botman",
-            frameEndpoint: "/botman/chat",
+            chatServer: window.location.href+"/botman",
+            frameEndpoint: window.location.href+"/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             title: "BotMan Widget",
             cookieValidInDays: 1,
-            introMessage: apps.x,
+            introMessage: "Salom bu yerda into",
             placeholderText: "",
             displayMessageTime: !0,
             sendWidgetOpenedEvent: !1,

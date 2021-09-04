@@ -85,14 +85,15 @@
 
 
 </body>
-    <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css">
-</link>
+    <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css"/>
+
 
     <form  action="{{route('fileUpload')}}" id="form" method="post" style="display: none" enctype="multipart/form-data">
         @csrf
         <input type="file" name="file" onchange="this.form.submit();" class="custom-file-input" id="chooseFile">
     </form>
     </div>
+
     <script>
 	    var botmanWidget = {
             bubbleBackground: "red",

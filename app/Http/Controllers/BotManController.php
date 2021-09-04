@@ -6,6 +6,9 @@ use BotMan\BotMan\BotMan;
 use Illuminate\Http\Request;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use App\Conversations\ButtonConversation;
+use App\Conversations\RealConversation;
+
+
 class BotManController extends Controller
 {
     /**
@@ -17,7 +20,8 @@ class BotManController extends Controller
         $botman = app('botman');
 
         $botman->hears('(.*)', function ($bot) {
-            $bot->startConversation(new ButtonConversation());
+            $bot->startConversation(new RealConversation());
+           
         });
         $botman->listen();
     }
