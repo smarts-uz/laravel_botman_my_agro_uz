@@ -95,6 +95,8 @@
     </div>
     <script>
 	    var botmanWidget = {
+            bubbleBackground: "red",
+            bubbleAvatarUrl: 'css/patric.jpg',
             frameEndpoint: "chat.html",
             aboutLink: 'https://agro.uz',
 	        aboutText: 'AgroChat',

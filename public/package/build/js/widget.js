@@ -1516,7 +1516,7 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: "#408591",
             headerTextColor: "#333",
-            bubbleBackground: "#408591",
+            bubbleAvatarUrl: "patric.jpg",
             bubbleAvatarUrl: "",
             desktopHeight: 450,
             desktopWidth: 370,
