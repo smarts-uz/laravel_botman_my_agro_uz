@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
     if($row['key'] == 'chatbot.chat_title' ) $title = $row['value'];
     if($row['key'] == 'chatbot.chat_intro_message' ) $intro = $row['value'];
     if($row['key'] == 'chatbot.placeholder_text' ) $placeText = $row['value'];
-    if($row['key'] == 'chatbot.icon' ) $icon = addslashes($row['value']);
+    if($row['key'] == 'chatbot.icon_image' ) $icon = addslashes($row['value']);
 
 
   }
