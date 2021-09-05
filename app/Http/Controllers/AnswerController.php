@@ -15,6 +15,7 @@ use TCG\Voyager\Events\BreadUpdated;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\VoyagerBreadController;
 use App\Models\Appeal;
+use App\Models\User;
 class AnswerController extends VoyagerBreadController
 
 {
@@ -39,6 +40,10 @@ class AnswerController extends VoyagerBreadController
         return redirect()->route('voyager.appeals.index');
     }
     public function sendAnswer($appeal){
+        $appealObj = Appeal::where('id', $appeal)->first();
+        $author = $appealObj->user_id;
+        $user = User::where('id', $author)->first();
+
         Appeal::where('id', $appeal)->update(['to_User' => '1']);
         return redirect()->route('voyager.appeals.index');
     }
