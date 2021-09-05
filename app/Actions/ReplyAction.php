@@ -7,7 +7,7 @@ use TCG\Voyager\Actions\AbstractAction;
 
 class ReplyAction extends AbstractAction {
     public function getTitle(){
-        return "Reply";
+        return "Send";
     }
     public function getIcon(){
         return 'voyager-double-right';
