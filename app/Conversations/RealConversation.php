@@ -219,17 +219,35 @@ class RealConversation extends Conversation
         if(!$user){
             $this->memory["pass"] = $this->generatePass();
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
-
-
-            $user = User::create([
-                'name' => $this->user_mamory["name"],
-                'role_id' => 2,
-                'phone' => $this->user_mamory["phone"],
-                'individual' => $this->user_mamory["usertype"],
-                'remember_token' => $this->generatePass(32),
-                "email" => $this->user_mamory["email"],
-                "password" => Hash::make($this->memory["pass"])
-            ]);
+            
+            Log::info($this->user_mamory["phone"]);
+            if($this->user_mamory["usertype"] == 0){
+                $user = User::create([
+                    'name' => $this->user_mamory["name"],
+                    'role_id' => 2,
+                    'phone' => $this->user_mamory["phone"],
+                    'individual' => $this->user_mamory["usertype"],
+                    'remember_token' => $this->generatePass(32),
+                    "email" => $this->user_mamory["email"],
+                    "password" => Hash::make($this->memory["pass"]),
+                    "individual" => $this->user_mamory["usertype"],
+                    "place_of_work" =>  $this->memory["data"]["a"],
+                    "position" =>  $this->memory["data"]["b"]
+                ]);
+            } else {
+                $user = User::create([
+                    'name' => $this->user_mamory["name"],
+                    'role_id' => 2,
+                    'phone' => $this->user_mamory["phone"],
+                    'individual' => $this->user_mamory["usertype"],
+                    'remember_token' => $this->generatePass(32),
+                    "email" => $this->user_mamory["email"],
+                    "password" => Hash::make($this->memory["pass"]),
+                    "individual" => $this->user_mamory["usertype"],
+                    "organization" =>  $this->memory["data"]["a"],
+                    "activity" =>  $this->memory["data"]["b"]
+                ]);
+            }
             $text = 'Login: ' . $this->user_mamory["email"].' Parol:'. $this->memory["pass"];
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
@@ -241,6 +259,10 @@ class RealConversation extends Conversation
 
 
         } else {
+            $this->user_mamory["usertype"] = $user->individeual;
+            $this->user_mamory["phone"] = $user->phone;
+            $this->user_mamory["name"] = $user->name;
+
             // $this->fillUserData($user);
         }
         $this->user_mamory["id"] = $user->id;
@@ -334,7 +356,9 @@ class RealConversation extends Conversation
 
 
     public function askEnd() {
+        $this->say('F.I.O: '.$this->user_mamory["name"].'<br>Murojaat turi: '.$this->memory["action"].'<br> Viloyat: '.$this->memory["region"].'<br> Yo`nalish: '.$this->memory["route"].'<br> E-mail: '.$this->user_mamory["email"].'<br> Tel: '.$this->user_mamory["phone"].'<br> ');
         $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
+        
         $this->ask($question, function ($answer) {
             if($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() == "ha") {
