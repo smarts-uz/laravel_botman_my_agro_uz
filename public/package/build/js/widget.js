@@ -10,17 +10,22 @@ let apps;
     (e.m = t),
         (e.c = n),
         (e.d = function (t, n, o) {
-            e.o(t, n) || Object.defineProperty(t, n, { configurable: !1, enumerable: !0, get: o });
+            e.o(t, n) ||
+                Object.defineProperty(t, n, {
+                    configurable: !1,
+                    enumerable: !0,
+                    get: o,
+                });
         }),
         (e.n = function (t) {
             var n =
                 t && t.__esModule
                     ? function () {
-                        return t.default;
-                    }
+                          return t.default;
+                      }
                     : function () {
-                        return t;
-                    };
+                          return t;
+                      };
             return e.d(n, "a", n), n;
         }),
         (e.o = function (t, e) {
@@ -41,7 +46,9 @@ let apps;
             return "undefined" != typeof FormData && t instanceof FormData;
         }
         function a(t) {
-            return "undefined" != typeof ArrayBuffer && ArrayBuffer.isView ? ArrayBuffer.isView(t) : t && t.buffer && t.buffer instanceof ArrayBuffer;
+            return "undefined" != typeof ArrayBuffer && ArrayBuffer.isView
+                ? ArrayBuffer.isView(t)
+                : t && t.buffer && t.buffer instanceof ArrayBuffer;
         }
         function s(t) {
             return "string" == typeof t;
@@ -71,24 +78,41 @@ let apps;
             return p(t) && h(t.pipe);
         }
         function b(t) {
-            return "undefined" != typeof URLSearchParams && t instanceof URLSearchParams;
+            return (
+                "undefined" != typeof URLSearchParams &&
+                t instanceof URLSearchParams
+            );
         }
         function v(t) {
             return t.replace(/^\s*/, "").replace(/\s*$/, "");
         }
         function g() {
-            return ("undefined" == typeof navigator || "ReactNative" !== navigator.product) && "undefined" != typeof window && "undefined" != typeof document;
+            return (
+                ("undefined" == typeof navigator ||
+                    "ReactNative" !== navigator.product) &&
+                "undefined" != typeof window &&
+                "undefined" != typeof document
+            );
         }
         function y(t, e) {
             if (null !== t && void 0 !== t)
-                if (("object" != typeof t && (t = [t]), o(t))) for (var n = 0, r = t.length; r > n; n++) e.call(null, t[n], n, t);
-                else for (var i in t) Object.prototype.hasOwnProperty.call(t, i) && e.call(null, t[i], i, t);
+                if (("object" != typeof t && (t = [t]), o(t)))
+                    for (var n = 0, r = t.length; r > n; n++)
+                        e.call(null, t[n], n, t);
+                else
+                    for (var i in t)
+                        Object.prototype.hasOwnProperty.call(t, i) &&
+                            e.call(null, t[i], i, t);
         }
         function w() {
             function t(t, n) {
-                e[n] = "object" == typeof e[n] && "object" == typeof t ? w(e[n], t) : t;
+                e[n] =
+                    "object" == typeof e[n] && "object" == typeof t
+                        ? w(e[n], t)
+                        : t;
             }
-            for (var e = {}, n = 0, o = arguments.length; o > n; n++) y(arguments[n], t);
+            for (var e = {}, n = 0, o = arguments.length; o > n; n++)
+                y(arguments[n], t);
             return e;
         }
         function x(t, e, n) {
@@ -96,7 +120,7 @@ let apps;
                 y(e, function (e, o) {
                     t[o] = n && "function" == typeof e ? _(e, n) : e;
                 }),
-                    t
+                t
             );
         }
         var _ = n(3),
@@ -135,22 +159,48 @@ let apps;
                 a,
                 s = R;
             for (a = arguments.length; a-- > 2; ) U.push(arguments[a]);
-            for (e && null != e.children && (U.length || U.push(e.children), delete e.children); U.length; )
-                if ((r = U.pop()) && void 0 !== r.pop) for (a = r.length; a--; ) U.push(r[a]);
+            for (
+                e &&
+                null != e.children &&
+                (U.length || U.push(e.children), delete e.children);
+                U.length;
+
+            )
+                if ((r = U.pop()) && void 0 !== r.pop)
+                    for (a = r.length; a--; ) U.push(r[a]);
                 else
                     "boolean" == typeof r && (r = null),
-                    (i = "function" != typeof t) && (null == r ? (r = "") : "number" == typeof r ? (r += "") : "string" != typeof r && (i = !1)),
-                        i && n ? (s[s.length - 1] += r) : s === R ? (s = [r]) : s.push(r),
+                        (i = "function" != typeof t) &&
+                            (null == r
+                                ? (r = "")
+                                : "number" == typeof r
+                                ? (r += "")
+                                : "string" != typeof r && (i = !1)),
+                        i && n
+                            ? (s[s.length - 1] += r)
+                            : s === R
+                            ? (s = [r])
+                            : s.push(r),
                         (n = i);
             var c = new o();
-            return (c.nodeName = t), (c.children = s), (c.attributes = null == e ? void 0 : e), (c.key = null == e ? void 0 : e.key), void 0 !== T.vnode && T.vnode(c), c;
+            return (
+                (c.nodeName = t),
+                (c.children = s),
+                (c.attributes = null == e ? void 0 : e),
+                (c.key = null == e ? void 0 : e.key),
+                void 0 !== T.vnode && T.vnode(c),
+                c
+            );
         }
         function i(t, e) {
             for (var n in e) t[n] = e[n];
             return t;
         }
         function a(t) {
-            !t._dirty && (t._dirty = !0) && 1 == M.push(t) && (T.debounceRendering || P)(s);
+            !t._dirty &&
+                (t._dirty = !0) &&
+                1 == M.push(t) &&
+                (T.debounceRendering || P)(s);
         }
         function s() {
             var t,
@@ -158,10 +208,17 @@ let apps;
             for (M = []; (t = e.pop()); ) t._dirty && S(t);
         }
         function c(t, e, n) {
-            return "string" == typeof e || "number" == typeof e ? void 0 !== t.splitText : "string" == typeof e.nodeName ? !t._componentConstructor && u(t, e.nodeName) : n || t._componentConstructor === e.nodeName;
+            return "string" == typeof e || "number" == typeof e
+                ? void 0 !== t.splitText
+                : "string" == typeof e.nodeName
+                ? !t._componentConstructor && u(t, e.nodeName)
+                : n || t._componentConstructor === e.nodeName;
         }
         function u(t, e) {
-            return t.normalizedNodeName === e || t.nodeName.toLowerCase() === e.toLowerCase();
+            return (
+                t.normalizedNodeName === e ||
+                t.nodeName.toLowerCase() === e.toLowerCase()
+            );
         }
         function p(t) {
             var e = i({}, t.attributes);
@@ -171,7 +228,9 @@ let apps;
             return e;
         }
         function f(t, e) {
-            var n = e ? document.createElementNS("http://www.w3.org/2000/svg", t) : document.createElement(t);
+            var n = e
+                ? document.createElementNS("http://www.w3.org/2000/svg", t)
+                : document.createElement(t);
             return (n.normalizedNodeName = t), n;
         }
         function l(t) {
@@ -183,22 +242,48 @@ let apps;
             else if ("ref" === e) n && n(null), o && o(t);
             else if ("class" !== e || r)
                 if ("style" === e) {
-                    if (((o && "string" != typeof o && "string" != typeof n) || (t.style.cssText = o || ""), o && "object" == typeof o)) {
-                        if ("string" != typeof n) for (var i in n) i in o || (t.style[i] = "");
-                        for (var i in o) t.style[i] = "number" == typeof o[i] && !1 === F.test(i) ? o[i] + "px" : o[i];
+                    if (
+                        ((o && "string" != typeof o && "string" != typeof n) ||
+                            (t.style.cssText = o || ""),
+                        o && "object" == typeof o)
+                    ) {
+                        if ("string" != typeof n)
+                            for (var i in n) i in o || (t.style[i] = "");
+                        for (var i in o)
+                            t.style[i] =
+                                "number" == typeof o[i] && !1 === F.test(i)
+                                    ? o[i] + "px"
+                                    : o[i];
                     }
-                } else if ("dangerouslySetInnerHTML" === e) o && (t.innerHTML = o.__html || "");
+                } else if ("dangerouslySetInnerHTML" === e)
+                    o && (t.innerHTML = o.__html || "");
                 else if ("o" == e[0] && "n" == e[1]) {
                     var a = e !== (e = e.replace(/Capture$/, ""));
-                    (e = e.toLowerCase().substring(2)), o ? n || t.addEventListener(e, m, a) : t.removeEventListener(e, m, a), ((t._listeners || (t._listeners = {}))[e] = o);
-                } else if ("list" !== e && "type" !== e && !r && e in t) h(t, e, null == o ? "" : o), (null != o && !1 !== o) || t.removeAttribute(e);
+                    (e = e.toLowerCase().substring(2)),
+                        o
+                            ? n || t.addEventListener(e, m, a)
+                            : t.removeEventListener(e, m, a),
+                        ((t._listeners || (t._listeners = {}))[e] = o);
+                } else if ("list" !== e && "type" !== e && !r && e in t)
+                    h(t, e, null == o ? "" : o),
+                        (null != o && !1 !== o) || t.removeAttribute(e);
                 else {
                     var s = r && e !== (e = e.replace(/^xlink\:?/, ""));
                     null == o || !1 === o
                         ? s
-                        ? t.removeAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase())
-                        : t.removeAttribute(e)
-                        : "function" != typeof o && (s ? t.setAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase(), o) : t.setAttribute(e, o));
+                            ? t.removeAttributeNS(
+                                  "http://www.w3.org/1999/xlink",
+                                  e.toLowerCase()
+                              )
+                            : t.removeAttribute(e)
+                        : "function" != typeof o &&
+                          (s
+                              ? t.setAttributeNS(
+                                    "http://www.w3.org/1999/xlink",
+                                    e.toLowerCase(),
+                                    o
+                                )
+                              : t.setAttribute(e, o));
                 }
             else t.className = o || "";
         }
@@ -211,25 +296,48 @@ let apps;
             return this._listeners[t.type]((T.event && T.event(t)) || t);
         }
         function b() {
-            for (var t; (t = L.pop()); ) T.afterMount && T.afterMount(t), t.componentDidMount && t.componentDidMount();
+            for (var t; (t = L.pop()); )
+                T.afterMount && T.afterMount(t),
+                    t.componentDidMount && t.componentDidMount();
         }
         function v(t, e, n, o, r, i) {
-            q++ || ((H = null != r && void 0 !== r.ownerSVGElement), (z = null != t && !("__preactattr_" in t)));
+            q++ ||
+                ((H = null != r && void 0 !== r.ownerSVGElement),
+                (z = null != t && !("__preactattr_" in t)));
             var a = g(t, e, n, o, i);
-            return r && a.parentNode !== r && r.appendChild(a), --q || ((z = !1), i || b()), a;
+            return (
+                r && a.parentNode !== r && r.appendChild(a),
+                --q || ((z = !1), i || b()),
+                a
+            );
         }
         function g(t, e, n, o, r) {
             var i = t,
                 a = H;
-            if (((null != e && "boolean" != typeof e) || (e = ""), "string" == typeof e || "number" == typeof e))
+            if (
+                ((null != e && "boolean" != typeof e) || (e = ""),
+                "string" == typeof e || "number" == typeof e)
+            )
                 return (
-                    t && void 0 !== t.splitText && t.parentNode && (!t._component || r) ? t.nodeValue != e && (t.nodeValue = e) : ((i = document.createTextNode(e)), t && (t.parentNode && t.parentNode.replaceChild(i, t), w(t, !0))),
-                        (i.__preactattr_ = !0),
-                        i
+                    t &&
+                    void 0 !== t.splitText &&
+                    t.parentNode &&
+                    (!t._component || r)
+                        ? t.nodeValue != e && (t.nodeValue = e)
+                        : ((i = document.createTextNode(e)),
+                          t &&
+                              (t.parentNode && t.parentNode.replaceChild(i, t),
+                              w(t, !0))),
+                    (i.__preactattr_ = !0),
+                    i
                 );
             var s = e.nodeName;
             if ("function" == typeof s) return E(t, e, n, o);
-            if (((H = "svg" === s || ("foreignObject" !== s && H)), (s += ""), (!t || !u(t, s)) && ((i = f(s, H)), t))) {
+            if (
+                ((H = "svg" === s || ("foreignObject" !== s && H)),
+                (s += ""),
+                (!t || !u(t, s)) && ((i = f(s, H)), t))
+            ) {
                 for (; t.firstChild; ) i.appendChild(t.firstChild);
                 t.parentNode && t.parentNode.replaceChild(i, t), w(t, !0);
             }
@@ -238,15 +346,23 @@ let apps;
                 l = e.children;
             if (null == p) {
                 p = i.__preactattr_ = {};
-                for (var d = i.attributes, h = d.length; h--; ) p[d[h].name] = d[h].value;
+                for (var d = i.attributes, h = d.length; h--; )
+                    p[d[h].name] = d[h].value;
             }
             return (
-                !z && l && 1 === l.length && "string" == typeof l[0] && null != c && void 0 !== c.splitText && null == c.nextSibling
+                !z &&
+                l &&
+                1 === l.length &&
+                "string" == typeof l[0] &&
+                null != c &&
+                void 0 !== c.splitText &&
+                null == c.nextSibling
                     ? c.nodeValue != l[0] && (c.nodeValue = l[0])
-                    : ((l && l.length) || null != c) && y(i, l, n, o, z || null != p.dangerouslySetInnerHTML),
-                    _(i, e.attributes, p),
-                    (H = a),
-                    i
+                    : ((l && l.length) || null != c) &&
+                      y(i, l, n, o, z || null != p.dangerouslySetInnerHTML),
+                _(i, e.attributes, p),
+                (H = a),
+                i
             );
         }
         function y(t, e, n, o, r) {
@@ -267,28 +383,60 @@ let apps;
                 for (var _ = 0; v > _; _++) {
                     var O = f[_],
                         C = O.__preactattr_,
-                        j = x && C ? (O._component ? O._component.__key : C.key) : null;
-                    null != j ? (m++, (h[j] = O)) : (C || (void 0 !== O.splitText ? !r || O.nodeValue.trim() : r)) && (d[y++] = O);
+                        j =
+                            x && C
+                                ? O._component
+                                    ? O._component.__key
+                                    : C.key
+                                : null;
+                    null != j
+                        ? (m++, (h[j] = O))
+                        : (C ||
+                              (void 0 !== O.splitText
+                                  ? !r || O.nodeValue.trim()
+                                  : r)) &&
+                          (d[y++] = O);
                 }
             if (0 !== x)
                 for (var _ = 0; x > _; _++) {
                     (u = e[_]), (p = null);
                     var j = u.key;
-                    if (null != j) m && void 0 !== h[j] && ((p = h[j]), (h[j] = void 0), m--);
+                    if (null != j)
+                        m &&
+                            void 0 !== h[j] &&
+                            ((p = h[j]), (h[j] = void 0), m--);
                     else if (!p && y > b)
                         for (i = b; y > i; i++)
                             if (void 0 !== d[i] && c((a = d[i]), u, r)) {
-                                (p = a), (d[i] = void 0), i === y - 1 && y--, i === b && b++;
+                                (p = a),
+                                    (d[i] = void 0),
+                                    i === y - 1 && y--,
+                                    i === b && b++;
                                 break;
                             }
-                    (p = g(p, u, n, o)), (s = f[_]), p && p !== t && p !== s && (null == s ? t.appendChild(p) : p === s.nextSibling ? l(s) : t.insertBefore(p, s));
+                    (p = g(p, u, n, o)),
+                        (s = f[_]),
+                        p &&
+                            p !== t &&
+                            p !== s &&
+                            (null == s
+                                ? t.appendChild(p)
+                                : p === s.nextSibling
+                                ? l(s)
+                                : t.insertBefore(p, s));
                 }
             if (m) for (var _ in h) void 0 !== h[_] && w(h[_], !1);
             for (; y >= b; ) void 0 !== (p = d[y--]) && w(p, !1);
         }
         function w(t, e) {
             var n = t._component;
-            n ? B(n) : (null != t.__preactattr_ && t.__preactattr_.ref && t.__preactattr_.ref(null), (!1 !== e && null != t.__preactattr_) || l(t), x(t));
+            n
+                ? B(n)
+                : (null != t.__preactattr_ &&
+                      t.__preactattr_.ref &&
+                      t.__preactattr_.ref(null),
+                  (!1 !== e && null != t.__preactattr_) || l(t),
+                  x(t));
         }
         function x(t) {
             for (t = t.lastChild; t; ) {
@@ -298,8 +446,17 @@ let apps;
         }
         function _(t, e, n) {
             var o;
-            for (o in n) (e && null != e[o]) || null == n[o] || d(t, o, n[o], (n[o] = void 0), H);
-            for (o in e) "children" === o || "innerHTML" === o || (o in n && e[o] === ("value" === o || "checked" === o ? t[o] : n[o])) || d(t, o, n[o], (n[o] = e[o]), H);
+            for (o in n)
+                (e && null != e[o]) ||
+                    null == n[o] ||
+                    d(t, o, n[o], (n[o] = void 0), H);
+            for (o in e)
+                "children" === o ||
+                    "innerHTML" === o ||
+                    (o in n &&
+                        e[o] ===
+                            ("value" === o || "checked" === o ? t[o] : n[o])) ||
+                    d(t, o, n[o], (n[o] = e[o]), H);
         }
         function O(t) {
             var e = t.constructor.name;
@@ -308,7 +465,12 @@ let apps;
         function C(t, e, n) {
             var o,
                 r = W[t.name];
-            if ((t.prototype && t.prototype.render ? ((o = new t(e, n)), N.call(o, e, n)) : ((o = new N(e, n)), (o.constructor = t), (o.render = j)), r))
+            if (
+                (t.prototype && t.prototype.render
+                    ? ((o = new t(e, n)), N.call(o, e, n))
+                    : ((o = new N(e, n)), (o.constructor = t), (o.render = j)),
+                r)
+            )
                 for (var i = r.length; i--; )
                     if (r[i].constructor === t) {
                         (o.nextBase = r[i].nextBase), r.splice(i, 1);
@@ -321,16 +483,25 @@ let apps;
         }
         function k(t, e, n, o, r) {
             t._disable ||
-            ((t._disable = !0),
-            (t.__ref = e.ref) && delete e.ref,
-            (t.__key = e.key) && delete e.key,
-                !t.base || r ? t.componentWillMount && t.componentWillMount() : t.componentWillReceiveProps && t.componentWillReceiveProps(e, o),
-            o && o !== t.context && (t.prevContext || (t.prevContext = t.context), (t.context = o)),
-            t.prevProps || (t.prevProps = t.props),
+                ((t._disable = !0),
+                (t.__ref = e.ref) && delete e.ref,
+                (t.__key = e.key) && delete e.key,
+                !t.base || r
+                    ? t.componentWillMount && t.componentWillMount()
+                    : t.componentWillReceiveProps &&
+                      t.componentWillReceiveProps(e, o),
+                o &&
+                    o !== t.context &&
+                    (t.prevContext || (t.prevContext = t.context),
+                    (t.context = o)),
+                t.prevProps || (t.prevProps = t.props),
                 (t.props = e),
                 (t._disable = !1),
-            0 !== n && (1 !== n && !1 === T.syncComponentUpdates && t.base ? a(t) : S(t, 1, r)),
-            t.__ref && t.__ref(t));
+                0 !== n &&
+                    (1 !== n && !1 === T.syncComponentUpdates && t.base
+                        ? a(t)
+                        : S(t, 1, r)),
+                t.__ref && t.__ref(t));
         }
         function S(t, e, n, o) {
             if (!t._disable) {
@@ -350,59 +521,130 @@ let apps;
                     _ = !1;
                 if (
                     (m &&
-                    ((t.props = l),
+                        ((t.props = l),
                         (t.state = d),
                         (t.context = h),
-                        2 !== e && t.shouldComponentUpdate && !1 === t.shouldComponentUpdate(c, u, f) ? (_ = !0) : t.componentWillUpdate && t.componentWillUpdate(c, u, f),
+                        2 !== e &&
+                        t.shouldComponentUpdate &&
+                        !1 === t.shouldComponentUpdate(c, u, f)
+                            ? (_ = !0)
+                            : t.componentWillUpdate &&
+                              t.componentWillUpdate(c, u, f),
                         (t.props = c),
                         (t.state = u),
                         (t.context = f)),
-                        (t.prevProps = t.prevState = t.prevContext = t.nextBase = null),
-                        (t._dirty = !1),
-                        !_)
+                    (t.prevProps = t.prevState = t.prevContext = t.nextBase = null),
+                    (t._dirty = !1),
+                    !_)
                 ) {
-                    (r = t.render(c, u, f)), t.getChildContext && (f = i(i({}, f), t.getChildContext()));
+                    (r = t.render(c, u, f)),
+                        t.getChildContext &&
+                            (f = i(i({}, f), t.getChildContext()));
                     var O,
                         j,
                         E = r && r.nodeName;
                     if ("function" == typeof E) {
                         var N = p(r);
                         (a = x),
-                            a && a.constructor === E && N.key == a.__key ? k(a, N, 1, f, !1) : ((O = a), (t._component = a = C(E, N, f)), (a.nextBase = a.nextBase || g), (a._parentComponent = t), k(a, N, 0, f, !1), S(a, 1, n, !0)),
+                            a && a.constructor === E && N.key == a.__key
+                                ? k(a, N, 1, f, !1)
+                                : ((O = a),
+                                  (t._component = a = C(E, N, f)),
+                                  (a.nextBase = a.nextBase || g),
+                                  (a._parentComponent = t),
+                                  k(a, N, 0, f, !1),
+                                  S(a, 1, n, !0)),
                             (j = a.base);
-                    } else (s = y), (O = x), O && (s = t._component = null), (y || 1 === e) && (s && (s._component = null), (j = v(s, r, f, n || !m, y && y.parentNode, !0)));
+                    } else
+                        (s = y),
+                            (O = x),
+                            O && (s = t._component = null),
+                            (y || 1 === e) &&
+                                (s && (s._component = null),
+                                (j = v(
+                                    s,
+                                    r,
+                                    f,
+                                    n || !m,
+                                    y && y.parentNode,
+                                    !0
+                                )));
                     if (y && j !== y && a !== x) {
                         var A = y.parentNode;
-                        A && j !== A && (A.replaceChild(j, y), O || ((y._component = null), w(y, !1)));
+                        A &&
+                            j !== A &&
+                            (A.replaceChild(j, y),
+                            O || ((y._component = null), w(y, !1)));
                     }
                     if ((O && B(O), (t.base = j), j && !o)) {
-                        for (var U = t, R = t; (R = R._parentComponent); ) (U = R).base = j;
-                        (j._component = U), (j._componentConstructor = U.constructor);
+                        for (var U = t, R = t; (R = R._parentComponent); )
+                            (U = R).base = j;
+                        (j._component = U),
+                            (j._componentConstructor = U.constructor);
                     }
                 }
-                if ((!m || n ? L.unshift(t) : _ || (t.componentDidUpdate && t.componentDidUpdate(l, d, h), T.afterUpdate && T.afterUpdate(t)), null != t._renderCallbacks))
-                    for (; t._renderCallbacks.length; ) t._renderCallbacks.pop().call(t);
+                if (
+                    (!m || n
+                        ? L.unshift(t)
+                        : _ ||
+                          (t.componentDidUpdate &&
+                              t.componentDidUpdate(l, d, h),
+                          T.afterUpdate && T.afterUpdate(t)),
+                    null != t._renderCallbacks)
+                )
+                    for (; t._renderCallbacks.length; )
+                        t._renderCallbacks.pop().call(t);
                 q || o || b();
             }
         }
         function E(t, e, n, o) {
-            for (var r = t && t._component, i = r, a = t, s = r && t._componentConstructor === e.nodeName, c = s, u = p(e); r && !c && (r = r._parentComponent); ) c = r.constructor === e.nodeName;
+            for (
+                var r = t && t._component,
+                    i = r,
+                    a = t,
+                    s = r && t._componentConstructor === e.nodeName,
+                    c = s,
+                    u = p(e);
+                r && !c && (r = r._parentComponent);
+
+            )
+                c = r.constructor === e.nodeName;
             return (
                 r && c && (!o || r._component)
                     ? (k(r, u, 3, n, o), (t = r.base))
-                    : (i && !s && (B(i), (t = a = null)), (r = C(e.nodeName, u, n)), t && !r.nextBase && ((r.nextBase = t), (a = null)), k(r, u, 1, n, o), (t = r.base), a && t !== a && ((a._component = null), w(a, !1))),
-                    t
+                    : (i && !s && (B(i), (t = a = null)),
+                      (r = C(e.nodeName, u, n)),
+                      t && !r.nextBase && ((r.nextBase = t), (a = null)),
+                      k(r, u, 1, n, o),
+                      (t = r.base),
+                      a && t !== a && ((a._component = null), w(a, !1))),
+                t
             );
         }
         function B(t) {
             T.beforeUnmount && T.beforeUnmount(t);
             var e = t.base;
-            (t._disable = !0), t.componentWillUnmount && t.componentWillUnmount(), (t.base = null);
+            (t._disable = !0),
+                t.componentWillUnmount && t.componentWillUnmount(),
+                (t.base = null);
             var n = t._component;
-            n ? B(n) : e && (e.__preactattr_ && e.__preactattr_.ref && e.__preactattr_.ref(null), (t.nextBase = e), l(e), O(t), x(e)), t.__ref && t.__ref(null);
+            n
+                ? B(n)
+                : e &&
+                  (e.__preactattr_ &&
+                      e.__preactattr_.ref &&
+                      e.__preactattr_.ref(null),
+                  (t.nextBase = e),
+                  l(e),
+                  O(t),
+                  x(e)),
+                t.__ref && t.__ref(null);
         }
         function N(t, e) {
-            (this._dirty = !0), (this.context = e), (this.props = t), (this.state = this.state || {});
+            (this._dirty = !0),
+                (this.context = e),
+                (this.props = t),
+                (this.state = this.state || {});
         }
         function A(t, e, n) {
             return v(n, t, {}, !1, e, !1);
@@ -419,7 +661,10 @@ let apps;
         var T = {},
             U = [],
             R = [],
-            P = "function" == typeof Promise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout,
+            P =
+                "function" == typeof Promise
+                    ? Promise.resolve().then.bind(Promise.resolve())
+                    : setTimeout,
             F = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i,
             M = [],
             L = [],
@@ -430,10 +675,19 @@ let apps;
         i(N.prototype, {
             setState: function (t, e) {
                 var n = this.state;
-                this.prevState || (this.prevState = i({}, n)), i(n, "function" == typeof t ? t(n, this.props) : t), e && (this._renderCallbacks = this._renderCallbacks || []).push(e), a(this);
+                this.prevState || (this.prevState = i({}, n)),
+                    i(n, "function" == typeof t ? t(n, this.props) : t),
+                    e &&
+                        (this._renderCallbacks =
+                            this._renderCallbacks || []).push(e),
+                    a(this);
             },
             forceUpdate: function (t) {
-                t && (this._renderCallbacks = this._renderCallbacks || []).push(t), S(this, 2);
+                t &&
+                    (this._renderCallbacks = this._renderCallbacks || []).push(
+                        t
+                    ),
+                    S(this, 2);
             },
             render: function () {},
         });
@@ -441,7 +695,9 @@ let apps;
     function (t, e, n) {
         "use strict";
         function o(t, e) {
-            !r.isUndefined(t) && r.isUndefined(t["Content-Type"]) && (t["Content-Type"] = e);
+            !r.isUndefined(t) &&
+                r.isUndefined(t["Content-Type"]) &&
+                (t["Content-Type"] = e);
         }
         var r = n(0),
             i = n(14),
@@ -449,21 +705,36 @@ let apps;
             s = {
                 adapter: (function () {
                     var t;
-                    return "undefined" != typeof XMLHttpRequest ? (t = n(4)) : "undefined" != typeof process && (t = n(4)), t;
+                    return (
+                        "undefined" != typeof XMLHttpRequest
+                            ? (t = n(4))
+                            : "undefined" != typeof process && (t = n(4)),
+                        t
+                    );
                 })(),
                 transformRequest: [
                     function (t, e) {
                         return (
                             i(e, "Content-Type"),
-                                r.isFormData(t) || r.isArrayBuffer(t) || r.isBuffer(t) || r.isStream(t) || r.isFile(t) || r.isBlob(t)
-                                    ? t
-                                    : r.isArrayBufferView(t)
-                                    ? t.buffer
-                                    : r.isURLSearchParams(t)
-                                        ? (o(e, "application/x-www-form-urlencoded;charset=utf-8"), "" + t)
-                                        : r.isObject(t)
-                                            ? (o(e, "application/json;charset=utf-8"), JSON.stringify(t))
-                                            : t
+                            r.isFormData(t) ||
+                            r.isArrayBuffer(t) ||
+                            r.isBuffer(t) ||
+                            r.isStream(t) ||
+                            r.isFile(t) ||
+                            r.isBlob(t)
+                                ? t
+                                : r.isArrayBufferView(t)
+                                ? t.buffer
+                                : r.isURLSearchParams(t)
+                                ? (o(
+                                      e,
+                                      "application/x-www-form-urlencoded;charset=utf-8"
+                                  ),
+                                  "" + t)
+                                : r.isObject(t)
+                                ? (o(e, "application/json;charset=utf-8"),
+                                  JSON.stringify(t))
+                                : t
                         );
                     },
                 ],
@@ -484,7 +755,9 @@ let apps;
                     return t >= 200 && 300 > t;
                 },
             };
-        (s.headers = { common: { Accept: "application/json, text/plain, */*" } }),
+        (s.headers = {
+            common: { Accept: "application/json, text/plain, */*" },
+        }),
             r.forEach(["delete", "get", "head"], function (t) {
                 s.headers[t] = {};
             }),
@@ -497,7 +770,8 @@ let apps;
         "use strict";
         t.exports = function (t, e) {
             return function () {
-                for (var n = Array(arguments.length), o = 0; n.length > o; o++) n[o] = arguments[o];
+                for (var n = Array(arguments.length), o = 0; n.length > o; o++)
+                    n[o] = arguments[o];
                 return t.apply(e, n);
             };
         };
@@ -510,7 +784,11 @@ let apps;
             a = n(18),
             s = n(19),
             c = n(5),
-            u = ("undefined" != typeof window && window.btoa && window.btoa.bind(window)) || n(20);
+            u =
+                ("undefined" != typeof window &&
+                    window.btoa &&
+                    window.btoa.bind(window)) ||
+                n(20);
         t.exports = function (t) {
             return new Promise(function (e, p) {
                 var f = t.data,
@@ -521,63 +799,111 @@ let apps;
                     m = !1;
                 if (
                     ("undefined" == typeof window ||
-                    !window.XDomainRequest ||
-                    "withCredentials" in d ||
-                    s(t.url) ||
-                    ((d = new window.XDomainRequest()), (h = "onload"), (m = !0), (d.onprogress = function () {}), (d.ontimeout = function () {})),
-                        t.auth)
+                        !window.XDomainRequest ||
+                        "withCredentials" in d ||
+                        s(t.url) ||
+                        ((d = new window.XDomainRequest()),
+                        (h = "onload"),
+                        (m = !0),
+                        (d.onprogress = function () {}),
+                        (d.ontimeout = function () {})),
+                    t.auth)
                 ) {
-                    l.Authorization = "Basic " + u((t.auth.username || "") + ":" + (t.auth.password || ""));
+                    l.Authorization =
+                        "Basic " +
+                        u(
+                            (t.auth.username || "") +
+                                ":" +
+                                (t.auth.password || "")
+                        );
                 }
                 if (
-                    (d.open(t.method.toUpperCase(), i(t.url, t.params, t.paramsSerializer), !0),
-                        (d.timeout = t.timeout),
-                        (d[h] = function () {
-                            if (d && (4 === d.readyState || m) && (0 !== d.status || (d.responseURL && 0 === d.responseURL.indexOf("file:")))) {
-                                var n = "getAllResponseHeaders" in d ? a(d.getAllResponseHeaders()) : null;
-                                r(e, p, {
-                                    data: t.responseType && "text" !== t.responseType ? d.response : d.responseText,
-                                    status: 1223 === d.status ? 204 : d.status,
-                                    statusText: 1223 === d.status ? "No Content" : d.statusText,
-                                    headers: n,
-                                    config: t,
-                                    request: d,
-                                }),
-                                    (d = null);
-                            }
-                        }),
-                        (d.onerror = function () {
-                            p(c("Network Error", t, null, d)), (d = null);
-                        }),
-                        (d.ontimeout = function () {
-                            p(c("timeout of " + t.timeout + "ms exceeded", t, "ECONNABORTED", d)), (d = null);
-                        }),
-                        o.isStandardBrowserEnv())
+                    (d.open(
+                        t.method.toUpperCase(),
+                        i(t.url, t.params, t.paramsSerializer),
+                        !0
+                    ),
+                    (d.timeout = t.timeout),
+                    (d[h] = function () {
+                        if (
+                            d &&
+                            (4 === d.readyState || m) &&
+                            (0 !== d.status ||
+                                (d.responseURL &&
+                                    0 === d.responseURL.indexOf("file:")))
+                        ) {
+                            var n =
+                                "getAllResponseHeaders" in d
+                                    ? a(d.getAllResponseHeaders())
+                                    : null;
+                            r(e, p, {
+                                data:
+                                    t.responseType && "text" !== t.responseType
+                                        ? d.response
+                                        : d.responseText,
+                                status: 1223 === d.status ? 204 : d.status,
+                                statusText:
+                                    1223 === d.status
+                                        ? "No Content"
+                                        : d.statusText,
+                                headers: n,
+                                config: t,
+                                request: d,
+                            }),
+                                (d = null);
+                        }
+                    }),
+                    (d.onerror = function () {
+                        p(c("Network Error", t, null, d)), (d = null);
+                    }),
+                    (d.ontimeout = function () {
+                        p(
+                            c(
+                                "timeout of " + t.timeout + "ms exceeded",
+                                t,
+                                "ECONNABORTED",
+                                d
+                            )
+                        ),
+                            (d = null);
+                    }),
+                    o.isStandardBrowserEnv())
                 ) {
                     var b = n(21),
-                        v = (t.withCredentials || s(t.url)) && t.xsrfCookieName ? b.read(t.xsrfCookieName) : void 0;
+                        v =
+                            (t.withCredentials || s(t.url)) && t.xsrfCookieName
+                                ? b.read(t.xsrfCookieName)
+                                : void 0;
                     v && (l[t.xsrfHeaderName] = v);
                 }
                 if (
                     ("setRequestHeader" in d &&
-                    o.forEach(l, function (t, e) {
-                        void 0 === f && "content-type" === e.toLowerCase() ? delete l[e] : d.setRequestHeader(e, t);
-                    }),
+                        o.forEach(l, function (t, e) {
+                            void 0 === f && "content-type" === e.toLowerCase()
+                                ? delete l[e]
+                                : d.setRequestHeader(e, t);
+                        }),
                     t.withCredentials && (d.withCredentials = !0),
-                        t.responseType)
+                    t.responseType)
                 )
                     try {
                         d.responseType = t.responseType;
                     } catch (e) {
                         if ("json" !== t.responseType) throw e;
                     }
-                "function" == typeof t.onDownloadProgress && d.addEventListener("progress", t.onDownloadProgress),
-                "function" == typeof t.onUploadProgress && d.upload && d.upload.addEventListener("progress", t.onUploadProgress),
-                t.cancelToken &&
-                t.cancelToken.promise.then(function (t) {
-                    d && (d.abort(), p(t), (d = null));
-                }),
-                void 0 === f && (f = null),
+                "function" == typeof t.onDownloadProgress &&
+                    d.addEventListener("progress", t.onDownloadProgress),
+                    "function" == typeof t.onUploadProgress &&
+                        d.upload &&
+                        d.upload.addEventListener(
+                            "progress",
+                            t.onUploadProgress
+                        ),
+                    t.cancelToken &&
+                        t.cancelToken.promise.then(function (t) {
+                            d && (d.abort(), p(t), (d = null));
+                        }),
+                    void 0 === f && (f = null),
                     d.send(f);
             });
         };
@@ -640,10 +966,18 @@ let apps;
     },
     function (t) {
         function e(t) {
-            return !!t.constructor && "function" == typeof t.constructor.isBuffer && t.constructor.isBuffer(t);
+            return (
+                !!t.constructor &&
+                "function" == typeof t.constructor.isBuffer &&
+                t.constructor.isBuffer(t)
+            );
         }
         function n(t) {
-            return "function" == typeof t.readFloatLE && "function" == typeof t.slice && e(t.slice(0, 0));
+            return (
+                "function" == typeof t.readFloatLE &&
+                "function" == typeof t.slice &&
+                e(t.slice(0, 0))
+            );
         }
         t.exports = function (t) {
             return null != t && (e(t) || n(t) || !!t._isBuffer);
@@ -652,14 +986,18 @@ let apps;
     function (t, e, n) {
         "use strict";
         function o(t) {
-            (this.defaults = t), (this.interceptors = { request: new a(), response: new a() });
+            (this.defaults = t),
+                (this.interceptors = { request: new a(), response: new a() });
         }
         var r = n(2),
             i = n(0),
             a = n(22),
             s = n(23);
         (o.prototype.request = function (t) {
-            "string" == typeof t && (t = i.merge({ url: arguments[0] }, arguments[1])), (t = i.merge(r, { method: "get" }, this.defaults, t)), (t.method = t.method.toLowerCase());
+            "string" == typeof t &&
+                (t = i.merge({ url: arguments[0] }, arguments[1])),
+                (t = i.merge(r, { method: "get" }, this.defaults, t)),
+                (t.method = t.method.toLowerCase());
             var e = [s, void 0],
                 n = Promise.resolve(t);
             for (
@@ -677,12 +1015,16 @@ let apps;
         }),
             i.forEach(["delete", "get", "head", "options"], function (t) {
                 o.prototype[t] = function (e, n) {
-                    return this.request(i.merge(n || {}, { method: t, url: e }));
+                    return this.request(
+                        i.merge(n || {}, { method: t, url: e })
+                    );
                 };
             }),
             i.forEach(["post", "put", "patch"], function (t) {
                 o.prototype[t] = function (e, n, o) {
-                    return this.request(i.merge(o || {}, { method: t, url: e, data: n }));
+                    return this.request(
+                        i.merge(o || {}, { method: t, url: e, data: n })
+                    );
                 };
             }),
             (t.exports = o);
@@ -692,7 +1034,9 @@ let apps;
         var o = n(0);
         t.exports = function (t, e) {
             o.forEach(t, function (n, o) {
-                o !== e && o.toUpperCase() === e.toUpperCase() && ((t[e] = n), delete t[o]);
+                o !== e &&
+                    o.toUpperCase() === e.toUpperCase() &&
+                    ((t[e] = n), delete t[o]);
             });
         };
     },
@@ -700,21 +1044,44 @@ let apps;
         "use strict";
         var o = n(5);
         t.exports = function (t, e, n) {
-            console.log(n)
+            console.log(n);
             var r = n.config.validateStatus;
-            n.status && r && !r(n.status) ? e(o("Request failed with status code " + n.status, n.config, null, n.request, n)) : t(n);
+            n.status && r && !r(n.status)
+                ? e(
+                      o(
+                          "Request failed with status code " + n.status,
+                          n.config,
+                          null,
+                          n.request,
+                          n
+                      )
+                  )
+                : t(n);
         };
     },
     function (t) {
         "use strict";
         t.exports = function (t, e, n, o, r) {
-            return (t.config = e), n && (t.code = n), (t.request = o), (t.response = r), t;
+            return (
+                (t.config = e),
+                n && (t.code = n),
+                (t.request = o),
+                (t.response = r),
+                t
+            );
         };
     },
     function (t, e, n) {
         "use strict";
         function o(t) {
-            return encodeURIComponent(t).replace(/%40/gi, "@").replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+            return encodeURIComponent(t)
+                .replace(/%40/gi, "@")
+                .replace(/%3A/gi, ":")
+                .replace(/%24/g, "$")
+                .replace(/%2C/gi, ",")
+                .replace(/%20/g, "+")
+                .replace(/%5B/gi, "[")
+                .replace(/%5D/gi, "]");
         }
         var r = n(0);
         t.exports = function (t, e, n) {
@@ -726,10 +1093,13 @@ let apps;
                 var a = [];
                 r.forEach(e, function (t, e) {
                     null !== t &&
-                    void 0 !== t &&
-                    (r.isArray(t) ? (e += "[]") : (t = [t]),
+                        void 0 !== t &&
+                        (r.isArray(t) ? (e += "[]") : (t = [t]),
                         r.forEach(t, function (t) {
-                            r.isDate(t) ? (t = t.toISOString()) : r.isObject(t) && (t = JSON.stringify(t)), a.push(o(e) + "=" + o(t));
+                            r.isDate(t)
+                                ? (t = t.toISOString())
+                                : r.isObject(t) && (t = JSON.stringify(t)),
+                                a.push(o(e) + "=" + o(t));
                         }));
                 }),
                     (i = a.join("&"));
@@ -766,12 +1136,22 @@ let apps;
                 a = {};
             return t
                 ? (o.forEach(t.split("\n"), function (t) {
-                    if (((i = t.indexOf(":")), (e = o.trim(t.substr(0, i)).toLowerCase()), (n = o.trim(t.substr(i + 1))), e)) {
-                        if (a[e] && r.indexOf(e) >= 0) return;
-                        a[e] = "set-cookie" === e ? (a[e] ? a[e] : []).concat([n]) : a[e] ? a[e] + ", " + n : n;
-                    }
-                }),
-                    a)
+                      if (
+                          ((i = t.indexOf(":")),
+                          (e = o.trim(t.substr(0, i)).toLowerCase()),
+                          (n = o.trim(t.substr(i + 1))),
+                          e)
+                      ) {
+                          if (a[e] && r.indexOf(e) >= 0) return;
+                          a[e] =
+                              "set-cookie" === e
+                                  ? (a[e] ? a[e] : []).concat([n])
+                                  : a[e]
+                                  ? a[e] + ", " + n
+                                  : n;
+                      }
+                  }),
+                  a)
                 : a;
         };
     },
@@ -780,39 +1160,46 @@ let apps;
         var o = n(0);
         t.exports = o.isStandardBrowserEnv()
             ? (function () {
-                function t(t) {
-                    var e = t;
-                    return (
-                        n && (r.setAttribute("href", e), (e = r.href)),
-                            r.setAttribute("href", e),
-                            {
-                                href: r.href,
-                                protocol: r.protocol ? r.protocol.replace(/:$/, "") : "",
-                                host: r.host,
-                                search: r.search ? r.search.replace(/^\?/, "") : "",
-                                hash: r.hash ? r.hash.replace(/^#/, "") : "",
-                                hostname: r.hostname,
-                                port: r.port,
-                                pathname: "/" === r.pathname.charAt(0) ? r.pathname : "/" + r.pathname,
-                            }
-                    );
-                }
-                var e,
-                    n = /(msie|trident)/i.test(navigator.userAgent),
-                    r = document.createElement("a");
-                return (
-                    (e = t(window.location.href)),
-                        function (n) {
-                            var r = o.isString(n) ? t(n) : n;
-                            return r.protocol === e.protocol && r.host === e.host;
-                        }
-                );
-            })()
+                  function t(t) {
+                      var e = t;
+                      return (
+                          n && (r.setAttribute("href", e), (e = r.href)),
+                          r.setAttribute("href", e),
+                          {
+                              href: r.href,
+                              protocol: r.protocol
+                                  ? r.protocol.replace(/:$/, "")
+                                  : "",
+                              host: r.host,
+                              search: r.search
+                                  ? r.search.replace(/^\?/, "")
+                                  : "",
+                              hash: r.hash ? r.hash.replace(/^#/, "") : "",
+                              hostname: r.hostname,
+                              port: r.port,
+                              pathname:
+                                  "/" === r.pathname.charAt(0)
+                                      ? r.pathname
+                                      : "/" + r.pathname,
+                          }
+                      );
+                  }
+                  var e,
+                      n = /(msie|trident)/i.test(navigator.userAgent),
+                      r = document.createElement("a");
+                  return (
+                      (e = t(window.location.href)),
+                      function (n) {
+                          var r = o.isString(n) ? t(n) : n;
+                          return r.protocol === e.protocol && r.host === e.host;
+                      }
+                  );
+              })()
             : (function () {
-                return function () {
-                    return !0;
-                };
-            })();
+                  return function () {
+                      return !0;
+                  };
+              })();
     },
     function (t) {
         "use strict";
@@ -820,48 +1207,61 @@ let apps;
             this.message = "String contains an invalid character";
         }
         function n(t) {
-            for (var n, r, i = t + "", a = "", s = 0, c = o; i.charAt(0 | s) || ((c = "="), s % 1); a += c.charAt(63 & (n >> (8 - (s % 1) * 8)))) {
+            for (
+                var n, r, i = t + "", a = "", s = 0, c = o;
+                i.charAt(0 | s) || ((c = "="), s % 1);
+                a += c.charAt(63 & (n >> (8 - (s % 1) * 8)))
+            ) {
                 if ((r = i.charCodeAt((s += 0.75))) > 255) throw new e();
                 n = (n << 8) | r;
             }
             return a;
         }
-        var o = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-        (e.prototype = Error()), (e.prototype.code = 5), (e.prototype.name = "InvalidCharacterError"), (t.exports = n);
+        var o =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        (e.prototype = Error()),
+            (e.prototype.code = 5),
+            (e.prototype.name = "InvalidCharacterError"),
+            (t.exports = n);
     },
     function (t, e, n) {
         "use strict";
         var o = n(0);
         t.exports = o.isStandardBrowserEnv()
             ? (function () {
-                return {
-                    write: function (t, e, n, r, i, a) {
-                        var s = [];
-                        s.push(t + "=" + encodeURIComponent(e)),
-                        o.isNumber(n) && s.push("expires=" + new Date(n).toGMTString()),
-                        o.isString(r) && s.push("path=" + r),
-                        o.isString(i) && s.push("domain=" + i),
-                        !0 === a && s.push("secure"),
-                            (document.cookie = s.join("; "));
-                    },
-                    read: function (t) {
-                        var e = document.cookie.match(RegExp("(^|;\\s*)(" + t + ")=([^;]*)"));
-                        return e ? decodeURIComponent(e[3]) : null;
-                    },
-                    remove: function (t) {
-                        this.write(t, "", Date.now() - 864e5);
-                    },
-                };
-            })()
+                  return {
+                      write: function (t, e, n, r, i, a) {
+                          var s = [];
+                          s.push(t + "=" + encodeURIComponent(e)),
+                              o.isNumber(n) &&
+                                  s.push(
+                                      "expires=" + new Date(n).toGMTString()
+                                  ),
+                              o.isString(r) && s.push("path=" + r),
+                              o.isString(i) && s.push("domain=" + i),
+                              !0 === a && s.push("secure"),
+                              (document.cookie = s.join("; "));
+                      },
+                      read: function (t) {
+                          var e = document.cookie.match(
+                              RegExp("(^|;\\s*)(" + t + ")=([^;]*)")
+                          );
+                          return e ? decodeURIComponent(e[3]) : null;
+                      },
+                      remove: function (t) {
+                          this.write(t, "", Date.now() - 864e5);
+                      },
+                  };
+              })()
             : (function () {
-                return {
-                    write: function () {},
-                    read: function () {
-                        return null;
-                    },
-                    remove: function () {},
-                };
-            })();
+                  return {
+                      write: function () {},
+                      read: function () {
+                          return null;
+                      },
+                      remove: function () {},
+                  };
+              })();
     },
     function (t, e, n) {
         "use strict";
@@ -870,7 +1270,10 @@ let apps;
         }
         var r = n(0);
         (o.prototype.use = function (t, e) {
-            return this.handlers.push({ fulfilled: t, rejected: e }), this.handlers.length - 1;
+            return (
+                this.handlers.push({ fulfilled: t, rejected: e }),
+                this.handlers.length - 1
+            );
         }),
             (o.prototype.eject = function (t) {
                 this.handlers[t] && (this.handlers[t] = null);
@@ -897,20 +1300,46 @@ let apps;
             return (
                 o(t),
                 t.baseURL && !c(t.url) && (t.url = u(t.baseURL, t.url)),
-                    (t.headers = t.headers || {}),
-                    (t.data = i(t.data, t.headers, t.transformRequest)),
-                    (t.headers = r.merge(t.headers.common || {}, t.headers[t.method] || {}, t.headers || {})),
-                    r.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function (e) {
+                (t.headers = t.headers || {}),
+                (t.data = i(t.data, t.headers, t.transformRequest)),
+                (t.headers = r.merge(
+                    t.headers.common || {},
+                    t.headers[t.method] || {},
+                    t.headers || {}
+                )),
+                r.forEach(
+                    ["delete", "get", "head", "post", "put", "patch", "common"],
+                    function (e) {
                         delete t.headers[e];
-                    }),
-                    (t.adapter || s.adapter)(t).then(
-                        function (e) {
-                            return o(t), (e.data = i(e.data, e.headers, t.transformResponse)), e;
-                        },
-                        function (e) {
-                            return a(e) || (o(t), e && e.response && (e.response.data = i(e.response.data, e.response.headers, t.transformResponse))), Promise.reject(e);
-                        }
-                    )
+                    }
+                ),
+                (t.adapter || s.adapter)(t).then(
+                    function (e) {
+                        return (
+                            o(t),
+                            (e.data = i(
+                                e.data,
+                                e.headers,
+                                t.transformResponse
+                            )),
+                            e
+                        );
+                    },
+                    function (e) {
+                        return (
+                            a(e) ||
+                                (o(t),
+                                e &&
+                                    e.response &&
+                                    (e.response.data = i(
+                                        e.response.data,
+                                        e.response.headers,
+                                        t.transformResponse
+                                    ))),
+                            Promise.reject(e)
+                        );
+                    }
+                )
             );
         };
     },
@@ -922,7 +1351,7 @@ let apps;
                 o.forEach(n, function (n) {
                     t = n(t, e);
                 }),
-                    t
+                t
             );
         };
     },
@@ -941,7 +1370,8 @@ let apps;
     function (t, e, n) {
         "use strict";
         function o(t) {
-            if ("function" != typeof t) throw new TypeError("executor must be a function.");
+            if ("function" != typeof t)
+                throw new TypeError("executor must be a function.");
             var e;
             this.promise = new Promise(function (t) {
                 e = t;
@@ -1000,10 +1430,48 @@ let apps;
             n.d(e, "a", function () {
                 return p;
             });
-        var o = { position: "fixed", bottom: "20px", right: "20px", zIndex: 2147483647, borderRadius: "5px", boxSizing: "content-box", boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)", overflow: "hidden" },
-            r = { position: "fixed", bottom: "0px", right: "0px", zIndex: 2147483647, minWidth: "400px", boxSizing: "content-box", overflow: "hidden", minHeight: "120px" },
-            i = { position: "fixed", bottom: "0px", right: "0px", zIndex: 2147483647, minWidth: "400px", boxSizing: "content-box", overflow: "hidden", minHeight: "120px" },
-            a = { position: "fixed", top: 0, right: 0, bottom: 0, left: 0, zIndex: 2147483647, width: "100%", height: "100%", overflowY: "visible", boxSizing: "content-box" },
+        var o = {
+                position: "fixed",
+                bottom: "20px",
+                right: "20px",
+                zIndex: 2147483647,
+                borderRadius: "5px",
+                boxSizing: "content-box",
+                boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
+                overflow: "hidden",
+            },
+            r = {
+                position: "fixed",
+                bottom: "0px",
+                right: "0px",
+                zIndex: 2147483647,
+                minWidth: "400px",
+                boxSizing: "content-box",
+                overflow: "hidden",
+                minHeight: "120px",
+            },
+            i = {
+                position: "fixed",
+                bottom: "0px",
+                right: "0px",
+                zIndex: 2147483647,
+                minWidth: "400px",
+                boxSizing: "content-box",
+                overflow: "hidden",
+                minHeight: "120px",
+            },
+            a = {
+                position: "fixed",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                zIndex: 2147483647,
+                width: "100%",
+                height: "100%",
+                overflowY: "visible",
+                boxSizing: "content-box",
+            },
             s = {
                 height: "40px",
                 lineHeight: "30px",
@@ -1018,51 +1486,77 @@ let apps;
                 mozBoxSizing: "content-box",
                 webkitBoxSizing: "content-box",
             },
-            c = { display: "flex", justifyContent: "center", position: "absolute", top: "38px", right: "20px", height: "60px", width: "60px", border: 0, borderRadius: "50%", boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)" },
-            u = { display: "block", position: "absolute", top: "46px", right: "20px", height: "52px", width: "52px", border: 0, borderRadius: "50%", boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)" },
+            c = {
+                display: "flex",
+                justifyContent: "center",
+                position: "absolute",
+                top: "38px",
+                right: "20px",
+                height: "60px",
+                width: "60px",
+                border: 0,
+                borderRadius: "50%",
+                boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
+            },
+            u = {
+                display: "block",
+                position: "absolute",
+                top: "46px",
+                right: "20px",
+                height: "52px",
+                width: "52px",
+                border: 0,
+                borderRadius: "50%",
+                boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
+            },
             p = { width: "100%", height: "auto", borderRadius: "999px" };
     },
     function (t, e, n) {
         "use strict";
         function o(t, e) {
-            void 0 === e && (e = ""), (t = t.replace(/[[]/, "\\[").replace(/[]]/, "\\]"));
+            void 0 === e && (e = ""),
+                (t = t.replace(/[[]/, "\\[").replace(/[]]/, "\\]"));
             var n = RegExp("[\\?&]" + t + "=([^&#]*)"),
-                o = n.exec(document.getElementById("botmanWidget").getAttribute("src"));
-            return null === o ? e : decodeURIComponent(o[1].replace(/\+/g, " "));
+                o = n.exec(
+                    document.getElementById("botmanWidget").getAttribute("src")
+                );
+            return null === o
+                ? e
+                : decodeURIComponent(o[1].replace(/\+/g, " "));
         }
         function r() {
             var t = document.createElement("div");
-            let isTrust = true
-            let x = document.createElement("button")
+            let isTrust = true;
+            let x = document.createElement("button");
             t.onclick = (e) => {
-                if(isTrust == true) {
-                    isTrust = false
-                    x.textContent = "start"
-                    x.style.width = "96%"
-                    x.style.height = "59px"
-                    x.style.position = "absolute"
-                    x.style.bottom = "1px"
-                    x.style.backgroundColor = "greenyellow"
-                    x.style.border = "none"
-                    x.style.fontSize = "25px"
-                    x.style.fontWeight = "bold"
-                    x.style.borderRadius = "4px"
-                    x.style.cursor = "pointer"
+                if (isTrust == true) {
+                    isTrust = false;
+                    x.textContent = "start";
+                    x.style.width = "96%";
+                    x.style.height = "59px";
+                    x.style.position = "absolute";
+                    x.style.bottom = "1px";
+                    x.style.backgroundColor = "greenyellow";
+                    x.style.border = "none";
+                    x.style.fontSize = "25px";
+                    x.style.fontWeight = "bold";
+                    x.style.borderRadius = "4px";
+                    x.style.cursor = "pointer";
                     // x.style
-                    e.currentTarget.childNodes[0].appendChild(x)
+                    e.currentTarget.childNodes[0].appendChild(x);
 
                     x.onclick = function () {
-                        botmanChatWidget.say('/start');
-                        x.style.display = "none"
-                    }
-
-                }else if(isTrust == false) {
-                    e.currentTarget.childNodes[0].removeChild(x)
-                    x.style.display = "none"
-                    isTrust = true
+                        botmanChatWidget.say("/start");
+                        x.style.display = "none";
+                    };
+                } else if (isTrust == false) {
+                    e.currentTarget.childNodes[0].removeChild(x);
+                    x.style.display = "none";
+                    isTrust = true;
                 }
-            }
-            (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
+            };
+            (t.id = "botmanWidgetRoot"),
+                document.getElementsByTagName("body")[0].appendChild(t);
             var e = {};
             console.log(e);
             try {
@@ -1071,7 +1565,14 @@ let apps;
             var n = window.botmanWidget || {},
                 r = c({}, s.a, e, n),
                 u = r.frameEndpoint;
-            Object(i.c)(Object(i.b)(a.a, { isMobile: 500 > window.screen.width, iFrameSrc: u, conf: r }), t);
+            Object(i.c)(
+                Object(i.b)(a.a, {
+                    isMobile: 500 > window.screen.width,
+                    iFrameSrc: u,
+                    conf: r,
+                }),
+                t
+            );
         }
         Object.defineProperty(e, "__esModule", { value: !0 });
         var i = n(1),
@@ -1083,11 +1584,15 @@ let apps;
                 function (t) {
                     for (var e, n = 1, o = arguments.length; o > n; n++) {
                         e = arguments[n];
-                        for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && (t[r] = e[r]);
+                        for (var r in e)
+                            Object.prototype.hasOwnProperty.call(e, r) &&
+                                (t[r] = e[r]);
                     }
                     return t;
                 };
-        window.attachEvent ? window.attachEvent("onload", r) : window.addEventListener("load", r, !1);
+        window.attachEvent
+            ? window.attachEvent("onload", r)
+            : window.addEventListener("load", r, !1);
     },
     function (t, e, n) {
         "use strict";
@@ -1110,13 +1615,18 @@ let apps;
                                 t.__proto__ = e;
                             }) ||
                         function (t, e) {
-                            for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
+                            for (var n in e)
+                                e.hasOwnProperty(n) && (t[n] = e[n]);
                         };
                     return function (e, n) {
                         function o() {
                             this.constructor = e;
                         }
-                        t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
+                        t(e, n),
+                            (e.prototype =
+                                null === n
+                                    ? Object.create(n)
+                                    : ((o.prototype = n.prototype), new o()));
                     };
                 })(),
             d =
@@ -1125,7 +1635,9 @@ let apps;
                 function (t) {
                     for (var e, n = 1, o = arguments.length; o > n; n++) {
                         e = arguments[n];
-                        for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && (t[r] = e[r]);
+                        for (var r in e)
+                            Object.prototype.hasOwnProperty.call(e, r) &&
+                                (t[r] = e[r]);
                     }
                     return t;
                 };
@@ -1134,75 +1646,138 @@ let apps;
                 var e = t.call(this) || this;
                 return (
                     (e.toggle = function () {
-                        var t = { pristine: !1, isChatOpen: !e.state.isChatOpen, wasChatOpened: e.state.wasChatOpened };
+                        var t = {
+                            pristine: !1,
+                            isChatOpen: !e.state.isChatOpen,
+                            wasChatOpened: e.state.wasChatOpened,
+                        };
                         e.state.isChatOpen ||
-                        e.state.wasChatOpened ||
-                        (e.props.conf.sendWidgetOpenedEvent &&
-                        setTimeout(function () {
-                            e.sendOpenEvent();
-                        }, 500),
+                            e.state.wasChatOpened ||
+                            (e.props.conf.sendWidgetOpenedEvent &&
+                                setTimeout(function () {
+                                    e.sendOpenEvent();
+                                }, 500),
                             (t.wasChatOpened = !0)),
                             e.setState(t);
                     }),
-                        (e.state.isChatOpen = !1),
-                        (e.state.pristine = !0),
-                        (e.state.wasChatOpened = !1),
-                        e
+                    (e.state.isChatOpen = !1),
+                    (e.state.pristine = !0),
+                    (e.state.wasChatOpened = !1),
+                    e
                 );
             }
             return (
                 l(e, t),
-                    (e.prototype.componentDidMount = function () {
-                        window.botmanChatWidget = new p.a(this);
-                    }),
-                    (e.prototype.render = function (t, e) {
-                        var n = t.conf,
-                            o = t.isMobile,
-                            r = e.isChatOpen,
-                            p = e.pristine,
-                            l = { width: o ? n.mobileWidth : n.desktopWidth },
-                            h = window.innerHeight - 100 < n.desktopHeight ? window.innerHeight - 90 : n.desktopHeight;
-                        n.wrapperHeight = h;
-                        var m;
-                        return (
-                            (m = r || (!o && !n.alwaysUseFloatingButton) ? (o ? f.h : (r || this.state.wasChatOpened) && r ? d({}, f.e, l) : d({}, f.c)) : d({}, f.g)),
-                                Object(i.b)(
-                                    "div",
-                                    { style: m },
-                                    (!o && !n.alwaysUseFloatingButton) || r
-                                        ? (r || this.state.wasChatOpened) && r
-                                        ? Object(i.b)(
-                                            "div",
-                                            { style: d({ background: n.mainColor }, f.d), onClick: this.toggle },
-                                            Object(i.b)("div", { style: { display: "flex", alignItems: "center", padding: "0px 30px 0px 0px", fontSize: "15px", fontWeight: "normal", color: n.headerTextColor } }, n.title),
-                                            Object(i.b)(u.a, { isOpened: r })
-                                        )
-                                        : Object(i.b)(c.a, { onClick: this.toggle, conf: n })
-                                        : Object(i.b)(s.a, { onClick: this.toggle, conf: n }),
-                                    Object(i.b)("div", { key: "chatframe", style: { display: r ? "block" : "none", height: o ? n.mobileHeight : h } }, p ? null : Object(i.b)(a.a, d({}, this.props)))
-                                )
-                        );
-                    }),
-                    (e.prototype.open = function () {
-                        this.setState({ pristine: !1, isChatOpen: !0, wasChatOpened: !0 });
-                    }),
-                    (e.prototype.close = function () {
-                        this.setState({ pristine: !1, isChatOpen: !1 });
-                    }),
-                    (e.prototype.sendOpenEvent = function () {
-                        var t = new FormData();
-                        t.append("driver", "web"),
-                            t.append("eventName", "widgetOpened"),
-                            t.append("eventData", this.props.conf.widgetOpenedEventData),
-
-                            r.a.post(this.props.conf.chatServer, t).then(function (t) {
-                                console.log(this.props.conf.chatServer)
-                                (t.data.messages || []).forEach(function (t) {
-                                    window.botmanChatWidget.writeToMessages(t);
-                                });
+                (e.prototype.componentDidMount = function () {
+                    window.botmanChatWidget = new p.a(this);
+                }),
+                (e.prototype.render = function (t, e) {
+                    var n = t.conf,
+                        o = t.isMobile,
+                        r = e.isChatOpen,
+                        p = e.pristine,
+                        l = { width: o ? n.mobileWidth : n.desktopWidth },
+                        h =
+                            window.innerHeight - 100 < n.desktopHeight
+                                ? window.innerHeight - 90
+                                : n.desktopHeight;
+                    n.wrapperHeight = h;
+                    var m;
+                    return (
+                        (m =
+                            r || (!o && !n.alwaysUseFloatingButton)
+                                ? o
+                                    ? f.h
+                                    : (r || this.state.wasChatOpened) && r
+                                    ? d({}, f.e, l)
+                                    : d({}, f.c)
+                                : d({}, f.g)),
+                        Object(i.b)(
+                            "div",
+                            { style: m },
+                            (!o && !n.alwaysUseFloatingButton) || r
+                                ? (r || this.state.wasChatOpened) && r
+                                    ? Object(i.b)(
+                                          "div",
+                                          {
+                                              style: d(
+                                                  { background: n.mainColor },
+                                                  f.d
+                                              ),
+                                              onClick: this.toggle,
+                                          },
+                                          Object(i.b)(
+                                              "div",
+                                              {
+                                                  style: {
+                                                      display: "flex",
+                                                      alignItems: "center",
+                                                      padding:
+                                                          "0px 30px 0px 0px",
+                                                      fontSize: "15px",
+                                                      fontWeight: "normal",
+                                                      color: n.headerTextColor,
+                                                  },
+                                              },
+                                              n.title
+                                          ),
+                                          Object(i.b)(u.a, { isOpened: r })
+                                      )
+                                    : Object(i.b)(c.a, {
+                                          onClick: this.toggle,
+                                          conf: n,
+                                      })
+                                : Object(i.b)(s.a, {
+                                      onClick: this.toggle,
+                                      conf: n,
+                                  }),
+                            Object(i.b)(
+                                "div",
+                                {
+                                    key: "chatframe",
+                                    style: {
+                                        display: r ? "block" : "none",
+                                        height: o ? n.mobileHeight : h,
+                                    },
+                                },
+                                p ? null : Object(i.b)(a.a, d({}, this.props))
+                            )
+                        )
+                    );
+                }),
+                (e.prototype.open = function () {
+                    this.setState({
+                        pristine: !1,
+                        isChatOpen: !0,
+                        wasChatOpened: !0,
+                    });
+                }),
+                (e.prototype.close = function () {
+                    this.setState({ pristine: !1, isChatOpen: !1 });
+                }),
+                (e.prototype.sendOpenEvent = function () {
+                    var t = new FormData();
+                    t.append("driver", "web"),
+                        t.append("eventName", "widgetOpened"),
+                        t.append(
+                            "eventData",
+                            this.props.conf.widgetOpenedEventData
+                        ),
+                        r.a
+                            .post(this.props.conf.chatServer, t)
+                            .then(function (t) {
+                                console
+                                    .log(this.props.conf.chatServer)(
+                                        t.data.messages || []
+                                    )
+                                    .forEach(function (t) {
+                                        window.botmanChatWidget.writeToMessages(
+                                            t
+                                        );
+                                    });
                             });
-                    }),
-                    e
+                }),
+                e
             );
         })(i.a);
     },
@@ -1219,13 +1794,18 @@ let apps;
                                 t.__proto__ = e;
                             }) ||
                         function (t, e) {
-                            for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
+                            for (var n in e)
+                                e.hasOwnProperty(n) && (t[n] = e[n]);
                         };
                     return function (e, n) {
                         function o() {
                             this.constructor = e;
                         }
-                        t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
+                        t(e, n),
+                            (e.prototype =
+                                null === n
+                                    ? Object.create(n)
+                                    : ((o.prototype = n.prototype), new o()));
                     };
                 })(),
             i =
@@ -1234,7 +1814,9 @@ let apps;
                 function (t) {
                     for (var e, n = 1, o = arguments.length; o > n; n++) {
                         e = arguments[n];
-                        for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && (t[r] = e[r]);
+                        for (var r in e)
+                            Object.prototype.hasOwnProperty.call(e, r) &&
+                                (t[r] = e[r]);
                     }
                     return t;
                 };
@@ -1244,18 +1826,26 @@ let apps;
             }
             return (
                 r(e, t),
-                    (e.prototype.shouldComponentUpdate = function () {
-                        return !1;
-                    }),
-                    (e.prototype.render = function (t) {
-                        var e = t.iFrameSrc,
-                            n = t.isMobile,
-                            r = t.conf,
-                            a = window.botmanWidget || {},
-                            s = encodeURIComponent(JSON.stringify(i({}, r, a)));
-                        return Object(o.b)("iframe", { id: "chatBotManFrame", src: e + "?conf=" + s, width: "100%", height: n ? "94%" : "100%", frameBorder: "0", allowTransparency: !0, style: "background-color:transparent" });
-                    }),
-                    e
+                (e.prototype.shouldComponentUpdate = function () {
+                    return !1;
+                }),
+                (e.prototype.render = function (t) {
+                    var e = t.iFrameSrc,
+                        n = t.isMobile,
+                        r = t.conf,
+                        a = window.botmanWidget || {},
+                        s = encodeURIComponent(JSON.stringify(i({}, r, a)));
+                    return Object(o.b)("iframe", {
+                        id: "chatBotManFrame",
+                        src: e + "?conf=" + s,
+                        width: "100%",
+                        height: n ? "94%" : "100%",
+                        frameBorder: "0",
+                        allowTransparency: !0,
+                        style: "background-color:transparent",
+                    });
+                }),
+                e
             );
         })(o.a);
     },
@@ -1273,13 +1863,18 @@ let apps;
                                 t.__proto__ = e;
                             }) ||
                         function (t, e) {
-                            for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
+                            for (var n in e)
+                                e.hasOwnProperty(n) && (t[n] = e[n]);
                         };
                     return function (e, n) {
                         function o() {
                             this.constructor = e;
                         }
-                        t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
+                        t(e, n),
+                            (e.prototype =
+                                null === n
+                                    ? Object.create(n)
+                                    : ((o.prototype = n.prototype), new o()));
                     };
                 })(),
             a =
@@ -1288,7 +1883,9 @@ let apps;
                 function (t) {
                     for (var e, n = 1, o = arguments.length; o > n; n++) {
                         e = arguments[n];
-                        for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && (t[r] = e[r]);
+                        for (var r in e)
+                            Object.prototype.hasOwnProperty.call(e, r) &&
+                                (t[r] = e[r]);
                     }
                     return t;
                 };
@@ -1298,28 +1895,63 @@ let apps;
             }
             return (
                 i(e, t),
-                    (e.prototype.render = function (t) {
-                        var e = t.conf;
-                        return Object(o.b)(
+                (e.prototype.render = function (t) {
+                    var e = t.conf;
+                    return Object(o.b)(
+                        "div",
+                        {
+                            style: { position: "relative", cursor: "pointer" },
+                            onClick: this.props.onClick,
+                        },
+                        Object(o.b)(
                             "div",
-                            { style: { position: "relative", cursor: "pointer" }, onClick: this.props.onClick },
-                            Object(o.b)(
-                                "div",
-                                { className: "mobile-closed-message-avatar", style: a({ background: e.bubbleBackground }, r.f) },
-                                "" === e.bubbleAvatarUrl
-                                    ? Object(o.b)(
-                                    "svg",
-                                    { style: { paddingTop: 4 }, fill: "#FFFFFF", height: "24", viewBox: "0 0 24 24", width: "24", xmlns: "http://www.w3.org/2000/svg" },
-                                    Object(o.b)("path", { d: "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" }),
-                                    Object(o.b)("path", { d: "M0 0h24v24H0z", fill: "none" })
-                                    )
-                                    : -1 !== e.bubbleAvatarUrl.indexOf("/")
-                                    ? Object(o.b)("img", { src: e.bubbleAvatarUrl, style: a({}, r.a) })
-                                    : Object(o.b)("div", { style: { display: "flex", alignItems: "center" } }, Object(o.b)("br", null), e.bubbleAvatarUrl)
-                            )
-                        );
-                    }),
-                    e
+                            {
+                                className: "mobile-closed-message-avatar",
+                                style: a(
+                                    { background: e.bubbleBackground },
+                                    r.f
+                                ),
+                            },
+                            "" === e.bubbleAvatarUrl
+                                ? Object(o.b)(
+                                      "svg",
+                                      {
+                                          style: { paddingTop: 4 },
+                                          fill: "#FFFFFF",
+                                          height: "24",
+                                          viewBox: "0 0 24 24",
+                                          width: "24",
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                      },
+                                      Object(o.b)("path", {
+                                          d:
+                                              "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z",
+                                      }),
+                                      Object(o.b)("path", {
+                                          d: "M0 0h24v24H0z",
+                                          fill: "none",
+                                      })
+                                  )
+                                : -1 !== e.bubbleAvatarUrl.indexOf("/")
+                                ? Object(o.b)("img", {
+                                      src: e.bubbleAvatarUrl,
+                                      style: a({}, r.a),
+                                  })
+                                : Object(o.b)(
+                                      "div",
+                                      {
+                                          style: {
+                                              display: "flex",
+                                              alignItems: "center",
+                                          },
+                                      },
+                                      Object(o.b)("br", null),
+                                      e.bubbleAvatarUrl
+                                  )
+                        )
+                    );
+                }),
+                e
             );
         })(o.a);
     },
@@ -1337,13 +1969,18 @@ let apps;
                                 t.__proto__ = e;
                             }) ||
                         function (t, e) {
-                            for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
+                            for (var n in e)
+                                e.hasOwnProperty(n) && (t[n] = e[n]);
                         };
                     return function (e, n) {
                         function o() {
                             this.constructor = e;
                         }
-                        t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
+                        t(e, n),
+                            (e.prototype =
+                                null === n
+                                    ? Object.create(n)
+                                    : ((o.prototype = n.prototype), new o()));
                     };
                 })(),
             a =
@@ -1352,7 +1989,9 @@ let apps;
                 function (t) {
                     for (var e, n = 1, o = arguments.length; o > n; n++) {
                         e = arguments[n];
-                        for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && (t[r] = e[r]);
+                        for (var r in e)
+                            Object.prototype.hasOwnProperty.call(e, r) &&
+                                (t[r] = e[r]);
                     }
                     return t;
                 };
@@ -1362,31 +2001,62 @@ let apps;
             }
             return (
                 i(e, t),
-                    (e.prototype.render = function (t) {
-                        var e = t.conf;
-                        return Object(o.b)(
+                (e.prototype.render = function (t) {
+                    var e = t.conf;
+                    return Object(o.b)(
+                        "div",
+                        {
+                            style: { position: "relative", cursor: "pointer" },
+                            onClick: this.props.onClick,
+                        },
+                        Object(o.b)(
                             "div",
-                            { style: { position: "relative", cursor: "pointer" }, onClick: this.props.onClick },
-                            Object(o.b)(
-                                "div",
-                                { className: "desktop-closed-message-avatar", style: a({ background: e.bubbleBackground }, r.b) },
-                                "" === e.bubbleAvatarUrl
-                                    ? Object(o.b)(
-                                    "svg",
-                                    { style: { width: "60%", height: "auto" }, width: "1792", height: "1792", viewBox: "0 0 1792 1792", xmlns: "http://www.w3.org/2000/svg" },
-                                    Object(o.b)("path", {
-                                        d:
-                                            "M1664 1504v-768q-32 36-69 66-268 206-426 338-51 43-83 67t-86.5 48.5-102.5 24.5h-2q-48 0-102.5-24.5t-86.5-48.5-83-67q-158-132-426-338-37-30-69-66v768q0 13 9.5 22.5t22.5 9.5h1472q13 0 22.5-9.5t9.5-22.5zm0-1051v-24.5l-.5-13-3-12.5-5.5-9-9-7.5-14-2.5h-1472q-13 0-22.5 9.5t-9.5 22.5q0 168 147 284 193 152 401 317 6 5 35 29.5t46 37.5 44.5 31.5 50.5 27.5 43 9h2q20 0 43-9t50.5-27.5 44.5-31.5 46-37.5 35-29.5q208-165 401-317 54-43 100.5-115.5t46.5-131.5zm128-37v1088q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1472q66 0 113 47t47 113z",
-                                        fill: "#fff",
-                                    })
-                                    )
-                                    : -1 !== e.bubbleAvatarUrl.indexOf("/")
-                                    ? Object(o.b)("img", { src: e.bubbleAvatarUrl, style: a({}, r.a) })
-                                    : Object(o.b)("div", { style: { display: "flex", alignItems: "center" } }, Object(o.b)("br", null), e.bubbleAvatarUrl)
-                            )
-                        );
-                    }),
-                    e
+                            {
+                                className: "desktop-closed-message-avatar",
+                                style: a(
+                                    { background: e.bubbleBackground },
+                                    r.b
+                                ),
+                            },
+                            "" === e.bubbleAvatarUrl
+                                ? Object(o.b)(
+                                      "svg",
+                                      {
+                                          style: {
+                                              width: "60%",
+                                              height: "auto",
+                                          },
+                                          width: "1792",
+                                          height: "1792",
+                                          viewBox: "0 0 1792 1792",
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                      },
+                                      Object(o.b)("path", {
+                                          d:
+                                              "M1664 1504v-768q-32 36-69 66-268 206-426 338-51 43-83 67t-86.5 48.5-102.5 24.5h-2q-48 0-102.5-24.5t-86.5-48.5-83-67q-158-132-426-338-37-30-69-66v768q0 13 9.5 22.5t22.5 9.5h1472q13 0 22.5-9.5t9.5-22.5zm0-1051v-24.5l-.5-13-3-12.5-5.5-9-9-7.5-14-2.5h-1472q-13 0-22.5 9.5t-9.5 22.5q0 168 147 284 193 152 401 317 6 5 35 29.5t46 37.5 44.5 31.5 50.5 27.5 43 9h2q20 0 43-9t50.5-27.5 44.5-31.5 46-37.5 35-29.5q208-165 401-317 54-43 100.5-115.5t46.5-131.5zm128-37v1088q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1472q66 0 113 47t47 113z",
+                                          fill: "#fff",
+                                      })
+                                  )
+                                : -1 !== e.bubbleAvatarUrl.indexOf("/")
+                                ? Object(o.b)("img", {
+                                      src: e.bubbleAvatarUrl,
+                                      style: a({}, r.a),
+                                  })
+                                : Object(o.b)(
+                                      "div",
+                                      {
+                                          style: {
+                                              display: "flex",
+                                              alignItems: "center",
+                                          },
+                                      },
+                                      Object(o.b)("br", null),
+                                      e.bubbleAvatarUrl
+                                  )
+                        )
+                    );
+                }),
+                e
             );
         })(o.a);
     },
@@ -1403,13 +2073,18 @@ let apps;
                                 t.__proto__ = e;
                             }) ||
                         function (t, e) {
-                            for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
+                            for (var n in e)
+                                e.hasOwnProperty(n) && (t[n] = e[n]);
                         };
                     return function (e, n) {
                         function o() {
                             this.constructor = e;
                         }
-                        t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
+                        t(e, n),
+                            (e.prototype =
+                                null === n
+                                    ? Object.create(n)
+                                    : ((o.prototype = n.prototype), new o()));
                     };
                 })();
         e.a = (function (t) {
@@ -1418,32 +2093,69 @@ let apps;
             }
             return (
                 r(e, t),
-                    (e.prototype.render = function (t) {
-                        var e = t.isOpened;
-                        return Object(o.b)(
-                            "div",
-                            null,
-                            e
-                                ? Object(o.b)(
-                                "svg",
-                                { style: { marginRight: 15, marginTop: 6, verticalAlign: "middle" }, fill: "#FFFFFF", height: "15", viewBox: "0 0 15 15", width: "15", xmlns: "http://www.w3.org/2000/svg" },
-                                Object(o.b)("line", { x1: "1", y1: "15", x2: "15", y2: "1", stroke: "white", "stroke-width": "1" }),
-                                Object(o.b)("line", { x1: "1", y1: "1", x2: "15", y2: "15", stroke: "white", "stroke-width": "1" })
-                                )
-                                : Object(o.b)(
-                                "svg",
-                                { style: { marginRight: 15, marginTop: 6, verticalAlign: "middle" }, fill: "#FFFFFF", height: "24", viewBox: "0 0 24 24", width: "24", xmlns: "http://www.w3.org/2000/svg" },
-                                Object(o.b)("path", {
-                                    d: "M2.582 13.891c-0.272 0.268-0.709 0.268-0.979 0s-0.271-0.701 0-0.969l7.908-7.83c0.27-0.268 0.707-0.268 0.979 0l7.908 7.83c0.27 0.268 0.27 0.701 0 0.969s-0.709 0.268-0.978 0l-7.42-7.141-7.418 7.141z",
-                                })
-                                )
-                        );
-                    }),
-                    e
+                (e.prototype.render = function (t) {
+                    var e = t.isOpened;
+                    return Object(o.b)(
+                        "div",
+                        null,
+                        e
+                            ? Object(o.b)(
+                                  "svg",
+                                  {
+                                      style: {
+                                          marginRight: 15,
+                                          marginTop: 6,
+                                          verticalAlign: "middle",
+                                      },
+                                      fill: "#FFFFFF",
+                                      height: "15",
+                                      viewBox: "0 0 15 15",
+                                      width: "15",
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                  },
+                                  Object(o.b)("line", {
+                                      x1: "1",
+                                      y1: "15",
+                                      x2: "15",
+                                      y2: "1",
+                                      stroke: "white",
+                                      "stroke-width": "1",
+                                  }),
+                                  Object(o.b)("line", {
+                                      x1: "1",
+                                      y1: "1",
+                                      x2: "15",
+                                      y2: "15",
+                                      stroke: "white",
+                                      "stroke-width": "1",
+                                  })
+                              )
+                            : Object(o.b)(
+                                  "svg",
+                                  {
+                                      style: {
+                                          marginRight: 15,
+                                          marginTop: 6,
+                                          verticalAlign: "middle",
+                                      },
+                                      fill: "#FFFFFF",
+                                      height: "24",
+                                      viewBox: "0 0 24 24",
+                                      width: "24",
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                  },
+                                  Object(o.b)("path", {
+                                      d:
+                                          "M2.582 13.891c-0.272 0.268-0.709 0.268-0.979 0s-0.271-0.701 0-0.969l7.908-7.83c0.27-0.268 0.707-0.268 0.979 0l7.908 7.83c0.27 0.268 0.27 0.701 0 0.969s-0.709 0.268-0.978 0l-7.42-7.141-7.418 7.141z",
+                                  })
+                              )
+                    );
+                }),
+                e
             );
         })(o.a);
     },
-    function  (t, e) {
+    function (t, e) {
         "use strict";
         e.a = (function () {
             function t(t) {
@@ -1453,50 +2165,55 @@ let apps;
                 (t.prototype.open = function () {
                     this.widget.open();
                 }),
-                    (t.prototype.close = function () {
-                        this.widget.close();
-                    }),
-                    (t.prototype.toggle = function () {
-                        this.widget.toggle();
-                    }),
-                    (t.prototype.isOpen = function () {
-                        return !0 === this.widget.state.isChatOpen;
-                    }),
-                    (t.prototype.callChatWidget = function (t) {
-                        if (this.isOpen()) document.getElementById("chatBotManFrame").contentWindow.postMessage(t, "*");
-                        else
-                            try {
-                                this.open(),
-                                    setTimeout(function () {
-                                        document.getElementById("chatBotManFrame").contentWindow.postMessage(t, "*");
-                                    }, 750);
-                            } catch (t) {}
-                    }),
-                    (t.prototype.writeToMessages = function (t) {
-                        this.callChatWidget({ method: "writeToMessages", params: [t] });
-                    }),
-                    (t.prototype.sayAsBot = function ExampleFunction(t) {
-                        this.callChatWidget({ method: "sayAsBot", params: [t] });
-                    }),
-                    (t.prototype.say = function (t) {
-                        this.callChatWidget({ method: "say", params: [t] });
-                    }),
-                    (t.prototype.whisper = function (t) {
-                        this.callChatWidget({ method: "whisper", params: [t] });
-                    }),
-                    t
+                (t.prototype.close = function () {
+                    this.widget.close();
+                }),
+                (t.prototype.toggle = function () {
+                    this.widget.toggle();
+                }),
+                (t.prototype.isOpen = function () {
+                    return !0 === this.widget.state.isChatOpen;
+                }),
+                (t.prototype.callChatWidget = function (t) {
+                    if (this.isOpen())
+                        document
+                            .getElementById("chatBotManFrame")
+                            .contentWindow.postMessage(t, "*");
+                    else
+                        try {
+                            this.open(),
+                                setTimeout(function () {
+                                    document
+                                        .getElementById("chatBotManFrame")
+                                        .contentWindow.postMessage(t, "*");
+                                }, 750);
+                        } catch (t) {}
+                }),
+                (t.prototype.writeToMessages = function (t) {
+                    this.callChatWidget({
+                        method: "writeToMessages",
+                        params: [t],
+                    });
+                }),
+                (t.prototype.sayAsBot = function ExampleFunction(t) {
+                    this.callChatWidget({ method: "sayAsBot", params: [t] });
+                }),
+                (t.prototype.say = function (t) {
+                    this.callChatWidget({ method: "say", params: [t] });
+                }),
+                (t.prototype.whisper = function (t) {
+                    this.callChatWidget({ method: "whisper", params: [t] });
+                }),
+                t
             );
         })();
     },
 
-    function salom (t, e, n) {
+    function salom(t, e, n) {
         "use strict";
         console.log(t);
         console.log(e);
         console.log(n);
-
-
-
 
         // apps =
         //     {
@@ -1505,8 +2222,8 @@ let apps;
         // ;
         // t.style.backgroundImage = url("https://st4.depositphotos.com/7539960/20561/v/1600/depositphotos_205616206-stock-illustration-pattern-agro-seeds-vector.jpg");
         var o = {
-            chatServer: "https://agromy.teampro.uz/botman",
-            frameEndpoint: "https://agromy.teampro.uz/botman/chat",
+            chatServer: "https://my.agro.uz/botman",
+            frameEndpoint: "https://my.agro.uz/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             title: "Agro.uz",
@@ -1518,7 +2235,7 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: "#408591",
             headerTextColor: "#333",
-            bubbleAvatarUrl: "https://agromy.teampro.uz/images/patric.jpg",
+            bubbleAvatarUrl: "https://my.agro.uz/images/patric.jpg",
             desktopHeight: 450,
             desktopWidth: 370,
             mobileHeight: "100%",
@@ -1536,5 +2253,3 @@ let apps;
         });
     },
 ]);
-
-
