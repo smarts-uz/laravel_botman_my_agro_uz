@@ -76,7 +76,7 @@ class RealConversation extends Conversation
     {
         $this->questions["ASK_LANGUAGE"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
 
-        $this->questions["ASK_LANGUAGE"]["uz"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
+        // $this->questions["ASK_LANGUAGE"]["uz"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
 
 
         $this->questions["ASK_QUESTION"]["uz"] = QuestionText::where('name', 'ASK_QUESTION')->first()->uz;
@@ -108,6 +108,9 @@ class RealConversation extends Conversation
 
         $this->questions["SAY_INCORRECT_CODE"]["uz"] = QuestionText::where('name', 'SAY_INCORRECT_CODE')->first()->uz;
         $this->questions["SAY_INCORRECT_CODE"]["ru"] = QuestionText::where('name', 'SAY_INCORRECT_CODE')->first()->ru;
+        
+        $this->questions["ASK_VERIFY_PHONE"]["uz"] = QuestionText::where('name', 'ASK_VERIFY_PHONE')->first()->uz;
+        $this->questions["ASK_VERIFY_PHONE"]["ru"] = QuestionText::where('name', 'ASK_VERIFY_PHONE')->first()->ru;
 
     }
     public function ContactKeyboard()
