@@ -5,9 +5,9 @@ use App\Models\Appeal;
 use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Actions\AbstractAction;
 
-class ReplyAction extends AbstractAction {
+class SendUser extends AbstractAction {
     public function getTitle(){
-        return "Answer";
+        return "Send";
     }
     public function getIcon(){
         return 'voyager-double-right';
@@ -25,11 +25,11 @@ class ReplyAction extends AbstractAction {
     public function getDefaultRoute()
     {
         // , compact('appeal_id')
-        return route('answer.reply', ['appeal' => $this->data->id]);
+        return route('answer.send', ['appeal' => $this->data->id]);
     }
     public function shouldActionDisplayOnDataType()
     {
-        if(Auth::user()->role->name != "user"){
+        if(Auth::user()->role->name == "moderator"){
             return $this->dataType->slug == 'appeals';
 
         }

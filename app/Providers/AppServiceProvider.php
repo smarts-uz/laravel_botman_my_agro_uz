@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Voyager::addAction(\App\Actions\ReplyAction::class);
         Voyager::addAction(\App\Actions\ResponsibleAction::class);
+        Voyager::addAction(\App\Actions\SendUser::class);
 
     }
 }

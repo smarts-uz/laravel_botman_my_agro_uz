@@ -30,6 +30,7 @@ Route::get('/admin/answer/appeal/{appeal}', [AnswerController::class, 'answer'])
 // Route::get('/admin/appeal/update/{appeal}', [AnswerController::class, 'update'])->name('answer.update');
 Route::get('/admin/redirect/appeal/{appeal}', [AnswerController::class, 'toExpert'])->name('answer.redirect');
 Route::post('/admin/appeal/update/{appeal}', [AnswerController::class, 'updateAnswer'])->name('appeal.update');
+Route::post('/admin/appeal/{appeal}/send', [AnswerController::class, 'sendAnswer'])->name('appeal.send');
 
 
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
