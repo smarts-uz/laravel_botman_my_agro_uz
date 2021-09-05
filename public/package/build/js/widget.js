@@ -1503,9 +1503,10 @@ let apps;
         //         x: `<button id="myapp">start gsdfgdfg</button>`
         //     }
         // ;
+        // t.style.backgroundImage = url("https://st4.depositphotos.com/7539960/20561/v/1600/depositphotos_205616206-stock-illustration-pattern-agro-seeds-vector.jpg");
         var o = {
-            chatServer:"/botman",
-            frameEndpoint: "/botman/chat",
+            chatServer: "https://agromy.teampro.uz/botman",
+            frameEndpoint: "https://agromy.teampro.uz/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             title: "Agro.uz",
@@ -1517,15 +1518,14 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: "#408591",
             headerTextColor: "#333",
-            bubbleAvatarUrl: "patric.jpg",
-            bubbleAvatarUrl: "",
+            bubbleAvatarUrl: "https://agromy.teampro.uz/images/patric.jpg",
             desktopHeight: 450,
             desktopWidth: 370,
             mobileHeight: "100%",
             mobileWidth: "300px",
             videoHeight: 160,
-            aboutLink: "https://botman.io",
-            aboutText: "⚡ Powered by Muhammad",
+            aboutLink: "https://teamprodev.com",
+            aboutText: "⚡ Powered by TEAMPRO",
             chatId: "",
             userId: "",
             alwaysUseFloatingButton: !1,
