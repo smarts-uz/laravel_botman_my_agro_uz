@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
     if($row['key'] == 'chatbot.chat_title' ) $title = $row['value'];
     if($row['key'] == 'chatbot.chat_intro_message' ) $intro = $row['value'];
     if($row['key'] == 'chatbot.placeholder_text' ) $placeText = $row['value'];
-    if($row['key'] == 'chatbot.icon' ) $icon = $row['value'];
+    if($row['key'] == 'chatbot.icon' ) $icon = addslashes($row['value']);
 
 
   }
@@ -37,7 +37,7 @@ $conn->close();
 echo '
             var botmanWidget = {
             frameEndpoint: "https://agromy.teampro.uz/package/build/chat.html",
-            bubbleAvatarUrl: "https://agromy.teampro.uz/'.strval($icon).'",
+            bubbleAvatarUrl: "https://agromy.teampro.uz/storage/'.($icon).'",
             aboutLink: "https://teamprodev.com",
 	          aboutText: "Powered By TEAMPRO",
             introMessage: "'.$intro.'",
@@ -45,8 +45,12 @@ echo '
 			placeholderText: "'.$placeText.'"
 	    };
         ';
-        // $image = "https://dzbc.org/wp-content/uploads/data/2018/2/19/Background.max-x-PIC-MCH043354.jpg";
-// echo ' t = document.getElementById("messageArea");
-//         t.style.backgroundImage = url("'.$image.'");
-//         ';
+        $image = "https://dzbc.org/wp-content/uploads/data/2018/2/19/Background.max-x-PIC-MCH043354.jpg";
+echo ' t = document.getElementById("messageArea");
+        wer = document.getElementById("botmanChatRoot");
+        wer.addEventListener("load", function(){
+          t.style.backgroundImage = url("'.$image.'");
+        });
+        
+        ';
 ?>
