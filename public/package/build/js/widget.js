@@ -1508,7 +1508,7 @@ let apps;
             frameEndpoint: "/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
-            title: "BotMan Widget",
+            title: "Agro.uz",
             cookieValidInDays: 1,
             introMessage: "Salom bu yerda into",
             placeholderText: "",

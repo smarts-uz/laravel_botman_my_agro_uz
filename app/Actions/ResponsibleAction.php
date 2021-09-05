@@ -7,7 +7,7 @@ use TCG\Voyager\Actions\AbstractAction;
 
 class ResponsibleAction extends AbstractAction {
     public function getTitle(){
-        return "Redirect";
+        return "ToExpert";
     }
     public function getIcon(){
         return 'voyager-double-right';
@@ -29,7 +29,7 @@ class ResponsibleAction extends AbstractAction {
     }
     public function shouldActionDisplayOnDataType()
     {
-        if(Auth::user()->role->name != "user"){
+        if(Auth::user()->role->name != "user" && Auth::user()->role->name != "expert"){
             return $this->dataType->slug == 'appeals';
 
         }

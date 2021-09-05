@@ -25,6 +25,7 @@ if ($result->num_rows > 0) {
     if($row['key'] == 'chatbot.chat_title' ) $title = $row['value'];
     if($row['key'] == 'chatbot.chat_intro_message' ) $intro = $row['value'];
     if($row['key'] == 'chatbot.placeholder_text' ) $placeText = $row['value'];
+    if($row['key'] == 'chatbot.icon' ) $icon = $row['value'];
 
 
   }
@@ -37,7 +38,8 @@ echo '
             alert("Hello");
             console.log("Ok");
             var botmanWidget = {
-            frameEndpoint: "chat.html",
+            frameEndpoint: "https://agromy.teampro.uz/chat.html",
+            bubbleAvatarUrl: "patric.jpg",
             aboutLink: "https://teamprodev.com",
 	        aboutText: "Powered By TEAMPRO",
             introMessage: "'.$intro.'",

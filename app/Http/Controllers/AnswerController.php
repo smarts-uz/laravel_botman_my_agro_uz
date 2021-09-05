@@ -26,7 +26,17 @@ class AnswerController extends VoyagerBreadController
     }
     public function update(Request $request, $appeal){
         // dd($request);
-        Appeal::where('id', $appeal)->update(['responsible' => $request->responsible]);
+        Appeal::where('id', $appeal)->update(['to_expert' => 1]);
         return redirect()->route('voyager.appeals.index');
     }
+    public function toExpert($appeal){
+        Appeal::where('id', $appeal)->update(['to_expert' => 1]);
+        return redirect()->route('voyager.appeals.index');
+    }
+    public function updateAnswer(Request $request, $appeal){
+        // dd($request);
+        Appeal::where('id', $appeal)->update(['answer_text' => $request->answer_text, 'to_User' => '1', 'responsible' => $request->user()->id]);
+        return redirect()->route('voyager.appeals.index');
+    }
+
 }

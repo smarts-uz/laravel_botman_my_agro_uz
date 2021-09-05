@@ -12,7 +12,7 @@
 
                     <div class="panel panel-bor dered">
                         <!-- form start -->
-                        <form role="form" class="form-edit-add" action="{{ route('voyager.appeal-answers.store') }}"
+                        <form role="form" class="form-edit-add" action="{{ route('appeal.update', $appeal) }}"
                             method="POST" enctype="multipart/form-data">
                             <!-- PUT Method if we are editing -->
                             @csrf
@@ -27,7 +27,6 @@
 
                                 <div class="form-group col-md-12 ">
 
-                                    <label class="control-label" for="name">Text</label>
                                     {{-- <div id="mceu_17" class="mce-tinymce mce-container mce-panel" hidefocus="1"
                                         tabindex="-1" role="application"
                                         style="visibility: hidden; border-width: 1px; width: 100%;">
@@ -262,7 +261,12 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <textarea class="form-control richTextBox" name="text" id="richtexttext">
+                                    <h3>Question:</h3><br>
+                                    <p>{{ \App\Models\Appeal::where('id', $appeal)->first()->text }}</p>
+                                    <h3><label class="control-label" for="name">Write Answer:</label></h3>
+
+                                    <textarea style="height: 200px;"class="form-control richTextBox" name="answer_text" id="richtexttext" {{ (\Illuminate\Support\Facades\Auth::user()->hasRole('expert')) ? (\App\Models\Appeal::where('id', $appeal)->where('to_expert', '1')->first() ? '' : 'disabled') : '' }}>
+                                        {{ \App\Models\Appeal::where('id', $appeal)->first()->answer_text}}
                                     </textarea>
                                     <input name="user_id" value="{{\App\Models\Appeal::where('id', $appeal)->first()->user_id}}" hidden >
 
