@@ -1531,11 +1531,7 @@ let apps;
             t.onclick = (e) => {
                 if (isTrust == true) {
                     isTrust = false;
-<<<<<<< HEAD
                     x.textContent = "Murojaat yuborish / Отправить обращение.";
-=======
-                    x.textContent = "boshlash / start";
->>>>>>> ede476938830bbe0c169aa3ab0f2cfba88d900f9
                     x.style.width = "100%";
                     x.style.height = "59px";
                     x.style.position = "absolute";
@@ -2233,7 +2229,7 @@ let apps;
             dateTimeFormat: "m/d/yy HH:MM",
             title: "Agro.uz",
             cookieValidInDays: 1,
-            introMessage: "Salom bu yerda into",
+            introMessage: "",
             placeholderText: "",
             displayMessageTime: !0,
             sendWidgetOpenedEvent: !1,
@@ -2247,7 +2243,6 @@ let apps;
             mobileWidth: "300px",
             videoHeight: 160,
             aboutLink: "https://teamprodev.com",
-            aboutText: "⚡ Powered by TEAMPRO",
             chatId: "",
             userId: "",
             alwaysUseFloatingButton: !1,
