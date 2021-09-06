@@ -1531,7 +1531,11 @@ let apps;
             t.onclick = (e) => {
                 if (isTrust == true) {
                     isTrust = false;
+<<<<<<< HEAD
                     x.textContent = "Murojaat yuborish / Отправить обращение.";
+=======
+                    x.textContent = "boshlash / start";
+>>>>>>> ede476938830bbe0c169aa3ab0f2cfba88d900f9
                     x.style.width = "100%";
                     x.style.height = "59px";
                     x.style.position = "absolute";
