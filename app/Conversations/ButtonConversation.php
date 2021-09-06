@@ -29,7 +29,7 @@ const QUESTIONS = [
     'ASK_NAME' => ['uz' => 'F.I.O','ru' => 'Ф.И.О '],
     'ASK_PHONE' => ['uz' => 'Telefon raqamingiz (901234567 formatda)', 'ru'=>'Номер телефона(на формате 901234567)'],
     'ASK_EMAIL' => ['uz' => 'Asosiy elektron pochtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
-    'ASK_ACTION' => ['uz' => 'Bo\'limni tanlang!', 'ru'=>'Выберите действие! '],
+    'ASK_ACTION' => ['uz' => 'Murojaat turini tanlang!', 'ru'=>'Выберите вид обращения'],
     'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
     'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
     'ASK_1' => ['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация '],
