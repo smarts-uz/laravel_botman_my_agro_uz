@@ -1531,14 +1531,14 @@ let apps;
             t.onclick = (e) => {
                 if (isTrust == true) {
                     isTrust = false;
-                    x.textContent = "boshlash / start";
+                    x.textContent = "Murojaat yuborish / Отправить обращение.";
                     x.style.width = "100%";
                     x.style.height = "59px";
                     x.style.position = "absolute";
                     x.style.bottom = "1px";
                     x.style.backgroundColor = "rgb(64, 133, 145)";
                     x.style.border = "none";
-                    x.style.fontSize = "25px";
+                    x.style.fontSize = "15px";
                     x.style.fontWeight = "bold";
                     x.style.borderRadius = "4px";
                     x.style.cursor = "pointer";

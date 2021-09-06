@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
+use App\Services\SmsService\SmsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use TCG\Voyager\Database\Schema\SchemaManager;
@@ -43,7 +46,14 @@ class AnswerController extends VoyagerBreadController
         $appealObj = Appeal::where('id', $appeal)->first();
         $author = $appealObj->user_id;
         $user = User::where('id', $author)->first();
-
+        $text = "sizning murojaatingizga javob berildi, javobni my.agro.uz/admin saytidan appeals bo'limida ko'rishingiz mumkin";
+         $smsSender = new SmsService();
+            $smsSender->send($user->phone, $text);
+            $details = [
+                'title' => 'your answer',
+                'body' => $text
+            ];
+            Mail::to($user->email)->send(new SendMail($details));
         Appeal::where('id', $appeal)->update(['to_User' => '1']);
         return redirect()->route('voyager.appeals.index');
     }

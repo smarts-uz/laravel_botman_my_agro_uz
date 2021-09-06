@@ -242,12 +242,13 @@ class ButtonConversation extends Conversation
                 "email" => $this->user_mamory["email"],
                 "password" => Hash::make($this->memory["pass"])
             ]);
-            $text = 'Login: ' . $this->user_mamory["email"].' Parol:'. $this->memory["pass"];
+            $info = `Adress: http://my.agro.uz/admin`."<br/>" .'Login: ' . $this->user_mamory["email"]. "<br/>".' Parol: '. $this->memory["pass"]."<br/>"."<br/>"."Bizning xizmatimizdan foydalanganingiz uchun tashakkur.";
+            $text = "<br>My.Agro.Uz portalidagi shaxsiy kabinetingizga kirish ma'lumotlari.</br> Ваш доступ к персональному кабинету в портале My.Agro.Uz.<br/>".$info;
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
             $details = [
-                'title' => 'your cabinate login and password',
-                'body' => $text
+                'title' => 'My.Agro.Uz portalidagi shaxsiy kabinetingizga kirish ma`lumotlari',
+                'body' => $info
             ];
             Mail::to($this->user_mamory["email"])->send(new SendMail($details));
 
