@@ -36,8 +36,8 @@ $conn->close();
 
 echo '
             var botmanWidget = {
-            frameEndpoint: "https://agromy.teampro.uz/package/build/chat.html",
-            bubbleAvatarUrl: "https://agromy.teampro.uz/storage/'.($icon).'",
+            frameEndpoint: "https://my.agro.uz/package/build/chat.html",
+            bubbleAvatarUrl: "https://my.agro.uz/storage/'.($icon).'",
             aboutLink: "https://teamprodev.com",
 	          aboutText: "Powered By TEAMPRO",
             introMessage: "'.$intro.'",
