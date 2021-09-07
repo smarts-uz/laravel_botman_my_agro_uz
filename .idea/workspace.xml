@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Conversations/ButtonConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Conversations/ButtonConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Conversations/RealConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Conversations/RealConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/package/build/js/widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/package/build/js/widget.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +211,10 @@
       <workItem from="1630305301117" duration="5485000" />
       <workItem from="1630864363708" duration="1589000" />
       <workItem from="1630903939445" duration="9213000" />
-      <workItem from="1630922535443" duration="2939000" />
+      <workItem from="1630922535443" duration="4608000" />
+      <workItem from="1630990861368" duration="3650000" />
+      <workItem from="1631006615816" duration="3654000" />
+      <workItem from="1631013528922" duration="1204000" />
     </task>
     <servers />
   </component>

@@ -2224,6 +2224,8 @@ let apps;
         // t.style.backgroundImage = url("https://st4.depositphotos.com/7539960/20561/v/1600/depositphotos_205616206-stock-illustration-pattern-agro-seeds-vector.jpg");
         var o = {
             chatServer: "https://my.agro.uz/botman",
+            // frameEndpoint: "https://my.agro.uz/botman/chat",
+            // chatServer: "http://agro.test/botman",
             frameEndpoint: "https://my.agro.uz/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
@@ -2247,7 +2249,6 @@ let apps;
             userId: "",
             alwaysUseFloatingButton: !1,
         };
-
         n.d(e, "a", function () {
             return o;
         });

@@ -231,8 +231,6 @@ class ButtonConversation extends Conversation
         if(!$user){
             $this->memory["pass"] = $this->generatePass();
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
-
-
             $user = User::create([
                 'name' => $this->user_mamory["name"],
                 'role_id' => 2,
@@ -251,9 +249,9 @@ class ButtonConversation extends Conversation
                 'body' => $info
             ];
             Mail::to($this->user_mamory["email"])->send(new SendMail($details));
-
-
         }
+//        else {
+//        }
 
         $this->user_mamory["id"] = $user->id;
         // Auth::login($user);
