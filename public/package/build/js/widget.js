@@ -1036,18 +1036,19 @@ let apps;
             let x = document.createElement("button")
             t.onclick = (e) => {
                 if(isTrust == true) {
-                    isTrust = false
-                    x.textContent = "start"
-                    x.style.width = "96%"
-                    x.style.height = "59px"
-                    x.style.position = "absolute"
-                    x.style.bottom = "1px"
-                    x.style.backgroundColor = "greenyellow"
-                    x.style.border = "none"
-                    x.style.fontSize = "25px"
-                    x.style.fontWeight = "bold"
-                    x.style.borderRadius = "4px"
-                    x.style.cursor = "pointer"
+                    isTrust = false;
+                    x.textContent = "boshlash / start";
+                    x.style.width = "100%";
+                    x.style.height = "59px";
+                    x.style.position = "absolute";
+                    x.style.bottom = "1px";
+                    x.style.backgroundColor = "rgb(64, 133, 145)";
+                    x.style.border = "none";
+                    x.style.fontSize = "25px";
+                    x.style.fontWeight = "bold";
+                    x.style.borderRadius = "4px";
+                    x.style.cursor = "pointer";
+                    x.style.color = "white";
                     // x.style
                     e.currentTarget.childNodes[0].appendChild(x)
 
