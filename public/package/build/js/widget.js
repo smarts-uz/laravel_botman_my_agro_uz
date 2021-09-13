@@ -1540,7 +1540,7 @@ let apps;
                     x.style.border = "none";
                     x.style.fontSize = "15px";
                     x.style.fontWeight = "bold";
-                    x.style.borderRadius = "4px";
+                    x.style.borderRadius = "24px";
                     x.style.cursor = "pointer";
                     x.style.color = "white";
                     // x.style
@@ -1922,7 +1922,7 @@ let apps;
                                           height: "24",
                                           viewBox: "0 0 24 24",
                                           width: "24",
-                                          xmlns: "http://www.w3.org/2000/svg",
+                                          // xmlns: "http://www.w3.org/2000/svg",
                                       },
                                       Object(o.b)("path", {
                                           d:
@@ -2223,10 +2223,8 @@ let apps;
         // ;
         // t.style.backgroundImage = url("https://st4.depositphotos.com/7539960/20561/v/1600/depositphotos_205616206-stock-illustration-pattern-agro-seeds-vector.jpg");
         var o = {
-            chatServer: "https://my.agro.uz/botman",
-            // frameEndpoint: "https://my.agro.uz/botman/chat",
-            // chatServer: "http://agro.test/botman",
-            frameEndpoint: "https://my.agro.uz/botman/chat",
+            chatServer: "/botman",
+            frameEndpoint: "/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             title: "Agro.uz",
@@ -2238,7 +2236,7 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: "#408591",
             headerTextColor: "#333",
-            bubbleAvatarUrl: "https://my.agro.uz/images/patric.jpg",
+            bubbleAvatarUrl: "",
             desktopHeight: 450,
             desktopWidth: 370,
             mobileHeight: "100%",
@@ -2247,7 +2245,7 @@ let apps;
             aboutLink: "https://teamprodev.com",
             chatId: "",
             userId: "",
-            alwaysUseFloatingButton: !1,
+            alwaysUseFloatingButton: !1
         };
         n.d(e, "a", function () {
             return o;

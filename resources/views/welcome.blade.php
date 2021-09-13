@@ -92,7 +92,6 @@
         <input type="file" name="file" onchange="this.form.submit();" class="custom-file-input" id="chooseFile">
     </form>
     </div>
-
     {{-- <script>
 	    var botmanWidget = {
             bubbleBackground: "red",
@@ -105,6 +104,7 @@
 			placeholderText: "S E N D   M E S S A G E ........"
 	    };
     </script> --}}
+
     <script src='/package/build/js/widget.js'></script>
     <script src='/js/botmanJS.php'></script>
 
