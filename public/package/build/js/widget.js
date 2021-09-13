@@ -1035,10 +1035,9 @@ let apps;
             let isTrust = true
             let x = document.createElement("button")
             t.onclick = (e) => {
-<<<<<<< HEAD
                 if(isTrust == true) {
                     isTrust = false
-                    x.textContent = "start"
+                    x.textContent = "Murojaat yuborish / Отправить обращение."
                     x.style.width = "96%"
                     x.style.height = "59px"
                     x.style.position = "absolute"
@@ -1049,22 +1048,6 @@ let apps;
                     x.style.fontWeight = "bold"
                     x.style.borderRadius = "4px"
                     x.style.cursor = "pointer"
-=======
-                if (isTrust == true) {
-                    isTrust = false;
-                    x.textContent = "Murojaat yuborish / Отправить обращение.";
-                    x.style.width = "100%";
-                    x.style.height = "59px";
-                    x.style.position = "absolute";
-                    x.style.bottom = "1px";
-                    x.style.backgroundColor = "rgb(64, 133, 145)";
-                    x.style.border = "none";
-                    x.style.fontSize = "15px";
-                    x.style.fontWeight = "bold";
-                    x.style.borderRadius = "24px";
-                    x.style.cursor = "pointer";
-                    x.style.color = "white";
->>>>>>> df9c9fd5a836df7fd62b0c7cee84a4ce937f7fc4
                     // x.style
                     e.currentTarget.childNodes[0].appendChild(x)
 
@@ -1319,7 +1302,6 @@ let apps;
                         var e = t.conf;
                         return Object(o.b)(
                             "div",
-<<<<<<< HEAD
                             { style: { position: "relative", cursor: "pointer" }, onClick: this.props.onClick },
                             Object(o.b)(
                                 "div",
@@ -1338,55 +1320,6 @@ let apps;
                         );
                     }),
                     e
-=======
-                            {
-                                className: "mobile-closed-message-avatar",
-                                style: a(
-                                    { background: e.bubbleBackground },
-                                    r.f
-                                ),
-                            },
-                            "" === e.bubbleAvatarUrl
-                                ? Object(o.b)(
-                                      "svg",
-                                      {
-                                          style: { paddingTop: 4 },
-                                          fill: "#FFFFFF",
-                                          height: "24",
-                                          viewBox: "0 0 24 24",
-                                          width: "24",
-                                          // xmlns: "http://www.w3.org/2000/svg",
-                                      },
-                                      Object(o.b)("path", {
-                                          d:
-                                              "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z",
-                                      }),
-                                      Object(o.b)("path", {
-                                          d: "M0 0h24v24H0z",
-                                          fill: "none",
-                                      })
-                                  )
-                                : -1 !== e.bubbleAvatarUrl.indexOf("/")
-                                ? Object(o.b)("img", {
-                                      src: e.bubbleAvatarUrl,
-                                      style: a({}, r.a),
-                                  })
-                                : Object(o.b)(
-                                      "div",
-                                      {
-                                          style: {
-                                              display: "flex",
-                                              alignItems: "center",
-                                          },
-                                      },
-                                      Object(o.b)("br", null),
-                                      e.bubbleAvatarUrl
-                                  )
-                        )
-                    );
-                }),
-                e
->>>>>>> df9c9fd5a836df7fd62b0c7cee84a4ce937f7fc4
             );
         })(o.a);
     },
@@ -1571,11 +1504,7 @@ let apps;
         //     }
         // ;
         var o = {
-<<<<<<< HEAD
             chatServer:"/botman",
-=======
-            chatServer: "/botman",
->>>>>>> df9c9fd5a836df7fd62b0c7cee84a4ce937f7fc4
             frameEndpoint: "/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
@@ -1588,22 +1517,13 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: "#408591",
             headerTextColor: "#333",
-<<<<<<< HEAD
-            bubbleAvatarUrl: "patric.jpg",
-=======
->>>>>>> df9c9fd5a836df7fd62b0c7cee84a4ce937f7fc4
             bubbleAvatarUrl: "",
             desktopHeight: 450,
             desktopWidth: 370,
             mobileHeight: "100%",
             mobileWidth: "300px",
             videoHeight: 160,
-<<<<<<< HEAD
-            aboutLink: "https://botman.io",
-            aboutText: "⚡ Powered by Sardor",
-=======
             aboutLink: "https://teamprodev.com",
->>>>>>> df9c9fd5a836df7fd62b0c7cee84a4ce937f7fc4
             chatId: "",
             userId: "",
             alwaysUseFloatingButton: !1

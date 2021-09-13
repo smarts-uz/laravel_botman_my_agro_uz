@@ -93,12 +93,8 @@
         <input type="file" name="file" onchange="this.form.submit();" class="custom-file-input" id="chooseFile">
     </form>
     </div>
-<<<<<<< HEAD
 
     <script>
-=======
-    {{-- <script>
->>>>>>> df9c9fd5a836df7fd62b0c7cee84a4ce937f7fc4
 	    var botmanWidget = {
             bubbleBackground: "red",
             bubbleAvatarUrl: 'css/patric.jpg',
@@ -108,12 +104,7 @@
             introMessage: '⚖️  Qishloq xo\'jaligi vazirligi va vazirlikning elektron resurslaridan foydalanuvchi jismoniy va yuridik shaxslar o\'rtasida onlayn muloqot tizimiga hush kelibsiz.<br>📝  Iltimos asosiy elektron pochta (E-Mail) manzilingizni kiriting.<br>-----------------------------------------------------------<br>⚖️  Добро пожаловать в систему онлайн взаимодействия между Министерством сельского хозяйства РУз и пользователями электронных ресурсов министерства.<br>📝 Пожалуйста, введите ваш основной адрес электронной почты (E-Mail).',
 			placeholderText: "S E N D   M E S S A G E ........"
 	    };
-<<<<<<< HEAD
     </script>
-=======
-    </script> --}}
-
->>>>>>> df9c9fd5a836df7fd62b0c7cee84a4ce937f7fc4
     <script src='/package/build/js/widget.js'></script>
     <body>
 </html>
