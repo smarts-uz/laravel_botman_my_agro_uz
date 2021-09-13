@@ -99,7 +99,7 @@ class RealConversation extends Conversation
 
         $this->questions["SAY_INCORRECT_CODE"]["uz"] = QuestionText::where('name', 'SAY_INCORRECT_CODE')->first()->uz;
         $this->questions["SAY_INCORRECT_CODE"]["ru"] = QuestionText::where('name', 'SAY_INCORRECT_CODE')->first()->ru;
-        
+
         $this->questions["ASK_VERIFY_PHONE"]["uz"] = QuestionText::where('name', 'ASK_VERIFY_PHONE')->first()->uz;
         $this->questions["ASK_VERIFY_PHONE"]["ru"] = QuestionText::where('name', 'ASK_VERIFY_PHONE')->first()->ru;
 
@@ -219,7 +219,7 @@ class RealConversation extends Conversation
         if(!$user){
             $this->memory["pass"] = $this->generatePass();
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
-            
+
             Log::info($this->user_mamory["phone"]);
             if($this->user_mamory["usertype"] == 0){
                 $user = User::create([
@@ -256,15 +256,17 @@ class RealConversation extends Conversation
                 'body' => $text
             ];
             Mail::to($this->user_mamory["email"])->send(new SendMail($details));
-
-
         } else {
             $this->user_mamory["usertype"] = $user->individeual;
             $this->user_mamory["phone"] = $user->phone;
             $this->user_mamory["name"] = $user->name;
-
             // $this->fillUserData($user);
+            $this->verify = $this->generatePass(4);
+            $smsSender = new SmsService();
+            $smsSender->send('998'.$this->user_mamory["phone"],"My.Agro.Uz portali uchun tasdiqlash kodi: ". $this->verify);
+            $this->say(`** *** `.substr($user->phone,-4)." raqamiga tasdiqlash kodi uyuborildi");
         }
+
         $this->user_mamory["id"] = $user->id;
         // Auth::login($user);
 
@@ -304,7 +306,7 @@ class RealConversation extends Conversation
     public function verifyPhone(){
         $this->verify = $this->generatePass(4);
         $smsSender = new SmsService();
-        $smsSender->send('998'.$this->user_mamory["phone"], $this->verify);
+        $smsSender->send('998'.$this->user_mamory["phone"],"My.Agro.Uz portali uchun tasdiqlash kodi: ". $this->verify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function($verifycode){
             Log::info($this->verify);
             if($verifycode == $this->verify){
@@ -358,7 +360,7 @@ class RealConversation extends Conversation
     public function askEnd() {
         $this->say('F.I.O: '.$this->user_mamory["name"].'<br>Murojaat turi: '.$this->memory["action"].'<br> Viloyat: '.$this->memory["region"].'<br> Yo`nalish: '.$this->memory["route"].'<br> E-mail: '.$this->user_mamory["email"].'<br> Tel: '.$this->user_mamory["phone"].'<br> ');
         $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
-        
+
         $this->ask($question, function ($answer) {
             if($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() == "ha") {
