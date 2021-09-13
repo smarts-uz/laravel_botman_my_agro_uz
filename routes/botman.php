@@ -10,6 +10,6 @@ $botman = BotManFactory::create($config);
 
 $botman = resolve('botman');
 
-$botman->hears('(.*)', function ($bot) {
+$botman->hears('/start', function ($bot) {
     $bot->startConversation(new ButtonConversation());
 });

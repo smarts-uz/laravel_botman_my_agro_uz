@@ -1038,16 +1038,17 @@ let apps;
                 if(isTrust == true) {
                     isTrust = false
                     x.textContent = "Murojaat yuborish / Отправить обращение."
-                    x.style.width = "96%"
+                    x.style.width = "100%"
                     x.style.height = "59px"
                     x.style.position = "absolute"
                     x.style.bottom = "1px"
                     x.style.backgroundColor = "#417E76"
                     x.style.border = "none"
-                    x.style.fontSize = "25px"
+                    x.style.fontSize = "15px"
                     x.style.fontWeight = "bold"
                     x.style.borderRadius = "4px"
                     x.style.cursor = "pointer"
+
                     // x.style
                     e.currentTarget.childNodes[0].appendChild(x)
 
