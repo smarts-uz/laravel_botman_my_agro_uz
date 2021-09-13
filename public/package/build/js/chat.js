@@ -1153,7 +1153,7 @@
                     (e.prototype.say = function (t, e) {
                         var n = this;
                         void 0 === e && (e = !0);
-                        var r = { text: t, type: "text", from: "visitor" };
+                        var r = { text: t, type: "text", from: "visitor", style:"background-color:red"};
                         this.botman.callAPI(r.text, !1, null, function (t) {
                             (t.from = "chatbot"), n.writeToMessages(t);
                         }),

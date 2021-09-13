@@ -35,7 +35,7 @@ const QUESTIONS = [
     'ASK_1' => ['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация '],
     'ASK_11' => ['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],
     'ASK_2' =>  ['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],
-    'ASK_22' => ['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности '],
+    'ASK_22' => ['uz' => 'Tashkilot yo\'nalishi', 'ru'=>' Направление деятельности '],
     // 'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер '],
 ];
 const KEY_INDIVIDUALS = [
@@ -282,7 +282,7 @@ class ButtonConversation extends Conversation
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
                     $appeal->save();
-                    $this->say("✅Sizning murojaatingiz belgilangan tartibda ko\'rib chiqiladi va 1-3 kun ichida Qishloq xo\'jaligi vazirligining My.Agro.Uz shaxsiy kabinetiga javob olasiz.");
+                    $this->say("✅Sizning murojaatingiz belgilangan tartibda ko'rib chiqiladi va 1-3 kun ichida Qishloq xo'jaligi vazirligining My.Agro.Uz shaxsiy kabinetiga javob olasiz.");
                 }else {
                     $this->askUserType();
                 }

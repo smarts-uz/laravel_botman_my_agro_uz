@@ -34,7 +34,7 @@ const QUESTIONS = [
     'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
     'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
     'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
-    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности ']],
+    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot yo\'nalishi', 'ru'=>' Направление деятельности ']],
 
     // 'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер '],
 ];
@@ -61,7 +61,7 @@ class RealConversation extends Conversation
         'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
         'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
         'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
-        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности ']],
+        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot yo\'nalishi', 'ru'=>' Направление деятельности ']],
     ];
     public function __construct()
     {
