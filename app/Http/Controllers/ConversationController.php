@@ -11,9 +11,17 @@ class ConversationController extends Controller
         $conversations = Conversation::where('appeal_id', $appeal->id)->get()->sortBy('created_at');
         return view('appeal.chat', compact('conversations', 'appeal'));
     }
-    public function send(Request $request, Appeal $appeal){
-        dd($appeal);
-        return view('appeal.chat');
+    public function send($appeal, Request $request){
+        $con = new Conversation();
+        $con->user_id = $request->user()->id;
+        $con->text = $request->text;
+        $con->appeal_id = $appeal;
+        $request->user()->role == 'user' ? $con->is_answer = 0 : $con->is_answer = 1;
+        $con->is_closed = 0;
+        $con->save();
+        $appeal = Appeal::where('id', $appeal)->first();
+        $conversations = Conversation::where('appeal_id', $appeal->id)->get()->sortBy('created_at');
+        return view('appeal.chat', compact('appeal', 'conversations'));
     }
     public function close(){
 
