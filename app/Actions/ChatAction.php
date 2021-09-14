@@ -5,12 +5,12 @@ use App\Models\Appeal;
 use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Actions\AbstractAction;
 
-class SendUser extends AbstractAction {
+class ChatAction extends AbstractAction {
     public function getTitle(){
-        return "Send";
+        return "Chat";
     }
     public function getIcon(){
-        return 'voyager-double-right';
+        return 'voyager-chat';
     }
     public function getPolicy(){
         return 'read';
@@ -18,19 +18,20 @@ class SendUser extends AbstractAction {
     public function getAttributes()
     {
         return [
-            'class' => 'btn btn-sm btn-primary pull right',
+            'class' => 'btn btn-sm btn-primary pull left',
 
         ];
     }
     public function getDefaultRoute()
     {
         // , compact('appeal_id')
-        return route('answer.send', ['appeal' => $this->data->id]);
+        return route('answer.chat', ['chat' => $this->data->id]);
     }
     public function shouldActionDisplayOnDataType()
     {
-        if(Auth::user()->role->name == "moderator"){
+        // if(Auth::user()->role->name != "user"){
             return $this->dataType->slug == 'appeals';
-        }
+
+        // }
     }
 }

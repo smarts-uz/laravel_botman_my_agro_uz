@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\FileUpload;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,8 +43,10 @@ Route::view('/notification', 'notification');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-});
+    Route::get('/appeal/chat/{chat}', [ChatController::class, 'index'])->name("answer.chat");
+    Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
 
+});
 use Illuminate\Support\Facades\Mail;
 
 Route::get('send-mail', function () {

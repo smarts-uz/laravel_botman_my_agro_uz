@@ -987,7 +987,7 @@
             this.writeToMessages({
                 text: t,
                 type: "text",
-                from: "chatbot"
+                from: "chatbot",
             })
         }, e.prototype.say = function(t, e) {
             var n = this;
@@ -995,7 +995,7 @@
             var r = {
                 text: t,
                 type: "text",
-                from: "visitor"
+                from: "visitor",
             };
             this.botman.callAPI(r.text, !1, null, function(t) {
                 t.from = "chatbot", n.writeToMessages(t)
@@ -1179,6 +1179,7 @@
                 style: f
             }, Object(r.b)("div", {
                 class: "msg"
+                
             }, Object(r.b)(s, {
                 onVisibilityChange: this.messageVisibilityChange,
                 message: n,

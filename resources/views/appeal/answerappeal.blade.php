@@ -286,7 +286,6 @@
                                 <button type="submit" class="btn btn-primary save">Save</button>
                             </div>
                         </form>
-
                         <iframe id="form_target" name="form_target" style="display:none"></iframe>
                         <form id="my_form" action="http://agrochat.local/admin/upload" target="form_target" method="post"
                             enctype="multipart/form-data" style="width:0;height:0;overflow:hidden">

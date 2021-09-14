@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/laravel_botman_chatbot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel_botman_chatbot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="add tasdiqlash">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Conversations/RealConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Conversations/RealConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Actions/SendUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Actions/SendUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/package/build/assets/css/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/package/build/assets/css/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/package/build/js/widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/package/build/js/widget.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/appeal/answerappeal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/appeal/answerappeal.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,6 +226,7 @@
       <workItem from="1630305301117" duration="5485000" />
       <workItem from="1630864363708" duration="1589000" />
       <workItem from="1630903939445" duration="9213000" />
+<<<<<<< HEAD
       <workItem from="1630922535443" duration="2939000" />
       <workItem from="1631032453496" duration="1434000" />
       <workItem from="1631099783613" duration="3432000" />
@@ -230,6 +235,20 @@
       <workItem from="1631446803361" duration="9276000" />
       <workItem from="1631512579081" duration="3473000" />
       <workItem from="1631550077752" duration="1799000" />
+=======
+      <workItem from="1630922535443" duration="4608000" />
+      <workItem from="1630990861368" duration="3650000" />
+      <workItem from="1631006615816" duration="3654000" />
+      <workItem from="1631013528922" duration="2456000" />
+      <workItem from="1631205863357" duration="1224000" />
+      <workItem from="1631247771350" duration="4306000" />
+      <workItem from="1631342232090" duration="4343000" />
+      <workItem from="1631432403891" duration="1189000" />
+      <workItem from="1631444013492" duration="1254000" />
+      <workItem from="1631446380346" duration="627000" />
+      <workItem from="1631448397954" duration="1910000" />
+      <workItem from="1631450392991" duration="672000" />
+>>>>>>> 523cf96032808c129a97ab713a5895ed88e05a80
     </task>
     <servers />
   </component>
@@ -250,5 +269,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="add tasdiqlash" />
+    <option name="LAST_COMMIT_MESSAGE" value="add tasdiqlash" />
   </component>
 </project>

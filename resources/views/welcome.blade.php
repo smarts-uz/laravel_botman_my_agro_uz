@@ -84,7 +84,8 @@
 
 
 
-    <link rel="stylesheet" type="text/css" href="/package/botman-web-widget-0.0.20/package/build/assets/css/chat.css"/>
+</body>
+    <link rel="stylesheet" type="text/css" href="/package/build/assets/css/chat.css"/>
 
 
     <form  action="{{route('fileUpload')}}" id="form" method="post" style="display: none" enctype="multipart/form-data">
@@ -93,19 +94,13 @@
     </form>
     </div>
 
-    {{-- <script>
+    <script>
 	    var botmanWidget = {
             bubbleBackground: "red",
-            bubbleAvatarUrl: 'css/patric.jpg',
             frameEndpoint: "chat.html",
-            aboutLink: 'https://agro.uz',
-	        aboutText: 'AgroChat',
-            introMessage: '⚖️  Qishloq xo\'jaligi vazirligi va vazirlikning elektron resurslaridan foydalanuvchi jismoniy va yuridik shaxslar o\'rtasida onlayn muloqot tizimiga hush kelibsiz.<br>📝  Iltimos asosiy elektron pochta (E-Mail) manzilingizni kiriting.<br>-----------------------------------------------------------<br>⚖️  Добро пожаловать в систему онлайн взаимодействия между Министерством сельского хозяйства РУз и пользователями электронных ресурсов министерства.<br>📝 Пожалуйста, введите ваш основной адрес электронной почты (E-Mail).',
-			title: "AgroChat",
-			placeholderText: "S E N D   M E S S A G E ........"
+            introMessage: 'Intro'
 	    };
-    </script> --}}
+    </script>
     <script src='/package/build/js/widget.js'></script>
-    <script src='/js/botmanJS.php'></script>
-
+    <body>
 </html>

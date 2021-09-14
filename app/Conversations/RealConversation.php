@@ -34,7 +34,7 @@ const QUESTIONS = [
     'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
     'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
     'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
-    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности ']],
+    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot yo\'nalishi', 'ru'=>' Направление деятельности ']],
 
     // 'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер '],
 ];
@@ -61,7 +61,7 @@ class RealConversation extends Conversation
         'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
         'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
         'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
-        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot sho\'nalishi', 'ru'=>' Направление деятельности ']],
+        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot yo\'nalishi', 'ru'=>' Направление деятельности ']],
     ];
     public function __construct()
     {
@@ -256,15 +256,17 @@ class RealConversation extends Conversation
                 'body' => $text
             ];
             Mail::to($this->user_mamory["email"])->send(new SendMail($details));
-
-
         } else {
             $this->user_mamory["usertype"] = $user->individeual;
             $this->user_mamory["phone"] = $user->phone;
             $this->user_mamory["name"] = $user->name;
-
             // $this->fillUserData($user);
+            $this->verify = $this->generatePass(4);
+            $smsSender = new SmsService();
+            $smsSender->send('998'.$this->user_mamory["phone"],"My.Agro.Uz portali uchun tasdiqlash kodi: ". $this->verify);
+            $this->say(`** *** `.substr($user->phone,-4)." raqamiga tasdiqlash kodi uyuborildi");
         }
+
         $this->user_mamory["id"] = $user->id;
         // Auth::login($user);
 
