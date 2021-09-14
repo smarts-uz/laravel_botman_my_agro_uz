@@ -45,8 +45,11 @@ Route::view('/notification', 'notification');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-    Route::get('/appeal/chat/{chat}', [ConversationController::class, 'index'])->name("answer.chat");
-    Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
+    // Route::get('/appeal/chat/{chat}', [ChatController::class, 'index'])->name("answer.chat");
+    // Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
+    Route::post('/appeal/chat/post/{id}', [ConversationController::class, 'send'])->name("conversation.send");
+    Route::get('/appeal/chat/post/{appeal}', [ConversationController::class, 'index'])->name("conversation.index");
+
 
 
 });

@@ -25,7 +25,7 @@ class ChatAction extends AbstractAction {
     public function getDefaultRoute()
     {
         // , compact('appeal_id')
-        return route('answer.chat', ['chat' => $this->data->id]);
+        return route('conversation.index', ['appeal' => $this->data->id]);
     }
     public function shouldActionDisplayOnDataType()
     {
