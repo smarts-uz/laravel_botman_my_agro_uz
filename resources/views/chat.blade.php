@@ -32,10 +32,12 @@
           <p class="blocked-bubble">You were blocked by the user</p>
         </div>
       </div>
-
-      <div class="input-container">
-        <input type="text" placeholder="Enter your message" />
-        <a href="#" class="btn">Send</a>
-      </div>
+      <form action="{{route('chat.post')}}" method="post">
+        @csrf
+        <input type="text" name="msg" placeholder="Enter your message"/>
+        <input type="hidden" name="id" value="{{$chat}}"/>
+        <input type="submit"  value="Send">
+        <!-- <button type="submit"><a href="#" class="btn">Send</a></button> -->
+      </form>
     </div>
 @endsection
