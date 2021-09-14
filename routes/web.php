@@ -43,9 +43,23 @@ Route::view('/notification', 'notification');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-    Route::get('/appeal/chat', [ChatController::class, 'index'])->name("answer.chat");
-});
+    Route::get('/appeal/chat/{chat}', [ChatController::class, 'index'])->name("answer.chat");
+    Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
 
+});
+use Illuminate\Support\Facades\Mail;
+
+Route::get('send-mail', function () {
+
+    $details = [
+        'title' => 'Asror Zokirov',
+        'body' => 'Test mail sent by Laravel 8 using SMTP.'
+    ];
+
+    Mail::to('xolmuhammedovm@gmail.com')->send(new \App\Mail\SendMail($details));
+
+    dd("Email is Sent, please check your inbox.");
+});
 
 Route::view("form", "form");
 

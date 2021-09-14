@@ -8,6 +8,19 @@
 
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #065853; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #065853; 
+}
+
 /* M E S S A G E S */
 #messageArea {
   overflow-y: scroll;
