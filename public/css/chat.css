@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');html, body {
-  background-color: #f9f9f9;
+  background-color: #C1CBCA;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   margin: 0;
@@ -23,7 +23,7 @@
 /* M E S S A G E S */
 #messageArea {
   overflow-y: scroll;
-  background: white;
+  background: #C1CBCA;
 }
 
 
@@ -126,7 +126,7 @@
   font-weight: 300;
   font-size: 1rem;
   line-height: 1.5;
-  background: #065853;
+  background:#33726A;
 }
 
 .textarea:focus {

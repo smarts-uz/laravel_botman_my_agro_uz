@@ -1037,7 +1037,7 @@ let apps;
             t.onclick = (e) => {
                 if(isTrust == true) {
                     isTrust = false
-                    x.textContent = "Murojaat yuborish / Отправить обращение."
+                    x.textContent = "Murojaat yuborish | Отправить обращение"
                     x.style.width = "100%"
                     x.style.height = "59px"
                     x.style.position = "absolute"
