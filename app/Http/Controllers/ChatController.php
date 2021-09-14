@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 class ChatController extends Controller
 {
     public function index($chat) {
-        return view("chat",["chat"=>$chat]);
+        $x = Appeal::where('id', $chat)->first();
+        $x->messages = json_decode($x->messages);
+        return view("chat",["chat"=>$chat,"messages"=>$x->messages,"id"=>Auth::user()->id]);
     }
 
     public function addd(Request $request) {
