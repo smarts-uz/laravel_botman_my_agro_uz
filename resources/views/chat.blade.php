@@ -790,12 +790,22 @@ display: none;
 		
 		<div class="convHistory userBg">
 			<!-- CONVERSATION GOES HERE! -->
-			@foreach($messages as $msg) 
+		@if(!$messages==null)
+			@foreach($messages as $msg)
+			@if($msg->user_id == $id)
         <div class="msg messageSent">
 				  {{$msg->messages}}
 				  <span class="timestamp">00:00</span>
 			</div>
+
+			@else
+			<div class="msg messageReceived">
+          		{{$msg->messages}}
+          	<span class="timestamp">00:00</span>
+      		</div>
+			  @endif
       @endforeach
+	  @endif
 			
 			
 			 <!-- <div class="msg messageSent">
