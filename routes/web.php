@@ -6,6 +6,7 @@ use App\Http\Controllers\FileUpload;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\NotificationController;
 use App\Services\Mailer\MailService;
 use Illuminate\Support\Facades\Hash;
@@ -26,6 +27,7 @@ use App\Http\Controllers\HelperController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/admin/answer/appeal/{appeal}', [AnswerController::class, 'answer'])->name('answer.reply');
 // Route::get('/admin/redirect/appeal/{appeal}', [AnswerController::class, 'redirect'])->name('answer.redirect');
 // Route::get('/admin/appeal/update/{appeal}', [AnswerController::class, 'update'])->name('answer.update');
@@ -43,8 +45,9 @@ Route::view('/notification', 'notification');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-    Route::get('/appeal/chat/{chat}', [ChatController::class, 'index'])->name("answer.chat");
+    Route::get('/appeal/chat/{chat}', [ConversationController::class, 'index'])->name("answer.chat");
     Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
+
 
 });
 use Illuminate\Support\Facades\Mail;
