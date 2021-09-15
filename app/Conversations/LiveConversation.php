@@ -22,10 +22,7 @@ class LiveConversation extends Conversation
                 $appeal->region = $this->data["region"];
                 $appeal->route = $this->data["route"];
                 $appeal->type = $this->data["type"];
-
-
                 $appeal->save();
-
             } else $this->repeat();
         });
     }
