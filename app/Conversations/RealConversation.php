@@ -39,7 +39,6 @@ class RealConversation extends Conversation
     public $language;
     public $usertype;
     protected $verify;
-
     public function __construct()
     {
         $this->questions["ASK_LANGUAGE"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
