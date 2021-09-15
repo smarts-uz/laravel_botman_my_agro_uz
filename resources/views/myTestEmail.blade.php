@@ -7,7 +7,7 @@
 
 <h1>{{ $details['title'] }}</h1>
 <p>{{ $details['body'] }}</p>
-<p>Link for Cobinet : my.agro.uz/admin</p>
+<p>Link for Cobinet : https://my.agro.uz/admin</p>
 
 <p>Thank you</p>
 </body>

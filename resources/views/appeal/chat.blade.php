@@ -216,7 +216,7 @@
         padding: 5px 0;
     }
 
-    .right .wrap .block .btn {
+    .right .wrap .block .btn, .wrap1 .block .btn {
         padding: 5px 5px;
         font-size: 14px;
         line-height: 1.5;
@@ -243,8 +243,25 @@
         margin-top: 53px;
         height: 100vh;
     }
+
+    .wrap1 {
+        position: fixed;
+        top: 54px;
+        right: 60px;
+        opacity: 0;
+    }
+    .wrap1 .block .btn{
+        padding: 0 4px;
+    }
+
+
+    
+
     @media screen and (min-width: 300px) and (max-width: 900px) {
   .right { display: none;}   /* hide it elsewhere */
+  .wrap1 {
+      opacity: 1;
+  }
 }
 @media screen and (min-width: 300px) and (max-width: 900px) {
   .buttonDis { display: show;} 
@@ -303,7 +320,6 @@
                 <button type="submit" required class="msger-send-btn "{{ $appeal->is_closed == 1 ? "disabled" : ""}}>Send</button>
             </form>
             {{-- @endif --}}
-            
         </section>
         <div class="right">
             <div class="wrap">
@@ -342,7 +358,21 @@
                 @endif
             </div>
         </div>
+        
     </div>
+
+    <div class="wrap1">
+                @if($appeal->is_closed == 0)
+                <div class="block text-center bloc1">
+                    <form action="{{ route('appeal.close', $appeal) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn">Закрыть тикет</button>
+                    </form>
+                </div>
+                @else
+                    <button type="button" class="btn disabled buttonDis">Закрыть тикет</button>
+                @endif
+            </div>
 <script>
  var objDiv = document.querySelector(".msger-chat");
 objDiv.scrollTop = objDiv.scrollHeight;

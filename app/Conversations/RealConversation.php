@@ -22,15 +22,16 @@ use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 use App\Models\QuestionText;
+
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
 const QUESTIONS = [
-    'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru'=>' Место работы полностью '],['uz' => "Название организации UZ", 'ru'=>' Название организации  ']],
-    'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru'=>' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru'=>' Направление деятельности ']],
+    'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
+    'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
 ];
 class RealConversation extends Conversation
 {
-    public $memory=[];
+    public $memory = [];
     public $user_mamory;
     public $language;
     public $usertype;
@@ -127,61 +128,72 @@ class RealConversation extends Conversation
     public function keyLanguages(){
         $ar = [];
         foreach (LANGUAGE as $key) {
-            array_push($ar,Button::create($key['key'])->value($key['value']));
+            array_push($ar, Button::create($key['key'])->value($key['value']));
         }
         return Question::create($this->questions["ASK_LANGUAGE"])
-        ->addButtons($ar);
+            ->addButtons($ar);
     }
-    public function keyUserType(){
+
+    public function keyUserType()
+    {
         $ar = [];
         foreach ($this->key_indevidual[$this->language] as $key) {
             array_push($ar,Button::create($key["name"])->value($key["val"]));
         }
         return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
-        ->addButtons($ar);
+            ->addButtons($ar);
     }
-    public function keyActions(){
+
+    public function keyActions()
+    {
         $ar = [];
         $actions = Action::all()->toArray();
         foreach ($actions as $key) {
-            array_push($ar,Button::create($key[$this->language])->value($key["id"]));
+            array_push($ar, Button::create($key[$this->language])->value($key["id"]));
         }
         return Question::create($this->questions["ASK_ACTION"][$this->language])
-        ->addButtons($ar);
+            ->addButtons($ar);
     }
-    public function keyRegions(){
+
+    public function keyRegions()
+    {
         $ar = [];
         $regions = Region::all()->toArray();
         foreach ($regions as $key) {
             $ar[] = Button::create($key[$this->language])->value($key["id"]);
         }
         return Question::create($this->questions["ASK_REGION"][$this->language])
-        ->addButtons($ar);
+            ->addButtons($ar);
     }
-    public function keyRoutes(){
+
+    public function keyRoutes()
+    {
         $ar = [];
         $routes = Routes::all()->toArray();
         foreach ($routes as $key) {
             $ar[] = Button::create($key[$this->language])->value($key["id"]);
         }
         return Question::create($this->questions["ASK_ROUTE"][$this->language])
-        ->addButtons($ar);
+            ->addButtons($ar);
     }
 
-    public function mediaRoutes(){
+    public function mediaRoutes()
+    {
         return Question::create($this->questions["ASK_FILE_UPLOAD"][$this->language])
-        ->addButtons([
-            Button::create( $this->questions["Yes"][$this->language])->value("ha"),
-            Button::create( $this->questions["No"][$this->language])->value("yo'q")
-        ]);
+            ->addButtons([
+                Button::create($this->questions["Yes"][$this->language])->value("ha"),
+                Button::create($this->questions["No"][$this->language])->value("yo'q")
+            ]);
     }
 
     public function run()
     {
         $this->askLanguage();
     }
-    public function askLanguage(){
-        $this->ask($this->keyLanguages(), function($language){
+
+    public function askLanguage()
+    {
+        $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
                 $this->askAction();
@@ -190,14 +202,16 @@ class RealConversation extends Conversation
             }
         });
     }
-    public function askEmail(){
+
+    public function askEmail()
+    {
         $this->ask($this->questions["ASK_EMAIL"][$this->language], function ($email) {
             $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
-            if($x == true) {
+            if ($x == true) {
                 $this->user_mamory["email"] = $email->getText();
 
-                 $this->askTitle();
-            }elseif ($x == false) {
+                $this->askTitle();
+            } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
             }
@@ -205,15 +219,17 @@ class RealConversation extends Conversation
         // $this->user_mamory["email"]
     }
 
-    public function askTitle() {
-        $this->ask($this->questions["ASK_Title"][$this->language],function($answer) {
+    public function askTitle()
+    {
+        $this->ask($this->questions["ASK_Title"][$this->language], function ($answer) {
             $this->user_mamory["title"] = $answer->getText();
             $this->askAppeal();
         });
     }
 
-    public function askAppeal(){
-        $this->ask($this->questions["ASK_QUESTION"][$this->language], function($conversation){
+    public function askAppeal()
+    {
+        $this->ask($this->questions["ASK_QUESTION"][$this->language], function ($conversation) {
             if ($conversation->getText() != "tugat") {
                 $this->memory["answer"] = $conversation->getText();
             } else $this->repeat();
@@ -221,34 +237,38 @@ class RealConversation extends Conversation
         });
     }
 
-    public function askMedia() {
-        $this->ask($this->mediaRoutes(),function($answer) {
+    public function askMedia()
+    {
+        $this->ask($this->mediaRoutes(), function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
-                if($answer->getValue() == "ha") {
+                if ($answer->getValue() == "ha") {
                     $say = <<<HTML
         <input type="file" id="form" name="file" onchange="
         console.log(this)
         "class="custom-file-input" id="chooseFile">
 HTML;
-                $this->say($say);
-                }else {
+                    $this->say($say);
+                } else {
                     $this->askRoute();
                 }
             } else $this->repeat();
         });
     }
-    public function askAction(){
-        $this->ask($this->keyActions(), function($actions){
+
+    public function askAction()
+    {
+        $this->ask($this->keyActions(), function ($actions) {
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
-
                 $this->askEmail();
 
             } else $this->repeat();
         });
     }
-    public function askRegion(){
-        $this->ask($this->keyRegions(), function($regions){
+
+    public function askRegion()
+    {
+        $this->ask($this->keyRegions(), function ($regions) {
             if ($regions->isInteractiveMessageReply()) {
                 $this->memory["region"] = $regions->getValue();
 
@@ -257,23 +277,27 @@ HTML;
             } else $this->repeat();
         });
     }
-    public function askRoute(){
-        $this->ask($this->keyRoutes(), function($routes){
-            if ($routes->isInteractiveMessageReply()) {
-                    $this->memory["route"] = $routes->getValue();
-                    $this->askRegion();
 
-                } else $this->repeat();
+    public function askRoute()
+    {
+        $this->ask($this->keyRoutes(), function ($routes) {
+            if ($routes->isInteractiveMessageReply()) {
+                $this->memory["route"] = $routes->getValue();
+                $this->askRegion();
+
+            } else $this->repeat();
         });
     }
-    public function UserLogin(){
+
+    public function UserLogin()
+    {
         $user = User::where('email', $this->user_mamory["email"])->first();
         $this->memory["pass"] = "nopass";
 
-        if(!$user){
+        if (!$user) {
             $this->memory["pass"] = $this->generatePass();
-            $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
-            if($this->user_mamory["usertype"] == 0){
+            $text = 'Your username ' . $this->user_mamory["email"] . '  and password ' . $this->memory["pass"] . ' for Cabinet';
+            if ($this->user_mamory["usertype"] == 0) {
                 $user = User::create([
                     'name' => $this->user_mamory["name"],
                     'role_id' => 2,
@@ -283,21 +307,20 @@ HTML;
                     "email" => $this->user_mamory["email"],
                     "password" => Hash::make($this->memory["pass"]),
                     "individual" => $this->user_mamory["usertype"],
-                    "place_of_work" =>  $this->memory["data"]["a"],
-                    "position" =>  $this->memory["data"]["b"]
+                    "place_of_work" =>  $this->memory["data"]["a"]
                 ]);
             } else {
                 $user = User::create([
                     'name' => $this->user_mamory["name"],
                     'role_id' => 2,
-                    'phone' =>  $this->user_mamory["phone"],
+                    'phone' => $this->user_mamory["phone"],
                     'individual' => $this->user_mamory["usertype"],
                     'remember_token' => $this->generatePass(32),
                     "email" => $this->user_mamory["email"],
                     "password" => Hash::make($this->memory["pass"]),
                     "individual" => $this->user_mamory["usertype"],
-                    "organization" =>  $this->memory["data"]["a"],
-                    "activity" =>  $this->memory["data"]["b"]
+                    "organization" => $this->memory["data"]["a"],
+                    "activity" => $this->memory["data"]["b"]
                 ]);
             }
             $email=$this->user_mamory["email"];
@@ -329,31 +352,36 @@ HTML;
 
         $this->askEnd();
     }
-    public function fillUserData(User $user){
+
+    public function fillUserData(User $user)
+    {
 
     }
 
 
-    public function askPhone(){
+    public function askPhone()
+    {
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
             $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
-            if($x == true) {
+            if ($x == true) {
                 $this->user_mamory["phone"] = $phone->getText();
                 $this->verifyPhone($this->user_mamory["phone"]);
-            }elseif ($x == false) {
+            } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
             }
 
         });
     }
-    public function verifyPhone($phone){
+
+    public function verifyPhone($phone)
+    {
         $this->verify = $this->generatePass(4);
         $smsSender = new SmsService();
-        $smsSender->send('998'.$phone,"My.Agro.Uz portali uchun tasdiqlash kodi: ". $this->verify);
-        $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function($verifycode){
+        $smsSender->send('998' . $phone, "My.Agro.Uz portali uchun tasdiqlash kodi: " . $this->verify);
+        $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function ($verifycode) {
             Log::info($this->verify);
-            if($verifycode == $this->verify){
+            if ($verifycode == $this->verify) {
                 $this->UserLogin();
 
             } else {
@@ -363,7 +391,9 @@ HTML;
         });
 
     }
-    public function askName(){
+
+    public function askName()
+    {
         $this->ask(
             $this->questions["ASK_NAME"][$this->language],
             function ($name) {
@@ -376,7 +406,7 @@ HTML;
                 $this->askPhone();
             }
 
-        }
+            }
         );
     }
     public function askUser(){
@@ -400,8 +430,10 @@ HTML;
 
 
     }
-    public function askUserType(){
-        $this->ask($this->keyUserType(), function($usertype){
+
+    public function askUserType()
+    {
+        $this->ask($this->keyUserType(), function ($usertype) {
             if ($usertype->isInteractiveMessageReply()) {
                 $this->user_mamory["usertype"] = $usertype->getValue();
                 $this->askUser();
@@ -415,7 +447,7 @@ HTML;
         $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
 
         $this->ask($question, function ($answer) {
-            if($answer->isInteractiveMessageReply()) {
+            if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() == "ha") {
                     $appeal = new Appeal();
                     $appeal->title = $this->user_mamory["title"];
@@ -438,14 +470,16 @@ HTML;
                 }else {
                     $this->askAppeal();
                 }
-            }else {
+            } else {
                 $this->repeat();
             }
 
 
         });
     }
-    static function generatePass($length = 4) {
+
+    static function generatePass($length = 4)
+    {
         $characters = '0123456789';
         $charactersLength = strlen($characters);
         $randomString = '';

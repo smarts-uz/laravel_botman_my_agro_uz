@@ -59,7 +59,7 @@ class AnswerController extends VoyagerBreadController
         $appealObj = Appeal::where('id', $appeal)->first();
         $author = $appealObj->user_id;
         $user = User::where('id', $author)->first();
-        $text = "sizning murojaatingizga javob berildi, javobni my.agro.uz/admin saytidan appeals bo'limida ko'rishingiz mumkin";
+        $text = "sizning murojaatingizga javob berildi, javobni https://my.agro.uz/admin saytidan appeals bo'limida ko'rishingiz mumkin";
          $smsSender = new SmsService();
             $smsSender->send($user->phone, $text);
             $details = [
