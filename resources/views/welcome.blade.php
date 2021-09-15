@@ -103,8 +103,8 @@
 
 </head>
 
+<body>
 
-</body>
 <link rel="stylesheet" type="text/css" href="/package/build/assets/css/chat.css"/>
 
 
@@ -132,7 +132,7 @@ $chatLogo = str_replace('\\', '/', $chatLogo);
         introMessage: `{{$intro}}`
     };
 </script>
-<!-- <script>
+<script>
     // Get a reference to the file input element
     const inputElement = document.querySelector('input[id="form"]');
 
@@ -140,15 +140,15 @@ $chatLogo = str_replace('\\', '/', $chatLogo);
     const pond = FilePond.create(inputElement);
 
     FilePond.setOptions({
-        server:{
-            url:"/upload",
-            headers:{
-                'X-CSRF-TOKEN':'{{csrf_token()}}'
+        server: {
+            url: "/upload",
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
             }
         }
     })
     console.log(pond.name);
-</script> -->
+</script>
 
-<body>
+</body>
 </html>
