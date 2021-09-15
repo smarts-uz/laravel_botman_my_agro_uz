@@ -31,10 +31,11 @@ class ConversationController extends Controller
         $con->save();
         $appeal = Appeal::where('id', $appeal)->first();
         $conversations = Conversation::where('appeal_id', $appeal->id)->get()->sortBy('created_at');
+
         $user = User::where('id', $appeal->user_id)->first()->name;
         $region = Region::where('id', $appeal->region)->first()->ru;
         $route = Routes::where('id', $appeal->route)->first()->ru;
-        return view('appeal.chat', compact('appeal', 'conversations'));
+        return view('appeal.chat', compact('appeal', 'conversations', 'region', 'route', 'user'));
     }
     public function close($appeal){
         if(Appeal::where('id', $appeal)->update(["is_closed" => 1])){
