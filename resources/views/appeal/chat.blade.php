@@ -195,8 +195,9 @@
     }
 
     .right {
-        max-width: 300px;
-        
+        max-width: 300px;        
+        margin-top: 53px;
+        height: 100vh;
         margin-top: -110px;
         background-color: #fff;
         padding: 10px;
@@ -234,11 +235,7 @@
     .right .wrap .block p {
         font-size: 16px;
     }
-    .right{
-        margin-top: 53px;
-        height: 100vh;
-    }
-    @media screen and (min-width: 401px) and (max-width: 900px) {
+    @media screen and (min-width: 0px) and (max-width: 900px) {
   .right { display: none;}   /* hide it elsewhere */
 }
 </style>
