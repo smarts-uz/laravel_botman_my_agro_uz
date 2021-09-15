@@ -236,8 +236,8 @@
         display: block;
     }
     .right .wrap .block p {
-        font-size: 18px;
-        padding: 10px 0;
+        font-size: 14px;
+        padding: 4px 0;
     }
     .right{
         margin-top: 53px;
@@ -303,6 +303,7 @@
                 <button type="submit" required class="msger-send-btn "{{ $appeal->is_closed == 1 ? "disabled" : ""}}>Send</button>
             </form>
             {{-- @endif --}}
+            
         </section>
         <div class="right">
             <div class="wrap">
