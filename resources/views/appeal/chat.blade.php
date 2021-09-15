@@ -186,11 +186,52 @@
         background-color: #fcfcfe;
 
     }
+
     .titles {
         background-color: #666;
-        padding: 10px 0;
+        padding: 10px 5px;
         margin: 0;
         color: #fff;
+    }
+
+    .right {
+        max-width: 300px;
+        height: 80%;
+        background-color: #fff;
+        padding: 10px;
+        margin: 0;
+    }
+
+    .right .wrap {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .right .wrap .block {
+        width: 100%;
+        border-bottom: 1px solid grey;
+        padding: 5px 0;
+    }
+
+    .right .wrap .block .btn {
+        padding: 5px 10px;
+        font-size: 14px;
+        line-height: 1.5;
+        border-radius: 3px;
+        color: #fff;
+        background-color: #f44336;
+        border-color: #f44336;
+    }
+
+    .right .wrap .block span {
+        font-size: 0.75rem;
+        color: #9e9e9e;
+        margin-bottom: 5px;
+        display: block;
+    }
+    .right .wrap .block p {
+        font-size: 16px;
     }
 </style>
 </head>
@@ -199,11 +240,11 @@
 
     <div class="inputs">
         <section class="msger">
-        <div class="text-center titles">Lorem ip Quos delectus a Marepudiandae laborum.</div>
+            <div class="titles">Lorem ip Quos delectus a Marepudiandae laborum.</div>
             <header class="msger-header">
-                
+
                 <div class="msger-header-title">
-                  
+
                     <i class="fas fa-comment-alt"></i>
                     <h4>SimpleChat</h4>
                 </div>
@@ -212,10 +253,10 @@
                 </div>
             </header>
             <main class="msger-chat">
-            @foreach ($conversations as $conversation)
+                @foreach ($conversations as $conversation)
                 {{-- @dd($conversation); --}}
                 @php
-                    $user = \App\Models\User::where('id', $conversation->user_id)->first();
+                $user = \App\Models\User::where('id', $conversation->user_id)->first();
                 @endphp
 
                 <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
@@ -227,7 +268,7 @@
                             <div class="msg-info-time">{{ date('H:m', strtotime($conversation->created_at)) }}</div>
                         </div>
                         <div class="msg-text">
-                        {{ $conversation->text }}
+                            {{ $conversation->text }}
                         </div>
                     </div>
                 </div>
@@ -242,34 +283,35 @@
                 <button type="submit" class="msger-send-btn">Send</button>
             </form>
         </section>
-       <div class="right">
-          <div class="wrap">
-              <div class="box">
-                  <span>Запрашивающий</span>
-                  <p>Xurshida Kamalova </p>
-              </div>
-              <div class="box">
-                  <span>Отдел</span>
-                  <p>Отдел технической поддержки</p>
-              </div>
-              <div class="box">
-                  <span>Отправлен</span>
-                  <p>10.09.2021 (18:32)</p>
-              </div>
-              <div class="box">
-                  <span>Последнее обновление</span>
-                  <p>4 дня назад</p>
-              </div>
-              <div class="box">
-                  <span>Состояние/Приоритет</span>
-                  <p>Отвечен Средняя</p>
-              </div>
-              <div class="box">
-                  <button>Ответ</button>
-                  <button>Закрыть тикет</button>
-              </div>
-          </div>
-       </div>
+        <div class="right">
+            <div class="wrap">
+                <div class="block">
+                    <span>Запрашивающий</span>
+                    <p>Xurshida Kamalova </p>
+                </div>
+                <div class="block">
+                    <span>Отдел</span>
+                    <p>Отдел технической поддержки</p>
+                </div>
+                <div class="block">
+                    <span>Отправлен</span>
+                    <p>10.09.2021 (18:32)</p>
+                </div>
+                <div class="block">
+                    <span>Последнее обновление</span>
+                    <p>4 дня назад</p>
+                </div>
+                <div class="block">
+                    <span>Состояние/Приоритет</span>
+                    <p>Отвечен Средняя</p>
+                </div>
+                <div class="block">
+                    <form action="">
+                        <button class="btn">Закрыть тикет</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 
