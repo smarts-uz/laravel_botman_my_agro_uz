@@ -12,6 +12,7 @@ use App\Services\Mailer\MailService;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelperController;
+use App\Http\Controllers\FilepondController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,3 +75,4 @@ Route::get('/', [FileUpload::class, 'createForm']);
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
+Route::post("/upload",[FilepondController::class,"upload"]);

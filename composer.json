@@ -20,6 +20,7 @@
         "laravel/ui": "^3.3",
         "pusher/pusher-php-server": "^7.0",
         "realrashid/sweet-alert": "^4.0",
+        "sopamo/laravel-filepond": "^0.6.2",
         "tcg/voyager": "^1.4"
     },
     "require-dev": {
