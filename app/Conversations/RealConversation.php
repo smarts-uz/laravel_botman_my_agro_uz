@@ -325,8 +325,9 @@ HTML;
             }
             $email=$this->user_mamory["email"];
             $password=$this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz').'<br>Email:'.$email.'<br>Password:'.$password :setting('sms.AccountRu').'<br>Email:'.$email.'<br>Password:'.$password;
+            $text = $this->language == "uz" ? setting('sms.AccountUz').'<br>Email:'.$email.'<br>Password:'.$password : setting('sms.AccountRu').'<br>Email:'.$email.'<br>Password:'.$password;
             // $text = 'E-Mail: ' . $this->user_mamory["email"].' Password:'. $this->memory["pass"];
+            Log::info($text);
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
 
