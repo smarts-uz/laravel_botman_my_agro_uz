@@ -1204,7 +1204,7 @@
                                     ref: function (t) {
                                         n.textarea = t;
                                     },
-                                    autofocus: null,
+                                    autofocus: !0,
                                 })
                                 )
                                 : "",
