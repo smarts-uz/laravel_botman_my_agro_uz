@@ -159,8 +159,8 @@ class RealConversation extends Conversation
 
     public function run()
     {
-
-        $this->askLanguage();
+        $this->say('<input name="ok" type="image">');
+        // $this->askLanguage();
     }
     public function askLanguage(){
         $this->ask($this->keyLanguages(), function($language){
