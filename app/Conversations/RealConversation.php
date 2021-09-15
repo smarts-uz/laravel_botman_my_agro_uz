@@ -23,26 +23,12 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 use App\Models\QuestionText;
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
-const QUESTIONS = [
-    'ASK_LANGUAGE' => ['uz' => 'Tilni tanlang', 'ru'=>'Выберите язык '],
-    'ASK_LANGUAGE1' => ['uz' => 'Ro\'yxatdan o\'tish', 'ru'=>'Зарегистрироваться '],
-    'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! '],
-    'ASK_NAME' => ['uz' => 'F.I.O','ru' => 'Ф.И.О '],
-    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz', 'ru'=>'Номер телефона'],
-    'ASK_EMAIL' => ['uz' => 'Asosiy elektron poshtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
-    'ASK_ACTION' => ['uz' => 'Bo\'limni tanlang!', 'ru'=>'Выберите действие! '],
-    'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
-    'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
-    'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
-    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot yo\'nalishi', 'ru'=>' Направление деятельности ']],
-
-    // 'TELL_PHONE_SEND' => ['uz' => 'Отправить свой номер', 'ru'=>'Отправить свой номер '],
-];
 const KEY_INDIVIDUALS = [
     'ru' => [['name'=>'Физическое лицо', 'val' => 0], ['name'=>'Юридическое лицо', 'val' => 1]],
     'uz' => [['name'=>'Jismoniy shaxs', 'val' => 0], ['name'=>'Yuridik shaxs', 'val' => 1]],
 
 ];
+
 class RealConversation extends Conversation
 {
     public $memory=[];
@@ -50,18 +36,18 @@ class RealConversation extends Conversation
     public $language;
     public $usertype;
     protected $verify;
-    public $questions = [
+    const QUESTIONS = [
         'ASK_LANGUAGE' => ['uz' => 'Tilni tanlang', 'ru'=>'Выберите язык '],
-        'ASK_LANGUAGE1' => ['uz' => 'Ro\'yxatdan o\'tish', 'ru'=>'Зарегистрироваться '],
+        'ASK_LANGUAGE1' => ['uz' => "Ro'yxatdan o'tish", 'ru'=>'Зарегистрироваться '],
         'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! '],
         'ASK_NAME' => ['uz' => 'F.I.O','ru' => 'Ф.И.О '],
         'ASK_PHONE' => ['uz' => 'Telefon raqamingiz', 'ru'=>'Номер телефона'],
         'ASK_EMAIL' => ['uz' => 'Asosiy elektron poshtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
-        'ASK_ACTION' => ['uz' => 'Bo\'limni tanlang!', 'ru'=>'Выберите действие! '],
+        'ASK_ACTION' => ['uz' => "Bo'limni tanlang!", 'ru'=>'Выберите действие! '],
         'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
-        'ASK_ROUTE' => ['uz' => 'Kerakli yo\'nalishni tanlang!', 'ru'=>'Выберите необходимое направление или сферу! '],
-        'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => 'Ish joyi\tashkilot', 'ru'=>' Место работы и организация ']],
-        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => 'Tashkilot yo\'nalishi', 'ru'=>' Направление деятельности ']],
+        'ASK_ROUTE' => ['uz' => "Kerakli yo'nalishni tanlang!", 'ru'=>'Выберите необходимое направление или сферу! '],
+        'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => "Ish joyitashkilot", 'ru'=>' Место работы и организация ']],
+        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => "Tashkilot yo'nalishi", 'ru'=>' Направление деятельности ']],
     ];
     public function __construct()
     {
@@ -189,18 +175,34 @@ HTML;
 
 
                 $this->say($say);
-                $this->askAppeal();
+                $this->askAction();
             } else {
                 return $this->repeat();
             }
         });
     }
+    public function askEmail(){
+        $this->ask($this->questions["ASK_EMAIL"][$this->language], function ($email) {
+            $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
+            if($x == true) {
+                $this->user_mamory["email"] = $email->getText();
+                // $user = User::where('email', $this->user_mamory["email"])->first();
+                // if($user)
+                 $this->askAppeal();
+            }elseif ($x == false) {
+                $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
+                $this->repeat();
+            }
+        });
+        // $this->user_mamory["email"]
+    }
+
     public function askAppeal(){
         $this->ask($this->questions["ASK_QUESTION"][$this->language], function($conversation){
             if ($conversation->getText() != "tugat") {
                 $this->memory["answer"] = $conversation->getText();
             } else $this->repeat();
-            $this->askAction();
+            $this->askRoute();
         });
 
     }
@@ -209,7 +211,7 @@ HTML;
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
 
-                $this->askRegion();
+                $this->askEmail();
 
             } else $this->repeat();
         });
@@ -219,7 +221,7 @@ HTML;
             if ($regions->isInteractiveMessageReply()) {
                 $this->memory["region"] = $regions->getValue();
 
-                $this->askRoute();
+                $this->askUserType();
 
             } else $this->repeat();
         });
@@ -228,7 +230,7 @@ HTML;
         $this->ask($this->keyRoutes(), function($routes){
             if ($routes->isInteractiveMessageReply()) {
                     $this->memory["route"] = $routes->getValue();
-                    $this->askEmail();
+                    $this->askRegion();
 
                 } else $this->repeat();
         });
@@ -297,20 +299,7 @@ HTML;
 
     }
 
-    public function askEmail(){
-        $this->ask($this->questions["ASK_EMAIL"][$this->language], function ($email) {
-            $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
-            if($x == true) {
-                $this->user_mamory["email"] = $email->getText();
-                $user = User::where('email', $this->user_mamory["email"])->first();
-                if($user) $this->UserLogin(); else $this->askUserType();
-            }elseif ($x == false) {
-                $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
-                $this->repeat();
-
-            }
-        });
-    }
+    
     public function askPhone(){
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
             $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
