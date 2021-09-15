@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 });
+
 use Illuminate\Support\Facades\Mail;
 
 Route::get('send-mail', function () {

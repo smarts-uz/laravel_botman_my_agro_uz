@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use App\Mail\SendMail;
 use App\Services\SmsService\SmsService;
 use Illuminate\Http\Request;
@@ -41,13 +41,12 @@ class AnswerController extends VoyagerBreadController
         $route = Routes::where('id', $appealData->route)->first();
         $expert = User::where('id', $route->responsible)->first();
         // dd(User::where('id', $route->responsible)->first());
-
-        $appealObject->update(['to_expert' => 1]);
+        // $appealObject->update(['to_expert' => 1]);
         $details = [
             'title' => $appealData->title,
             'body' => $appealData->text
         ];
-        Mail::to($expert->email)->send(new SendMail($details));
+        Mail::to(Auth::user()->email)->send(new SendMail($details));
         return redirect()->route('voyager.appeals.index');
     }
     public function updateAnswer(Request $request, $appeal){
