@@ -29,8 +29,8 @@ const KEY_INDIVIDUALS = [
 
 ];
 const QUESTIONS = [
-    'ASK_USER_A' => [['uz' => 'Место работы полностью', 'ru'=>' Должность и род занятия '],['uz' => "Название организации UZ", 'ru'=>' Название организации  ']],
-    'ASK_USER_B' => [['uz' => 'Место работы полностью', 'ru'=>' Название организации '], ['uz' => 'Направление деятельности UZ', 'ru'=>' Направление деятельности ']],
+    'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru'=>' Место работы полностью '],['uz' => "Название организации UZ", 'ru'=>' Название организации  ']],
+    'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru'=>' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru'=>' Направление деятельности ']],
 ];
 class RealConversation extends Conversation
 {
@@ -345,7 +345,7 @@ HTML;
         );
     }
     public function askUser(){
-        if($this->user_mamory["usertype"] == 0){
+        if($this->user_mamory["usertype"] == 1){
             $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->ask(QUESTIONS["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
@@ -357,6 +357,8 @@ HTML;
         } else {
             $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
+                $this->askName();
+
             });
         }
 
