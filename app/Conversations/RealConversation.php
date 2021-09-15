@@ -242,12 +242,12 @@ class RealConversation extends Conversation
         $this->ask($this->mediaRoutes(), function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() == "ha") {
-                    $say = <<<HTML
-        <input type="file" id="form" name="file" onchange="
-        console.log(this)
-        "class="custom-file-input" id="chooseFile">
-HTML;
-                    $this->say($say);
+//                     $say = <<<HTML
+//         <input type="file" id="form" name="file" onchange="
+//         console.log(this)
+//         "class="custom-file-input" id="chooseFile">
+// HTML;
+                    $this->askRoute();
                 } else {
                     $this->askRoute();
                 }
