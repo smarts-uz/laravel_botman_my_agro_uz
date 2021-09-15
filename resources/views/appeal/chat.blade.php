@@ -207,6 +207,7 @@
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        padding-top: 10px;
     }
 
     .right .wrap .block {
@@ -225,6 +226,9 @@
         border-color: #f44336;
     }
 
+    .bloc1 {
+        border-bottom: none !important;
+    }
     .right .wrap .block span {
         font-size: 0.75rem;
         color: #9e9e9e;
@@ -232,7 +236,8 @@
         display: block;
     }
     .right .wrap .block p {
-        font-size: 16px;
+        font-size: 18px;
+        padding: 10px 0;
     }
     .right{
         margin-top: 53px;
@@ -287,16 +292,19 @@
 
 
             </main>
-            @if($appeal->is_closed == 0)
+            {{-- @if($appeal->is_closed == 0) --}}
             <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
                 @csrf
-                <input name="text" type="text" class="msger-input" required placeholder="Enter your message...">
-                <button type="submit" class="msger-send-btn">Send</button>
+                <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : ""}} required placeholder="Enter your message...">
+                <button type="submit" required class="msger-send-btn "{{ $appeal->is_closed == 1 ? "disabled" : ""}}>Send</button>
             </form>
-            @endif
+            {{-- @endif --}}
         </section>
         <div class="right">
             <div class="wrap">
+            <div class="block text-center">
+                    <h2>Информация о заявке</h2>
+                </div>
                 <div class="block">
                     <span>Запрашивающий</span>
                     <p>{{ $user->name }} </p>
@@ -315,17 +323,17 @@
                 </div>
                 <div class="block">
                     <span>Состояние/Приоритет</span>
-                    <p>Отвечен Средняя</p>
+                    <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
                 </div>
                 @if($appeal->is_closed == 0)
-                <div class="block">
+                <div class="block text-center bloc1">
                     <form action="{{ route('appeal.close', $appeal) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn">Закрыть тикет</button>
                     </form>
                 </div>
                 @else
-                    <button type="button" class="btn btn-primary">Закрыть тикет</button>
+                    <button type="button" class="btn disabled">Закрыть тикет</button>
                 @endif
             </div>
         </div>
