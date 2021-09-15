@@ -166,8 +166,7 @@ class RealConversation extends Conversation
             $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
             if($x == true) {
                 $this->user_mamory["email"] = $email->getText();
-                // $user = User::where('email', $this->user_mamory["email"])->first();
-                // if($user)
+                
                  $this->askTitle();
             }elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
@@ -245,8 +244,6 @@ HTML;
         if(!$user){
             $this->memory["pass"] = $this->generatePass();
             $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
-
-            Log::info($this->user_mamory["phone"]);
             if($this->user_mamory["usertype"] == 0){
                 $user = User::create([
                     'name' => $this->user_mamory["name"],
@@ -308,7 +305,7 @@ HTML;
             $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
             if($x == true) {
                 $this->user_mamory["phone"] = $phone->getText();
-                $this->verifyPhone();
+                $this->verifyPhone($this->user_mamory["phone"]);
             }elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
@@ -316,10 +313,10 @@ HTML;
 
         });
     }
-    public function verifyPhone(){
+    public function verifyPhone($phone){
         $this->verify = $this->generatePass(4);
         $smsSender = new SmsService();
-        $smsSender->send('998'.$this->user_mamory["phone"],"My.Agro.Uz portali uchun tasdiqlash kodi: ". $this->verify);
+        $smsSender->send('998'.$phone,"My.Agro.Uz portali uchun tasdiqlash kodi: ". $this->verify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function($verifycode){
             Log::info($this->verify);
             if($verifycode == $this->verify){
@@ -337,7 +334,13 @@ HTML;
             $this->questions["ASK_NAME"][$this->language],
             function ($name) {
             $this->user_mamory["name"] = $name->getText();
-            $this->askPhone();
+            $user = User::where('email', $this->user_mamory["email"])->first();
+            if($user) {
+                $this->verifyPhone($user->phone);
+            }else {
+                $this->askPhone();
+            }
+            
         }
         );
     }
