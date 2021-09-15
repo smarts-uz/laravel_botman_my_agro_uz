@@ -28,7 +28,19 @@ const KEY_INDIVIDUALS = [
     'uz' => [['name'=>'Jismoniy shaxs', 'val' => 0], ['name'=>'Yuridik shaxs', 'val' => 1]],
 
 ];
-
+const QUESTIONS = [
+    'ASK_LANGUAGE' => ['uz' => 'Tilni tanlang', 'ru'=>'Выберите язык '],
+    'ASK_LANGUAGE1' => ['uz' => "Ro'yxatdan o'tish", 'ru'=>'Зарегистрироваться '],
+    'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! '],
+    'ASK_NAME' => ['uz' => 'F.I.O','ru' => 'Ф.И.О '],
+    'ASK_PHONE' => ['uz' => 'Telefon raqamingiz', 'ru'=>'Номер телефона'],
+    'ASK_EMAIL' => ['uz' => 'Asosiy elektron poshtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
+    'ASK_ACTION' => ['uz' => "Bo'limni tanlang!", 'ru'=>'Выберите действие! '],
+    'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
+    'ASK_ROUTE' => ['uz' => "Kerakli yo'nalishni tanlang!", 'ru'=>'Выберите необходимое направление или сферу! '],
+    'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => "Ish joyitashkilot", 'ru'=>' Место работы и организация ']],
+    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации ']],
+];
 class RealConversation extends Conversation
 {
     public $memory=[];
@@ -36,19 +48,7 @@ class RealConversation extends Conversation
     public $language;
     public $usertype;
     protected $verify;
-    const QUESTIONS = [
-        'ASK_LANGUAGE' => ['uz' => 'Tilni tanlang', 'ru'=>'Выберите язык '],
-        'ASK_LANGUAGE1' => ['uz' => "Ro'yxatdan o'tish", 'ru'=>'Зарегистрироваться '],
-        'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! '],
-        'ASK_NAME' => ['uz' => 'F.I.O','ru' => 'Ф.И.О '],
-        'ASK_PHONE' => ['uz' => 'Telefon raqamingiz', 'ru'=>'Номер телефона'],
-        'ASK_EMAIL' => ['uz' => 'Asosiy elektron poshtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
-        'ASK_ACTION' => ['uz' => "Bo'limni tanlang!", 'ru'=>'Выберите действие! '],
-        'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
-        'ASK_ROUTE' => ['uz' => "Kerakli yo'nalishni tanlang!", 'ru'=>'Выберите необходимое направление или сферу! '],
-        'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => "Ish joyitashkilot", 'ru'=>' Место работы и организация ']],
-        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации ']],
-    ];
+
     public function __construct()
     {
         $this->questions["ASK_LANGUAGE"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
@@ -339,10 +339,10 @@ HTML;
         );
     }
     public function askUser(){
-
             $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask(QUESTIONS["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language], function($ask2) {
+                $this->ask(QUESTIONS["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
+                    , function($ask2) {
                     $this->memory["data"]['b'] = $ask2->getText();
                     $this->askName();
                 });
