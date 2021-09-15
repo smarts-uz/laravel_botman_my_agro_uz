@@ -43,7 +43,7 @@
                                         @endif
                                     </td>
                                     @endforeach
-                                    <td class="no-sort no-click bread-actions">
+                                    <td class="no-sort no-click bread-actions d-flex">
                                         @can('delete', $data)
                                             <div class="btn btn-sm btn-danger pull-right delete" data-id="{{ $data->{$data->getKeyName()} }}">
                                                 <i class="voyager-trash"></i> {{ __('voyager::generic.delete') }}

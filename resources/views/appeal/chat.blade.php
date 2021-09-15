@@ -196,8 +196,8 @@
 
     .right {
         max-width: 300px;
-        
-        margin-top: -110px;
+        margin-top: 53px;
+        height: 100vh;
         background-color: #fff;
         padding: 10px;
         margin: 0;
@@ -207,6 +207,7 @@
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        padding-top: 10px;
     }
 
     .right .wrap .block {
@@ -225,6 +226,9 @@
         border-color: #f44336;
     }
 
+    .bloc1 {
+        border-bottom: none !important;
+    }
     .right .wrap .block span {
         font-size: 0.75rem;
         color: #9e9e9e;
@@ -232,15 +236,19 @@
         display: block;
     }
     .right .wrap .block p {
-        font-size: 16px;
+        font-size: 18px;
+        padding: 10px 0;
     }
     .right{
         margin-top: 53px;
         height: 100vh;
     }
-    @media screen and (min-width: 401px) and (max-width: 900px) {
+    @media screen and (min-width: 300px) and (max-width: 900px) {
   .right { display: none;}   /* hide it elsewhere */
 }
+
+
+
 </style>
 </head>
 
@@ -284,15 +292,19 @@
 
 
             </main>
-
+            @if($appeal->is_closed == 0)
             <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
                 @csrf
-                <input name="text" type="text" class="msger-input" placeholder="Enter your message...">
+                <input name="text" type="text" class="msger-input" required placeholder="Enter your message...">
                 <button type="submit" class="msger-send-btn">Send</button>
             </form>
+            @endif
         </section>
         <div class="right">
             <div class="wrap">
+            <div class="block text-center">
+                    <h2>Zakaz</h2>
+                </div>
                 <div class="block">
                     <span>Запрашивающий</span>
                     <p>Xurshida Kamalova </p>
@@ -313,9 +325,10 @@
                     <span>Состояние/Приоритет</span>
                     <p>Отвечен Средняя</p>
                 </div>
-                <div class="block">
-                    <form action="">
-                        <button class="btn">Закрыть тикет</button>
+                <div class="block text-center bloc1">
+                    <form action="{{ route('appeal.close', $appeal) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn">Закрыть тикет</button>
                     </form>
                 </div>
             </div>
