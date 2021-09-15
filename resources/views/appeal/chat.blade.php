@@ -196,7 +196,8 @@
 
     .right {
         max-width: 300px;
-        height: 80%;
+        
+        margin-top: -110px;
         background-color: #fff;
         padding: 10px;
         margin: 0;
@@ -233,6 +234,13 @@
     .right .wrap .block p {
         font-size: 16px;
     }
+    .right{
+        margin-top: 53px;
+        height: 100vh;
+    }
+    @media screen and (min-width: 401px) and (max-width: 900px) {
+  .right { display: none;}   /* hide it elsewhere */
+}
 </style>
 </head>
 

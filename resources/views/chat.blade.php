@@ -10,7 +10,7 @@
 <div class="container">
 <div class="content container-fluid bootstrap snippets bootdey">
       <div class="row row-broken">        
-        <div class="col-xs-12 chat" style="overflow: ; outline: none;" tabindex="5001">
+        <div class="col-xs-12 chat" id="scroll" style="overflow: ; outline: none;" tabindex="5001" id="1">
           <div class="col-inside-lg decor-default">
             <div class="chat-body">
               
@@ -420,6 +420,7 @@ body{
 $(function(){
     $(".chat").niceScroll();
 })
+
 </script>
 
 
