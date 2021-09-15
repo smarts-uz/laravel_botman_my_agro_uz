@@ -207,6 +207,7 @@
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        padding-top: 10px;
     }
 
     .right .wrap .block {
@@ -225,6 +226,9 @@
         border-color: #f44336;
     }
 
+    .bloc1 {
+        border-bottom: none !important;
+    }
     .right .wrap .block span {
         font-size: 0.75rem;
         color: #9e9e9e;
@@ -232,7 +236,8 @@
         display: block;
     }
     .right .wrap .block p {
-        font-size: 16px;
+        font-size: 18px;
+        padding: 10px 0;
     }
     .right{
         margin-top: 53px;
@@ -297,6 +302,9 @@
         </section>
         <div class="right">
             <div class="wrap">
+            <div class="block text-center">
+                    <h2>Zakaz</h2>
+                </div>
                 <div class="block">
                     <span>Запрашивающий</span>
                     <p>Xurshida Kamalova </p>
@@ -317,7 +325,7 @@
                     <span>Состояние/Приоритет</span>
                     <p>Отвечен Средняя</p>
                 </div>
-                <div class="block">
+                <div class="block text-center bloc1">
                     <form action="{{ route('appeal.close', $appeal) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn">Закрыть тикет</button>
