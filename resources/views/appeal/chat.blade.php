@@ -303,7 +303,6 @@
                 <button type="submit" required class="msger-send-btn "{{ $appeal->is_closed == 1 ? "disabled" : ""}}>Send</button>
             </form>
             {{-- @endif --}}
-            
         </section>
         <div class="right">
             <div class="wrap">

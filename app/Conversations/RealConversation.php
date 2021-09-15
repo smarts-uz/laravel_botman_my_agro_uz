@@ -259,8 +259,7 @@ HTML;
                     "email" => $this->user_mamory["email"],
                     "password" => Hash::make($this->memory["pass"]),
                     "individual" => $this->user_mamory["usertype"],
-                    "place_of_work" =>  $this->memory["data"]["a"],
-                    "position" =>  $this->memory["data"]["b"]
+                    "place_of_work" =>  $this->memory["data"]["a"]
                 ]);
             } else {
                 $user = User::create([
