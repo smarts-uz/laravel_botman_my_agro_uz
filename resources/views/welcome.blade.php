@@ -102,12 +102,11 @@ $chatLogo = str_replace('\\', '/', $chatLogo);
             //dd( $chatLogo);
             //
           //  $intro = htmlspecialchars(setting('chatbot.ChatIntro'));
-            $intro = setting('chatbot.ChatIntro');
+            $intro = setting('chatbot.ChatIntroText');
         @endphp
 
 	    var botmanWidget = {
             // bubbleBackground: "blue",
-
 
             bubbleAvatarUrl: 'https://my.agro.uz/images/logo.png',
 
