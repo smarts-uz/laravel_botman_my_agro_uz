@@ -38,8 +38,8 @@ echo '
             var botmanWidget = {
             frameEndpoint: "https://my.agro.uz/package/build/chat.html",
             bubbleAvatarUrl: "https://my.agro.uz/storage/' . ($icon) . '",
-            aboutLink: "https://teamprodev.com",
-	          aboutText: "Powered By TEAMPRO",
+            aboutLink: "https://agro.uz",
+	        aboutText: "Powered By Agro.Uz",
             introMessage: "' . $intro . '",
 			title: "' . strval($title) . '",
 			placeholderText: "' . $placeText . '"

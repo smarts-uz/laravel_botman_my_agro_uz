@@ -142,7 +142,7 @@ class RealConversation extends Conversation
         $ar = [];
         $regions = Region::all()->toArray();
         foreach ($regions as $key) {
-            array_push($ar,Button::create($key[$this->language])->value($key["id"]));
+            $ar[] = Button::create($key[$this->language])->value($key["id"]);
         }
         return Question::create($this->questions["ASK_REGION"][$this->language])
         ->addButtons($ar);
@@ -151,7 +151,7 @@ class RealConversation extends Conversation
         $ar = [];
         $routes = Routes::all()->toArray();
         foreach ($routes as $key) {
-            array_push($ar,Button::create($key[$this->language])->value($key["id"]));
+            $ar[] = Button::create($key[$this->language])->value($key["id"]);
         }
         return Question::create($this->questions["ASK_ROUTE"][$this->language])
         ->addButtons($ar);
@@ -169,7 +169,7 @@ class RealConversation extends Conversation
 
 
 $say = <<<HTML
-        <input type="file"id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
+        <input type="file" id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
       
      <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
         <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
