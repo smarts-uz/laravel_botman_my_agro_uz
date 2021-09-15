@@ -186,6 +186,12 @@
         background-color: #fcfcfe;
         
     }
+    .titles {
+        background-color: #666;
+        padding: 10px 0;
+        margin: 0;
+        color: #fff;
+    }
 </style>
 </head>
 
@@ -193,8 +199,11 @@
 
     <div class="inputs">
         <section class="msger">
+        <div class="text-center titles">Lorem ip Quos delectus a Marepudiandae laborum.</div>
             <header class="msger-header">
+                
                 <div class="msger-header-title">
+                  
                     <i class="fas fa-comment-alt"></i>
                     <h4>SimpleChat</h4>
                 </div>
