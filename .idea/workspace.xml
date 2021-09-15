@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="add tasdiqlash">
-      <change beforePath="$PROJECT_DIR$/.idea/laravel_botman_chatbot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel_botman_chatbot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/botmanJS.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/botmanJS.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/September2021/6sUXfE4crlUloY5623BQ.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/September2021/FmvYULJwDclmpB3OFNWp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/September2021/OAvjGHfLdrdRcRMpMPQ0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/September2021/kKpbno77RGgVzAttLe3R.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

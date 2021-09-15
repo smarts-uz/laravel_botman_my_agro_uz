@@ -95,9 +95,11 @@
         <!-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> -->
     <script src='/package/build/js/widget.js'></script>
     <script>
+
+    
 	    var botmanWidget = {
             // bubbleBackground: "blue",
-            bubbleAvatarUrl: {{setting('chatbot.icon_image')}},
+            bubbleAvatarUrl: 'https://my.agro.uz/storage/{{setting('chatbot.icon_image')}}',
 
             frameEndpoint: "chat.html",
             introMessage: 'Intro'
