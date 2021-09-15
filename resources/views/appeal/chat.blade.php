@@ -8,7 +8,7 @@
 @section('content')
 
 <div class="container">
-<div class="content container-fluid bootstrap snippets bootdey">
+{{-- <div class="content container-fluid bootstrap snippets bootdey"> --}}
 
       <div class="row row-broken">
           <div class="col-md-12" style="background-color: lightseagreen; height: 150px;">

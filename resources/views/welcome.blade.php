@@ -79,6 +79,8 @@
             text-align: left; background-color: #98FB98;margin-right: auto;
         }
     </style>
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+
 </head>
 
 
@@ -88,12 +90,10 @@
     <link rel="stylesheet" type="text/css" href="/package/build/assets/css/chat.css"/>
 
 
-    <form  action="{{route('fileUpload')}}" id="form" method="post" style="display: none" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="file" onchange="this.form.submit();" class="custom-file-input" id="chooseFile">
-    </form>
-    </div>
+        <input type="file" style="display:none" id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
+        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
+    <script src='/package/build/js/widget.js'></script>
     <script>
 	    var botmanWidget = {
             bubbleBackground: "red",
@@ -101,6 +101,22 @@
             introMessage: 'Intro'
 	    };
     </script>
-    <script src='/package/build/js/widget.js'></script>
+    <script>
+    // Get a reference to the file input element
+    const inputElement = document.querySelector('input[id="form"]');
+
+    // Create a FilePond instance
+    const pond = FilePond.create(inputElement);
+
+    FilePond.setOptions({
+        server:{
+            url:"/upload",
+            headers:{
+                'X-CSRF-TOKEN':'{{csrf_token()}}'
+            }
+        }
+    })
+    console.log(pond.name);
+</script>
     <body>
 </html>

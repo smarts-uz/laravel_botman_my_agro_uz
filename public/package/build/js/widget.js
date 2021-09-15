@@ -1034,9 +1034,16 @@ let apps;
             var t = document.createElement("div");
             let isTrust = true
             let x = document.createElement("button")
+            let fileUp = document.querySelector("#form")
+            let body = document.querySelector("body")
+            
+            if(fileUp.parentNode == body){
+                fileUp.style.display = "none"
+            }else {
+                fileUp.style.display = "none"
+            }
             t.onclick = (e) => {
                 if(isTrust == true) {
-                    isTrust = false
                     x.textContent = "Murojaat yuborish | Отправить обращение"
                     x.style.width = "100%"
                     x.style.height = "59px"
@@ -1049,19 +1056,21 @@ let apps;
                     x.style.borderRadius = "4px"
                     x.style.cursor = "pointer"
                     x.style.borderRadius= "20px"
-
                     // x.style
+                    e.currentTarget.childNodes[0].appendChild(fileUp)
                     e.currentTarget.childNodes[0].appendChild(x)
 
                     x.onclick = function () {
                         botmanChatWidget.say('/start');
                         x.style.display = "none"
+                        fileUp.style.display = 'block' 
                     }
-
+                    isTrust = false 
                 }else if(isTrust == false) {
                     e.currentTarget.childNodes[0].removeChild(x)
                     x.style.display = "none"
                     isTrust = true
+                    // fileUp.style.display = 'none' 
                 }
             }
             (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
