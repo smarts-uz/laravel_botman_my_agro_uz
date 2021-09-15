@@ -47,7 +47,7 @@ class RealConversation extends Conversation
         'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
         'ASK_ROUTE' => ['uz' => "Kerakli yo'nalishni tanlang!", 'ru'=>'Выберите необходимое направление или сферу! '],
         'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => "Ish joyitashkilot", 'ru'=>' Место работы и организация ']],
-        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => "Tashkilot yo'nalishi", 'ru'=>' Направление деятельности ']],
+        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации ']],
     ];
     public function __construct()
     {
@@ -111,7 +111,7 @@ class RealConversation extends Conversation
         foreach (KEY_INDIVIDUALS[$this->language] as $key) {
             array_push($ar,Button::create($key["name"])->value($key["val"]));
         }
-        return Question::create(QUESTIONS["ASK_LANGUAGE1"][$this->language])
+        return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
         ->addButtons($ar);
     }
     public function keyActions(){
@@ -299,7 +299,7 @@ HTML;
 
     }
 
-    
+
     public function askPhone(){
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
             $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
