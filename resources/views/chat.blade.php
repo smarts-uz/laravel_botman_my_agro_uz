@@ -420,7 +420,10 @@ body{
 $(function(){
     $(".chat").niceScroll();
 })
+
 </script>
+
+
 
 
 @endsection

@@ -313,6 +313,9 @@
             </div>
         </div>
     </div>
-
+<script>
+    var objDiv = document.querySelector(".msger-chat");
+objDiv.scrollTop = objDiv.scrollHeight;
+</script>
 
     @endsection
