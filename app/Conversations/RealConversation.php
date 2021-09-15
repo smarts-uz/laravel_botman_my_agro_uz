@@ -23,11 +23,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 use App\Models\QuestionText;
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
-const KEY_INDIVIDUALS = [
-    'ru' => [['name'=>'Физическое лицо', 'val' => 0], ['name'=>'Юридическое лицо', 'val' => 1]],
-    'uz' => [['name'=>'Jismoniy shaxs', 'val' => 0], ['name'=>'Yuridik shaxs', 'val' => 1]],
 
-];
 const QUESTIONS = [
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru'=>' Место работы полностью '],['uz' => "Название организации UZ", 'ru'=>' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru'=>' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru'=>' Направление деятельности ']],
@@ -39,8 +35,41 @@ class RealConversation extends Conversation
     public $language;
     public $usertype;
     protected $verify;
+    public $key_indevidual;
+    public $user_question_data;
     public function __construct()
     {
+        $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
+        $this->key_indevidual["ru"][0]["val"] = 0;
+        $this->key_indevidual["ru"][1]["name"] = QuestionText::where('name', 'ASK_JISMONIY')->first()->ru;
+        $this->key_indevidual["ru"][1]["val"] = 1;
+
+        $this->key_indevidual["uz"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->uz;
+        $this->key_indevidual["uz"][0]["val"] = 0;
+        $this->key_indevidual["uz"][1]["name"] = QuestionText::where('name', 'ASK_JISMONIY')->first()->uz;
+        $this->key_indevidual["uz"][1]["val"] = 1;
+
+
+
+
+
+        $this->user_question_data["ASK_USER_A"][0]["uz"] = QuestionText::where('name', 'ASK_JOB')->first()->uz;
+        $this->user_question_data["ASK_USER_A"][0]["ru"] = QuestionText::where('name', 'ASK_JOB')->first()->ru;
+
+        $this->user_question_data["ASK_USER_A"][1]["uz"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->uz;
+        $this->user_question_data["ASK_USER_A"][1]["ru"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->ru;
+
+        $this->user_question_data["ASK_USER_B"][0]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
+        $this->user_question_data["ASK_USER_B"][0]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
+
+        $this->user_question_data["ASK_USER_B"][1]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
+        $this->user_question_data["ASK_USER_B"][1]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
+
+
+
+        $this->questions["FINISH"]["uz"] = QuestionText::where('name', 'FINISH')->first()->uz;
+        $this->questions["FINISH"]["ru"] = QuestionText::where('name', 'FINISH')->first()->ru;
+
         $this->questions["ASK_LANGUAGE"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
         $this->questions["ASK_QUESTION"]["uz"] = QuestionText::where('name', 'ASK_QUESTION')->first()->uz;
         $this->questions["ASK_QUESTION"]["ru"] = QuestionText::where('name', 'ASK_QUESTION')->first()->ru;
@@ -50,6 +79,9 @@ class RealConversation extends Conversation
 
         $this->questions["ASK_ACTION"]["uz"] = QuestionText::where('name', 'ASK_ACTION')->first()->uz;
         $this->questions["ASK_ACTION"]["ru"] = QuestionText::where('name', 'ASK_ACTION')->first()->ru;
+
+        $this->questions["SAY_ACTION"]["uz"] = QuestionText::where('name', 'SAY_ACTION')->first()->uz;
+        $this->questions["SAY_ACTION"]["ru"] = QuestionText::where('name', 'SAY_ACTION')->first()->ru;
 
         $this->questions["ASK_NAME"]["uz"] = QuestionText::where('name', 'ASK_NAME')->first()->uz;
         $this->questions["ASK_NAME"]["ru"] = QuestionText::where('name', 'ASK_NAME')->first()->ru;
@@ -78,28 +110,20 @@ class RealConversation extends Conversation
         $this->questions["ASK_USER_TYPE"]["ru"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->ru;
         $this->questions["ASK_USER_TYPE"]["uz"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->uz;
 
-        $this->questions["ASK_FILE"]["ru"] = QuestionText::where('name', 'ASK_FILE')->first()->ru;
-        $this->questions["ASK_FILE"]["uz"] = QuestionText::where('name', 'ASK_FILE')->first()->uz;
+        $this->questions["ASK_FILE_UPLOAD"]["ru"] = QuestionText::where('name', 'ASK_FILE')->first()->ru;
+        $this->questions["ASK_FILE_UPLOAD"]["uz"] = QuestionText::where('name', 'ASK_FILE')->first()->uz;
 
+        $this->questions["ASK_SMS"]["ru"] = QuestionText::where('name', 'ASK_SMS')->first()->ru;
+        $this->questions["ASK_SMS"]["uz"] = QuestionText::where('name', 'ASK_SMS')->first()->uz;
 
-        $this->questions["ASK_FILE_UPLOAD"]["ru"] = "Вы хотите загрузить файл?";
-        $this->questions["ASK_FILE_UPLOAD"]["uz"] = "fayl yuklashni holaysizmi?";
-        $this->questions["ASK_Title"]["ru"] = "Введите тему вашего заявления!";
-        $this->questions["ASK_Title"]["uz"] = "Murojaatingiz mavzusini kiriting!";
+        $this->questions["ASK_Title"]["ru"] = QuestionText::where('name', 'ASK_THEME')->first()->ru;
+        $this->questions["ASK_Title"]["uz"] = QuestionText::where('name', 'ASK_THEME')->first()->uz;
         $this->questions["Yes"]["ru"] = "да";
-        $this->questions["Yes"]["uz"] = "Ha";
+        $this->questions["Yes"]["uz"] = "Дa";
         $this->questions["No"]["ru"] = "Нет";
         $this->questions["No"]["uz"] = "Yo'q";
     }
-    public function ContactKeyboard()
-    {
-        return Keyboard::create()
-            ->addRow(KeyboardButton::create(QUESTIONS["TELL_PHONE_SEND"][$this->language])->requestContact())
-            ->type(Keyboard::TYPE_KEYBOARD)
-            ->oneTimeKeyboard()
-            ->resizeKeyboard()
-            ->toArray();
-    }
+
     public function keyLanguages(){
         $ar = [];
         foreach (LANGUAGE as $key) {
@@ -110,7 +134,7 @@ class RealConversation extends Conversation
     }
     public function keyUserType(){
         $ar = [];
-        foreach (KEY_INDIVIDUALS[$this->language] as $key) {
+        foreach ($this->key_indevidual[$this->language] as $key) {
             array_push($ar,Button::create($key["name"])->value($key["val"]));
         }
         return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
@@ -276,7 +300,10 @@ HTML;
                     "activity" =>  $this->memory["data"]["b"]
                 ]);
             }
-            $text = 'Login: ' . $this->user_mamory["email"].' Parol:'. $this->memory["pass"];
+            $email=$this->user_mamory["email"];
+            $password=$this->memory["pass"];
+            $text = $this->language == "uz" ? setting('sms.AccountUz') :setting('sms.AccountRu');
+            // $text = 'E-Mail: ' . $this->user_mamory["email"].' Password:'. $this->memory["pass"];
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
             $details = [
@@ -291,8 +318,10 @@ HTML;
             // $this->fillUserData($user);
             $this->verify = $this->generatePass(4);
             $smsSender = new SmsService();
-            $smsSender->send('998'.$this->user_mamory["phone"],"My.Agro.Uz portali uchun tasdiqlash kodi: ". $this->verify);
-            $this->say(`** *** `.substr($user->phone,-4)." raqamiga tasdiqlash kodi uyuborildi");
+            $smstext = $this->language=="uz" ? setting('sms.ConfirmRu') : setting('sms.ConfirmUz');
+            $smsSender->send('998'.$this->user_mamory["phone"], $smstext. $this->verify);
+            $verifytext = $this->language=="uz" ? `** *** `.substr($user->phone,-4)." raqamiga tasdiqlash kodi yuborildi" : "код подтверждения был отправлен на номер " . `** *** `.substr($user->phone,-4);
+            $this->say($verifytext);
         }
 
         $this->user_mamory["id"] = $user->id;
@@ -341,6 +370,7 @@ HTML;
             $this->user_mamory["name"] = $name->getText();
             $user = User::where('email', $this->user_mamory["email"])->first();
             if($user) {
+                Log::info($user->phone);
                 $this->verifyPhone($user->phone);
             }else {
                 $this->askPhone();
@@ -351,16 +381,17 @@ HTML;
     }
     public function askUser(){
         if($this->user_mamory["usertype"] == 1){
-            $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
+            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask(QUESTIONS["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
+                $this->ask($this->user_question_data["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
                     , function($ask2) {
                     $this->memory["data"]['b'] = $ask2->getText();
                     $this->askName();
                 });
             });
         } else {
-            $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
+            LOG::info($this->user_mamory["usertype"]);
+            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->askName();
 
@@ -380,7 +411,7 @@ HTML;
 
 
     public function askEnd() {
-        $this->say('F.I.O: '.$this->user_mamory["name"].'<br>Murojaat turi: '.$this->memory["action"].'<br> Viloyat: '.$this->memory["region"].'<br> Yo`nalish: '.$this->memory["route"].'<br> E-mail: '.$this->user_mamory["email"].'<br> Tel: '.$this->user_mamory["phone"].'<br> ');
+        $this->say($this->questions["ASK_NAME"][$this->language] .': '.$this->user_mamory["name"].'<br> '.$this->questions["SAY_ACTION"][$this->language].''.$this->memory["action"].'<br> Region: '.$this->memory["region"].'<br> Route: '.$this->memory["route"].'<br> E-mail: '.$this->user_mamory["email"].'<br> Tel: '.$this->user_mamory["phone"].'<br> ');
         $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
 
         $this->ask($question, function ($answer) {
@@ -393,9 +424,17 @@ HTML;
                     $appeal->region = $this->memory["region"];
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
+                    $appeal->fullname = $this->user_mamory["name"];
+                    if($this->user_mamory["usertype"]==1) {
+                        $appeal->company = $this->memory["data"]["a"];
+                        $appeal->branch = $this->memory["data"]["b"];
+                    } else {
+                        $appeal->workplace = $this->memory["data"]["a"];
+                    }
+
+
                     $appeal->save();
-                    Log::info($appeal->title);
-                    $this->say("✅Sizning murojaatingiz belgilangan tartibda ko\'rib chiqiladi va 1-3 kun ichida Qishloq xo\'jaligi vazirligining My.Agro.Uz shaxsiy kabinetiga javob olasiz.");
+                    $this->say( $this->questions["FINISH"][$this->language]);
                 }else {
                     $this->askAppeal();
                 }
