@@ -1048,6 +1048,7 @@ let apps;
                     x.style.fontWeight = "bold"
                     x.style.borderRadius = "4px"
                     x.style.cursor = "pointer"
+                    x.style.borderRadius= "20px"
 
                     // x.style
                     e.currentTarget.childNodes[0].appendChild(x)
@@ -1175,7 +1176,7 @@ let apps;
                                         ? Object(i.b)(
                                             "div",
                                             { style: d({ background: "#417E76" }, f.d), onClick: this.toggle },
-                                            Object(i.b)("div", { style: { display: "flex", alignItems: "center", padding: "0px 30px 0px 0px", fontSize: "15px", fontWeight: "normal", color: n.headerTextColor } }, n.title),
+                                            Object(i.b)("div", { style: {display: "flex", alignItems: "center", padding: "0px 30px 0px 0px", fontSize: "14px", fontWeight: "normal", color: n.headerTextColor } }, n.title),
                                             Object(i.b)(u.a, { isOpened: r })
                                         )
                                         : Object(i.b)(c.a, { onClick: this.toggle, conf: n })
@@ -1509,7 +1510,7 @@ let apps;
             frameEndpoint: "/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
-            title:"AgroChat",
+            title:"AGRO.UZ CHAT",
             cookieValidInDays: 1,
             introMessage: "",
             placeholderText: "",
