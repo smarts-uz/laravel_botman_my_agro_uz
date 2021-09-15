@@ -29,8 +29,8 @@ const KEY_INDIVIDUALS = [
 
 ];
 const QUESTIONS = [
-    'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => "Ish joyitashkilot", 'ru'=>' Место работы и организация ']],
-    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '], ['uz' => 'Tashkilot nomi', 'ru'=>' Название организации ']],
+    'ASK_USER_A' => [['uz' => 'Место работы полностью', 'ru'=>' Должность и род занятия '],['uz' => "Название организации UZ", 'ru'=>' Название организации  ']],
+    'ASK_USER_B' => [['uz' => 'Место работы полностью', 'ru'=>' Название организации '], ['uz' => 'Направление деятельности UZ', 'ru'=>' Направление деятельности ']],
 ];
 class RealConversation extends Conversation
 {
@@ -166,7 +166,7 @@ class RealConversation extends Conversation
             $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
             if($x == true) {
                 $this->user_mamory["email"] = $email->getText();
-                
+
                  $this->askTitle();
             }elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
@@ -340,12 +340,12 @@ HTML;
             }else {
                 $this->askPhone();
             }
-            
+
         }
         );
     }
     public function askUser(){
-        
+        if($this->user_mamory["usertype"] == 0){
             $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->ask(QUESTIONS["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
@@ -354,6 +354,12 @@ HTML;
                     $this->askName();
                 });
             });
+        } else {
+            $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
+                $this->memory["data"]["a"] = $ask1->getText();
+            });
+        }
+
 
     }
     public function askUserType(){
