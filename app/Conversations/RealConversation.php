@@ -325,10 +325,11 @@ HTML;
             }
             $email=$this->user_mamory["email"];
             $password=$this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') :setting('sms.AccountRu');
+            $text = $this->language == "uz" ? setting('sms.AccountUz').'<br>Email:'.$email.'<br>Password:'.$password :setting('sms.AccountRu').'<br>Email:'.$email.'<br>Password:'.$password;
             // $text = 'E-Mail: ' . $this->user_mamory["email"].' Password:'. $this->memory["pass"];
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
+
             $details = [
                 'title' => 'your cabinate login and password',
                 'body' => $text
@@ -338,13 +339,13 @@ HTML;
             $this->user_mamory["usertype"] = $user->individeual;
             $this->user_mamory["phone"] = $user->phone;
             $this->user_mamory["name"] = $user->name;
-            // $this->fillUserData($user);
-            $this->verify = $this->generatePass(4);
-            $smsSender = new SmsService();
-            $smstext = $this->language=="uz" ? setting('sms.ConfirmRu') : setting('sms.ConfirmUz');
-            $smsSender->send('998'.$this->user_mamory["phone"], $smstext. $this->verify);
-            $verifytext = $this->language=="uz" ? `** *** `.substr($user->phone,-4)." raqamiga tasdiqlash kodi yuborildi" : "код подтверждения был отправлен на номер " . `** *** `.substr($user->phone,-4);
-            $this->say($verifytext);
+
+            // $this->verify = $this->generatePass(4);
+            // $smsSender = new SmsService();
+            // $smstext = $this->language=="uz" ? setting('sms.ConfirmRu') : setting('sms.ConfirmUz');
+            // $smsSender->send('998'.$this->user_mamory["phone"], $smstext. $this->verify);
+            // $verifytext = $this->language=="uz" ? `** *** `.substr($user->phone,-4)." raqamiga tasdiqlash kodi yuborildi" : "код подтверждения был отправлен на номер " . `** *** `.substr($user->phone,-4);
+            // $this->say($verifytext);
         }
 
         $this->user_mamory["id"] = $user->id;
