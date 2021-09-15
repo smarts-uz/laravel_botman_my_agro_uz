@@ -269,6 +269,7 @@
                 </div>
             </header>
             <main class="msger-chat">
+
                 @foreach ($conversations as $conversation)
                 {{-- @dd($conversation); --}}
                 @php
@@ -307,7 +308,7 @@
                 </div>
                 <div class="block">
                     <span>Запрашивающий</span>
-                    <p>{{ $user->name }} </p>
+                    <p>{{ $user }} </p>
                 </div>
                 <div class="block">
                     <span>Область</span>
