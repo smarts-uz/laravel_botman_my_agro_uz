@@ -101,7 +101,7 @@
             introMessage: 'Intro'
 	    };
     </script>
-    <script>
+    <!-- <script>
     // Get a reference to the file input element
     const inputElement = document.querySelector('input[id="form"]');
 
@@ -117,6 +117,6 @@
         }
     })
     console.log(pond.name);
-</script>
+</script> -->
     <body>
 </html>

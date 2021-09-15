@@ -1057,13 +1057,13 @@ let apps;
                     x.style.cursor = "pointer"
                     x.style.borderRadius= "20px"
                     // x.style
-                    e.currentTarget.childNodes[0].appendChild(fileUp)
+                    // e.currentTarget.childNodes[0].appendChild(fileUp)
                     e.currentTarget.childNodes[0].appendChild(x)
 
                     x.onclick = function () {
                         botmanChatWidget.say('/start');
                         x.style.display = "none"
-                        fileUp.style.display = 'block' 
+                        // fileUp.style.display = 'block' 
                     }
                     isTrust = false 
                 }else if(isTrust == false) {
