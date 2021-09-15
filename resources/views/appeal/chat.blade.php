@@ -299,30 +299,34 @@
             <div class="wrap">
                 <div class="block">
                     <span>Запрашивающий</span>
-                    <p>Xurshida Kamalova </p>
+                    <p>{{ $user->name }} </p>
                 </div>
                 <div class="block">
-                    <span>Отдел</span>
-                    <p>Отдел технической поддержки</p>
+                    <span>Область</span>
+                    <p>{{ $region }}</p>
+                </div>
+                <div class="block">
+                    <span>Направления</span>
+                    <p>{{ $route }}</p>
                 </div>
                 <div class="block">
                     <span>Отправлен</span>
-                    <p>10.09.2021 (18:32)</p>
-                </div>
-                <div class="block">
-                    <span>Последнее обновление</span>
-                    <p>4 дня назад</p>
+                    <p>{{ date('d.m.y (H:m)', strtotime($appeal->created_at)) }}</p>
                 </div>
                 <div class="block">
                     <span>Состояние/Приоритет</span>
                     <p>Отвечен Средняя</p>
                 </div>
+                @if($appeal->is_closed == 0)
                 <div class="block">
                     <form action="{{ route('appeal.close', $appeal) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn">Закрыть тикет</button>
                     </form>
                 </div>
+                @else
+                    <button type="button" class="btn btn-primary">Закрыть тикет</button>
+                @endif
             </div>
         </div>
     </div>
