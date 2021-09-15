@@ -66,10 +66,6 @@ class RealConversation extends Conversation
     public function __construct()
     {
         $this->questions["ASK_LANGUAGE"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
-
-        // $this->questions["ASK_LANGUAGE"]["uz"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
-
-
         $this->questions["ASK_QUESTION"]["uz"] = QuestionText::where('name', 'ASK_QUESTION')->first()->uz;
         $this->questions["ASK_QUESTION"]["ru"] = QuestionText::where('name', 'ASK_QUESTION')->first()->ru;
 
@@ -102,6 +98,9 @@ class RealConversation extends Conversation
 
         $this->questions["ASK_VERIFY_PHONE"]["uz"] = QuestionText::where('name', 'ASK_VERIFY_PHONE')->first()->uz;
         $this->questions["ASK_VERIFY_PHONE"]["ru"] = QuestionText::where('name', 'ASK_VERIFY_PHONE')->first()->ru;
+
+        $this->questions["ASK_USER_TYPE"]["ru"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->ru;
+        $this->questions["ASK_USER_TYPE"]["uz"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->uz;
 
     }
     public function ContactKeyboard()
@@ -159,8 +158,7 @@ class RealConversation extends Conversation
 
     public function run()
     {
-        $this->say('<input name="ok" type="image">');
-        // $this->askLanguage();
+        $this->askLanguage();
     }
     public function askLanguage(){
         $this->ask($this->keyLanguages(), function($language){
@@ -170,7 +168,7 @@ class RealConversation extends Conversation
 
 $say = <<<HTML
         <input type="file" id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
-      
+
      <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
         <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
     <script>
