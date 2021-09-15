@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AgroChat</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> -->
     <style>
         html, body {
             background-color: #fff;
@@ -109,8 +109,8 @@
 
 
 <input type="file" style="display:none" id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
-<!-- <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> -->
-<!-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> -->
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> -->
+ <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 <script src='/package/build/js/widget.js'></script>
 <script>
 
@@ -149,5 +149,6 @@ $chatLogo = str_replace('\\', '/', $chatLogo);
     })
     console.log(pond.name);
 </script> -->
+
 <body>
 </html>

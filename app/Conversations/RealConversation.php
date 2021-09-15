@@ -77,7 +77,14 @@ class RealConversation extends Conversation
 
         $this->questions["ASK_USER_TYPE"]["ru"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->ru;
         $this->questions["ASK_USER_TYPE"]["uz"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->uz;
-
+        $this->questions["ASK_FILE_UPLOAD"]["ru"] = "Вы хотите загрузить файл?";
+        $this->questions["ASK_FILE_UPLOAD"]["uz"] = "fayl yuklashni holaysizmi?";
+        $this->questions["ASK_Title"]["ru"] = "Введите тему вашего заявления!";
+        $this->questions["ASK_Title"]["uz"] = "Murojaatingiz mavzusini kiriting!";
+        $this->questions["Yes"]["ru"] = "да";
+        $this->questions["Yes"]["uz"] = "Ha";
+        $this->questions["No"]["ru"] = "Нет";
+        $this->questions["No"]["uz"] = "Yo'q";
     }
     public function ContactKeyboard()
     {
@@ -132,6 +139,14 @@ class RealConversation extends Conversation
         ->addButtons($ar);
     }
 
+    public function mediaRoutes(){
+        return Question::create($this->questions["ASK_FILE_UPLOAD"][$this->language])
+        ->addButtons([
+            Button::create( $this->questions["Yes"][$this->language])->value("ha"),
+            Button::create( $this->questions["No"][$this->language])->value("yo'q")
+        ]);
+    }
+
     public function run()
     {
         $this->askLanguage();
@@ -140,31 +155,6 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function($language){
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
-
-
-$say = <<<HTML
-        <input type="file" id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
-
-     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-    <script>
-          console.log('sdfsdsdf');
-    const inputElement = document.querySelector('input[id="form"]');
-    const pond = FilePond.create(inputElement);
-    FilePond.setOptions({
-        server:{
-            url:"/upload",
-            headers:{
-                'X-CSRF-TOKEN':'{{csrf_token()}}'
-            }
-        }
-    })
-    console.log(pond.name);
-</script>
-HTML;
-
-
-                $this->say($say);
                 $this->askAction();
             } else {
                 return $this->repeat();
@@ -178,7 +168,7 @@ HTML;
                 $this->user_mamory["email"] = $email->getText();
                 // $user = User::where('email', $this->user_mamory["email"])->first();
                 // if($user)
-                 $this->askAppeal();
+                 $this->askTitle();
             }elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
@@ -187,14 +177,37 @@ HTML;
         // $this->user_mamory["email"]
     }
 
+    public function askTitle() {
+        $this->ask($this->questions["ASK_Title"][$this->language],function($answer) {
+            $this->user_mamory["title"] = $answer->getText();
+            $this->askAppeal();
+        });
+    }
+
     public function askAppeal(){
         $this->ask($this->questions["ASK_QUESTION"][$this->language], function($conversation){
             if ($conversation->getText() != "tugat") {
                 $this->memory["answer"] = $conversation->getText();
             } else $this->repeat();
-            $this->askRoute();
+            $this->askMedia();
         });
+    }
 
+    public function askMedia() {
+        $this->ask($this->mediaRoutes(),function($answer) {
+            if ($answer->isInteractiveMessageReply()) {
+                if($answer->getValue() == "ha") {
+                    $say = <<<HTML
+        <input type="file" id="form" name="file" onchange="
+        console.log(this)
+        "class="custom-file-input" id="chooseFile">
+HTML;
+                $this->say($say);
+                }else {
+                    $this->askRoute();
+                }
+            } else $this->repeat();
+        });
     }
     public function askAction(){
         $this->ask($this->keyActions(), function($actions){
@@ -251,7 +264,7 @@ HTML;
                 $user = User::create([
                     'name' => $this->user_mamory["name"],
                     'role_id' => 2,
-                    'phone' => $this->user_mamory["phone"],
+                    'phone' =>  $this->user_mamory["phone"],
                     'individual' => $this->user_mamory["usertype"],
                     'remember_token' => $this->generatePass(32),
                     "email" => $this->user_mamory["email"],
@@ -349,14 +362,6 @@ HTML;
     }
 
 
-
-
-
-
-
-
-
-
     public function askEnd() {
         $this->say('F.I.O: '.$this->user_mamory["name"].'<br>Murojaat turi: '.$this->memory["action"].'<br> Viloyat: '.$this->memory["region"].'<br> Yo`nalish: '.$this->memory["route"].'<br> E-mail: '.$this->user_mamory["email"].'<br> Tel: '.$this->user_mamory["phone"].'<br> ');
         $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
@@ -365,12 +370,14 @@ HTML;
             if($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() == "ha") {
                     $appeal = new Appeal();
+                    $appeal->title = $this->user_mamory["title"];
                     $appeal->text = $this->memory["answer"];
                     $appeal->user_id = $this->user_mamory["id"];
                     $appeal->region = $this->memory["region"];
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
                     $appeal->save();
+                    Log::info($appeal->title);
                     $this->say("✅Sizning murojaatingiz belgilangan tartibda ko\'rib chiqiladi va 1-3 kun ichida Qishloq xo\'jaligi vazirligining My.Agro.Uz shaxsiy kabinetiga javob olasiz.");
                 }else {
                     $this->askAppeal();
