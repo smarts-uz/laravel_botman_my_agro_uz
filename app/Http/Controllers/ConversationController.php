@@ -39,7 +39,7 @@ class ConversationController extends Controller
     }
     public function close($appeal){
         if(Appeal::where('id', $appeal)->update(["is_closed" => 1])){
-            return redirect()->back()->with('success', 'Closed');
-        } return redirect()->back()->with('warning', 'something went wrong!');
+            return back()->with('success', 'Closed');
+        } return back()->with('warning', 'something went wrong!');
     }
 }
