@@ -217,7 +217,7 @@
     }
 
     .right .wrap .block .btn {
-        padding: 5px 10px;
+        padding: 5px 5px;
         font-size: 14px;
         line-height: 1.5;
         border-radius: 3px;
@@ -236,8 +236,8 @@
         display: block;
     }
     .right .wrap .block p {
-        font-size: 18px;
-        padding: 10px 0;
+        font-size: 14px;
+        padding: 4px 0;
     }
     .right{
         margin-top: 53px;
@@ -246,6 +246,10 @@
     @media screen and (min-width: 300px) and (max-width: 900px) {
   .right { display: none;}   /* hide it elsewhere */
 }
+@media screen and (min-width: 300px) and (max-width: 900px) {
+  .buttonDis { display: show;} 
+
+    /* hide it elsewhere */}
 
 
 
@@ -269,6 +273,7 @@
                 </div>
             </header>
             <main class="msger-chat">
+
                 @foreach ($conversations as $conversation)
                 {{-- @dd($conversation); --}}
                 @php
@@ -298,6 +303,7 @@
                 <button type="submit" required class="msger-send-btn "{{ $appeal->is_closed == 1 ? "disabled" : ""}}>Send</button>
             </form>
             {{-- @endif --}}
+            
         </section>
         <div class="right">
             <div class="wrap">
@@ -306,7 +312,7 @@
                 </div>
                 <div class="block">
                     <span>Запрашивающий</span>
-                    <p>{{ $user->name }} </p>
+                    <p>{{ $user }} </p>
                 </div>
                 <div class="block">
                     <span>Область</span>
@@ -332,7 +338,7 @@
                     </form>
                 </div>
                 @else
-                    <button type="button" class="btn disabled">Закрыть тикет</button>
+                    <button type="button" class="btn disabled buttonDis">Закрыть тикет</button>
                 @endif
             </div>
         </div>
