@@ -100,14 +100,19 @@
           $chatLogo = setting('chatbot.icon_image');
 $chatLogo = str_replace('\\', '/', $chatLogo);
             //dd( $chatLogo);
+            //
+          //  $intro = htmlspecialchars(setting('chatbot.ChatIntro'));
+            $intro = setting('chatbot.ChatIntro');
         @endphp
 
 	    var botmanWidget = {
             // bubbleBackground: "blue",
-            bubbleAvatarUrl: 'https://my.agro.uz/storage/{{$chatLogo}}',
+
+
+            bubbleAvatarUrl: 'https://my.agro.uz/images/logo.png',
 
             frameEndpoint: "chat.html",
-            introMessage: 'Intro'
+            introMessage: `{{$intro}}`
 	    };
     </script>
     <!-- <script>
