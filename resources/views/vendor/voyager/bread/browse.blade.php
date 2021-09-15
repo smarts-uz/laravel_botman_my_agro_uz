@@ -101,7 +101,7 @@
                                             @endif
                                         </th>
                                         @endforeach
-                                        <th class="actions text-right dt-not-orderable">{{ __('voyager::generic.actions') }}</th>
+                                        <th class="actions text-right dt-not-orderable" style="width: 200px !important;">{{ __('voyager::generic.actions') }} </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -250,7 +250,7 @@
                                                 @endif
                                             </td>
                                         @endforeach
-                                        <td class="no-sort no-click bread-actions">
+                                        <td class="no-sort no-click bread-actions" style="width: 200px !important; display:flex">
                                             @foreach($actions as $action)
                                                 @if (!method_exists($action, 'massAction'))
                                                     @include('voyager::bread.partials.actions', ['action' => $action])
