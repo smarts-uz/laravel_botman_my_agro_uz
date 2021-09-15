@@ -196,7 +196,7 @@
 
     .right {
         max-width: 300px;
-        
+
         margin-top: -110px;
         background-color: #fff;
         padding: 10px;
@@ -284,12 +284,13 @@
 
 
             </main>
-
+            @if($appeal->is_closed == 0)
             <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
                 @csrf
-                <input name="text" type="text" class="msger-input" placeholder="Enter your message...">
+                <input name="text" type="text" class="msger-input" required placeholder="Enter your message...">
                 <button type="submit" class="msger-send-btn">Send</button>
             </form>
+            @endif
         </section>
         <div class="right">
             <div class="wrap">
@@ -314,8 +315,9 @@
                     <p>Отвечен Средняя</p>
                 </div>
                 <div class="block">
-                    <form action="">
-                        <button class="btn">Закрыть тикет</button>
+                    <form action="{{ route('appeal.close', $appeal) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn">Закрыть тикет</button>
                     </form>
                 </div>
             </div>

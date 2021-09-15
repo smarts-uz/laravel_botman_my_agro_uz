@@ -35,6 +35,7 @@ Route::get('/admin/answer/appeal/{appeal}', [AnswerController::class, 'answer'])
 Route::get('/admin/redirect/appeal/{appeal}', [AnswerController::class, 'toExpert'])->name('answer.redirect');
 Route::post('/admin/appeal/update/{appeal}', [AnswerController::class, 'updateAnswer'])->name('appeal.update');
 Route::get('/admin/appeal/{appeal}/send', [AnswerController::class, 'sendAnswer'])->name('answer.send');
+Route::post('/appeal/chat/close/{appeal}', [ConversationController::class, 'close'])->name("appeal.close");
 
 
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
@@ -48,9 +49,8 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     // Route::get('/appeal/chat/{chat}', [ChatController::class, 'index'])->name("answer.chat");
     // Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
-    Route::post('/appeal/chat/post/{id}', [ConversationController::class, 'send'])->name("conversation.send");
-    Route::get('/appeal/chat/post/{appeal}', [ConversationController::class, 'index'])->name("conversation.index");
-
+    Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
+    Route::get('/appeal/chat/{appeal}', [ConversationController::class, 'index'])->name("conversation.index");
 
 
 });
