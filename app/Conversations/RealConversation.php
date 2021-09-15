@@ -79,6 +79,11 @@ class RealConversation extends Conversation
 
         $this->questions["ASK_USER_TYPE"]["ru"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->ru;
         $this->questions["ASK_USER_TYPE"]["uz"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->uz;
+
+        $this->questions["ASK_FILE"]["ru"] = QuestionText::where('name', 'ASK_FILE')->first()->ru;
+        $this->questions["ASK_FILE"]["uz"] = QuestionText::where('name', 'ASK_FILE')->first()->uz;
+
+
         $this->questions["ASK_FILE_UPLOAD"]["ru"] = "Вы хотите загрузить файл?";
         $this->questions["ASK_FILE_UPLOAD"]["uz"] = "fayl yuklashni holaysizmi?";
         $this->questions["ASK_Title"]["ru"] = "Введите тему вашего заявления!";
