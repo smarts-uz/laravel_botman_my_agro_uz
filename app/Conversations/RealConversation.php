@@ -166,6 +166,25 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function($language){
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
+                $this->say("
+                <input type='file' id='form' name='file' onchange='' class='custom-file-input' id='chooseFile'> 
+
+                <script>
+                    console.log('pond.name');
+    const inputElement = document.querySelector('input[id='form']');
+
+    const pond = FilePond.create(inputElement);
+
+    FilePond.setOptions({
+        server:{
+            url:'/upload',
+            headers:{
+                'X-CSRF-TOKEN':'{{csrf_token()}}'
+            }
+        }
+    })
+</script>
+                ");
                 $this->askAppeal();
             } else {
                 return $this->repeat();
@@ -176,8 +195,6 @@ class RealConversation extends Conversation
         $this->ask($this->questions["ASK_QUESTION"][$this->language], function($conversation){
             if ($conversation->getText() != "tugat") {
                 $this->memory["answer"] = $conversation->getText();
-
-
             } else $this->repeat();
             $this->askAction();
         });
