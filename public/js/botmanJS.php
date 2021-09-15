@@ -8,7 +8,7 @@ ob_end_flush();
 require __DIR__ . '/../../vendor/autoload.php';
 // $settings = \Illuminate\Support\Facades\DB::table('settings');
 // $title = $settings->where('key', 'chatbot.chat_title')->first()->value;
-$servername = env("DB_HOST");
+$servername = 'localhost';
 $username = 'root';
 $password = 'root';
 $dbname = 'laravel_agromy';
