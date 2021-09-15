@@ -18,6 +18,7 @@ use TCG\Voyager\Events\BreadUpdated;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\VoyagerBreadController;
 use App\Models\Appeal;
+use App\Models\Routes;
 use App\Models\User;
 class AnswerController extends VoyagerBreadController
 
@@ -34,7 +35,19 @@ class AnswerController extends VoyagerBreadController
         return redirect()->route('voyager.appeals.index');
     }
     public function toExpert($appeal){
-        Appeal::where('id', $appeal)->update(['to_expert' => 1]);
+
+        $appealObject = Appeal::where('id', $appeal);
+        $appealData = $appealObject->first();
+        $route = Routes::where('id', $appealData->route)->first();
+        $expert = User::where('id', $route->responsible)->first();
+        // dd(User::where('id', $route->responsible)->first());
+
+        $appealObject->update(['to_expert' => 1]);
+        $details = [
+            'title' => $appealData->title,
+            'body' => $appealData->text
+        ];
+        Mail::to($expert->email)->send(new SendMail($details));
         return redirect()->route('voyager.appeals.index');
     }
     public function updateAnswer(Request $request, $appeal){
