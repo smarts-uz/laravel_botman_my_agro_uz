@@ -196,7 +196,6 @@
 
     .right {
         max-width: 300px;
-        
         margin-top: -110px;
         background-color: #fff;
         padding: 10px;
@@ -238,9 +237,12 @@
         margin-top: 53px;
         height: 100vh;
     }
-    @media screen and (min-width: 401px) and (max-width: 900px) {
+    @media screen and (min-width: 300px) and (max-width: 900px) {
   .right { display: none;}   /* hide it elsewhere */
 }
+
+
+
 </style>
 </head>
 
