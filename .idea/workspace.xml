@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c31eea8b-b0ac-4aa5-8984-d929dae6a7a9" name="Default Changelist" comment="add tasdiqlash">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/laravel_botman_chatbot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel_botman_chatbot.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Actions/SendUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Actions/SendUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/package/build/assets/css/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/package/build/assets/css/chat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/package/build/js/widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/package/build/js/widget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/appeal/answerappeal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/appeal/answerappeal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/botmanJS.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/botmanJS.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +18,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
@@ -166,6 +170,12 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
       <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/vendor/seld/phar-utils" />
+      <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/larapack/hooks" />
+      <path value="$PROJECT_DIR$/vendor/larapack/voyager-hooks" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
     </include_path>
   </component>
   <component name="ProjectId" id="1xLFkvwPkzqOOmdOAmVrR7sRGJm" />
@@ -214,7 +224,6 @@
       <workItem from="1630305301117" duration="5485000" />
       <workItem from="1630864363708" duration="1589000" />
       <workItem from="1630903939445" duration="9213000" />
-
       <workItem from="1630922535443" duration="2939000" />
       <workItem from="1631032453496" duration="1434000" />
       <workItem from="1631099783613" duration="3432000" />
@@ -223,7 +232,6 @@
       <workItem from="1631446803361" duration="9276000" />
       <workItem from="1631512579081" duration="3473000" />
       <workItem from="1631550077752" duration="1799000" />
-
       <workItem from="1630922535443" duration="4608000" />
       <workItem from="1630990861368" duration="3650000" />
       <workItem from="1631006615816" duration="3654000" />
@@ -236,7 +244,6 @@
       <workItem from="1631446380346" duration="627000" />
       <workItem from="1631448397954" duration="1910000" />
       <workItem from="1631450392991" duration="672000" />
-
     </task>
     <servers />
   </component>
