@@ -142,7 +142,7 @@ class RealConversation extends Conversation
         $ar = [];
         $regions = Region::all()->toArray();
         foreach ($regions as $key) {
-            array_push($ar,Button::create($key[$this->language])->value($key["id"]));
+            $ar[] = Button::create($key[$this->language])->value($key["id"]);
         }
         return Question::create($this->questions["ASK_REGION"][$this->language])
         ->addButtons($ar);
@@ -151,7 +151,7 @@ class RealConversation extends Conversation
         $ar = [];
         $routes = Routes::all()->toArray();
         foreach ($routes as $key) {
-            array_push($ar,Button::create($key[$this->language])->value($key["id"]));
+            $ar[] = Button::create($key[$this->language])->value($key["id"]);
         }
         return Question::create($this->questions["ASK_ROUTE"][$this->language])
         ->addButtons($ar);
@@ -166,6 +166,31 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function($language){
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
+
+
+$say = <<<HTML
+        <input type="file" id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
+      
+     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <script>
+          console.log('sdfsdsdf');
+    const inputElement = document.querySelector('input[id="form"]');
+    const pond = FilePond.create(inputElement);
+    FilePond.setOptions({
+        server:{
+            url:"/upload",
+            headers:{
+                'X-CSRF-TOKEN':'{{csrf_token()}}'
+            }
+        }
+    })
+    console.log(pond.name);
+</script>
+HTML;
+
+
+                $this->say($say);
                 $this->askAppeal();
             } else {
                 return $this->repeat();
@@ -176,8 +201,6 @@ class RealConversation extends Conversation
         $this->ask($this->questions["ASK_QUESTION"][$this->language], function($conversation){
             if ($conversation->getText() != "tugat") {
                 $this->memory["answer"] = $conversation->getText();
-
-
             } else $this->repeat();
             $this->askAction();
         });
