@@ -267,7 +267,7 @@
                 $user = \App\Models\User::where('id', $conversation->user_id)->first();
                 @endphp
 
-                <div class="msg {{ !$conversation->user_id == Auth::user()->id ? 'left-msg' : 'right-msg' }} ">
+                <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
                     <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>
 
                     <div class="msg-bubble">
@@ -321,6 +321,9 @@
             </div>
         </div>
     </div>
-
+<script>
+ var objDiv = document.querySelector(".msger-chat");
+objDiv.scrollTop = objDiv.scrollHeight;
+</script>
 
     @endsection

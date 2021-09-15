@@ -47,6 +47,6 @@ echo '
         ';
 echo ' t = document.getElementById("messageArea");
         wer = document.getElementById("botmanChatRoot");
-        
+
         ';
 ?>

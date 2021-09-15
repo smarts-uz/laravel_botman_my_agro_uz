@@ -24,6 +24,6 @@ class ConversationController extends Controller
         return view('appeal.chat', compact('appeal', 'conversations'));
     }
     public function close(){
-
+        
     }
 }

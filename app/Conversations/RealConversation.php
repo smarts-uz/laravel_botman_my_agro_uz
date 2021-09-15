@@ -28,7 +28,10 @@ const KEY_INDIVIDUALS = [
     'uz' => [['name'=>'Jismoniy shaxs', 'val' => 0], ['name'=>'Yuridik shaxs', 'val' => 1]],
 
 ];
-
+const QUESTIONS = [
+    'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => "Ish joyitashkilot", 'ru'=>' Место работы и организация ']],
+    'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации ']],
+];
 class RealConversation extends Conversation
 {
     public $memory=[];
@@ -36,26 +39,9 @@ class RealConversation extends Conversation
     public $language;
     public $usertype;
     protected $verify;
-    const QUESTIONS = [
-        'ASK_LANGUAGE' => ['uz' => 'Tilni tanlang', 'ru'=>'Выберите язык '],
-        'ASK_LANGUAGE1' => ['uz' => "Ro'yxatdan o'tish", 'ru'=>'Зарегистрироваться '],
-        'ASK_INDIVIDUAL' => ['uz' => 'Выберите тип субъекта', 'ru'=>'Выберите тип субъекта! '],
-        'ASK_NAME' => ['uz' => 'F.I.O','ru' => 'Ф.И.О '],
-        'ASK_PHONE' => ['uz' => 'Telefon raqamingiz', 'ru'=>'Номер телефона'],
-        'ASK_EMAIL' => ['uz' => 'Asosiy elektron poshtangiz', 'ru'=>'Отправьте оснавную электронную почту '],
-        'ASK_ACTION' => ['uz' => "Bo'limni tanlang!", 'ru'=>'Выберите действие! '],
-        'ASK_REGION' => ['uz' => 'Kerakli viloyatni tanlang!', 'ru'=>'Выберите регион! '],
-        'ASK_ROUTE' => ['uz' => "Kerakli yo'nalishni tanlang!", 'ru'=>'Выберите необходимое направление или сферу! '],
-        'ASK_USER_A' => [['uz' => 'Lavozim', 'ru'=>' Должность и род занятия '],['uz' => "Ish joyitashkilot", 'ru'=>' Место работы и организация ']],
-        'ASK_USER_B' => [['uz' => 'Tashkilot nomi', 'ru'=>' Название организации '],['uz' => "Tashkilot yo'nalishi", 'ru'=>' Направление деятельности ']],
-    ];
     public function __construct()
     {
         $this->questions["ASK_LANGUAGE"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
-
-        // $this->questions["ASK_LANGUAGE"]["uz"] = QuestionText::where('name', 'ASK_LANGUAGE')->first()->uz;
-
-
         $this->questions["ASK_QUESTION"]["uz"] = QuestionText::where('name', 'ASK_QUESTION')->first()->uz;
         $this->questions["ASK_QUESTION"]["ru"] = QuestionText::where('name', 'ASK_QUESTION')->first()->ru;
 
@@ -89,6 +75,9 @@ class RealConversation extends Conversation
         $this->questions["ASK_VERIFY_PHONE"]["uz"] = QuestionText::where('name', 'ASK_VERIFY_PHONE')->first()->uz;
         $this->questions["ASK_VERIFY_PHONE"]["ru"] = QuestionText::where('name', 'ASK_VERIFY_PHONE')->first()->ru;
 
+        $this->questions["ASK_USER_TYPE"]["ru"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->ru;
+        $this->questions["ASK_USER_TYPE"]["uz"] = QuestionText::where('name', 'ASK_USER_TYPE')->first()->uz;
+
     }
     public function ContactKeyboard()
     {
@@ -112,7 +101,7 @@ class RealConversation extends Conversation
         foreach (KEY_INDIVIDUALS[$this->language] as $key) {
             array_push($ar,Button::create($key["name"])->value($key["val"]));
         }
-        return Question::create(QUESTIONS["ASK_LANGUAGE1"][$this->language])
+        return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
         ->addButtons($ar);
     }
     public function keyActions(){
@@ -145,7 +134,6 @@ class RealConversation extends Conversation
 
     public function run()
     {
-
         $this->askLanguage();
     }
     public function askLanguage(){
@@ -156,7 +144,7 @@ class RealConversation extends Conversation
 
 $say = <<<HTML
         <input type="file" id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
-      
+
      <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
         <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
     <script>
@@ -301,7 +289,7 @@ HTML;
 
     }
 
-    
+
     public function askPhone(){
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
             $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
@@ -341,10 +329,10 @@ HTML;
         );
     }
     public function askUser(){
-
             $this->ask(QUESTIONS["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask(QUESTIONS["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language], function($ask2) {
+                $this->ask(QUESTIONS["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
+                    , function($ask2) {
                     $this->memory["data"]['b'] = $ask2->getText();
                     $this->askName();
                 });
