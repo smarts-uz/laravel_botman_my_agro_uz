@@ -96,10 +96,15 @@
     <script src='/package/build/js/widget.js'></script>
     <script>
 
-    
+        @php
+          $chatLogo = setting('chatbot.icon_image');
+$chatLogo = str_replace('\\', '/', $chatLogo);
+            //dd( $chatLogo);
+        @endphp
+
 	    var botmanWidget = {
             // bubbleBackground: "blue",
-            bubbleAvatarUrl: 'https://my.agro.uz/storage/{{setting('chatbot.icon_image')}}',
+            bubbleAvatarUrl: 'https://my.agro.uz/storage/{{$chatLogo}}',
 
             frameEndpoint: "chat.html",
             introMessage: 'Intro'
