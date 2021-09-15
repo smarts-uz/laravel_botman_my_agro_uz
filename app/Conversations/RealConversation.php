@@ -166,25 +166,31 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function($language){
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
-                $this->say("
-                <input type='file' id='form' name='file' onchange='' class='custom-file-input' id='chooseFile'> 
 
-                <script>
-                    console.log('pond.name');
-    const inputElement = document.querySelector('input[id='form']');
 
+$say = <<<HTML
+        <input type="file"id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
+      
+     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <script>
+          console.log('sdfsdsdf');
+    const inputElement = document.querySelector('input[id="form"]');
     const pond = FilePond.create(inputElement);
-
     FilePond.setOptions({
         server:{
-            url:'/upload',
+            url:"/upload",
             headers:{
                 'X-CSRF-TOKEN':'{{csrf_token()}}'
             }
         }
     })
+    console.log(pond.name);
 </script>
-                ");
+HTML;
+
+
+                $this->say($say);
                 $this->askAppeal();
             } else {
                 return $this->repeat();

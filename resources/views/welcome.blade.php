@@ -79,7 +79,7 @@
             text-align: left; background-color: #98FB98;margin-right: auto;
         }
     </style>
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+   
 
 </head>
 
@@ -91,12 +91,14 @@
 
 
         <input type="file" style="display:none" id="form" name="file" onchange="" class="custom-file-input" id="chooseFile">
-        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-
+        <!-- <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> -->
+        <!-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> -->
     <script src='/package/build/js/widget.js'></script>
     <script>
 	    var botmanWidget = {
-            bubbleBackground: "red",
+            // bubbleBackground: "blue",
+            bubbleAvatarUrl: {{setting('chatbot.icon_image')}},
+
             frameEndpoint: "chat.html",
             introMessage: 'Intro'
 	    };

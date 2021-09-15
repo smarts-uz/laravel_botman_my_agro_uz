@@ -1034,14 +1034,14 @@ let apps;
             var t = document.createElement("div");
             let isTrust = true
             let x = document.createElement("button")
-            let fileUp = document.querySelector("#form")
+            // let fileUp = document.querySelector("#form")
             let body = document.querySelector("body")
             
-            if(fileUp.parentNode == body){
-                fileUp.style.display = "none"
-            }else {
-                fileUp.style.display = "none"
-            }
+            // if(fileUp.parentNode == body){
+            //     fileUp.style.display = "none"
+            // }else {
+            //     fileUp.style.display = "none"
+            // }
             t.onclick = (e) => {
                 if(isTrust == true) {
                     x.textContent = "Murojaat yuborish | Отправить обращение"
