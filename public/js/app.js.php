@@ -44,6 +44,18 @@ $content = file_get_contents($file);
 $print = strtr($content, [
     '${title}' => $settings['chatbot.chat_title']['value'],
     '${placeholderText}' => $settings['chatbot.placeholder_text']['value'],
+    '${ChatIntro}' => $settings['chatbot.ChatIntro']['value'],
+    '${aboutText}' => $settings['chatbot.aboutText']['value'],
+    '${aboutLink}' => $settings['chatbot.aboutLink']['value'],
+    '${videoHeight}' => $settings['chatbot.videoHeight']['value'],
+    '${mobileWidth}' => $settings['chatbot.mobileWidth']['value'],
+    '${mobileHeight}' => $settings['chatbot.mobileHeight']['value'],
+    '${desktopWidth}' => $settings['chatbot.desktopWidth']['value'],
+    '${desktopHeight}' => $settings['chatbot.desktopHeight']['value'],
+    '${textColor}' => $settings['chatbot.textColor']['value'],
+    '${mainColor}' => $settings['chatbot.mainColor']['value'],
+    '${mainCOlor}' => $settings['chatbot.mainCOlor']['value'],
+    '${mainCOlor}' => $settings['chatbot.mainCOlor']['value'],
 ]);
 
 echo $print;
