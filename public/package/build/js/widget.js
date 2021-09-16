@@ -1515,9 +1515,8 @@ let apps;
         //     }
         // ;
         var o = {
-            chatServer:"/botman",
-            frameEndpoint: "/botman/chat",
-            frameEndpoint: "chat.html",
+            chatServer:"https://agromy.teampro.uz/botman",
+            frameEndpoint: "https://agromy.teampro.uz/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             title:"AGRO.UZ CHAT",
