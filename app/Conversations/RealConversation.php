@@ -123,6 +123,8 @@ class RealConversation extends Conversation
         $this->questions["Yes"]["uz"] = "HA";
         $this->questions["No"]["ru"] = "Нет";
         $this->questions["No"]["uz"] = "Yo'q";
+        $this->questions["ASK_TRUE"]["ru"] = "Вы подтверждаете, что подали обращение правильно?";
+        $this->questions["ASK_TRUE"]["uz"] = "Murojaatingizni to'g'ri yuborganingizni tasdiqlaysizmi?";
     }
 
     public function keyLanguages(){
@@ -446,7 +448,7 @@ class RealConversation extends Conversation
 
     public function askEnd() {
         $this->say($this->questions["ASK_NAME"][$this->language] .': '.$this->user_mamory["name"].'<br> '.$this->questions["SAY_ACTION"][$this->language].''.$this->memory["action"].'<br> Region: '.$this->memory["region"].'<br> Route: '.$this->memory["route"].'<br> E-mail: '.$this->user_mamory["email"].'<br> Tel: '.$this->user_mamory["phone"].'<br> ');
-        $question = Question::create("Murojaatingizni to'g'ri yubordingizmi?")->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
+        $question = Question::create($this->questions["ASK_TRUE"][$this->language])->addButtons([Button::create("Ha")->value("ha"),Button::create("Yo'q")->value("yoq")]);
 
         $this->ask($question, function ($answer) {
             if ($answer->isInteractiveMessageReply()) {

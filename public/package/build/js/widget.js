@@ -1517,6 +1517,7 @@ let apps;
         var o = {
             chatServer:"/botman",
             frameEndpoint: "/botman/chat",
+            frameEndpoint: "chat.html",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             title:"AGRO.UZ CHAT",
