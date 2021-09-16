@@ -32,7 +32,6 @@ const QUESTIONS = [
 class RealConversation extends Conversation
 {
     public $memory = [];
-    public $user_mamory;
     public $language;
     public $usertype;
     protected $verify;
@@ -54,17 +53,17 @@ class RealConversation extends Conversation
 
 
 
-        $this->user_question_data["ASK_USER_A"][0]["uz"] = QuestionText::where('name', 'ASK_JOB')->first()->uz;
-        $this->user_question_data["ASK_USER_A"][0]["ru"] = QuestionText::where('name', 'ASK_JOB')->first()->ru;
+        $this->user_question_data["ASK_USER_A"][1]["uz"] = QuestionText::where('name', 'ASK_JOB')->first()->uz;
+        $this->user_question_data["ASK_USER_A"][1]["ru"] = QuestionText::where('name', 'ASK_JOB')->first()->ru;
 
-        $this->user_question_data["ASK_USER_A"][1]["uz"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->uz;
-        $this->user_question_data["ASK_USER_A"][1]["ru"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->ru;
-
-        $this->user_question_data["ASK_USER_B"][0]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
-        $this->user_question_data["ASK_USER_B"][0]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
+        $this->user_question_data["ASK_USER_A"][0]["uz"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->uz;
+        $this->user_question_data["ASK_USER_A"][0]["ru"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->ru;
 
         $this->user_question_data["ASK_USER_B"][1]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
         $this->user_question_data["ASK_USER_B"][1]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
+
+        $this->user_question_data["ASK_USER_B"][0]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
+        $this->user_question_data["ASK_USER_B"][0]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
 
 
 
@@ -183,7 +182,7 @@ class RealConversation extends Conversation
     {
         return Question::create($this->questions["ASK_FILE_UPLOAD"][$this->language])
             ->addButtons([
-                Button::create($this->questions["Yes"][$this->language])->value("h"),
+                Button::create($this->questions["Yes"][$this->language])->value("ha"),
                 Button::create($this->questions["No"][$this->language])->value("yo'q")
             ]);
     }
@@ -212,13 +211,24 @@ class RealConversation extends Conversation
             if ($x == true) {
                 $this->user_mamory["email"] = $email->getText();
 
-                $this->askTitle();
+                $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
             }
         });
         // $this->user_mamory["email"]
+    }
+
+    public function askAction()
+    {
+        $this->ask($this->keyActions(), function ($actions) {
+            if ($actions->isInteractiveMessageReply()) {
+                $this->memory["action"] = $actions->getValue();
+                $this->askTitle();
+
+            } else $this->repeat();
+        });
     }
 
     public function askTitle()
@@ -257,16 +267,7 @@ class RealConversation extends Conversation
         });
     }
 
-    public function askAction()
-    {
-        $this->ask($this->keyActions(), function ($actions) {
-            if ($actions->isInteractiveMessageReply()) {
-                $this->memory["action"] = $actions->getValue();
-                $this->askEmail();
-
-            } else $this->repeat();
-        });
-    }
+    
 
     public function askRegion()
     {
@@ -414,7 +415,7 @@ class RealConversation extends Conversation
         );
     }
     public function askUser(){
-        if($this->user_mamory["usertype"] == 1){
+        if($this->user_mamory["usertype"] == 0){
             $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->ask($this->user_question_data["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
