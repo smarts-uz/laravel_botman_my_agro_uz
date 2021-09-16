@@ -327,12 +327,12 @@ class RealConversation extends Conversation
             $password=$this->memory["pass"];
             $text = $this->language == "uz" ? setting('sms.AccountUz').'<br>Email:'.$email.'<br>Password:'.$password : setting('sms.AccountRu').'<br>Email:'.$email.'<br>Password:'.$password;
             // $text = 'E-Mail: ' . $this->user_mamory["email"].' Password:'. $this->memory["pass"];
-            Log::info($text);
+
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
 
             $details = [
-                'title' => 'your cabinate login and password',
+                'title' => 'AGRO.UZ ',
                 'body' => $text
             ];
             Mail::to($this->user_mamory["email"])->send(new SendMail($details));
