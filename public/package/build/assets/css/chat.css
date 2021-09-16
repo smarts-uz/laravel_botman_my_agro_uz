@@ -78,6 +78,10 @@ html, body {
   border-top-left-radius: 2px;
 }
 
+.filepond--root {
+    width: 20em !important;
+}
+
 .msg {
   word-wrap: break-word;
   min-width: 50px;
