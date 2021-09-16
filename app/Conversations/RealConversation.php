@@ -120,7 +120,7 @@ class RealConversation extends Conversation
         $this->questions["ASK_Title"]["ru"] = QuestionText::where('name', 'ASK_THEME')->first()->ru;
         $this->questions["ASK_Title"]["uz"] = QuestionText::where('name', 'ASK_THEME')->first()->uz;
         $this->questions["Yes"]["ru"] = "да";
-        $this->questions["Yes"]["uz"] = "Дa";
+        $this->questions["Yes"]["uz"] = "HA";
         $this->questions["No"]["ru"] = "Нет";
         $this->questions["No"]["uz"] = "Yo'q";
     }
@@ -181,7 +181,7 @@ class RealConversation extends Conversation
     {
         return Question::create($this->questions["ASK_FILE_UPLOAD"][$this->language])
             ->addButtons([
-                Button::create($this->questions["Yes"][$this->language])->value("ha"),
+                Button::create($this->questions["Yes"][$this->language])->value("h"),
                 Button::create($this->questions["No"][$this->language])->value("yo'q")
             ]);
     }
@@ -196,7 +196,7 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
-                $this->askAction();
+                $this->askEmail();
             } else {
                 return $this->repeat();
             }
