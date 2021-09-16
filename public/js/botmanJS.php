@@ -9,6 +9,7 @@ ob_start();
 Header("content-type: application/javascript");
 ob_end_flush();
 require __DIR__ . '/../../vendor/autoload.php';
+
 // $settings = \Illuminate\Support\Facades\DB::table('settings');
 // $title = $settings->where('key', 'chatbot.chat_title')->first()->value;
 $servername = 'localhost';
@@ -18,25 +19,6 @@ $dbname = 'laravel_agromy';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-
-/*
- *
- *  @php
-        $chatLogo = setting('chatbot.icon_image');
-$chatLogo = str_replace('\\', '/', $chatLogo);
-          //dd( $chatLogo);
-          //
-        //  $intro = htmlspecialchars(setting('chatbot.ChatIntro'));
-          $intro = setting('chatbot.ChatIntroText');
-    @endphp
-
-    var botmanWidget = {
-        // bubbleBackground: "blue",
-        bubbleAvatarUrl: 'https://my.agro.uz/images/logo.png',
-        frameEndpoint: "chat.html",
-        introMessage: `{{$intro}}`
-    };
- * */
 
 
 $sql = "SELECT * FROM settings";
@@ -59,13 +41,30 @@ $conn->close();
 
 echo <<<JS
 var botmanWidget = {
-frameEndpoint: "https://my.agro.uz/package/build/chat.html",
-bubbleAvatarUrl: "https://my.agro.uz/images/logo.png",
-aboutLink: "https://agro.uz",
-aboutText: "Powered By Agro.Uz",
-introMessage: `$intro`,
-title: `$title`,
-placeholderText: `$placeText`
+            chatServer:"https://my.agro.uz/botman",
+            timeFormat: "HH:MM",
+            dateTimeFormat: "m/d/yy HH:MM",
+            cookieValidInDays: 1,
+            displayMessageTime: !0,
+            sendWidgetOpenedEvent: !1,
+            widgetOpenedEventData: "",
+            mainColor: "#408591",
+            headerTextColor: "#333",
+            desktopHeight: 450,
+            desktopWidth: 370,
+            mobileHeight: "100%",
+            mobileWidth: "300px",
+            videoHeight: 160,
+            chatId: "",
+            userId: "",
+            alwaysUseFloatingButton: !1
+            frameEndpoint: "https://my.agro.uz/package/build/chat.html",
+            bubbleAvatarUrl: "https://my.agro.uz/images/logo.png",
+            aboutLink: "https://agro.uz",
+            aboutText: "Powered By Agro.Uz",
+            introMessage: `$intro`,
+            title: `$title`,
+            placeholderText: `$placeText`
 };
 
 JS;
