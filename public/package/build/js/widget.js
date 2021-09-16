@@ -1748,9 +1748,9 @@ let apps;
         var o = {
 
 
-            chatServer:"https://my.agro.uz/botman",
-            frameEndpoint: "https://my.agro.uz/package/build/chat.html",
-            bubbleAvatarUrl: "https://my.agro.uz/images/logo.png",
+            chatServer:"/botman",
+            frameEndpoint: "/package/build/chat.html",
+            bubbleAvatarUrl: "/images/logo.png",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             cookieValidInDays: 1,
