@@ -3,14 +3,15 @@ let apps;
 !(function (t) {
     function e(o) {
         if (n[o]) return n[o].exports;
-        var r = (n[o] = { i: o, l: !1, exports: {} });
+        var r = (n[o] = {i: o, l: !1, exports: {}});
         return t[o].call(r.exports, r, r.exports, e), (r.l = !0), r.exports;
     }
+
     var n = {};
     (e.m = t),
         (e.c = n),
         (e.d = function (t, n, o) {
-            e.o(t, n) || Object.defineProperty(t, n, { configurable: !1, enumerable: !0, get: o });
+            e.o(t, n) || Object.defineProperty(t, n, {configurable: !1, enumerable: !0, get: o});
         }),
         (e.n = function (t) {
             var n =
@@ -31,66 +32,86 @@ let apps;
 })([
     function (t, e, n) {
         "use strict";
+
         function o(t) {
             return "[object Array]" === C.call(t);
         }
+
         function r(t) {
             return "[object ArrayBuffer]" === C.call(t);
         }
+
         function i(t) {
             return "undefined" != typeof FormData && t instanceof FormData;
         }
+
         function a(t) {
             return "undefined" != typeof ArrayBuffer && ArrayBuffer.isView ? ArrayBuffer.isView(t) : t && t.buffer && t.buffer instanceof ArrayBuffer;
         }
+
         function s(t) {
             return "string" == typeof t;
         }
+
         function c(t) {
             return "number" == typeof t;
         }
+
         function u(t) {
             return void 0 === t;
         }
+
         function p(t) {
             return null !== t && "object" == typeof t;
         }
+
         function f(t) {
             return "[object Date]" === C.call(t);
         }
+
         function l(t) {
             return "[object File]" === C.call(t);
         }
+
         function d(t) {
             return "[object Blob]" === C.call(t);
         }
+
         function h(t) {
             return "[object Function]" === C.call(t);
         }
+
         function m(t) {
             return p(t) && h(t.pipe);
         }
+
         function b(t) {
             return "undefined" != typeof URLSearchParams && t instanceof URLSearchParams;
         }
+
         function v(t) {
             return t.replace(/^\s*/, "").replace(/\s*$/, "");
         }
+
         function g() {
             return ("undefined" == typeof navigator || "ReactNative" !== navigator.product) && "undefined" != typeof window && "undefined" != typeof document;
         }
+
         function y(t, e) {
             if (null !== t && void 0 !== t)
                 if (("object" != typeof t && (t = [t]), o(t))) for (var n = 0, r = t.length; r > n; n++) e.call(null, t[n], n, t);
                 else for (var i in t) Object.prototype.hasOwnProperty.call(t, i) && e.call(null, t[i], i, t);
         }
+
         function w() {
             function t(t, n) {
                 e[n] = "object" == typeof e[n] && "object" == typeof t ? w(e[n], t) : t;
             }
+
             for (var e = {}, n = 0, o = arguments.length; o > n; n++) y(arguments[n], t);
             return e;
         }
+
         function x(t, e, n) {
             return (
                 y(e, function (e, o) {
@@ -99,6 +120,7 @@ let apps;
                     t
             );
         }
+
         var _ = n(3),
             O = n(12),
             C = Object.prototype.toString;
@@ -127,16 +149,19 @@ let apps;
     },
     function (t, e, n) {
         "use strict";
-        function o() {}
+
+        function o() {
+        }
+
         function r(t, e) {
             var n,
                 r,
                 i,
                 a,
                 s = R;
-            for (a = arguments.length; a-- > 2; ) U.push(arguments[a]);
-            for (e && null != e.children && (U.length || U.push(e.children), delete e.children); U.length; )
-                if ((r = U.pop()) && void 0 !== r.pop) for (a = r.length; a--; ) U.push(r[a]);
+            for (a = arguments.length; a-- > 2;) U.push(arguments[a]);
+            for (e && null != e.children && (U.length || U.push(e.children), delete e.children); U.length;)
+                if ((r = U.pop()) && void 0 !== r.pop) for (a = r.length; a--;) U.push(r[a]);
                 else
                     "boolean" == typeof r && (r = null),
                     (i = "function" != typeof t) && (null == r ? (r = "") : "number" == typeof r ? (r += "") : "string" != typeof r && (i = !1)),
@@ -145,24 +170,30 @@ let apps;
             var c = new o();
             return (c.nodeName = t), (c.children = s), (c.attributes = null == e ? void 0 : e), (c.key = null == e ? void 0 : e.key), void 0 !== T.vnode && T.vnode(c), c;
         }
+
         function i(t, e) {
             for (var n in e) t[n] = e[n];
             return t;
         }
+
         function a(t) {
             !t._dirty && (t._dirty = !0) && 1 == M.push(t) && (T.debounceRendering || P)(s);
         }
+
         function s() {
             var t,
                 e = M;
-            for (M = []; (t = e.pop()); ) t._dirty && S(t);
+            for (M = []; (t = e.pop());) t._dirty && S(t);
         }
+
         function c(t, e, n) {
             return "string" == typeof e || "number" == typeof e ? void 0 !== t.splitText : "string" == typeof e.nodeName ? !t._componentConstructor && u(t, e.nodeName) : n || t._componentConstructor === e.nodeName;
         }
+
         function u(t, e) {
             return t.normalizedNodeName === e || t.nodeName.toLowerCase() === e.toLowerCase();
         }
+
         function p(t) {
             var e = i({}, t.attributes);
             e.children = t.children;
@@ -170,16 +201,19 @@ let apps;
             if (void 0 !== n) for (var o in n) void 0 === e[o] && (e[o] = n[o]);
             return e;
         }
+
         function f(t, e) {
             var n = e ? document.createElementNS("http://www.w3.org/2000/svg", t) : document.createElement(t);
             return (n.normalizedNodeName = t), n;
         }
+
         function l(t) {
             var e = t.parentNode;
             e && e.removeChild(t);
         }
+
         function d(t, e, n, o, r) {
-            if (("className" === e && (e = "class"), "key" === e));
+            if (("className" === e && (e = "class"), "key" === e)) ;
             else if ("ref" === e) n && n(null), o && o(t);
             else if ("class" !== e || r)
                 if ("style" === e) {
@@ -196,28 +230,34 @@ let apps;
                     var s = r && e !== (e = e.replace(/^xlink\:?/, ""));
                     null == o || !1 === o
                         ? s
-                        ? t.removeAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase())
-                        : t.removeAttribute(e)
+                            ? t.removeAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase())
+                            : t.removeAttribute(e)
                         : "function" != typeof o && (s ? t.setAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase(), o) : t.setAttribute(e, o));
                 }
             else t.className = o || "";
         }
+
         function h(t, e, n) {
             try {
                 t[e] = n;
-            } catch (t) {}
+            } catch (t) {
+            }
         }
+
         function m(t) {
             return this._listeners[t.type]((T.event && T.event(t)) || t);
         }
+
         function b() {
-            for (var t; (t = L.pop()); ) T.afterMount && T.afterMount(t), t.componentDidMount && t.componentDidMount();
+            for (var t; (t = L.pop());) T.afterMount && T.afterMount(t), t.componentDidMount && t.componentDidMount();
         }
+
         function v(t, e, n, o, r, i) {
             q++ || ((H = null != r && void 0 !== r.ownerSVGElement), (z = null != t && !("__preactattr_" in t)));
             var a = g(t, e, n, o, i);
             return r && a.parentNode !== r && r.appendChild(a), --q || ((z = !1), i || b()), a;
         }
+
         function g(t, e, n, o, r) {
             var i = t,
                 a = H;
@@ -230,7 +270,7 @@ let apps;
             var s = e.nodeName;
             if ("function" == typeof s) return E(t, e, n, o);
             if (((H = "svg" === s || ("foreignObject" !== s && H)), (s += ""), (!t || !u(t, s)) && ((i = f(s, H)), t))) {
-                for (; t.firstChild; ) i.appendChild(t.firstChild);
+                for (; t.firstChild;) i.appendChild(t.firstChild);
                 t.parentNode && t.parentNode.replaceChild(i, t), w(t, !0);
             }
             var c = i.firstChild,
@@ -238,7 +278,7 @@ let apps;
                 l = e.children;
             if (null == p) {
                 p = i.__preactattr_ = {};
-                for (var d = i.attributes, h = d.length; h--; ) p[d[h].name] = d[h].value;
+                for (var d = i.attributes, h = d.length; h--;) p[d[h].name] = d[h].value;
             }
             return (
                 !z && l && 1 === l.length && "string" == typeof l[0] && null != c && void 0 !== c.splitText && null == c.nextSibling
@@ -249,6 +289,7 @@ let apps;
                     i
             );
         }
+
         function y(t, e, n, o, r) {
             var i,
                 a,
@@ -284,41 +325,48 @@ let apps;
                     (p = g(p, u, n, o)), (s = f[_]), p && p !== t && p !== s && (null == s ? t.appendChild(p) : p === s.nextSibling ? l(s) : t.insertBefore(p, s));
                 }
             if (m) for (var _ in h) void 0 !== h[_] && w(h[_], !1);
-            for (; y >= b; ) void 0 !== (p = d[y--]) && w(p, !1);
+            for (; y >= b;) void 0 !== (p = d[y--]) && w(p, !1);
         }
+
         function w(t, e) {
             var n = t._component;
             n ? B(n) : (null != t.__preactattr_ && t.__preactattr_.ref && t.__preactattr_.ref(null), (!1 !== e && null != t.__preactattr_) || l(t), x(t));
         }
+
         function x(t) {
-            for (t = t.lastChild; t; ) {
+            for (t = t.lastChild; t;) {
                 var e = t.previousSibling;
                 w(t, !0), (t = e);
             }
         }
+
         function _(t, e, n) {
             var o;
             for (o in n) (e && null != e[o]) || null == n[o] || d(t, o, n[o], (n[o] = void 0), H);
             for (o in e) "children" === o || "innerHTML" === o || (o in n && e[o] === ("value" === o || "checked" === o ? t[o] : n[o])) || d(t, o, n[o], (n[o] = e[o]), H);
         }
+
         function O(t) {
             var e = t.constructor.name;
             (W[e] || (W[e] = [])).push(t);
         }
+
         function C(t, e, n) {
             var o,
                 r = W[t.name];
             if ((t.prototype && t.prototype.render ? ((o = new t(e, n)), N.call(o, e, n)) : ((o = new N(e, n)), (o.constructor = t), (o.render = j)), r))
-                for (var i = r.length; i--; )
+                for (var i = r.length; i--;)
                     if (r[i].constructor === t) {
                         (o.nextBase = r[i].nextBase), r.splice(i, 1);
                         break;
                     }
             return o;
         }
+
         function j(t, e, n) {
             return this.constructor(t, n);
         }
+
         function k(t, e, n, o, r) {
             t._disable ||
             ((t._disable = !0),
@@ -332,6 +380,7 @@ let apps;
             0 !== n && (1 !== n && !1 === T.syncComponentUpdates && t.base ? a(t) : S(t, 1, r)),
             t.__ref && t.__ref(t));
         }
+
         function S(t, e, n, o) {
             if (!t._disable) {
                 var r,
@@ -376,17 +425,18 @@ let apps;
                         A && j !== A && (A.replaceChild(j, y), O || ((y._component = null), w(y, !1)));
                     }
                     if ((O && B(O), (t.base = j), j && !o)) {
-                        for (var U = t, R = t; (R = R._parentComponent); ) (U = R).base = j;
+                        for (var U = t, R = t; (R = R._parentComponent);) (U = R).base = j;
                         (j._component = U), (j._componentConstructor = U.constructor);
                     }
                 }
                 if ((!m || n ? L.unshift(t) : _ || (t.componentDidUpdate && t.componentDidUpdate(l, d, h), T.afterUpdate && T.afterUpdate(t)), null != t._renderCallbacks))
-                    for (; t._renderCallbacks.length; ) t._renderCallbacks.pop().call(t);
+                    for (; t._renderCallbacks.length;) t._renderCallbacks.pop().call(t);
                 q || o || b();
             }
         }
+
         function E(t, e, n, o) {
-            for (var r = t && t._component, i = r, a = t, s = r && t._componentConstructor === e.nodeName, c = s, u = p(e); r && !c && (r = r._parentComponent); ) c = r.constructor === e.nodeName;
+            for (var r = t && t._component, i = r, a = t, s = r && t._componentConstructor === e.nodeName, c = s, u = p(e); r && !c && (r = r._parentComponent);) c = r.constructor === e.nodeName;
             return (
                 r && c && (!o || r._component)
                     ? (k(r, u, 3, n, o), (t = r.base))
@@ -394,6 +444,7 @@ let apps;
                     t
             );
         }
+
         function B(t) {
             T.beforeUnmount && T.beforeUnmount(t);
             var e = t.base;
@@ -401,12 +452,15 @@ let apps;
             var n = t._component;
             n ? B(n) : e && (e.__preactattr_ && e.__preactattr_.ref && e.__preactattr_.ref(null), (t.nextBase = e), l(e), O(t), x(e)), t.__ref && t.__ref(null);
         }
+
         function N(t, e) {
             (this._dirty = !0), (this.context = e), (this.props = t), (this.state = this.state || {});
         }
+
         function A(t, e, n) {
             return v(n, t, {}, !1, e, !1);
         }
+
         n.d(e, "b", function () {
             return r;
         }),
@@ -435,17 +489,20 @@ let apps;
             forceUpdate: function (t) {
                 t && (this._renderCallbacks = this._renderCallbacks || []).push(t), S(this, 2);
             },
-            render: function () {},
+            render: function () {
+            },
         });
     },
     function (t, e, n) {
         "use strict";
+
         function o(t, e) {
             !r.isUndefined(t) && r.isUndefined(t["Content-Type"]) && (t["Content-Type"] = e);
         }
+
         var r = n(0),
             i = n(14),
-            a = { "Content-Type": "application/x-www-form-urlencoded" },
+            a = {"Content-Type": "application/x-www-form-urlencoded"},
             s = {
                 adapter: (function () {
                     var t;
@@ -458,12 +515,12 @@ let apps;
                                 r.isFormData(t) || r.isArrayBuffer(t) || r.isBuffer(t) || r.isStream(t) || r.isFile(t) || r.isBlob(t)
                                     ? t
                                     : r.isArrayBufferView(t)
-                                    ? t.buffer
-                                    : r.isURLSearchParams(t)
-                                        ? (o(e, "application/x-www-form-urlencoded;charset=utf-8"), "" + t)
-                                        : r.isObject(t)
-                                            ? (o(e, "application/json;charset=utf-8"), JSON.stringify(t))
-                                            : t
+                                        ? t.buffer
+                                        : r.isURLSearchParams(t)
+                                            ? (o(e, "application/x-www-form-urlencoded;charset=utf-8"), "" + t)
+                                            : r.isObject(t)
+                                                ? (o(e, "application/json;charset=utf-8"), JSON.stringify(t))
+                                                : t
                         );
                     },
                 ],
@@ -472,7 +529,8 @@ let apps;
                         if ("string" == typeof t)
                             try {
                                 t = JSON.parse(t);
-                            } catch (t) {}
+                            } catch (t) {
+                            }
                         return t;
                     },
                 ],
@@ -484,7 +542,7 @@ let apps;
                     return t >= 200 && 300 > t;
                 },
             };
-        (s.headers = { common: { Accept: "application/json, text/plain, */*" } }),
+        (s.headers = {common: {Accept: "application/json, text/plain, */*"}}),
             r.forEach(["delete", "get", "head"], function (t) {
                 s.headers[t] = {};
             }),
@@ -524,7 +582,9 @@ let apps;
                     !window.XDomainRequest ||
                     "withCredentials" in d ||
                     s(t.url) ||
-                    ((d = new window.XDomainRequest()), (h = "onload"), (m = !0), (d.onprogress = function () {}), (d.ontimeout = function () {})),
+                    ((d = new window.XDomainRequest()), (h = "onload"), (m = !0), (d.onprogress = function () {
+                    }), (d.ontimeout = function () {
+                    })),
                         t.auth)
                 ) {
                     l.Authorization = "Basic " + u((t.auth.username || "") + ":" + (t.auth.password || ""));
@@ -598,9 +658,11 @@ let apps;
     },
     function (t) {
         "use strict";
+
         function e(t) {
             this.message = t;
         }
+
         (e.prototype.toString = function () {
             return "Cancel" + (this.message ? ": " + this.message : "");
         }),
@@ -614,11 +676,13 @@ let apps;
     },
     function (t, e, n) {
         "use strict";
+
         function o(t) {
             var e = new a(t),
                 n = i(a.prototype.request, e);
             return r.extend(n, a.prototype, e), r.extend(n, e), n;
         }
+
         var r = n(0),
             i = n(3),
             a = n(13),
@@ -642,24 +706,28 @@ let apps;
         function e(t) {
             return !!t.constructor && "function" == typeof t.constructor.isBuffer && t.constructor.isBuffer(t);
         }
+
         function n(t) {
             return "function" == typeof t.readFloatLE && "function" == typeof t.slice && e(t.slice(0, 0));
         }
+
         t.exports = function (t) {
             return null != t && (e(t) || n(t) || !!t._isBuffer);
         };
     },
     function (t, e, n) {
         "use strict";
+
         function o(t) {
-            (this.defaults = t), (this.interceptors = { request: new a(), response: new a() });
+            (this.defaults = t), (this.interceptors = {request: new a(), response: new a()});
         }
+
         var r = n(2),
             i = n(0),
             a = n(22),
             s = n(23);
         (o.prototype.request = function (t) {
-            "string" == typeof t && (t = i.merge({ url: arguments[0] }, arguments[1])), (t = i.merge(r, { method: "get" }, this.defaults, t)), (t.method = t.method.toLowerCase());
+            "string" == typeof t && (t = i.merge({url: arguments[0]}, arguments[1])), (t = i.merge(r, {method: "get"}, this.defaults, t)), (t.method = t.method.toLowerCase());
             var e = [s, void 0],
                 n = Promise.resolve(t);
             for (
@@ -670,19 +738,18 @@ let apps;
                         e.push(t.fulfilled, t.rejected);
                     });
                 e.length;
-
             )
                 n = n.then(e.shift(), e.shift());
             return n;
         }),
             i.forEach(["delete", "get", "head", "options"], function (t) {
                 o.prototype[t] = function (e, n) {
-                    return this.request(i.merge(n || {}, { method: t, url: e }));
+                    return this.request(i.merge(n || {}, {method: t, url: e}));
                 };
             }),
             i.forEach(["post", "put", "patch"], function (t) {
                 o.prototype[t] = function (e, n, o) {
-                    return this.request(i.merge(o || {}, { method: t, url: e, data: n }));
+                    return this.request(i.merge(o || {}, {method: t, url: e, data: n}));
                 };
             }),
             (t.exports = o);
@@ -713,9 +780,11 @@ let apps;
     },
     function (t, e, n) {
         "use strict";
+
         function o(t) {
             return encodeURIComponent(t).replace(/%40/gi, "@").replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
         }
+
         var r = n(0);
         t.exports = function (t, e, n) {
             if (!e) return t;
@@ -797,6 +866,7 @@ let apps;
                             }
                     );
                 }
+
                 var e,
                     n = /(msie|trident)/i.test(navigator.userAgent),
                     r = document.createElement("a");
@@ -816,9 +886,11 @@ let apps;
     },
     function (t) {
         "use strict";
+
         function e() {
             this.message = "String contains an invalid character";
         }
+
         function n(t) {
             for (var n, r, i = t + "", a = "", s = 0, c = o; i.charAt(0 | s) || ((c = "="), s % 1); a += c.charAt(63 & (n >> (8 - (s % 1) * 8)))) {
                 if ((r = i.charCodeAt((s += 0.75))) > 255) throw new e();
@@ -826,6 +898,7 @@ let apps;
             }
             return a;
         }
+
         var o = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         (e.prototype = Error()), (e.prototype.code = 5), (e.prototype.name = "InvalidCharacterError"), (t.exports = n);
     },
@@ -855,22 +928,26 @@ let apps;
             })()
             : (function () {
                 return {
-                    write: function () {},
+                    write: function () {
+                    },
                     read: function () {
                         return null;
                     },
-                    remove: function () {},
+                    remove: function () {
+                    },
                 };
             })();
     },
     function (t, e, n) {
         "use strict";
+
         function o() {
             this.handlers = [];
         }
+
         var r = n(0);
         (o.prototype.use = function (t, e) {
-            return this.handlers.push({ fulfilled: t, rejected: e }), this.handlers.length - 1;
+            return this.handlers.push({fulfilled: t, rejected: e}), this.handlers.length - 1;
         }),
             (o.prototype.eject = function (t) {
                 this.handlers[t] && (this.handlers[t] = null);
@@ -884,9 +961,11 @@ let apps;
     },
     function (t, e, n) {
         "use strict";
+
         function o(t) {
             t.cancelToken && t.cancelToken.throwIfRequested();
         }
+
         var r = n(0),
             i = n(24),
             a = n(6),
@@ -940,6 +1019,7 @@ let apps;
     },
     function (t, e, n) {
         "use strict";
+
         function o(t) {
             if ("function" != typeof t) throw new TypeError("executor must be a function.");
             var e;
@@ -951,6 +1031,7 @@ let apps;
                 n.reason || ((n.reason = new r(t)), e(n.reason));
             });
         }
+
         var r = n(7);
         (o.prototype.throwIfRequested = function () {
             if (this.reason) throw this.reason;
@@ -1000,10 +1081,48 @@ let apps;
             n.d(e, "a", function () {
                 return p;
             });
-        var o = { position: "fixed", bottom: "20px", right: "20px", zIndex: 2147483647, borderRadius: "5px", boxSizing: "content-box", boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)", overflow: "hidden" },
-            r = { position: "fixed", bottom: "0px", right: "0px", zIndex: 2147483647, minWidth: "400px", boxSizing: "content-box", overflow: "hidden", minHeight: "120px" },
-            i = { position: "fixed", bottom: "0px", right: "0px", zIndex: 2147483647, minWidth: "400px", boxSizing: "content-box", overflow: "hidden", minHeight: "120px" },
-            a = { position: "fixed", top: 0, right: 0, bottom: 0, left: 0, zIndex: 2147483647, width: "100%", height: "100%", overflowY: "visible", boxSizing: "content-box" },
+        var o = {
+                position: "fixed",
+                bottom: "20px",
+                right: "20px",
+                zIndex: 2147483647,
+                borderRadius: "5px",
+                boxSizing: "content-box",
+                boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
+                overflow: "hidden"
+            },
+            r = {
+                position: "fixed",
+                bottom: "0px",
+                right: "0px",
+                zIndex: 2147483647,
+                minWidth: "400px",
+                boxSizing: "content-box",
+                overflow: "hidden",
+                minHeight: "120px"
+            },
+            i = {
+                position: "fixed",
+                bottom: "0px",
+                right: "0px",
+                zIndex: 2147483647,
+                minWidth: "400px",
+                boxSizing: "content-box",
+                overflow: "hidden",
+                minHeight: "120px"
+            },
+            a = {
+                position: "fixed",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                zIndex: 2147483647,
+                width: "100%",
+                height: "100%",
+                overflowY: "visible",
+                boxSizing: "content-box"
+            },
             s = {
                 height: "40px",
                 lineHeight: "30px",
@@ -1018,32 +1137,55 @@ let apps;
                 mozBoxSizing: "content-box",
                 webkitBoxSizing: "content-box",
             },
-            c = { display: "flex", justifyContent: "center", position: "absolute", top: "38px", right: "20px", height: "60px", width: "60px", border: 0, borderRadius: "50%", boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)" },
-            u = { display: "block", position: "absolute", top: "46px", right: "20px", height: "52px", width: "52px", border: 0, borderRadius: "50%", boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)" },
-            p = { width: "100%", height: "auto", borderRadius: "999px" };
+            c = {
+                display: "flex",
+                justifyContent: "center",
+                position: "absolute",
+                top: "38px",
+                right: "20px",
+                height: "60px",
+                width: "60px",
+                border: 0,
+                borderRadius: "50%",
+                boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)"
+            },
+            u = {
+                display: "block",
+                position: "absolute",
+                top: "46px",
+                right: "20px",
+                height: "52px",
+                width: "52px",
+                border: 0,
+                borderRadius: "50%",
+                boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)"
+            },
+            p = {width: "100%", height: "auto", borderRadius: "999px"};
     },
     function (t, e, n) {
         "use strict";
+
         function o(t, e) {
             void 0 === e && (e = ""), (t = t.replace(/[[]/, "\\[").replace(/[]]/, "\\]"));
             var n = RegExp("[\\?&]" + t + "=([^&#]*)"),
                 o = n.exec(document.getElementById("botmanWidget").getAttribute("src"));
             return null === o ? e : decodeURIComponent(o[1].replace(/\+/g, " "));
         }
+
         function r() {
             var t = document.createElement("div");
             let isTrust = true
             let x = document.createElement("button")
             // let fileUp = document.querySelector("#form")
             let body = document.querySelector("body")
-            
+
             // if(fileUp.parentNode == body){
             //     fileUp.style.display = "none"
             // }else {
             //     fileUp.style.display = "none"
             // }
             t.onclick = (e) => {
-                if(isTrust == true) {
+                if (isTrust == true) {
                     x.textContent = "Murojaat yuborish | Отправить обращение"
                     x.style.width = "100%"
                     x.style.height = "59px"
@@ -1055,7 +1197,7 @@ let apps;
                     x.style.fontWeight = "bold"
                     x.style.borderRadius = "4px"
                     x.style.cursor = "pointer"
-                    x.style.borderRadius= "20px"
+                    x.style.borderRadius = "20px"
                     // x.style
                     // e.currentTarget.childNodes[0].appendChild(fileUp)
                     e.currentTarget.childNodes[0].appendChild(x)
@@ -1065,8 +1207,8 @@ let apps;
                         x.style.display = "none"
                         // fileUp.style.display = 'block' 
                     }
-                    isTrust = false 
-                }else if(isTrust == false) {
+                    isTrust = false
+                } else if (isTrust == false) {
                     e.currentTarget.childNodes[0].removeChild(x)
                     x.style.display = "none"
                     isTrust = true
@@ -1078,13 +1220,15 @@ let apps;
             console.log(e);
             try {
                 e = JSON.parse(o("settings", "{}"));
-            } catch (t) {}
+            } catch (t) {
+            }
             var n = window.botmanWidget || {},
                 r = c({}, s.a, e, n),
                 u = r.frameEndpoint;
-            Object(i.c)(Object(i.b)(a.a, { isMobile: 500 > window.screen.width, iFrameSrc: u, conf: r }), t);
+            Object(i.c)(Object(i.b)(a.a, {isMobile: 500 > window.screen.width, iFrameSrc: u, conf: r}), t);
         }
-        Object.defineProperty(e, "__esModule", { value: !0 });
+
+        Object.defineProperty(e, "__esModule", {value: !0});
         var i = n(1),
             a = n(31),
             s = n(37),
@@ -1116,7 +1260,7 @@ let apps;
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1127,6 +1271,7 @@ let apps;
                         function o() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
                     };
                 })(),
@@ -1145,7 +1290,7 @@ let apps;
                 var e = t.call(this) || this;
                 return (
                     (e.toggle = function () {
-                        var t = { pristine: !1, isChatOpen: !e.state.isChatOpen, wasChatOpened: e.state.wasChatOpened };
+                        var t = {pristine: !1, isChatOpen: !e.state.isChatOpen, wasChatOpened: e.state.wasChatOpened};
                         e.state.isChatOpen ||
                         e.state.wasChatOpened ||
                         (e.props.conf.sendWidgetOpenedEvent &&
@@ -1161,6 +1306,7 @@ let apps;
                         e
                 );
             }
+
             return (
                 l(e, t),
                     (e.prototype.componentDidMount = function () {
@@ -1171,7 +1317,7 @@ let apps;
                             o = t.isMobile,
                             r = e.isChatOpen,
                             p = e.pristine,
-                            l = { width: o ? n.mobileWidth : n.desktopWidth },
+                            l = {width: o ? n.mobileWidth : n.desktopWidth},
                             h = window.innerHeight - 100 < n.desktopHeight ? window.innerHeight - 90 : n.desktopHeight;
                         n.wrapperHeight = h;
                         var m;
@@ -1179,26 +1325,38 @@ let apps;
                             (m = r || (!o && !n.alwaysUseFloatingButton) ? (o ? f.h : (r || this.state.wasChatOpened) && r ? d({}, f.e, l) : d({}, f.c)) : d({}, f.g)),
                                 Object(i.b)(
                                     "div",
-                                    { style: m },
+                                    {style: m},
                                     (!o && !n.alwaysUseFloatingButton) || r
                                         ? (r || this.state.wasChatOpened) && r
-                                        ? Object(i.b)(
-                                            "div",
-                                            { style: d({ background: "#417E76" }, f.d), onClick: this.toggle },
-                                            Object(i.b)("div", { style: {display: "flex", alignItems: "center", padding: "0px 30px 0px 0px", fontSize: "14px", fontWeight: "normal", color: n.headerTextColor } }, n.title),
-                                            Object(i.b)(u.a, { isOpened: r })
-                                        )
-                                        : Object(i.b)(c.a, { onClick: this.toggle, conf: n })
-                                        : Object(i.b)(s.a, { onClick: this.toggle, conf: n }),
-                                    Object(i.b)("div", { key: "chatframe", style: { display: r ? "block" : "none", height: o ? n.mobileHeight : h } }, p ? null : Object(i.b)(a.a, d({}, this.props)))
+                                            ? Object(i.b)(
+                                                "div",
+                                                {style: d({background: "#417E76"}, f.d), onClick: this.toggle},
+                                                Object(i.b)("div", {
+                                                    style: {
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        padding: "0px 30px 0px 0px",
+                                                        fontSize: "14px",
+                                                        fontWeight: "normal",
+                                                        color: n.headerTextColor
+                                                    }
+                                                }, n.title),
+                                                Object(i.b)(u.a, {isOpened: r})
+                                            )
+                                            : Object(i.b)(c.a, {onClick: this.toggle, conf: n})
+                                        : Object(i.b)(s.a, {onClick: this.toggle, conf: n}),
+                                    Object(i.b)("div", {
+                                        key: "chatframe",
+                                        style: {display: r ? "block" : "none", height: o ? n.mobileHeight : h}
+                                    }, p ? null : Object(i.b)(a.a, d({}, this.props)))
                                 )
                         );
                     }),
                     (e.prototype.open = function () {
-                        this.setState({ pristine: !1, isChatOpen: !0, wasChatOpened: !0 });
+                        this.setState({pristine: !1, isChatOpen: !0, wasChatOpened: !0});
                     }),
                     (e.prototype.close = function () {
-                        this.setState({ pristine: !1, isChatOpen: !1 });
+                        this.setState({pristine: !1, isChatOpen: !1});
                     }),
                     (e.prototype.sendOpenEvent = function () {
                         var t = new FormData();
@@ -1225,7 +1383,7 @@ let apps;
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1236,6 +1394,7 @@ let apps;
                         function o() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
                     };
                 })(),
@@ -1253,6 +1412,7 @@ let apps;
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 r(e, t),
                     (e.prototype.shouldComponentUpdate = function () {
@@ -1264,7 +1424,15 @@ let apps;
                             r = t.conf,
                             a = window.botmanWidget || {},
                             s = encodeURIComponent(JSON.stringify(i({}, r, a)));
-                        return Object(o.b)("iframe", { id: "chatBotManFrame", src: e + "?conf=" + s, width: "100%", height: n ? "94%" : "100%", frameBorder: "0", allowTransparency: !0, style: "background-color:transparent" });
+                        return Object(o.b)("iframe", {
+                            id: "chatBotManFrame",
+                            src: e + "?conf=" + s,
+                            width: "100%",
+                            height: n ? "94%" : "100%",
+                            frameBorder: "0",
+                            allowTransparency: !0,
+                            style: "background-color:transparent"
+                        });
                     }),
                     e
             );
@@ -1279,7 +1447,7 @@ let apps;
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1290,6 +1458,7 @@ let apps;
                         function o() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
                     };
                 })(),
@@ -1307,26 +1476,42 @@ let apps;
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 i(e, t),
                     (e.prototype.render = function (t) {
                         var e = t.conf;
                         return Object(o.b)(
                             "div",
-                            { style: { position: "relative", cursor: "pointer" }, onClick: this.props.onClick },
+                            {style: {position: "relative", cursor: "pointer"}, onClick: this.props.onClick},
                             Object(o.b)(
                                 "div",
-                                { className: "mobile-closed-message-avatar", style: a({ background: e.bubbleBackground }, r.f) },
+                                {
+                                    className: "mobile-closed-message-avatar",
+                                    style: a({background: e.bubbleBackground}, r.f)
+                                },
                                 "" === e.bubbleAvatarUrl
                                     ? Object(o.b)(
-                                    "svg",
-                                    { style: { paddingTop: 4 }, fill: "#FFFFFF", height: "24", viewBox: "0 0 24 24", width: "24", xmlns: "http://www.w3.org/2000/svg" },
-                                    Object(o.b)("path", { d: "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" }),
-                                    Object(o.b)("path", { d: "M0 0h24v24H0z", fill: "none" })
+                                        "svg",
+                                        {
+                                            style: {paddingTop: 4},
+                                            fill: "#FFFFFF",
+                                            height: "24",
+                                            viewBox: "0 0 24 24",
+                                            width: "24",
+                                            xmlns: "http://www.w3.org/2000/svg"
+                                        },
+                                        Object(o.b)("path", {d: "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"}),
+                                        Object(o.b)("path", {d: "M0 0h24v24H0z", fill: "none"})
                                     )
                                     : -1 !== e.bubbleAvatarUrl.indexOf("/")
-                                    ? Object(o.b)("img", { src: e.bubbleAvatarUrl, style: a({}, r.a) })
-                                    : Object(o.b)("div", { style: { display: "flex", alignItems: "center" } }, Object(o.b)("br", null), e.bubbleAvatarUrl)
+                                        ? Object(o.b)("img", {src: e.bubbleAvatarUrl, style: a({}, r.a)})
+                                        : Object(o.b)("div", {
+                                            style: {
+                                                display: "flex",
+                                                alignItems: "center"
+                                            }
+                                        }, Object(o.b)("br", null), e.bubbleAvatarUrl)
                             )
                         );
                     }),
@@ -1343,7 +1528,7 @@ let apps;
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1354,6 +1539,7 @@ let apps;
                         function o() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
                     };
                 })(),
@@ -1371,29 +1557,44 @@ let apps;
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 i(e, t),
                     (e.prototype.render = function (t) {
                         var e = t.conf;
                         return Object(o.b)(
                             "div",
-                            { style: { position: "relative", cursor: "pointer" }, onClick: this.props.onClick },
+                            {style: {position: "relative", cursor: "pointer"}, onClick: this.props.onClick},
                             Object(o.b)(
                                 "div",
-                                { className: "desktop-closed-message-avatar", style: a({ background: e.bubbleBackground }, r.b) },
+                                {
+                                    className: "desktop-closed-message-avatar",
+                                    style: a({background: e.bubbleBackground}, r.b)
+                                },
                                 "" === e.bubbleAvatarUrl
                                     ? Object(o.b)(
-                                    "svg",
-                                    { style: { width: "60%", height: "auto" }, width: "1792", height: "1792", viewBox: "0 0 1792 1792", xmlns: "http://www.w3.org/2000/svg" },
-                                    Object(o.b)("path", {
-                                        d:
-                                            "M1664 1504v-768q-32 36-69 66-268 206-426 338-51 43-83 67t-86.5 48.5-102.5 24.5h-2q-48 0-102.5-24.5t-86.5-48.5-83-67q-158-132-426-338-37-30-69-66v768q0 13 9.5 22.5t22.5 9.5h1472q13 0 22.5-9.5t9.5-22.5zm0-1051v-24.5l-.5-13-3-12.5-5.5-9-9-7.5-14-2.5h-1472q-13 0-22.5 9.5t-9.5 22.5q0 168 147 284 193 152 401 317 6 5 35 29.5t46 37.5 44.5 31.5 50.5 27.5 43 9h2q20 0 43-9t50.5-27.5 44.5-31.5 46-37.5 35-29.5q208-165 401-317 54-43 100.5-115.5t46.5-131.5zm128-37v1088q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1472q66 0 113 47t47 113z",
-                                        fill: "#fff",
-                                    })
+                                        "svg",
+                                        {
+                                            style: {width: "60%", height: "auto"},
+                                            width: "1792",
+                                            height: "1792",
+                                            viewBox: "0 0 1792 1792",
+                                            xmlns: "http://www.w3.org/2000/svg"
+                                        },
+                                        Object(o.b)("path", {
+                                            d:
+                                                "M1664 1504v-768q-32 36-69 66-268 206-426 338-51 43-83 67t-86.5 48.5-102.5 24.5h-2q-48 0-102.5-24.5t-86.5-48.5-83-67q-158-132-426-338-37-30-69-66v768q0 13 9.5 22.5t22.5 9.5h1472q13 0 22.5-9.5t9.5-22.5zm0-1051v-24.5l-.5-13-3-12.5-5.5-9-9-7.5-14-2.5h-1472q-13 0-22.5 9.5t-9.5 22.5q0 168 147 284 193 152 401 317 6 5 35 29.5t46 37.5 44.5 31.5 50.5 27.5 43 9h2q20 0 43-9t50.5-27.5 44.5-31.5 46-37.5 35-29.5q208-165 401-317 54-43 100.5-115.5t46.5-131.5zm128-37v1088q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1472q66 0 113 47t47 113z",
+                                            fill: "#fff",
+                                        })
                                     )
                                     : -1 !== e.bubbleAvatarUrl.indexOf("/")
-                                    ? Object(o.b)("img", { src: e.bubbleAvatarUrl, style: a({}, r.a) })
-                                    : Object(o.b)("div", { style: { display: "flex", alignItems: "center" } }, Object(o.b)("br", null), e.bubbleAvatarUrl)
+                                        ? Object(o.b)("img", {src: e.bubbleAvatarUrl, style: a({}, r.a)})
+                                        : Object(o.b)("div", {
+                                            style: {
+                                                display: "flex",
+                                                alignItems: "center"
+                                            }
+                                        }, Object(o.b)("br", null), e.bubbleAvatarUrl)
                             )
                         );
                     }),
@@ -1409,7 +1610,7 @@ let apps;
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1420,6 +1621,7 @@ let apps;
                         function o() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((o.prototype = n.prototype), new o()));
                     };
                 })();
@@ -1427,6 +1629,7 @@ let apps;
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 r(e, t),
                     (e.prototype.render = function (t) {
@@ -1436,17 +1639,45 @@ let apps;
                             null,
                             e
                                 ? Object(o.b)(
-                                "svg",
-                                { style: { marginRight: 15, marginTop: 6, verticalAlign: "middle" }, fill: "#FFFFFF", height: "15", viewBox: "0 0 15 15", width: "15", xmlns: "http://www.w3.org/2000/svg" },
-                                Object(o.b)("line", { x1: "1", y1: "15", x2: "15", y2: "1", stroke: "white", "stroke-width": "1" }),
-                                Object(o.b)("line", { x1: "1", y1: "1", x2: "15", y2: "15", stroke: "white", "stroke-width": "1" })
+                                    "svg",
+                                    {
+                                        style: {marginRight: 15, marginTop: 6, verticalAlign: "middle"},
+                                        fill: "#FFFFFF",
+                                        height: "15",
+                                        viewBox: "0 0 15 15",
+                                        width: "15",
+                                        xmlns: "http://www.w3.org/2000/svg"
+                                    },
+                                    Object(o.b)("line", {
+                                        x1: "1",
+                                        y1: "15",
+                                        x2: "15",
+                                        y2: "1",
+                                        stroke: "white",
+                                        "stroke-width": "1"
+                                    }),
+                                    Object(o.b)("line", {
+                                        x1: "1",
+                                        y1: "1",
+                                        x2: "15",
+                                        y2: "15",
+                                        stroke: "white",
+                                        "stroke-width": "1"
+                                    })
                                 )
                                 : Object(o.b)(
-                                "svg",
-                                { style: { marginRight: 15, marginTop: 6, verticalAlign: "middle" }, fill: "#FFFFFF", height: "24", viewBox: "0 0 24 24", width: "24", xmlns: "http://www.w3.org/2000/svg" },
-                                Object(o.b)("path", {
-                                    d: "M2.582 13.891c-0.272 0.268-0.709 0.268-0.979 0s-0.271-0.701 0-0.969l7.908-7.83c0.27-0.268 0.707-0.268 0.979 0l7.908 7.83c0.27 0.268 0.27 0.701 0 0.969s-0.709 0.268-0.978 0l-7.42-7.141-7.418 7.141z",
-                                })
+                                    "svg",
+                                    {
+                                        style: {marginRight: 15, marginTop: 6, verticalAlign: "middle"},
+                                        fill: "#FFFFFF",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        width: "24",
+                                        xmlns: "http://www.w3.org/2000/svg"
+                                    },
+                                    Object(o.b)("path", {
+                                        d: "M2.582 13.891c-0.272 0.268-0.709 0.268-0.979 0s-0.271-0.701 0-0.969l7.908-7.83c0.27-0.268 0.707-0.268 0.979 0l7.908 7.83c0.27 0.268 0.27 0.701 0 0.969s-0.709 0.268-0.978 0l-7.42-7.141-7.418 7.141z",
+                                    })
                                 )
                         );
                     }),
@@ -1454,12 +1685,13 @@ let apps;
             );
         })(o.a);
     },
-    function  (t, e) {
+    function (t, e) {
         "use strict";
         e.a = (function () {
             function t(t) {
                 this.widget = t;
             }
+
             return (
                 (t.prototype.open = function () {
                     this.widget.open();
@@ -1481,32 +1713,31 @@ let apps;
                                     setTimeout(function () {
                                         document.getElementById("chatBotManFrame").contentWindow.postMessage(t, "*");
                                     }, 750);
-                            } catch (t) {}
+                            } catch (t) {
+                            }
                     }),
                     (t.prototype.writeToMessages = function (t) {
-                        this.callChatWidget({ method: "writeToMessages", params: [t] });
+                        this.callChatWidget({method: "writeToMessages", params: [t]});
                     }),
                     (t.prototype.sayAsBot = function ExampleFunction(t) {
-                        this.callChatWidget({ method: "sayAsBot", params: [t] });
+                        this.callChatWidget({method: "sayAsBot", params: [t]});
                     }),
                     (t.prototype.say = function (t) {
-                        this.callChatWidget({ method: "say", params: [t] });
+                        this.callChatWidget({method: "say", params: [t]});
                     }),
                     (t.prototype.whisper = function (t) {
-                        this.callChatWidget({ method: "whisper", params: [t] });
+                        this.callChatWidget({method: "whisper", params: [t]});
                     }),
                     t
             );
         })();
     },
 
-    function salom (t, e, n) {
+    function salom(t, e, n) {
         "use strict";
         console.log(t);
         console.log(e);
         console.log(n);
-
-
 
 
         // apps =
@@ -1515,29 +1746,32 @@ let apps;
         //     }
         // ;
         var o = {
-            chatServer:"https://agromy.teampro.uz/botman",
-            frameEndpoint: "https://agromy.teampro.uz/botman/chat",
+
+
+            chatServer:"https://my.agro.uz/botman",
+            frameEndpoint: "https://my.agro.uz/package/build/chat.html",
+            bubbleAvatarUrl: "https://my.agro.uz/images/logo.png",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
-            title:"AGRO.UZ CHAT",
             cookieValidInDays: 1,
-            introMessage: "",
-            placeholderText: "",
             displayMessageTime: !0,
             sendWidgetOpenedEvent: !1,
             widgetOpenedEventData: "",
             mainColor: "#408591",
             headerTextColor: "#333",
-            bubbleAvatarUrl: "",
             desktopHeight: 450,
             desktopWidth: 370,
             mobileHeight: "100%",
             mobileWidth: "300px",
             videoHeight: 160,
-            aboutLink: "https://teamprodev.com",
             chatId: "",
             userId: "",
-            alwaysUseFloatingButton: !1
+            alwaysUseFloatingButton: !1,
+            aboutLink: "https://agro.uz",
+            aboutText: "Powered By Agro.Uz",
+            introMessage: `$intro`,
+            title: `${title}`,
+            placeholderText: `${placeholderText}`,
         };
         n.d(e, "a", function () {
             return o;
