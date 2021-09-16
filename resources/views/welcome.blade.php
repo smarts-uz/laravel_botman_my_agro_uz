@@ -8,8 +8,7 @@
 
 <body>
 
-<link rel="stylesheet" type="text/css" href="/package/build/assets/css/chat.css"/>
-<script src='/package/build/js/widget.js'></script>
-<script src="/js/botmanJS.php"></script>
+<link rel="stylesheet" type="text/css" href="/js/app.css.php"/>
+<script src="/js/app.js.php"></script>
 </body>
 </html>
