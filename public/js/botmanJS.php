@@ -1,6 +1,9 @@
 <?php
 // a_local_file.php
 
+use Symfony\Component\Dotenv\Dotenv;
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__.'/.env');
 
 ob_start();
 Header("content-type: application/javascript");

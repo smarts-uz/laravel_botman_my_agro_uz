@@ -21,6 +21,7 @@
         "pusher/pusher-php-server": "^7.0",
         "realrashid/sweet-alert": "^4.0",
         "sopamo/laravel-filepond": "^0.6.2",
+        "symfony/dotenv": "^5.3",
         "tcg/voyager": "^1.4"
     },
     "require-dev": {
