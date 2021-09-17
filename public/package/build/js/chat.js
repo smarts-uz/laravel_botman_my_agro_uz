@@ -794,7 +794,7 @@
                                         .use(Uppy.DropTarget, {target: document.body})
                                         .use(Uppy.GoldenRetriever)
                                         .use(Uppy.XHRUpload, {
-                                            endpoint: '/fileUpload',
+                                            endpoint: '${endpoint}',
                                             fieldName: 'file',
                                             headers: file => ({
                                                 'X-CSRF-TOKEN': '${csrf_token}'
