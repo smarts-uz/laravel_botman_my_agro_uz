@@ -14,4 +14,4 @@ $botman = resolve('botman');
 $botman->hears('/start', function ($bot) {
     // $bot->say("salom");
     $bot->startConversation(new RealConversation());
-})->stopsConversation();
+});

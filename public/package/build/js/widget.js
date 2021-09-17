@@ -1768,7 +1768,7 @@ let apps;
             alwaysUseFloatingButton: !1,
             aboutLink: `${aboutLink}`,
             aboutText: `${aboutText}`,
-            introMessage: `${ChatIntro}`,
+            introMessage: `${ChatIntroText}`,
             title: `${title}`,
             placeholderText: `${placeholderText}`,
         };

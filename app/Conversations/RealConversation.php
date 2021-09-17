@@ -72,19 +72,6 @@ class RealConversation extends Conversation
 
         $this->user_question_data["ASK_USER_B"][0]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
         $this->user_question_data["ASK_USER_B"][0]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
-
-
-
-
-        // $this->questions["ASK_Title"]["ru"] = QuestionText::where('name', 'ASK_THEME')->first()->ru;
-        // $this->questions["ASK_Title"]["uz"] = QuestionText::where('name', 'ASK_THEME')->first()->uz;
-        // $this->questions["Yes"]["ru"] = "да";
-        // $this->questions["Yes"]["uz"] = "HA";
-        // $this->questions["No"]["ru"] = "Нет";
-        // $this->questions["No"]["uz"] = "Yo'q";
-        // $this->questions["ASK_TRUE"]["ru"] = "Вы подтверждаете, что подали обращение правильно?";
-        // $this->questions["ASK_TRUE"]["uz"] = "Murojaatingizni to'g'ri yuborganingizni tasdiqlaysizmi?";
-        LOG::info($this->questions["ASK_LANGUAGE"]);
     }
 
     public function keyLanguages(){
@@ -199,7 +186,6 @@ class RealConversation extends Conversation
                 $this->repeat();
             }
         });
-        // $this->user_mamory["email"]
     }
 
     public function askAction()
@@ -277,7 +263,7 @@ class RealConversation extends Conversation
         if (!$user) {
             $this->memory["pass"] = $this->generatePass();
             $text = 'Your username ' . $this->user_mamory["email"] . '  and password ' . $this->memory["pass"] . ' for Cabinet';
-            if ($this->user_mamory["usertype"] == 0) {
+            if ($this->user_mamory["usertype"] == 1) {
                 $user = User::create([
                     'name' => $this->user_mamory["name"],
                     'role_id' => 2,
@@ -306,7 +292,6 @@ class RealConversation extends Conversation
             $email=$this->user_mamory["email"];
             $password=$this->memory["pass"];
             $text = $this->language == "uz" ? setting('sms.AccountUz').'<br>Email:'.$email.'<br>Password:'.$password : setting('sms.AccountRu').'<br>Email:'.$email.'<br>Password:'.$password;
-            // $text = 'E-Mail: ' . $this->user_mamory["email"].' Password:'. $this->memory["pass"];
 
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
@@ -323,8 +308,6 @@ class RealConversation extends Conversation
         }
 
         $this->user_mamory["id"] = $user->id;
-        // Auth::login($user);
-
         $this->askEnd();
     }
 
@@ -395,7 +378,6 @@ class RealConversation extends Conversation
                 });
             });
         } else {
-            LOG::info($this->user_mamory["usertype"]);
             $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->askName();
@@ -429,7 +411,7 @@ class RealConversation extends Conversation
         $this->ask($question, function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
                 $dirname = $this->user_mamory["email"];
-                $files = Storage::allFiles($dirname);
+                $files = Storage::allFiles($dirname.'/');
 
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
                     $appeal = new Appeal();
@@ -464,18 +446,6 @@ class RealConversation extends Conversation
 
         });
     }
-    public function askFiles(){
-        $this->bot->receivesFiles(function($bot, $files) {
-
-            foreach ($files as $file) {
-
-                $url = $file->getUrl(); // The direct url
-                $payload = $file->getPayload(); // The original payload
-            }
-            $this->say(json_encode($file->getPayload()));
-        });
-    }
-
     static function generatePass($length = 4)
     {
         $characters = '0123456789';
