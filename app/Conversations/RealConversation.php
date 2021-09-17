@@ -165,8 +165,6 @@ HTML;
 
         $this->askForFiles('Please upload an file.', function ($files) {
 
-
-
             $dirname = 'uploads/' . $this->user_memory["email"];
             foreach ($files as $image) {
                 $url = $image->getUrl(); // The direct url
@@ -246,6 +244,8 @@ HTML;
         $this->ask($this->mediaRoutes(), function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
+                    
+
                     $this->askImageFile();
                 } else {
                     $this->askRoute();
