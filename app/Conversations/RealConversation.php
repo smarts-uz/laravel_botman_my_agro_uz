@@ -141,16 +141,18 @@ class RealConversation extends Conversation
             // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
             // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
         // $this->askImageFile();
+        // $this->say(Storage::allFiles('fayzulloev'));
         $this->askLanguage();
     }
     public function askImageFile(){
         $this->askForFiles('Please upload an file.', function ($files) {
-            $dirname = $this->user_mamory["email"];
+            $dirname = $this->user_mamory["email"].'/uploads';
             foreach ($files as $image) {
                 $url = $image->getUrl(); // The direct url
                 $payload = $image->getPayload(); // The original payload
 
                 $this->say(json_encode($payload));
+                $this->user_mamory["filename"] = $payload['file_name'];
                 // Storage::makeDirectory($dirname);
                 Storage::put($dirname.'/'.$payload['file_name'],file_get_contents($url));
                 $this->say(json_encode(Storage::allFiles($dirname)));
@@ -431,7 +433,7 @@ class RealConversation extends Conversation
                     $appeal->save();
 
                     foreach($files as $file){
-                        Storage::move($file, 'files/'.$dirname.'/'.$appeal->id.'/'.$file);
+                        Storage::move($file, 'files/'.$dirname.'/'.$appeal->id.'/'.$this->user_mamory["filename"]);
                     }
 
                     $this->say( $this->questions["FINISH"][$this->language]);
