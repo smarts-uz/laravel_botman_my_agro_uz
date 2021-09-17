@@ -1749,7 +1749,8 @@ let apps;
 
             chatServer:`${chatServer}`,
             frameEndpoint: `${frameEndpoint}`,
-            bubbleAvatarUrl: `${bubbleAvatarUrl}`,
+            ///bubbleAvatarUrl: `${bubbleAvatarUrl}`,
+            bubbleAvatarUrl: '/images/logo22.png',
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             cookieValidInDays: 1,

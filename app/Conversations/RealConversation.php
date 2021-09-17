@@ -146,7 +146,7 @@ class RealConversation extends Conversation
     }
     public function askImageFile(){
         $this->askForFiles('Please upload an file.', function ($files) {
-            $dirname = $this->user_mamory["email"].'/uploads';
+            $dirname = 'uploads/'.$this->user_mamory["email"];
             foreach ($files as $image) {
                 $url = $image->getUrl(); // The direct url
                 $payload = $image->getPayload(); // The original payload

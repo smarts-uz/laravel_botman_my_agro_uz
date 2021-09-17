@@ -56,7 +56,7 @@ $print = strtr($content, [
     '${mainColor}' => $settings['chatbot.mainColor']['value'],
     '${frameEndpoint}' => $settings['chatbot.frameEndpoint']['value'],
     '${bubbleAvatarUrl}' => $settings['chatbot.bubbleAvatarUrl']['value'],
-    '${chatServer}' => $settings['chatbot.bubbleAvatarUrl']['value'],
+    '${chatServer}' => $settings['chatbot.chatServer']['value'],
 ]);
 
 echo $print;
