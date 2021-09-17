@@ -28,7 +28,7 @@ const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский"
 
 const QUESTIONS = [
 
-    'YES' => ['name' => ['uz' => 'YES', 'ru' => 'DA'], 'value' => 'yes'],
+    'YES' => ['name' => ['uz' => 'YES', 'ru' => 'Да'], 'value' => 'Нет'],
     'NO' => ['name' => ['uz' => 'NO', 'ru' => 'NET'], 'value' => 'no'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
@@ -46,31 +46,26 @@ class RealConversation extends Conversation
     {
         $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
 
-        $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
+        $this->key_indevidual["ru"][0]["name"] = $this->questions["ASK_YURIDIK"]["RU"];
+        $this->key_indevidual["ru"][1]["name"] = $this->questions["ASK_JISMONIY"]["RU"];
+        $this->key_indevidual["uz"][0]["name"] = $this->questions["ASK_YURIDIK"]["UZ"];
+        $this->key_indevidual["uz"][1]["name"] = $this->questions["ASK_JISMONIY"]["UZ"];
+        $this->key_indevidual["uz"][0]["val"] = 0;
         $this->key_indevidual["ru"][0]["val"] = 0;
-        $this->key_indevidual["ru"][1]["name"] = QuestionText::where('name', 'ASK_JISMONIY')->first()->ru;
+        $this->key_indevidual["uz"][1]["val"] = 1;
         $this->key_indevidual["ru"][1]["val"] = 1;
 
-        $this->key_indevidual["uz"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->uz;
-        $this->key_indevidual["uz"][0]["val"] = 0;
-        $this->key_indevidual["uz"][1]["name"] = QuestionText::where('name', 'ASK_JISMONIY')->first()->uz;
-        $this->key_indevidual["uz"][1]["val"] = 1;
+        $this->user_question_data["ASK_USER_A"][1]["uz"] = $this->questions["ASK_JOB"]["UZ"];
+        $this->user_question_data["ASK_USER_A"][1]["ru"] =  $this->questions["ASK_JOB"]["RU"];
 
+        $this->user_question_data["ASK_USER_A"][0]["uz"] = $this->questions["ASK_COMPANY_NAME"]["UZ"];
+        $this->user_question_data["ASK_USER_A"][0]["ru"] =  $this->questions["ASK_COMPANY_NAME"]["RU"];
 
+        $this->user_question_data["ASK_USER_B"][1]["uz"] =  $this->questions["ASK_COMPANY_NAME"]["UZ"];
+        $this->user_question_data["ASK_USER_B"][1]["ru"] =  $this->questions["ASK_COMPANY_NAME"]["RU"];
 
-
-
-        $this->user_question_data["ASK_USER_A"][1]["uz"] = QuestionText::where('name', 'ASK_JOB')->first()->uz;
-        $this->user_question_data["ASK_USER_A"][1]["ru"] = QuestionText::where('name', 'ASK_JOB')->first()->ru;
-
-        $this->user_question_data["ASK_USER_A"][0]["uz"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->uz;
-        $this->user_question_data["ASK_USER_A"][0]["ru"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->ru;
-
-        $this->user_question_data["ASK_USER_B"][1]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
-        $this->user_question_data["ASK_USER_B"][1]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
-
-        $this->user_question_data["ASK_USER_B"][0]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
-        $this->user_question_data["ASK_USER_B"][0]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
+        $this->user_question_data["ASK_USER_B"][0]["uz"] =  $this->questions["ASK_FIELD"]["UZ"];
+        $this->user_question_data["ASK_USER_B"][0]["ru"] =  $this->questions["ASK_FIELD"]["RU"];
     }
 
     public function keyLanguages(){
@@ -312,11 +307,6 @@ class RealConversation extends Conversation
         $this->askEnd();
     }
 
-    public function fillUserData(User $user)
-    {
-
-    }
-
 
     public function askPhone()
     {
@@ -423,6 +413,7 @@ class RealConversation extends Conversation
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
                     $appeal->fullname = $this->user_mamory["name"];
+                    $appeal->images = json_encode($files);
                     if($this->user_mamory["usertype"]==1) {
                         $appeal->company = $this->memory["data"]["a"];
                         $appeal->branch = $this->memory["data"]["b"];
