@@ -25,13 +25,14 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 use App\Models\QuestionText;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Filesystem;
 
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
 const QUESTIONS = [
 
-    'YES' => ['name' => ['uz' => 'YES', 'ru' => 'Да'], 'value' => 'Нет'],
-    'NO' => ['name' => ['uz' => 'NO', 'ru' => 'NET'], 'value' => 'no'],
+    'YES' => ['name' => ['uz' => 'Ha', 'ru' => 'Да'], 'value' => 'Yes'],
+    'NO' => ['name' => ['uz' => 'Yo\'q', 'ru' => 'Нет'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
 ];
@@ -61,7 +62,7 @@ class RealConversation extends Conversation
         $this->key_indevidual["ru"][1]["val"] = 1;
 
         $this->user_question_data["ASK_USER_A"][1]["uz"] = $this->questions["ASK_JOB"]["uz"];
-        $this->user_question_data["ASK_USER_A"][1]["ru"] = $this->questions["ASK_JOB"]["uz"];
+        $this->user_question_data["ASK_USER_A"][1]["ru"] = $this->questions["ASK_JOB"]["ru"];
 
         $this->user_question_data["ASK_USER_A"][0]["uz"] = $this->questions["ASK_COMPANY_NAME"]["uz"];
         $this->user_question_data["ASK_USER_A"][0]["ru"] = $this->questions["ASK_COMPANY_NAME"]["ru"];
@@ -169,9 +170,9 @@ HTML;
         $this->ask(Question::create('Нажмите далее после того как загрузите файл')
             ->addButtons([
                 Button::create('Далее')->value('Next'),
-            ]), function ($answer) {
-            if ($answer->isInteractiveMessageReply()) {
-                if ($answer->getValue() === 'Next')
+            ]), function ($apps) {
+            if ($apps->isInteractiveMessageReply()) {
+                if ($apps->getValue() === 'Next')
                     $this->askRoute();
             } else
                 $this->repeat();
@@ -230,7 +231,7 @@ HTML;
             if ($x == true) {
                 $this->user_memory["email"] = $email->getText();
                 $dirname = $this->user_memory["email"];
-                Storage::makeDirectory($dirname);
+                Storage::makeDirectory('uploads/' . $dirname);
                 $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
@@ -283,7 +284,6 @@ HTML;
                 }
             } else $this->repeat();
         });
-
 
     }
 
@@ -463,8 +463,10 @@ HTML;
                 ]);
 
         $this->ask($question, function ($answer) {
+
             if ($answer->isInteractiveMessageReply()) {
-                $dirname = 'uploads/' . $this->user_memory["email"];
+
+                $dirname = storage_path() . '/uploads/';
                 $files = Storage::allFiles($dirname . '/');
 
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
@@ -476,18 +478,26 @@ HTML;
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
                     $appeal->fullname = $this->user_memory["name"];
-                    if ($this->user_memory["usertype"] == 1) {
+                    if ($this->user_memory["usertype"] === 1) {
                         $appeal->company = $this->memory["data"]["a"];
                         // $appeal->branch = $this->memory["data"]["b"];
                     } else {
                         $appeal->workplace = $this->memory["data"]["a"];
                     }
 
-                    foreach ($files as $file) {
-                        Storage::move($file, 'files/' . $dirname . '/' . $appeal->id . '/' . $this->user_memory["filename"]);
+                    if ($this->user_memory["email"]) {
+                    /*    foreach ($files as $file) {
+
+                            $dirname = storage_path() . '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
+                            mkdir($dirname, 0777);
+
+                            Storage::move($file, $dirname);
+                        }*/
+
+                        $files = Storage::allFiles('files/' . $this->user_memory["email"] . '/' . $appeal->id . '/' . $this->user_memory["email"]);
                     }
-                    $files = Storage::allFiles('files/' . $this->user_memory["email"] . '/' . $appeal->id);
-                    $appeal->images = json_encode($files);
+
+            //        $appeal->images = json_encode($files);
                     $appeal->save();
 
                     $this->say($this->questions["FINISH"][$this->language]);
