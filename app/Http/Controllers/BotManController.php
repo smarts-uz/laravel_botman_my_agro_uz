@@ -19,16 +19,15 @@ class BotManController extends Controller
 
         $botman = app('botman');
 
-        $botman->hears('(.*)', function ($bot) {
-            $bot->startConversation(new RealConversation());
+        // $botman->hears('(.*)', function ($bot) {
+        //     $bot->startConversation(new RealConversation());
 
-        });
+        // });
 
         $botman->hears('/start', function ($bot) {
             $bot->startConversation(new RealConversation());
 
         })->stopsConversation();
-
         $botman->listen();
     }
 

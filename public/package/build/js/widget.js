@@ -1096,7 +1096,7 @@ let apps;
                 bottom: "0px",
                 right: "0px",
                 zIndex: 2147483647,
-                minWidth: "400px",
+                minWidth: "83px",
                 boxSizing: "content-box",
                 overflow: "hidden",
                 minHeight: "120px"
@@ -1197,7 +1197,6 @@ let apps;
                     x.style.fontWeight = "bold"
                     x.style.borderRadius = "4px"
                     x.style.cursor = "pointer"
-                    x.style.borderRadius = "20px"
                     // x.style
                     // e.currentTarget.childNodes[0].appendChild(fileUp)
                     e.currentTarget.childNodes[0].appendChild(x)
@@ -1766,18 +1765,18 @@ let apps;
             videoHeight: 160,
 
             chatId: "",
-            userId: "",
-            alwaysUseFloatingButton: !1,
-            aboutLink: `${aboutLink}`,
-            aboutText: `${aboutText}`,
-            introMessage: `${ChatIntroText}`,
-            title: `${title}`,
-            placeholderText: `${placeholderText}`,
-        };
-        n.d(e, "a", function () {
-            return o;
-        });
-    },
-]);
+                userId: "",
+                alwaysUseFloatingButton: !1,
+                aboutLink: `${aboutLink}`,
+                aboutText: `${aboutText}`,
+                introMessage: `${ChatIntroText}`,
+                title: `${title}`,
+                placeholderText: `${placeholderText}`,
+            };
+            n.d(e, "a", function () {
+                return o;
+            });
+        },
+    ]);
 
 

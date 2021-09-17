@@ -9,7 +9,7 @@
 
     <div class="inputs">
         <section class="msger">
-            <div class="titles">Lorem ip Quos delectus a Marepudiandae laborum.</div>
+            <div class="titles">{{$appeal->title}}</div>
             <header class="msger-header">
 
                 <div class="msger-header-title">
@@ -22,7 +22,19 @@
                 </div>
             </header>
             <main class="msger-chat">
+            <div class='msg {{ $appeal->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
+                    <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>
 
+                    <div class="msg-bubble">
+                        <div class="msg-info">
+                            <div class="msg-info-name">{{ $user }}</div>
+                            <div class="msg-info-time">{{ date('H:m', strtotime($appeal->created_at)) }}</div>
+                        </div>
+                        <div class="msg-text">
+                            {{ $appeal->text }}
+                        </div>
+                    </div>
+                </div>
                 @foreach ($conversations as $conversation)
                 {{-- @dd($conversation); --}}
                 @php

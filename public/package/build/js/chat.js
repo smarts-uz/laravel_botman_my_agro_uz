@@ -745,6 +745,11 @@
                                 // loop over input elements
                                 Array.from(inputElements).forEach(inputElement => {
 
+                                    console.log('inputElement:' + inputElement);
+
+
+                                    var email = $(inputElement).data('email');
+                                    console.log('Email:' + email);
 
 
                                     var uppy = new Uppy.Core({
@@ -764,7 +769,7 @@
                                         onBeforeFileAdded: (currentFile, files) => currentFile,
                                         onBeforeUpload: (files) => {
                                         },
-                                        locale: {},
+                                        locale: Uppy.locales.ru_RU,
                                         store: new Uppy.DefaultStore(),
                                         logger: Uppy.justErrorsLogger,
                                         infoTimeout: 5000,
@@ -772,29 +777,49 @@
                                         .use(Uppy.Dashboard, {
                                             trigger: '.UppyModalOpenerBtn',
                                             inline: true,
+                                            locale: Uppy.locales.ru_RU,
                                             target: inputElement,
                                             showProgressDetails: true,
                                             note: 'Все типы файлов, до 10 МБ',
                                             height: 470,
                                             metaFields: [
                                                 {id: 'name', name: 'Name', placeholder: 'file name'},
-                                                {id: 'caption', name: 'Caption', placeholder: 'describe what the image is about'}
+                                                {
+                                                    id: 'caption',
+                                                    name: 'Caption',
+                                                    placeholder: 'describe what the image is about'
+                                                }
                                             ],
                                             browserBackButtonClose: true
                                         })
 
-                                        .use(Uppy.GoogleDrive, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
-                                        .use(Uppy.Dropbox, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
-                                        .use(Uppy.Instagram, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
-                                        .use(Uppy.Facebook, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
-                                        .use(Uppy.OneDrive, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
+                                        .use(Uppy.GoogleDrive, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
+                                        .use(Uppy.Dropbox, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
+                                        .use(Uppy.Instagram, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
+                                        .use(Uppy.Facebook, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
+                                        .use(Uppy.OneDrive, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
                                         .use(Uppy.Webcam, {target: Uppy.Dashboard})
                                         .use(Uppy.ScreenCapture, {target: Uppy.Dashboard})
                                         .use(Uppy.ImageEditor, {target: Uppy.Dashboard})
                                         .use(Uppy.DropTarget, {target: document.body})
                                         .use(Uppy.GoldenRetriever)
                                         .use(Uppy.XHRUpload, {
-                                            endpoint: '${endpoint}',
+                                            endpoint: '${endpoint}?email=' + email,
                                             fieldName: 'file',
                                             headers: file => ({
                                                 'X-CSRF-TOKEN': '${csrf_token}'
@@ -827,7 +852,7 @@
                                  * Uppy End
                                  */
 
-                            }, 100);
+                            }, 1000);
 
                         };
 

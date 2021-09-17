@@ -52,12 +52,15 @@ const msgUz = '🗣 Хурматли фуқоролар Қишлоқ хўжал�
 const msgRu = '🗣 Уважаемые граждане! Если вы столкнетесь с коррупцией в системе Минсельхоза, сообщите нам об этом.
         🤳 Информацию о коррупции в системе Минсельхоза, в том числе сельскохозяйственных ведомствах и отделах, предприятиях, организациях и образовательных учреждениях в системе министерства, можно отправить боту @UzAgroAnticorruptionBot в телеграмме и на горячую линию министерства +998 71 206-70-65.
         ‼ ️Отправленные сообщения будут рассмотрены в установленном порядке, и конфиденциальность заявителя будет гарантирована.';
+
 class ButtonConversation extends Conversation
 {
     public $memory=[];
-    public $user_mamory;
+    public $user_memory;
+
     public $language;
     public $usertype;
+
     public function ContactKeyboard()
     {
         return Keyboard::create()
@@ -129,13 +132,13 @@ class ButtonConversation extends Conversation
     public function askUserType(){
         $this->ask($this->keyUserType(), function($usertype){
             if ($usertype->isInteractiveMessageReply()) {
-                $this->user_mamory["usertype"] = $usertype->getValue();
+                $this->user_memory["usertype"] = $usertype->getValue();
                 $this->askUser();
             } else $this->repeat();
         });
     }
     public function askUser(){
-        if($this->user_mamory["usertype"]==0){
+        if($this->user_memory["usertype"]==0){
             $this->ask(QUESTIONS["ASK_1"][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->ask(QUESTIONS["ASK_11"][$this->language], function($ask2) {
@@ -143,15 +146,15 @@ class ButtonConversation extends Conversation
                     $this->ask(
                         QUESTIONS["ASK_NAME"][$this->language],
                         function ($name) {
-                        $this->user_mamory["name"] = $name->getText();
+                        $this->user_memory["name"] = $name->getText();
                         $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
                             $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
                             if($x == true) {
-                                $this->user_mamory["phone"] = $phone->getText();
+                                $this->user_memory["phone"] = $phone->getText();
                                 $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
                                     $x = preg_match('/^([a-zA-Z0-9_\.-]+)@([\da-zA-Z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
                                     if($x == true) {
-                                        $this->user_mamory["email"] = $email->getText();
+                                        $this->user_memory["email"] = $email->getText();
                                         $this->askAction();
                                     }elseif ($x == false) {
                                         $this->say("incorrect format");
@@ -177,11 +180,11 @@ class ButtonConversation extends Conversation
                     $this->ask(
                         QUESTIONS["ASK_NAME"][$this->language],
                         function ($name) {
-                        $this->user_mamory["name"] = $name->getText();
+                        $this->user_memory["name"] = $name->getText();
                         $this->ask(QUESTIONS["ASK_PHONE"][$this->language], function ($phone) {
-                            $this->user_mamory["phone"] = $phone->getText();
+                            $this->user_memory["phone"] = $phone->getText();
                             $this->ask(QUESTIONS["ASK_EMAIL"][$this->language], function ($email) {
-                                $this->user_mamory["email"] = $email->getText();
+                                $this->user_memory["email"] = $email->getText();
                                 //
 
                                 $this->askAction();
@@ -225,35 +228,35 @@ class ButtonConversation extends Conversation
 
 
     public function UserLogin(){
-        $user = User::where('email', $this->user_mamory["email"])->first();
+        $user = User::where('email', $this->user_memory["email"])->first();
         $this->memory["pass"] = "nopass";
 
         if(!$user){
             $this->memory["pass"] = $this->generatePass();
-            $text = 'Your username '.$this->user_mamory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
+            $text = 'Your username '.$this->user_memory["email"].'  and password '.$this->memory["pass"]. ' for Cabinet';
             $user = User::create([
-                'name' => $this->user_mamory["name"],
+                'name' => $this->user_memory["name"],
                 'role_id' => 2,
-                'phone' => $this->user_mamory["phone"],
-                'individual' => $this->user_mamory["usertype"],
+                'phone' => $this->user_memory["phone"],
+                'individual' => $this->user_memory["usertype"],
                 'remember_token' => $this->generatePass(32),
-                "email" => $this->user_mamory["email"],
+                "email" => $this->user_memory["email"],
                 "password" => Hash::make($this->memory["pass"])
             ]);
-            $info = `Adress: http://my.agro.uz/admin`."<br/>" .'Login: ' . $this->user_mamory["email"]. "<br/>".' Parol: '. $this->memory["pass"]."<br/>"."<br/>"."Bizning xizmatimizdan foydalanganingiz uchun tashakkur.";
+            $info = `Adress: http://my.agro.uz/admin`."<br/>" .'Login: ' . $this->user_memory["email"]. "<br/>".' Parol: '. $this->memory["pass"]."<br/>"."<br/>"."Bizning xizmatimizdan foydalanganingiz uchun tashakkur.";
             $text = "<br>My.Agro.Uz portalidagi shaxsiy kabinetingizga kirish ma'lumotlari.</br> Ваш доступ к персональному кабинету в портале My.Agro.Uz.<br/>".$info;
             $smsSender = new SmsService();
-            $smsSender->send($this->user_mamory["phone"], $text);
+            $smsSender->send($this->user_memory["phone"], $text);
             $details = [
                 'title' => 'My.Agro.Uz portalidagi shaxsiy kabinetingizga kirish ma`lumotlari',
                 'body' => $info
             ];
-            Mail::to($this->user_mamory["email"])->send(new SendMail($details));
+            Mail::to($this->user_memory["email"])->send(new SendMail($details));
         }
 //        else {
 //        }
 
-        $this->user_mamory["id"] = $user->id;
+        $this->user_memory["id"] = $user->id;
         // Auth::login($user);
 
         $this->askAppeal();
@@ -276,7 +279,7 @@ class ButtonConversation extends Conversation
                 if ($answer->getValue() == "ha") {
                     $appeal = new Appeal();
                     $appeal->text = $this->memory["answer"];
-                    $appeal->user_id = $this->user_mamory["id"];
+                    $appeal->user_id = $this->user_memory["id"];
                     $appeal->region = $this->memory["region"];
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];

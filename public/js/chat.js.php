@@ -44,7 +44,7 @@ $content = file_get_contents($file);
 $endpoint = '/fileUpload';
 
 $print = strtr($content, [
-    '${csrf_token}' => $settings['chatbot.chat_title']['value'],
+    '${csrf_token}' => $_GET['csrf_token'],
     '${endpoint}' => $endpoint,
 ]);
 

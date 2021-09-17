@@ -12,6 +12,7 @@ use App\Models\User;
 class ConversationController extends Controller
 {
     public function index(Appeal $appeal){
+        // dd($appeal);
         $conversations = Conversation::where('appeal_id', $appeal->id)->get()->sortBy('created_at');
         $user = User::where('id', $appeal->user_id)->first()->name;
         $region = Region::where('id', $appeal->region)->first()->ru;
