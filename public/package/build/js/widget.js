@@ -1747,10 +1747,9 @@ let apps;
         // ;
         var o = {
 
-
-            chatServer:"/botman",
-            frameEndpoint: "/package/build/chat.html",
-            bubbleAvatarUrl: "/images/logo.png",
+            chatServer:`${chatServer}`,
+            frameEndpoint: `${frameEndpoint}`,
+            bubbleAvatarUrl: `${bubbleAvatarUrl}`,
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             cookieValidInDays: 1,

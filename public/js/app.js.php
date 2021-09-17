@@ -54,8 +54,9 @@ $print = strtr($content, [
     '${desktopHeight}' => $settings['chatbot.desktopHeight']['value'],
     '${textColor}' => $settings['chatbot.textColor']['value'],
     '${mainColor}' => $settings['chatbot.mainColor']['value'],
-    '${mainCOlor}' => $settings['chatbot.mainCOlor']['value'],
-    '${mainCOlor}' => $settings['chatbot.mainCOlor']['value'],
+    '${frameEndpoint}' => $settings['chatbot.frameEndpoint']['value'],
+    '${bubbleAvatarUrl}' => $settings['chatbot.bubbleAvatarUrl']['value'],
+    '${chatServer}' => $settings['chatbot.bubbleAvatarUrl']['value'],
 ]);
 
 echo $print;

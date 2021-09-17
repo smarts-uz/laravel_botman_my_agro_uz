@@ -153,8 +153,8 @@ class RealConversation extends Conversation
     {
             // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
             // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
-        $this->askImageFile();
-        // $this->askLanguage();
+        // $this->askImageFile();
+        $this->askLanguage();
     }
     public function askImageFile(){
         $this->askForFiles('Please upload an file.', function ($files) {
@@ -168,7 +168,10 @@ class RealConversation extends Conversation
                 Storage::put($dirname.'/'.$payload['file_name'],file_get_contents($url));
                 $this->say(json_encode(Storage::allFiles($dirname)));
             }
+            $this->askRoute();
+
         });
+
     }
     public function askLanguage()
     {
@@ -232,8 +235,8 @@ class RealConversation extends Conversation
     {
         $this->ask($this->mediaRoutes(), function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
-                if ($answer->getValue() == "ha") {
-                    $this->askRoute();
+                if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
+                    $this->askImageFile();
                 } else {
                     $this->askRoute();
                 }
@@ -425,6 +428,9 @@ class RealConversation extends Conversation
 
         $this->ask($question, function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
+                $dirname = $this->user_mamory["email"];
+                $files = Storage::allFiles($dirname);
+
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
                     $appeal = new Appeal();
                     $appeal->title = $this->user_mamory["title"];
@@ -440,11 +446,15 @@ class RealConversation extends Conversation
                     } else {
                         $appeal->workplace = $this->memory["data"]["a"];
                     }
-
-
                     $appeal->save();
+
+                    foreach($files as $file){
+                        Storage::move($file, 'files/'.$dirname.'/'.$appeal->id.'/'.$file);
+                    }
+
                     $this->say( $this->questions["FINISH"][$this->language]);
                 }else {
+                    Storage::delete($files);
                     $this->askAppeal();
                 }
             } else {
