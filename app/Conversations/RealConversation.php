@@ -327,7 +327,7 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') . '<br>Email:' . $email . '<br>Password:' . $password : setting('sms.AccountRu') . '<br>Email:' . $email . '<br>Password:' . $password;
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' '.'Email:' . $email . ' '.'Password:' . $password : setting('sms.AccountRu') . ' '.'Email:' . $email . ' '.'Password:' . $password;
 
             $smsSender = new SmsService();
             $smsSender->send($this->user_memory["phone"], $text);
@@ -444,7 +444,7 @@ HTML;
 
         $this->ask($question, function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
-                $dirname = $this->user_memory["email"];
+                $dirname = 'uploads/'.$this->user_memory["email"];
                 $files = Storage::allFiles($dirname . '/');
 
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
@@ -456,18 +456,19 @@ HTML;
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
                     $appeal->fullname = $this->user_memory["name"];
-                    $appeal->images = json_encode($files);
                     if ($this->user_memory["usertype"] == 1) {
                         $appeal->company = $this->memory["data"]["a"];
-                        $appeal->branch = $this->memory["data"]["b"];
+                        // $appeal->branch = $this->memory["data"]["b"];
                     } else {
                         $appeal->workplace = $this->memory["data"]["a"];
                     }
-                    $appeal->save();
 
                     foreach ($files as $file) {
                         Storage::move($file, 'files/' . $dirname . '/' . $appeal->id . '/' . $this->user_memory["filename"]);
                     }
+                    $files = Storage::allFiles('files/' . $dirname . '/' . $appeal->id);
+                    $appeal->images = json_encode($files);
+                    $appeal->save();
 
                     $this->say($this->questions["FINISH"][$this->language]);
                 } else {

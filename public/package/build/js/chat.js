@@ -769,7 +769,7 @@
                                         onBeforeFileAdded: (currentFile, files) => currentFile,
                                         onBeforeUpload: (files) => {
                                         },
-                                        locale: {},
+                                        locale: Uppy.locales.ru_RU,
                                         store: new Uppy.DefaultStore(),
                                         logger: Uppy.justErrorsLogger,
                                         infoTimeout: 5000,
@@ -777,6 +777,7 @@
                                         .use(Uppy.Dashboard, {
                                             trigger: '.UppyModalOpenerBtn',
                                             inline: true,
+                                            locale: Uppy.locales.ru_RU,
                                             target: inputElement,
                                             showProgressDetails: true,
                                             note: 'Все типы файлов, до 10 МБ',
