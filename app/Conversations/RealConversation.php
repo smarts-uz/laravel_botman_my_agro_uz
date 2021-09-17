@@ -149,7 +149,6 @@ class RealConversation extends Conversation
     public function askWebFile()
     {
 
-
         $email = Arr::get($this->user_memory, 'email');
 
         $code = <<<HTML
@@ -165,6 +164,9 @@ HTML;
     {
 
         $this->askForFiles('Please upload an file.', function ($files) {
+
+
+
             $dirname = 'uploads/' . $this->user_memory["email"];
             foreach ($files as $image) {
                 $url = $image->getUrl(); // The direct url

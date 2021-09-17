@@ -46,10 +46,7 @@ class FilepondController extends Controller
         if ($req->file()) {
             $fileName = $req->file->getClientOriginalName();
             $filePath = $req->file('file')
-                ->storeAs('uploads', $fileName, 'public');
-
-            $fileModelname = time() . '_' . $req->file->getClientOriginalName();
-            $fileModelfile_path = '/storage/' . $filePath;
+                ->storeAs('uploads/' . $req->get('email'), $fileName, 'public');
 
             return response()->json([
                 "success" => true,

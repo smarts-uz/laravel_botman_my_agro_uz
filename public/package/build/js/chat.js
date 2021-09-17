@@ -745,7 +745,10 @@
                                 // loop over input elements
                                 Array.from(inputElements).forEach(inputElement => {
 
-                                    var email = inputElement.attr('data-email');
+                                    console.log('inputElement:' + inputElement);
+
+
+                                    var email = $(inputElement).data('email');
                                     console.log('Email:' + email);
 
 
@@ -848,7 +851,7 @@
                                  * Uppy End
                                  */
 
-                            }, 100);
+                            }, 1000);
 
                         };
 
