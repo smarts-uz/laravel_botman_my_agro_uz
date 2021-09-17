@@ -1749,8 +1749,7 @@ let apps;
 
             chatServer:`${chatServer}`,
             frameEndpoint: `${frameEndpoint}`,
-            ///bubbleAvatarUrl: `${bubbleAvatarUrl}`,
-            bubbleAvatarUrl: '/images/logo22.png',
+            bubbleAvatarUrl: `${bubbleAvatarUrl}`,
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             cookieValidInDays: 1,
@@ -1759,11 +1758,15 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: `${mainColor}`,
             headerTextColor: `${textColor}`,
-            desktopHeight: `${desktopHeight}`,
-            desktopWidth: `${desktopWidth}`,
-            mobileHeight: `${mobileHeight}`,
-            mobileWidth: `${mobileWidth}`,
-            videoHeight: `${videoHeight}`,
+            
+
+            desktopHeight: 450,
+            desktopWidth: 370,
+            mobileHeight: "100%",
+            mobileWidth: "300px",
+            videoHeight: 160,
+
+
             chatId: "",
             userId: "",
             alwaysUseFloatingButton: !1,

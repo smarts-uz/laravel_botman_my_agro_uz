@@ -42,6 +42,7 @@ class RealConversation extends Conversation
     public $key_indevidual;
     public $questions;
     public $user_question_data;
+
     public function __construct()
     {
         $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
@@ -58,9 +59,6 @@ class RealConversation extends Conversation
         $this->key_indevidual["uz"][1]["val"] = 1;
 
 
-
-
-
         $this->user_question_data["ASK_USER_A"][1]["uz"] = QuestionText::where('name', 'ASK_JOB')->first()->uz;
         $this->user_question_data["ASK_USER_A"][1]["ru"] = QuestionText::where('name', 'ASK_JOB')->first()->ru;
 
@@ -74,7 +72,9 @@ class RealConversation extends Conversation
         $this->user_question_data["ASK_USER_B"][0]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
     }
 
-    public function keyLanguages(){
+
+    public function keyLanguages()
+    {
         $ar = [];
         foreach (LANGUAGE as $key) {
             array_push($ar, Button::create($key['key'])->value($key['value']));
@@ -87,7 +87,7 @@ class RealConversation extends Conversation
     {
         $ar = [];
         foreach ($this->key_indevidual[$this->language] as $key) {
-            array_push($ar,Button::create($key["name"])->value($key["val"]));
+            array_push($ar, Button::create($key["name"])->value($key["val"]));
         }
         return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
             ->addButtons($ar);
@@ -138,15 +138,31 @@ class RealConversation extends Conversation
 
     public function run()
     {
-            // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
-            // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
+        // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
+        // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
         // $this->askImageFile();
         // $this->say(Storage::allFiles('fayzulloev'));
         $this->askLanguage();
+        $this->askWebFile();
     }
-    public function askImageFile(){
+
+    public function askWebFile()
+    {
+
+        $code = <<<HTML
+<div class="files"></div>
+HTML;
+
+        $this->say($code);
+
+    }
+
+
+    public function askImageFile()
+    {
+
         $this->askForFiles('Please upload an file.', function ($files) {
-            $dirname = 'uploads/'.$this->user_mamory["email"];
+            $dirname = 'uploads/' . $this->user_mamory["email"];
             foreach ($files as $image) {
                 $url = $image->getUrl(); // The direct url
                 $payload = $image->getPayload(); // The original payload
@@ -154,7 +170,7 @@ class RealConversation extends Conversation
                 $this->say(json_encode($payload));
                 $this->user_mamory["filename"] = $payload['file_name'];
                 // Storage::makeDirectory($dirname);
-                Storage::put($dirname.'/'.$payload['file_name'],file_get_contents($url));
+                Storage::put($dirname . '/' . $payload['file_name'], file_get_contents($url));
                 $this->say(json_encode(Storage::allFiles($dirname)));
             }
             $this->askRoute();
@@ -162,6 +178,7 @@ class RealConversation extends Conversation
         });
 
     }
+
     public function askLanguage()
     {
         $this->ask($this->keyLanguages(), function ($language) {
@@ -233,7 +250,6 @@ class RealConversation extends Conversation
     }
 
 
-
     public function askRegion()
     {
         $this->ask($this->keyRegions(), function ($regions) {
@@ -275,7 +291,7 @@ class RealConversation extends Conversation
                     "email" => $this->user_mamory["email"],
                     "password" => Hash::make($this->memory["pass"]),
                     "individual" => $this->user_mamory["usertype"],
-                    "place_of_work" =>  $this->memory["data"]["a"]
+                    "place_of_work" => $this->memory["data"]["a"]
                 ]);
             } else {
                 $user = User::create([
@@ -291,9 +307,9 @@ class RealConversation extends Conversation
                     "activity" => $this->memory["data"]["b"]
                 ]);
             }
-            $email=$this->user_mamory["email"];
-            $password=$this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz').'<br>Email:'.$email.'<br>Password:'.$password : setting('sms.AccountRu').'<br>Email:'.$email.'<br>Password:'.$password;
+            $email = $this->user_mamory["email"];
+            $password = $this->memory["pass"];
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . '<br>Email:' . $email . '<br>Password:' . $password : setting('sms.AccountRu') . '<br>Email:' . $email . '<br>Password:' . $password;
 
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
@@ -357,30 +373,32 @@ class RealConversation extends Conversation
         $this->ask(
             $this->questions["ASK_NAME"][$this->language],
             function ($name) {
-            $this->user_mamory["name"] = $name->getText();
-            $user = User::where('email', $this->user_mamory["email"])->first();
-            if($user) {
-                Log::info($user->phone);
-                $this->verifyPhone($user->phone);
-            }else {
-                $this->askPhone();
-            }
+                $this->user_mamory["name"] = $name->getText();
+                $user = User::where('email', $this->user_mamory["email"])->first();
+                if ($user) {
+                    Log::info($user->phone);
+                    $this->verifyPhone($user->phone);
+                } else {
+                    $this->askPhone();
+                }
 
             }
         );
     }
-    public function askUser(){
-        if($this->user_mamory["usertype"] == 0){
-            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
+
+    public function askUser()
+    {
+        if ($this->user_mamory["usertype"] == 0) {
+            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function ($ask1) {
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->ask($this->user_question_data["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
-                    , function($ask2) {
-                    $this->memory["data"]['b'] = $ask2->getText();
-                    $this->askName();
-                });
+                    , function ($ask2) {
+                        $this->memory["data"]['b'] = $ask2->getText();
+                        $this->askName();
+                    });
             });
         } else {
-            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
+            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function ($ask1) {
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->askName();
 
@@ -401,19 +419,20 @@ class RealConversation extends Conversation
     }
 
 
-    public function askEnd() {
-        $this->say($this->questions["ASK_NAME"][$this->language] .': '.$this->user_mamory["name"].'<br> '.$this->questions["SAY_ACTION"][$this->language].''.$this->memory["action"].'<br> Region: '.$this->memory["region"].'<br> Route: '.$this->memory["route"].'<br> E-mail: '.$this->user_mamory["email"].'<br> Tel: '.$this->user_mamory["phone"].'<br> ');
+    public function askEnd()
+    {
+        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_mamory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . '' . $this->memory["action"] . '<br> Region: ' . $this->memory["region"] . '<br> Route: ' . $this->memory["route"] . '<br> E-mail: ' . $this->user_mamory["email"] . '<br> Tel: ' . $this->user_mamory["phone"] . '<br> ');
         $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
-            ->addButtons([
-                Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
-                Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
-            ]);
+                ->addButtons([
+                    Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
+                    Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
+                ]);
 
         $this->ask($question, function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
                 $dirname = $this->user_mamory["email"];
-                $files = Storage::allFiles($dirname.'/');
+                $files = Storage::allFiles($dirname . '/');
 
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
                     $appeal = new Appeal();
@@ -424,7 +443,7 @@ class RealConversation extends Conversation
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
                     $appeal->fullname = $this->user_mamory["name"];
-                    if($this->user_mamory["usertype"]==1) {
+                    if ($this->user_mamory["usertype"] == 1) {
                         $appeal->company = $this->memory["data"]["a"];
                         $appeal->branch = $this->memory["data"]["b"];
                     } else {
@@ -432,12 +451,12 @@ class RealConversation extends Conversation
                     }
                     $appeal->save();
 
-                    foreach($files as $file){
-                        Storage::move($file, 'files/'.$dirname.'/'.$appeal->id.'/'.$this->user_mamory["filename"]);
+                    foreach ($files as $file) {
+                        Storage::move($file, 'files/' . $dirname . '/' . $appeal->id . '/' . $this->user_mamory["filename"]);
                     }
 
-                    $this->say( $this->questions["FINISH"][$this->language]);
-                }else {
+                    $this->say($this->questions["FINISH"][$this->language]);
+                } else {
                     Storage::delete($files);
                     $this->askAppeal();
                 }
@@ -448,6 +467,7 @@ class RealConversation extends Conversation
 
         });
     }
+
     static function generatePass($length = 4)
     {
         $characters = '0123456789';
