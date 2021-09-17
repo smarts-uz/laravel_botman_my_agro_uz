@@ -1758,14 +1758,12 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: `${mainColor}`,
             headerTextColor: `${textColor}`,
-            
 
             desktopHeight: 450,
             desktopWidth: 370,
             mobileHeight: "100%",
             mobileWidth: "300px",
             videoHeight: 160,
-
 
             chatId: "",
             userId: "",
