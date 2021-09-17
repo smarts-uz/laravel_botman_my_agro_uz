@@ -137,6 +137,15 @@ class RealConversation extends Conversation
             ]);
     }
 
+
+    public function askUploadedFile()
+    {
+        return Question::create('Нажмите далее после того как загрузите файл')
+            ->addButtons([
+                Button::create('Далее')->value('Next'),
+            ]);
+    }
+
     public function run()
     {
         // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
@@ -156,7 +165,17 @@ class RealConversation extends Conversation
 HTML;
 
         $this->say($code);
-        $this->askRoute();
+
+        $this->ask(Question::create('Нажмите далее после того как загрузите файл')
+            ->addButtons([
+                Button::create('Далее')->value('Next'),
+            ]), function ($answer) {
+            if ($answer->isInteractiveMessageReply()) {
+                if ($answer->getValue() === 'Next')
+                    $this->askRoute();
+            } else
+                $this->repeat();
+        });
 
     }
 
@@ -252,7 +271,6 @@ HTML;
     public function askMedia()
     {
 
-
         $this->ask($this->mediaRoutes(), function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
@@ -265,6 +283,8 @@ HTML;
                 }
             } else $this->repeat();
         });
+
+
     }
 
 
@@ -327,7 +347,7 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' '.'Email:' . $email . ' '.'Password:' . $password : setting('sms.AccountRu') . ' '.'Email:' . $email . ' '.'Password:' . $password;
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' ' . 'Email: ' . $email . ' ' . 'Password:' . $password : setting('sms.AccountRu') . ' ' . ' Email: ' . $email . ' ' . 'Password:' . $password;
 
             $smsSender = new SmsService();
             $smsSender->send($this->user_memory["phone"], $text);
@@ -444,7 +464,7 @@ HTML;
 
         $this->ask($question, function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
-                $dirname = 'uploads/'.$this->user_memory["email"];
+                $dirname = 'uploads/' . $this->user_memory["email"];
                 $files = Storage::allFiles($dirname . '/');
 
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
@@ -466,7 +486,7 @@ HTML;
                     foreach ($files as $file) {
                         Storage::move($file, 'files/' . $dirname . '/' . $appeal->id . '/' . $this->user_memory["filename"]);
                     }
-                    $files = Storage::allFiles('files/' . $dirname . '/' . $appeal->id);
+                    $files = Storage::allFiles('files/' . $this->user_memory["email"] . '/' . $appeal->id);
                     $appeal->images = json_encode($files);
                     $appeal->save();
 

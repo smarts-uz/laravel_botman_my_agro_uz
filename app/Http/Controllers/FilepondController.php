@@ -41,6 +41,8 @@ class FilepondController extends Controller
     public function fileUpload(Request $req)
     {
 
+
+
         if ($req->file()) {
 
             $fileName = $req->file->getClientOriginalName();
