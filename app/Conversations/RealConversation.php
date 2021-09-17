@@ -156,8 +156,8 @@ class RealConversation extends Conversation
         // $this->askLanguage();
     }
     public function askImageFile(){
-        $this->askForImages('Please upload an image.', function ($images) {
-            foreach ($images as $image) {
+        $this->askForFiles('Please upload an file.', function ($files) {
+            foreach ($files as $image) {
 
                 $url = $image->getUrl(); // The direct url
                 $title = $image->getTitle(); // The title, if available
