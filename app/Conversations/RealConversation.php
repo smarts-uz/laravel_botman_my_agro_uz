@@ -46,25 +46,25 @@ class RealConversation extends Conversation
         $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
         $questions = Questiontext::all();
 
-        $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
+        $this->key_indevidual["ru"][0]["name"] = "Юридическое лицо";
         $this->key_indevidual["ru"][0]["val"] = 0;
-        $this->key_indevidual["ru"][1]["name"] = QuestionText::where('name', 'ASK_JISMONIY')->first()->ru;
+        $this->key_indevidual["ru"][1]["name"] ="Физическое лицо";
         $this->key_indevidual["ru"][1]["val"] = 1;
 
-        $this->key_indevidual["uz"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->uz;
+        $this->key_indevidual["uz"][0]["name"] = "Yuridik shaxs";
         $this->key_indevidual["uz"][0]["val"] = 0;
-        $this->key_indevidual["uz"][1]["name"] = QuestionText::where('name', 'ASK_JISMONIY')->first()->uz;
+        $this->key_indevidual["uz"][1]["name"] = "Jismoniy shaxs";
         $this->key_indevidual["uz"][1]["val"] = 1;
 
 
 
 
 
-        $this->user_question_data["ASK_USER_A"][1]["uz"] = QuestionText::where('name', 'ASK_JOB')->first()->uz;
-        $this->user_question_data["ASK_USER_A"][1]["ru"] = QuestionText::where('name', 'ASK_JOB')->first()->ru;
+        $this->user_question_data["ASK_USER_A"][1]["uz"] = "Ish joyi to'liq";
+        $this->user_question_data["ASK_USER_A"][1]["ru"] = "Место работы полностью";    
 
-        $this->user_question_data["ASK_USER_A"][0]["uz"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->uz;
-        $this->user_question_data["ASK_USER_A"][0]["ru"] = QuestionText::where('name', 'ASK_COMPANY_NAME')->first()->ru;
+        $this->user_question_data["ASK_USER_A"][0]["uz"] = "Tashkilot nomi";
+        $this->user_question_data["ASK_USER_A"][0]["ru"] = "Название организации";
 
         $this->user_question_data["ASK_USER_B"][1]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
         $this->user_question_data["ASK_USER_B"][1]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
@@ -83,7 +83,7 @@ class RealConversation extends Conversation
         // $this->questions["No"]["uz"] = "Yo'q";
         // $this->questions["ASK_TRUE"]["ru"] = "Вы подтверждаете, что подали обращение правильно?";
         // $this->questions["ASK_TRUE"]["uz"] = "Murojaatingizni to'g'ri yuborganingizni tasdiqlaysizmi?";
-        LOG::info($this->questions["ASK_LANGUAGE"]);
+        // LOG::info($this->questions["ASK_LANGUAGE"]);
     }
 
     public function keyLanguages(){
