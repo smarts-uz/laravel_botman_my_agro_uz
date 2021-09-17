@@ -43,7 +43,7 @@ class RealConversation extends Conversation
     public $user_question_data;
     public function __construct()
     {
-
+        $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
         $questions = Questiontext::all();
 
         $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
