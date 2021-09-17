@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use http\Url;
 use Illuminate\Http\Request;
 
 class FilepondController extends Controller
@@ -41,9 +42,11 @@ class FilepondController extends Controller
     {
 
         if ($req->file()) {
+
             $fileName = $req->file->getClientOriginalName();
             $filePath = $req->file('file')
                 ->storeAs('uploads/' . $req->get('email'), $fileName, 'public');
+
 
             return response()->json([
                 "success" => true,
