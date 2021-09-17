@@ -124,24 +124,15 @@ html, body {
     width: 92%;
     height: 55px;
     z-index: 99;
-    background-color: #6FA8A1;
     border: none;
     outline: none;
     padding-left: 15px;
     padding-right: 15px;
-    color: #6FA8A1;
     font-weight: 300;
     font-size: 1rem;
     line-height: 1.5;
-    background: #065853;
-    border-radius: 20px;
 }
 
-.textarea:focus {
-    background: #065853;
-    transition: 0.4s;
-    color: "#06585";
-}
 
 a.banner {
     position: fixed;

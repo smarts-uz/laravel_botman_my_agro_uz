@@ -10,7 +10,7 @@
 <p>Link for Cobinet : https://my.agro.uz/admin</p>
 
     @foreach($details['files'] as $file)
-    <a href='{{url("")."/storage/".$file}}'>FILE</a>
+    <a href='{{url("")."/storage/".$file}}'>FILE</a> <br/>
     @endforeach 
 
 <p>Thank you</p>

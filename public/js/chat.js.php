@@ -41,9 +41,11 @@ $file = $folder . '/public/package/build/js/chat.js';
 
 $content = file_get_contents($file);
 
+$endpoint = '/fileUpload';
+
 $print = strtr($content, [
-    '${csrf_token}' => $settings['chatbot.chat_title']['value'],
-    '${placeholderText}' => $settings['chatbot.placeholder_text']['value'],
+    '${csrf_token}' => $_GET['csrf_token'],
+    '${endpoint}' => $endpoint,
 ]);
 
 echo $print;

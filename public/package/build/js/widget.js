@@ -1096,7 +1096,7 @@ let apps;
                 bottom: "0px",
                 right: "0px",
                 zIndex: 2147483647,
-                minWidth: "400px",
+                minWidth: "83px",
                 boxSizing: "content-box",
                 overflow: "hidden",
                 minHeight: "120px"
@@ -1197,7 +1197,6 @@ let apps;
                     x.style.fontWeight = "bold"
                     x.style.borderRadius = "4px"
                     x.style.cursor = "pointer"
-                    x.style.borderRadius = "20px"
                     // x.style
                     // e.currentTarget.childNodes[0].appendChild(fileUp)
                     e.currentTarget.childNodes[0].appendChild(x)
@@ -1749,8 +1748,7 @@ let apps;
 
             chatServer:`${chatServer}`,
             frameEndpoint: `${frameEndpoint}`,
-            ///bubbleAvatarUrl: `${bubbleAvatarUrl}`,
-            bubbleAvatarUrl: '/images/logo22.png',
+            bubbleAvatarUrl: `${bubbleAvatarUrl}`,
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             cookieValidInDays: 1,
@@ -1759,11 +1757,13 @@ let apps;
             widgetOpenedEventData: "",
             mainColor: `${mainColor}`,
             headerTextColor: `${textColor}`,
-            desktopHeight: `${desktopHeight}`,
-            desktopWidth: `${desktopWidth}`,
-            mobileHeight: `${mobileHeight}`,
-            mobileWidth: `${mobileWidth}`,      
-            videoHeight: `${videoHeight}`,
+
+            desktopHeight: 450,
+            desktopWidth: 370,
+            mobileHeight: "100%",
+            mobileWidth: "300px",
+            videoHeight: 160,
+
             chatId: "",
                 userId: "",
                 alwaysUseFloatingButton: !1,
