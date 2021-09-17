@@ -28,6 +28,7 @@ class BotManController extends Controller
             $bot->startConversation(new RealConversation());
 
         })->stopsConversation();
+
         $botman->listen();
     }
 
