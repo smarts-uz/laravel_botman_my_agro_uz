@@ -16,7 +16,7 @@ ob_end_flush();
 
 // $settings = \Illuminate\Support\Facades\DB::table('settings');
 // $title = $settings->where('key', 'chatbot.chat_title')->first()->value;
-$servername = $_SERVER['DB_HOST'];
+$servername = getenv('DB_HOST');
 $username = $_SERVER['DB_USERNAME'];
 $password = $_SERVER['DB_PASSWORD'];
 $dbname = $_SERVER['DB_DATABASE'];
@@ -36,27 +36,14 @@ $conn->close();
 
 $folder = dirname(__DIR__, 2);
 
-$file = $folder . '/public/package/build/js/widget.js';
+$file = $folder . '/public/package/build/js/chat.js';
 //echo $file;
 
 $content = file_get_contents($file);
-($d = $settings['chatbot.chat_intro_message']['value']);
+
 $print = strtr($content, [
-    '${title}' => $settings['chatbot.chat_title']['value'],
+    '${csrf_token}' => $settings['chatbot.chat_title']['value'],
     '${placeholderText}' => $settings['chatbot.placeholder_text']['value'],
-    '${ChatIntroText}' => $settings['chatbot.ChatIntroText']['value'],
-    '${aboutText}' => $settings['chatbot.aboutText']['value'],
-    '${aboutLink}' => $settings['chatbot.aboutLink']['value'],
-    '${videoHeight}' => $settings['chatbot.videoHeight']['value'],
-    '${mobileWidth}' => $settings['chatbot.mobileWidth']['value'],
-    '${mobileHeight}' => $settings['chatbot.mobileHeight']['value'],
-    '${desktopWidth}' => $settings['chatbot.desktopWidth']['value'],
-    '${desktopHeight}' => $settings['chatbot.desktopHeight']['value'],
-    '${textColor}' => $settings['chatbot.textColor']['value'],
-    '${mainColor}' => $settings['chatbot.mainColor']['value'],
-    '${frameEndpoint}' => $settings['chatbot.frameEndpoint']['value'],
-    '${bubbleAvatarUrl}' => $settings['chatbot.bubbleAvatarUrl']['value'],
-    '${chatServer}' => $settings['chatbot.bubbleAvatarUrl']['value'],
 ]);
 
 echo $print;

@@ -1,14 +1,15 @@
 !(function (t) {
     function e(r) {
         if (n[r]) return n[r].exports;
-        var o = (n[r] = { i: r, l: !1, exports: {} });
+        var o = (n[r] = {i: r, l: !1, exports: {}});
         return t[r].call(o.exports, o, o.exports, e), (o.l = !0), o.exports;
     }
+
     var n = {};
     (e.m = t),
         (e.c = n),
         (e.d = function (t, n, r) {
-            e.o(t, n) || Object.defineProperty(t, n, { configurable: !1, enumerable: !0, get: r });
+            e.o(t, n) || Object.defineProperty(t, n, {configurable: !1, enumerable: !0, get: r});
         }),
         (e.n = function (t) {
             var n =
@@ -29,66 +30,86 @@
 })([
     function (t, e, n) {
         "use strict";
+
         function r(t) {
             return "[object Array]" === C.call(t);
         }
+
         function o(t) {
             return "[object ArrayBuffer]" === C.call(t);
         }
+
         function i(t) {
             return "undefined" != typeof FormData && t instanceof FormData;
         }
+
         function a(t) {
             return "undefined" != typeof ArrayBuffer && ArrayBuffer.isView ? ArrayBuffer.isView(t) : t && t.buffer && t.buffer instanceof ArrayBuffer;
         }
+
         function s(t) {
             return "string" == typeof t;
         }
+
         function c(t) {
             return "number" == typeof t;
         }
+
         function u(t) {
             return void 0 === t;
         }
+
         function p(t) {
             return null !== t && "object" == typeof t;
         }
+
         function l(t) {
             return "[object Date]" === C.call(t);
         }
+
         function f(t) {
             return "[object File]" === C.call(t);
         }
+
         function d(t) {
             return "[object Blob]" === C.call(t);
         }
+
         function h(t) {
             return "[object Function]" === C.call(t);
         }
+
         function m(t) {
             return p(t) && h(t.pipe);
         }
+
         function y(t) {
             return "undefined" != typeof URLSearchParams && t instanceof URLSearchParams;
         }
+
         function v(t) {
             return t.replace(/^\s*/, "").replace(/\s*$/, "");
         }
+
         function b() {
             return ("undefined" == typeof navigator || "ReactNative" !== navigator.product) && "undefined" != typeof window && "undefined" != typeof document;
         }
+
         function g(t, e) {
             if (null !== t && void 0 !== t)
                 if (("object" != typeof t && (t = [t]), r(t))) for (var n = 0, o = t.length; o > n; n++) e.call(null, t[n], n, t);
                 else for (var i in t) Object.prototype.hasOwnProperty.call(t, i) && e.call(null, t[i], i, t);
         }
+
         function _() {
             function t(t, n) {
                 e[n] = "object" == typeof e[n] && "object" == typeof t ? _(e[n], t) : t;
             }
+
             for (var e = {}, n = 0, r = arguments.length; r > n; n++) g(arguments[n], t);
             return e;
         }
+
         function x(t, e, n) {
             return (
                 g(e, function (e, r) {
@@ -97,6 +118,7 @@
                     t
             );
         }
+
         var w = n(3),
             O = n(12),
             C = Object.prototype.toString;
@@ -125,16 +147,19 @@
     },
     function (t, e, n) {
         "use strict";
-        function r() {}
+
+        function r() {
+        }
+
         function o(t, e) {
             var n,
                 o,
                 i,
                 a,
                 s = D;
-            for (a = arguments.length; a-- > 2; ) k.push(arguments[a]);
-            for (e && null != e.children && (k.length || k.push(e.children), delete e.children); k.length; )
-                if ((o = k.pop()) && void 0 !== o.pop) for (a = o.length; a--; ) k.push(o[a]);
+            for (a = arguments.length; a-- > 2;) k.push(arguments[a]);
+            for (e && null != e.children && (k.length || k.push(e.children), delete e.children); k.length;)
+                if ((o = k.pop()) && void 0 !== o.pop) for (a = o.length; a--;) k.push(o[a]);
                 else
                     "boolean" == typeof o && (o = null),
                     (i = "function" != typeof t) && (null == o ? (o = "") : "number" == typeof o ? (o += "") : "string" != typeof o && (i = !1)),
@@ -143,24 +168,30 @@
             var c = new r();
             return (c.nodeName = t), (c.children = s), (c.attributes = null == e ? void 0 : e), (c.key = null == e ? void 0 : e.key), void 0 !== E.vnode && E.vnode(c), c;
         }
+
         function i(t, e) {
             for (var n in e) t[n] = e[n];
             return t;
         }
+
         function a(t) {
             !t._dirty && (t._dirty = !0) && 1 == H.push(t) && (E.debounceRendering || U)(s);
         }
+
         function s() {
             var t,
                 e = H;
-            for (H = []; (t = e.pop()); ) t._dirty && M(t);
+            for (H = []; (t = e.pop());) t._dirty && M(t);
         }
+
         function c(t, e, n) {
             return "string" == typeof e || "number" == typeof e ? void 0 !== t.splitText : "string" == typeof e.nodeName ? !t._componentConstructor && u(t, e.nodeName) : n || t._componentConstructor === e.nodeName;
         }
+
         function u(t, e) {
             return t.normalizedNodeName === e || t.nodeName.toLowerCase() === e.toLowerCase();
         }
+
         function p(t) {
             var e = i({}, t.attributes);
             e.children = t.children;
@@ -168,16 +199,19 @@
             if (void 0 !== n) for (var r in n) void 0 === e[r] && (e[r] = n[r]);
             return e;
         }
+
         function l(t, e) {
             var n = e ? document.createElementNS("http://www.w3.org/2000/svg", t) : document.createElement(t);
             return (n.normalizedNodeName = t), n;
         }
+
         function f(t) {
             var e = t.parentNode;
             e && e.removeChild(t);
         }
+
         function d(t, e, n, r, o) {
-            if (("className" === e && (e = "class"), "key" === e));
+            if (("className" === e && (e = "class"), "key" === e)) ;
             else if ("ref" === e) n && n(null), r && r(t);
             else if ("class" !== e || o)
                 if ("style" === e) {
@@ -194,28 +228,38 @@
                     var s = o && e !== (e = e.replace(/^xlink\:?/, ""));
                     null == r || !1 === r
                         ? s
-                        ? t.removeAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase())
-                        : t.removeAttribute(e)
+                            ? t.removeAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase())
+                            : t.removeAttribute(e)
                         : "function" != typeof r && (s ? t.setAttributeNS("http://www.w3.org/1999/xlink", e.toLowerCase(), r) : t.setAttribute(e, r));
                 }
             else t.className = r || "";
         }
+
         function h(t, e, n) {
             try {
                 t[e] = n;
-            } catch (t) {}
+            } catch (t) {
+            }
         }
+
         function m(t) {
+
+            console.log('33333');
+
+
             return this._listeners[t.type]((E.event && E.event(t)) || t);
         }
+
         function y() {
-            for (var t; (t = R.pop()); ) E.afterMount && E.afterMount(t), t.componentDidMount && t.componentDidMount();
+            for (var t; (t = R.pop());) E.afterMount && E.afterMount(t), t.componentDidMount && t.componentDidMount();
         }
+
         function v(t, e, n, r, o, i) {
             L++ || ((q = null != o && void 0 !== o.ownerSVGElement), (I = null != t && !("__preactattr_" in t)));
             var a = b(t, e, n, r, i);
             return o && a.parentNode !== o && o.appendChild(a), --L || ((I = !1), i || y()), a;
         }
+
         function b(t, e, n, r, o) {
             var i = t,
                 a = q;
@@ -228,7 +272,7 @@
             var s = e.nodeName;
             if ("function" == typeof s) return N(t, e, n, r);
             if (((q = "svg" === s || ("foreignObject" !== s && q)), (s += ""), (!t || !u(t, s)) && ((i = l(s, q)), t))) {
-                for (; t.firstChild; ) i.appendChild(t.firstChild);
+                for (; t.firstChild;) i.appendChild(t.firstChild);
                 t.parentNode && t.parentNode.replaceChild(i, t), _(t, !0);
             }
             var c = i.firstChild,
@@ -236,7 +280,7 @@
                 f = e.children;
             if (null == p) {
                 p = i.__preactattr_ = {};
-                for (var d = i.attributes, h = d.length; h--; ) p[d[h].name] = d[h].value;
+                for (var d = i.attributes, h = d.length; h--;) p[d[h].name] = d[h].value;
             }
             return (
                 !I && f && 1 === f.length && "string" == typeof f[0] && null != c && void 0 !== c.splitText && null == c.nextSibling
@@ -247,6 +291,7 @@
                     i
             );
         }
+
         function g(t, e, n, r, o) {
             var i,
                 a,
@@ -282,41 +327,48 @@
                     (p = b(p, u, n, r)), (s = l[w]), p && p !== t && p !== s && (null == s ? t.appendChild(p) : p === s.nextSibling ? f(s) : t.insertBefore(p, s));
                 }
             if (m) for (var w in h) void 0 !== h[w] && _(h[w], !1);
-            for (; g >= y; ) void 0 !== (p = d[g--]) && _(p, !1);
+            for (; g >= y;) void 0 !== (p = d[g--]) && _(p, !1);
         }
+
         function _(t, e) {
             var n = t._component;
             n ? S(n) : (null != t.__preactattr_ && t.__preactattr_.ref && t.__preactattr_.ref(null), (!1 !== e && null != t.__preactattr_) || f(t), x(t));
         }
+
         function x(t) {
-            for (t = t.lastChild; t; ) {
+            for (t = t.lastChild; t;) {
                 var e = t.previousSibling;
                 _(t, !0), (t = e);
             }
         }
+
         function w(t, e, n) {
             var r;
             for (r in n) (e && null != e[r]) || null == n[r] || d(t, r, n[r], (n[r] = void 0), q);
             for (r in e) "children" === r || "innerHTML" === r || (r in n && e[r] === ("value" === r || "checked" === r ? t[r] : n[r])) || d(t, r, n[r], (n[r] = e[r]), q);
         }
+
         function O(t) {
             var e = t.constructor.name;
             (F[e] || (F[e] = [])).push(t);
         }
+
         function C(t, e, n) {
             var r,
                 o = F[t.name];
             if ((t.prototype && t.prototype.render ? ((r = new t(e, n)), A.call(r, e, n)) : ((r = new A(e, n)), (r.constructor = t), (r.render = T)), o))
-                for (var i = o.length; i--; )
+                for (var i = o.length; i--;)
                     if (o[i].constructor === t) {
                         (r.nextBase = o[i].nextBase), o.splice(i, 1);
                         break;
                     }
             return r;
         }
+
         function T(t, e, n) {
             return this.constructor(t, n);
         }
+
         function j(t, e, n, r, o) {
             t._disable ||
             ((t._disable = !0),
@@ -330,6 +382,7 @@
             0 !== n && (1 !== n && !1 === E.syncComponentUpdates && t.base ? a(t) : M(t, 1, o)),
             t.__ref && t.__ref(t));
         }
+
         function M(t, e, n, r) {
             if (!t._disable) {
                 var o,
@@ -374,17 +427,18 @@
                         P && T !== P && (P.replaceChild(T, g), O || ((g._component = null), _(g, !1)));
                     }
                     if ((O && S(O), (t.base = T), T && !r)) {
-                        for (var k = t, D = t; (D = D._parentComponent); ) (k = D).base = T;
+                        for (var k = t, D = t; (D = D._parentComponent);) (k = D).base = T;
                         (T._component = k), (T._componentConstructor = k.constructor);
                     }
                 }
                 if ((!m || n ? R.unshift(t) : w || (t.componentDidUpdate && t.componentDidUpdate(f, d, h), E.afterUpdate && E.afterUpdate(t)), null != t._renderCallbacks))
-                    for (; t._renderCallbacks.length; ) t._renderCallbacks.pop().call(t);
+                    for (; t._renderCallbacks.length;) t._renderCallbacks.pop().call(t);
                 L || r || y();
             }
         }
+
         function N(t, e, n, r) {
-            for (var o = t && t._component, i = o, a = t, s = o && t._componentConstructor === e.nodeName, c = s, u = p(e); o && !c && (o = o._parentComponent); ) c = o.constructor === e.nodeName;
+            for (var o = t && t._component, i = o, a = t, s = o && t._componentConstructor === e.nodeName, c = s, u = p(e); o && !c && (o = o._parentComponent);) c = o.constructor === e.nodeName;
             return (
                 o && c && (!r || o._component)
                     ? (j(o, u, 3, n, r), (t = o.base))
@@ -392,6 +446,7 @@
                     t
             );
         }
+
         function S(t) {
             E.beforeUnmount && E.beforeUnmount(t);
             var e = t.base;
@@ -399,12 +454,15 @@
             var n = t._component;
             n ? S(n) : e && (e.__preactattr_ && e.__preactattr_.ref && e.__preactattr_.ref(null), (t.nextBase = e), f(e), O(t), x(e)), t.__ref && t.__ref(null);
         }
+
         function A(t, e) {
             (this._dirty = !0), (this.context = e), (this.props = t), (this.state = this.state || {});
         }
+
         function P(t, e, n) {
             return v(n, t, {}, !1, e, !1);
         }
+
         n.d(e, "b", function () {
             return o;
         }),
@@ -433,17 +491,20 @@
             forceUpdate: function (t) {
                 t && (this._renderCallbacks = this._renderCallbacks || []).push(t), M(this, 2);
             },
-            render: function () {},
+            render: function () {
+            },
         });
     },
     function (t, e, n) {
         "use strict";
+
         function r(t, e) {
             !o.isUndefined(t) && o.isUndefined(t["Content-Type"]) && (t["Content-Type"] = e);
         }
+
         var o = n(0),
             i = n(14),
-            a = { "Content-Type": "application/x-www-form-urlencoded" },
+            a = {"Content-Type": "application/x-www-form-urlencoded"},
             s = {
                 adapter: (function () {
                     var t;
@@ -456,12 +517,12 @@
                                 o.isFormData(t) || o.isArrayBuffer(t) || o.isBuffer(t) || o.isStream(t) || o.isFile(t) || o.isBlob(t)
                                     ? t
                                     : o.isArrayBufferView(t)
-                                    ? t.buffer
-                                    : o.isURLSearchParams(t)
-                                        ? (r(e, "application/x-www-form-urlencoded;charset=utf-8"), "" + t)
-                                        : o.isObject(t)
-                                            ? (r(e, "application/json;charset=utf-8"), JSON.stringify(t))
-                                            : t
+                                        ? t.buffer
+                                        : o.isURLSearchParams(t)
+                                            ? (r(e, "application/x-www-form-urlencoded;charset=utf-8"), "" + t)
+                                            : o.isObject(t)
+                                                ? (r(e, "application/json;charset=utf-8"), JSON.stringify(t))
+                                                : t
                         );
                     },
                 ],
@@ -470,7 +531,8 @@
                         if ("string" == typeof t)
                             try {
                                 t = JSON.parse(t);
-                            } catch (t) {}
+                            } catch (t) {
+                            }
                         return t;
                     },
                 ],
@@ -482,7 +544,7 @@
                     return t >= 200 && 300 > t;
                 },
             };
-        (s.headers = { common: { Accept: "application/json, text/plain, */*" } }),
+        (s.headers = {common: {Accept: "application/json, text/plain, */*"}}),
             o.forEach(["delete", "get", "head"], function (t) {
                 s.headers[t] = {};
             }),
@@ -522,7 +584,9 @@
                     !window.XDomainRequest ||
                     "withCredentials" in d ||
                     s(t.url) ||
-                    ((d = new window.XDomainRequest()), (h = "onload"), (m = !0), (d.onprogress = function () {}), (d.ontimeout = function () {})),
+                    ((d = new window.XDomainRequest()), (h = "onload"), (m = !0), (d.onprogress = function () {
+                    }), (d.ontimeout = function () {
+                    })),
                         t.auth)
                 ) {
                     f.Authorization = "Basic " + u((t.auth.username || "") + ":" + (t.auth.password || ""));
@@ -596,9 +660,11 @@
     },
     function (t) {
         "use strict";
+
         function e(t) {
             this.message = t;
         }
+
         (e.prototype.toString = function () {
             return "Cancel" + (this.message ? ": " + this.message : "");
         }),
@@ -613,7 +679,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -624,14 +690,17 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })();
         e.a = (function (t) {
             function e() {
                 var e = t.call(this) || this;
-                return (e.onVisibilityChange = function () {}), (e.state = { visible: !1, visibilityChanged: !1, attachmentsVisible: !0 }), e;
+                return (e.onVisibilityChange = function () {
+                }), (e.state = {visible: !1, visibilityChanged: !1, attachmentsVisible: !0}), e;
             }
+
             return (
                 o(e, t),
                     (e.prototype.componentDidMount = function () {
@@ -655,22 +724,154 @@
                 function t() {
                     var t = this;
                     this.callAPI = function (e, n, r, i, a) {
+                        console.log('Send Request');
+
+                        var callBack = function (data) {
+
+                            console.log('CallBack');
+
+                            setTimeout(function () {
+
+                                console.log('START Uppy');
+                                /**
+                                 *
+                                 * Uppy End
+                                 */
+
+                                var inputElements = document.querySelectorAll('div.files');
+
+                                console.log(inputElements);
+
+                                // loop over input elements
+                                Array.from(inputElements).forEach(inputElement => {
+
+
+
+                                    var uppy = new Uppy.Core({
+                                        debug: true,
+                                        autoProceed: true,
+                                        allowMultipleUploadBatches: true,
+                                        restrictions: {
+                                            minFileSize: null,
+                                            maxFileSize: 10000000,
+                                            maxTotalFileSize: null,
+                                            maxNumberOfFiles: 10,
+                                            minNumberOfFiles: 0,
+                                            allowedFileTypes: null,
+                                            requiredMetaFields: [],
+                                        },
+                                        meta: {},
+                                        onBeforeFileAdded: (currentFile, files) => currentFile,
+                                        onBeforeUpload: (files) => {
+                                        },
+                                        locale: {},
+                                        store: new Uppy.DefaultStore(),
+                                        logger: Uppy.justErrorsLogger,
+                                        infoTimeout: 5000,
+                                    })
+                                        .use(Uppy.Dashboard, {
+                                            trigger: '.UppyModalOpenerBtn',
+                                            inline: true,
+                                            target: inputElement,
+                                            showProgressDetails: true,
+                                            note: 'Все типы файлов, до 10 МБ',
+                                            height: 470,
+                                            metaFields: [
+                                                {id: 'name', name: 'Name', placeholder: 'file name'},
+                                                {id: 'caption', name: 'Caption', placeholder: 'describe what the image is about'}
+                                            ],
+                                            browserBackButtonClose: true
+                                        })
+
+                                        .use(Uppy.GoogleDrive, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
+                                        .use(Uppy.Dropbox, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
+                                        .use(Uppy.Instagram, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
+                                        .use(Uppy.Facebook, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
+                                        .use(Uppy.OneDrive, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
+                                        .use(Uppy.Webcam, {target: Uppy.Dashboard})
+                                        .use(Uppy.ScreenCapture, {target: Uppy.Dashboard})
+                                        .use(Uppy.ImageEditor, {target: Uppy.Dashboard})
+                                        .use(Uppy.DropTarget, {target: document.body})
+                                        .use(Uppy.GoldenRetriever)
+                                        .use(Uppy.XHRUpload, {
+                                            endpoint: '/fileUpload',
+                                            fieldName: 'file',
+                                            headers: file => ({
+                                                'X-CSRF-TOKEN': '${csrf_token}'
+                                            }),
+                                        });
+
+                                    uppy.on('upload-success', (file, response) => {
+                                        const httpStatus = response.status // HTTP status code
+                                        const httpBody = response.body   // extracted response data
+
+
+                                        // do something with file and response
+                                    });
+
+
+                                    uppy.on('file-added', (file) => {
+                                        uppy.setFileMeta(file.id, {
+                                            size: file.size,
+                                        })
+                                    });
+                                    uppy.on('complete', result => {
+                                        console.log('successful files:', result.successful)
+                                        console.log('failed files:', result.failed)
+                                    });
+
+                                });
+
+                                /**
+                                 *
+                                 * Uppy End
+                                 */
+
+                            }, 100);
+
+                        };
+
+                        a = callBack;
+
+                        console.log('User ID:' + t.userId);
+                        console.log('Message:' + e);
+                        console.log('Attachment:' + r);
+
                         void 0 === n && (n = !1), void 0 === r && (r = null);
                         var s = new FormData(),
-                            c = { driver: "web", userId: t.userId, message: e, attachment: r, interactive: n ? "1" : "0" };
+                            c = {
+                                driver: "web",
+                                userId: t.userId,
+                                message: e,
+                                attachment: r,
+                                interactive: n ? "1" : "0"
+                            };
                         Object.keys(c).forEach(function (t) {
                             return s.append(t, c[t]);
                         }),
                             o.a.post(t.chatServer, s).then(function (t) {
+
+                                console.log('After Send');
+
                                 var e = t.data.messages || [];
                                 i &&
                                 e.forEach(function (t) {
                                     i(t);
-                                }),
-                                a && a(t.data);
+                                });
+
+
+                                var callback = a;
+                                var response = t;
+
+                                if (callback) {
+                                    callback(response.data);
+                                }
+
+
                             });
                     };
                 }
+
                 return (
                     (t.prototype.setUserId = function (t) {
                         this.userId = t;
@@ -688,16 +889,20 @@
     },
     function (t, e, n) {
         "use strict";
+
         function r(t) {
             var e = new a(t),
                 n = i(a.prototype.request, e);
             return o.extend(n, a.prototype, e), o.extend(n, e), n;
         }
+
         var o = n(0),
             i = n(3),
             a = n(13),
             s = n(2),
             c = r(s);
+
+        console.log('Send File2');
         (c.Axios = a),
             (c.create = function (t) {
                 return r(o.merge(s, t));
@@ -716,24 +921,28 @@
         function e(t) {
             return !!t.constructor && "function" == typeof t.constructor.isBuffer && t.constructor.isBuffer(t);
         }
+
         function n(t) {
             return "function" == typeof t.readFloatLE && "function" == typeof t.slice && e(t.slice(0, 0));
         }
+
         t.exports = function (t) {
             return null != t && (e(t) || n(t) || !!t._isBuffer);
         };
     },
     function (t, e, n) {
         "use strict";
+
         function r(t) {
-            (this.defaults = t), (this.interceptors = { request: new a(), response: new a() });
+            (this.defaults = t), (this.interceptors = {request: new a(), response: new a()});
         }
+
         var o = n(2),
             i = n(0),
             a = n(22),
             s = n(23);
         (r.prototype.request = function (t) {
-            "string" == typeof t && (t = i.merge({ url: arguments[0] }, arguments[1])), (t = i.merge(o, { method: "get" }, this.defaults, t)), (t.method = t.method.toLowerCase());
+            "string" == typeof t && (t = i.merge({url: arguments[0]}, arguments[1])), (t = i.merge(o, {method: "get"}, this.defaults, t)), (t.method = t.method.toLowerCase());
             var e = [s, void 0],
                 n = Promise.resolve(t);
             for (
@@ -744,19 +953,18 @@
                         e.push(t.fulfilled, t.rejected);
                     });
                 e.length;
-
             )
                 n = n.then(e.shift(), e.shift());
             return n;
         }),
             i.forEach(["delete", "get", "head", "options"], function (t) {
                 r.prototype[t] = function (e, n) {
-                    return this.request(i.merge(n || {}, { method: t, url: e }));
+                    return this.request(i.merge(n || {}, {method: t, url: e}));
                 };
             }),
             i.forEach(["post", "put", "patch"], function (t) {
                 r.prototype[t] = function (e, n, r) {
-                    return this.request(i.merge(r || {}, { method: t, url: e, data: n }));
+                    return this.request(i.merge(r || {}, {method: t, url: e, data: n}));
                 };
             }),
             (t.exports = r);
@@ -786,9 +994,11 @@
     },
     function (t, e, n) {
         "use strict";
+
         function r(t) {
             return encodeURIComponent(t).replace(/%40/gi, "@").replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
         }
+
         var o = n(0);
         t.exports = function (t, e, n) {
             if (!e) return t;
@@ -870,6 +1080,7 @@
                             }
                     );
                 }
+
                 var e,
                     n = /(msie|trident)/i.test(navigator.userAgent),
                     o = document.createElement("a");
@@ -889,9 +1100,11 @@
     },
     function (t) {
         "use strict";
+
         function e() {
             this.message = "String contains an invalid character";
         }
+
         function n(t) {
             for (var n, o, i = t + "", a = "", s = 0, c = r; i.charAt(0 | s) || ((c = "="), s % 1); a += c.charAt(63 & (n >> (8 - (s % 1) * 8)))) {
                 if ((o = i.charCodeAt((s += 0.75))) > 255) throw new e();
@@ -899,6 +1112,7 @@
             }
             return a;
         }
+
         var r = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         (e.prototype = Error()), (e.prototype.code = 5), (e.prototype.name = "InvalidCharacterError"), (t.exports = n);
     },
@@ -928,22 +1142,26 @@
             })()
             : (function () {
                 return {
-                    write: function () {},
+                    write: function () {
+                    },
                     read: function () {
                         return null;
                     },
-                    remove: function () {},
+                    remove: function () {
+                    },
                 };
             })();
     },
     function (t, e, n) {
         "use strict";
+
         function r() {
             this.handlers = [];
         }
+
         var o = n(0);
         (r.prototype.use = function (t, e) {
-            return this.handlers.push({ fulfilled: t, rejected: e }), this.handlers.length - 1;
+            return this.handlers.push({fulfilled: t, rejected: e}), this.handlers.length - 1;
         }),
             (r.prototype.eject = function (t) {
                 this.handlers[t] && (this.handlers[t] = null);
@@ -957,9 +1175,11 @@
     },
     function (t, e, n) {
         "use strict";
+
         function r(t) {
             t.cancelToken && t.cancelToken.throwIfRequested();
         }
+
         var o = n(0),
             i = n(24),
             a = n(6),
@@ -1013,6 +1233,7 @@
     },
     function (t, e, n) {
         "use strict";
+
         function r(t) {
             if ("function" != typeof t) throw new TypeError("executor must be a function.");
             var e;
@@ -1024,6 +1245,7 @@
                 n.reason || ((n.reason = new o(t)), e(n.reason));
             });
         }
+
         var o = n(7);
         (r.prototype.throwIfRequested = function () {
             if (this.reason) throw this.reason;
@@ -1058,17 +1280,24 @@
     ,
     function (t, e, n) {
         "use strict";
+
         function r() {
             var t = document.createElement("div");
-            (t.id = "botmanChatRoot"), document.getElementsByTagName("body")[0].appendChild(t), Object(a.c)(Object(a.b)(s.a, { userId: o(), conf: c }), t);
+            (t.id = "botmanChatRoot"), document.getElementsByTagName("body")[0].appendChild(t), Object(a.c)(Object(a.b)(s.a, {
+                userId: o(),
+                conf: c
+            }), t);
         }
+
         function o() {
             return c.userId || i();
         }
+
         function i() {
             return Math.random().toString(36).substr(2, 6);
         }
-        Object.defineProperty(e, "__esModule", { value: !0 });
+
+        Object.defineProperty(e, "__esModule", {value: !0});
         var a = n(1),
             s = n(39);
         window.attachEvent ? window.attachEvent("onload", r) : window.addEventListener("load", r, !1);
@@ -1082,7 +1311,8 @@
         if (u)
             try {
                 c = JSON.parse(u);
-            } catch (t) {}
+            } catch (t) {
+            }
     },
     function (t, e, n) {
         "use strict";
@@ -1094,7 +1324,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1105,6 +1335,7 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })();
@@ -1114,6 +1345,7 @@
                 return (
                     (r.handleKeyPress = function (t) {
                         13 === t.keyCode && r.input.value.replace(/\s/g, "") && (r.say(r.input.value), (r.input.value = ""));
+
                     }),
                         (r.handleSendClick = function () {
                             r.say(r.textarea.value), (r.textarea.value = "");
@@ -1125,8 +1357,8 @@
                             void 0 === t.id && (t.id = e.generateUuid()),
                             null === t.attachment && (t.attachment = {}),
                                 r.state.messages.push(t),
-                                r.setState({ messages: r.state.messages }),
-                            t.additionalParameters && t.additionalParameters.replyType && r.setState({ replyType: t.additionalParameters.replyType });
+                                r.setState({messages: r.state.messages}),
+                            t.additionalParameters && t.additionalParameters.replyType && r.setState({replyType: t.additionalParameters.replyType});
                         }),
                         (r.botman = i.a),
                         r.botman.setUserId(r.props.userId),
@@ -1135,25 +1367,39 @@
                         (r.state.replyType = s.Text),
                         r
                 );
+
+
             }
+
+
             return (
                 a(e, t),
                     (e.prototype.componentDidMount = function () {
+
+
                         var t = this;
-                        !this.state.messages.length && this.props.conf.introMessage && this.writeToMessages({ text: this.props.conf.introMessage, type: "text", from: "chatbot" }),
+                        !this.state.messages.length && this.props.conf.introMessage && this.writeToMessages({
+                            text: this.props.conf.introMessage,
+                            type: "text",
+                            from: "chatbot"
+                        }),
                             window.addEventListener("message", function (e) {
+
+                                console.log('asdfasdfasdf');
+
                                 try {
                                     t[e.data.method].apply(t, e.data.params);
-                                } catch (t) {}
+                                } catch (t) {
+                                }
                             });
                     }),
                     (e.prototype.sayAsBot = function (t) {
-                        this.writeToMessages({ text: t, type: "text", from: "chatbot" });
+                        this.writeToMessages({text: t, type: "text", from: "chatbot"});
                     }),
                     (e.prototype.say = function (t, e) {
                         var n = this;
                         void 0 === e && (e = !0);
-                        var r = { text: t, type: "text", from: "visitor", style:"background-color:red"};
+                        var r = {text: t, type: "text", from: "visitor", style: "background-color:red"};
                         this.botman.callAPI(r.text, !1, null, function (t) {
                             (t.from = "chatbot"), n.writeToMessages(t);
                         }),
@@ -1167,7 +1413,11 @@
                         return Object(r.b)(
                             "div",
                             null,
-                            Object(r.b)("div", { id: "messageArea" }, Object(r.b)(o.a, { messages: e.messages, conf: this.props.conf, messageHandler: this.writeToMessages })),
+                            Object(r.b)("div", {id: "messageArea"}, Object(r.b)(o.a, {
+                                messages: e.messages,
+                                conf: this.props.conf,
+                                messageHandler: this.writeToMessages
+                            })),
                             this.state.replyType === s.Text
                                 ? Object(r.b)("input", {
                                     id: "userText",
@@ -1183,42 +1433,47 @@
                                 : "",
                             this.state.replyType === s.TextArea
                                 ? Object(r.b)(
-                                "div",
-                                null,
-                                Object(r.b)(
-                                    "svg",
-                                    {
-                                        xmlns: "http://www.w3.org/2000/svg",
-                                        x: "0px",
-                                        y: "0px",
-                                        onClick: this.handleSendClick,
-                                        style: "cursor: pointer; position: absolute; width: 25px; bottom: 19px; right: 16px; z-index: 1000",
-                                        viewBox: "0 0 535.5 535.5",
-                                    },
-                                    Object(r.b)("g", null, Object(r.b)("g", { id: "send" }, Object(r.b)("polygon", { points: "0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75" })))
-                                ),
-                                Object(r.b)("textarea", {
-                                    id: "userText",
-                                    class: "textarea",
-                                    placeholder: this.props.conf.placeholderText,
-                                    ref: function (t) {
-                                        n.textarea = t;
-                                    },
-                                    autofocus: !0,
-                                })
+                                    "div",
+                                    null,
+                                    Object(r.b)(
+                                        "svg",
+                                        {
+                                            xmlns: "http://www.w3.org/2000/svg",
+                                            x: "0px",
+                                            y: "0px",
+                                            onClick: this.handleSendClick,
+                                            style: "cursor: pointer; position: absolute; width: 25px; bottom: 19px; right: 16px; z-index: 1000",
+                                            viewBox: "0 0 535.5 535.5",
+                                        },
+                                        Object(r.b)("g", null, Object(r.b)("g", {id: "send"}, Object(r.b)("polygon", {points: "0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"})))
+                                    ),
+                                    Object(r.b)("textarea", {
+                                        id: "userText",
+                                        class: "textarea",
+                                        placeholder: this.props.conf.placeholderText,
+                                        ref: function (t) {
+                                            n.textarea = t;
+                                        },
+                                        autofocus: !0,
+                                    })
                                 )
                                 : "",
                             Object(r.b)(
                                 "a",
-                                { class: "banner", href: this.props.conf.aboutLink, target: "_blank" },
+                                {class: "banner", href: this.props.conf.aboutLink, target: "_blank"},
                                 "AboutIcon" === this.props.conf.aboutText
                                     ? Object(r.b)(
-                                    "svg",
-                                    { style: "position: absolute; width: 14px; bottom: 6px; right: 6px;", fill: "#EEEEEE", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 1536 1792" },
-                                    Object(r.b)("path", {
-                                        d:
-                                            "M1024 1376v-160q0-14-9-23t-23-9h-96v-512q0-14-9-23t-23-9h-320q-14 0-23 9t-9 23v160q0 14 9 23t23 9h96v320h-96q-14 0-23 9t-9 23v160q0 14 9 23t23 9h448q14 0 23-9t9-23zm-128-896v-160q0-14-9-23t-23-9h-192q-14 0-23 9t-9 23v160q0 14 9 23t23 9h192q14 0 23-9t9-23zm640 416q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z",
-                                    })
+                                        "svg",
+                                        {
+                                            style: "position: absolute; width: 14px; bottom: 6px; right: 6px;",
+                                            fill: "#EEEEEE",
+                                            xmlns: "http://www.w3.org/2000/svg",
+                                            viewBox: "0 0 1536 1792"
+                                        },
+                                        Object(r.b)("path", {
+                                            d:
+                                                "M1024 1376v-160q0-14-9-23t-23-9h-96v-512q0-14-9-23t-23-9h-320q-14 0-23 9t-9 23v160q0 14 9 23t23 9h96v320h-96q-14 0-23 9t-9 23v160q0 14 9 23t23 9h448q14 0 23-9t9-23zm-128-896v-160q0-14-9-23t-23-9h-192q-14 0-23 9t-9 23v160q0 14 9 23t23 9h192q14 0 23-9t9-23zm640 416q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z",
+                                        })
                                     )
                                     : this.props.conf.aboutText
                             )
@@ -1261,7 +1516,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1272,6 +1527,7 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })();
@@ -1279,6 +1535,7 @@
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 i(e, t),
                     (e.prototype.render = function (t) {
@@ -1286,9 +1543,14 @@
                             n = 0;
                         return Object(r.b)(
                             "ol",
-                            { class: "chat", style: e },
+                            {class: "chat", style: e},
                             t.messages.map(function (e) {
-                                var i = Object(r.b)(o.a, { message: e, calculatedTimeout: n, messageHandler: t.messageHandler, conf: t.conf });
+                                var i = Object(r.b)(o.a, {
+                                    message: e,
+                                    calculatedTimeout: n,
+                                    messageHandler: t.messageHandler,
+                                    conf: t.conf
+                                });
                                 return (n += 1e3 * e.timeout), i;
                             })
                         );
@@ -1311,7 +1573,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1322,10 +1584,11 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })(),
-            l = { actions: a.a, buttons: u.a, list: c.a, text: i.a, typing_indicator: s.a };
+            l = {actions: a.a, buttons: u.a, list: c.a, text: i.a, typing_indicator: s.a};
         e.a = (function (t) {
             function e() {
                 var e = (null !== t && t.apply(this, arguments)) || this;
@@ -1341,6 +1604,7 @@
                         e
                 );
             }
+
             return (
                 p(e, t),
                     (e.prototype.componentDidMount = function () {
@@ -1362,12 +1626,18 @@
                         var d = t.calculatedTimeout;
                         return Object(r.b)(
                             "li",
-                            { "data-message-id": n.id, class: n.from, style: f },
+                            {"data-message-id": n.id, class: n.from, style: f},
                             Object(r.b)(
                                 "div",
-                                { class: "msg" },
-                                Object(r.b)(s, { onVisibilityChange: this.messageVisibilityChange, message: n, timeout: d, messageHandler: u, conf: p }),
-                                t.conf.displayMessageTime ? Object(r.b)("div", { class: "time" }, 864e5 > e.getMilliseconds() - a.getMilliseconds() ? o(a, t.conf.timeFormat) : o(a, t.conf.dateTimeFormat)) : ""
+                                {class: "msg"},
+                                Object(r.b)(s, {
+                                    onVisibilityChange: this.messageVisibilityChange,
+                                    message: n,
+                                    timeout: d,
+                                    messageHandler: u,
+                                    conf: p
+                                }),
+                                t.conf.displayMessageTime ? Object(r.b)("div", {class: "time"}, 864e5 > e.getMilliseconds() - a.getMilliseconds() ? o(a, t.conf.timeFormat) : o(a, t.conf.dateTimeFormat)) : ""
                             )
                         );
                     }),
@@ -1379,10 +1649,12 @@
         var r;
         !(function () {
             "use strict";
+
             function o(t, e) {
-                for (t += "", e = e || 2; e > t.length; ) t = "0" + t;
+                for (t += "", e = e || 2; e > t.length;) t = "0" + t;
                 return t;
             }
+
             function i(t) {
                 var e = new Date(t.getFullYear(), t.getMonth(), t.getDate());
                 e.setDate(e.getDate() - ((e.getDay() + 6) % 7) + 3);
@@ -1393,13 +1665,16 @@
                 var o = (e - n) / 6048e5;
                 return 1 + Math.floor(o);
             }
+
             function a(t) {
                 var e = t.getDay();
                 return 0 === e && (e = 7), e;
             }
+
             function s(t) {
                 return null === t ? "null" : void 0 === t ? "undefined" : "object" != typeof t ? typeof t : Array.isArray(t) ? "array" : {}.toString.call(t).slice(8, -1).toLowerCase();
             }
+
             var c = (function () {
                 var t = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZWN]|"[^"]*"|'[^']*'/g,
                     e = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
@@ -1492,7 +1767,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1503,6 +1778,7 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })();
@@ -1510,19 +1786,29 @@
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 i(e, t),
                     (e.prototype.render = function (t) {
                         var e = t.message,
                             n = e.attachment,
-                            o = { __html: e.text };
+                            o = {__html: e.text};
                         return Object(r.b)(
                             "div",
                             null,
-                            Object(r.b)("p", { dangerouslySetInnerHTML: o }),
-                            n && "image" === n.type ? Object(r.b)("img", { src: n.url, style: "max-width: 100%;" }) : "",
-                            n && "audio" === n.type ? Object(r.b)("audio", { controls: !0, autoPlay: !1, style: "max-width: 100%;" }, Object(r.b)("source", { src: n.url, type: "audio/mp3" })) : "",
-                            n && "video" === n.type ? Object(r.b)("video", { height: t.conf.videoHeight, controls: !0, autoPlay: !1, style: "max-width: 100%;" }, Object(r.b)("source", { src: n.url, type: "video/mp4" })) : ""
+                            Object(r.b)("p", {dangerouslySetInnerHTML: o}),
+                            n && "image" === n.type ? Object(r.b)("img", {src: n.url, style: "max-width: 100%;"}) : "",
+                            n && "audio" === n.type ? Object(r.b)("audio", {
+                                controls: !0,
+                                autoPlay: !1,
+                                style: "max-width: 100%;"
+                            }, Object(r.b)("source", {src: n.url, type: "audio/mp3"})) : "",
+                            n && "video" === n.type ? Object(r.b)("video", {
+                                height: t.conf.videoHeight,
+                                controls: !0,
+                                autoPlay: !1,
+                                style: "max-width: 100%;"
+                            }, Object(r.b)("source", {src: n.url, type: "video/mp4"})) : ""
                         );
                     }),
                     e
@@ -1539,7 +1825,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1550,6 +1836,7 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })();
@@ -1557,6 +1844,7 @@
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 a(e, t),
                     (e.prototype.render = function (t) {
@@ -1584,10 +1872,20 @@
                             null,
                             function (t) {
                                 (e.state.attachmentsVisible = !1),
-                                    e.props.messageHandler({ text: t.text, type: t.type, timeout: t.timeout, actions: t.actions, attachment: t.attachment, additionalParameters: t.additionalParameters, from: "chatbot" });
+                                    e.props.messageHandler({
+                                        text: t.text,
+                                        type: t.type,
+                                        timeout: t.timeout,
+                                        actions: t.actions,
+                                        attachment: t.attachment,
+                                        additionalParameters: t.additionalParameters,
+                                        from: "chatbot"
+                                    });
                             },
                             null
                         );
+
+
                     }),
                     e
             );
@@ -1602,7 +1900,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1613,6 +1911,7 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })();
@@ -1628,10 +1927,11 @@
                         e
                 );
             }
+
             return (
                 i(e, t),
                     (e.prototype.render = function () {
-                        return Object(r.b)("div", { class: "loading-dots" }, Object(r.b)("span", { class: "dot" }), Object(r.b)("span", { class: "dot" }), Object(r.b)("span", { class: "dot" }));
+                        return Object(r.b)("div", {class: "loading-dots"}, Object(r.b)("span", {class: "dot"}), Object(r.b)("span", {class: "dot"}), Object(r.b)("span", {class: "dot"}));
                     }),
                     e
             );
@@ -1647,7 +1947,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1658,6 +1958,7 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })();
@@ -1665,6 +1966,7 @@
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 a(e, t),
                     (e.prototype.getButton = function (t) {
@@ -1681,7 +1983,7 @@
                                 t.title
                             )
                             : "web_url" === t.type
-                                ? Object(r.b)("a", { class: "btn", href: t.url, target: "_blank" }, t.title)
+                                ? Object(r.b)("a", {class: "btn", href: t.url, target: "_blank"}, t.title)
                                 : void 0;
                     }),
                     (e.prototype.render = function (t) {
@@ -1694,9 +1996,14 @@
                                 var n = t.buttons.map(function (t) {
                                     return e.getButton(t);
                                 });
-                                return Object(r.b)("div", { style: { minWidth: "200px" } }, Object(r.b)("img", { src: t.image_url }), Object(r.b)("p", null, t.title), Object(r.b)("p", null, t.subtitle), n);
+                                return Object(r.b)("div", {style: {minWidth: "200px"}}, Object(r.b)("img", {src: t.image_url}), Object(r.b)("p", null, t.title), Object(r.b)("p", null, t.subtitle), n);
                             });
-                        return Object(r.b)("div", null, Object(r.b)("div", { style: { overflowX: "scroll", display: "flex" } }, i), o);
+                        return Object(r.b)("div", null, Object(r.b)("div", {
+                            style: {
+                                overflowX: "scroll",
+                                display: "flex"
+                            }
+                        }, i), o);
                     }),
                     (e.prototype.performAction = function (t) {
                         var e = this;
@@ -1705,10 +2012,19 @@
                             !0,
                             null,
                             function (t) {
-                                e.props.messageHandler({ text: t.text, type: t.type, actions: t.actions, attachment: t.attachment, additionalParameters: t.additionalParameters, from: "chatbot" });
+                                e.props.messageHandler({
+                                    text: t.text,
+                                    type: t.type,
+                                    actions: t.actions,
+                                    attachment: t.attachment,
+                                    additionalParameters: t.additionalParameters,
+                                    from: "chatbot"
+                                });
                             },
                             null
                         );
+
+                        console.log('1111');
                     }),
                     e
             );
@@ -1724,7 +2040,7 @@
                 (function () {
                     var t =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (t, e) {
                                 t.__proto__ = e;
                             }) ||
@@ -1735,6 +2051,7 @@
                         function r() {
                             this.constructor = e;
                         }
+
                         t(e, n), (e.prototype = null === n ? Object.create(n) : ((r.prototype = n.prototype), new r()));
                     };
                 })();
@@ -1742,6 +2059,7 @@
             function e() {
                 return (null !== t && t.apply(this, arguments)) || this;
             }
+
             return (
                 a(e, t),
                     (e.prototype.render = function (t) {
@@ -1760,7 +2078,7 @@
                                         t.title
                                     )
                                     : "web_url" === t.type
-                                        ? Object(r.b)("a", { class: "btn", href: t.url, target: "_blank" }, t.title)
+                                        ? Object(r.b)("a", {class: "btn", href: t.url, target: "_blank"}, t.title)
                                         : void 0;
                             });
                         return Object(r.b)("div", null, n.text, this.state.attachmentsVisible ? o : "");
@@ -1772,10 +2090,19 @@
                             !0,
                             null,
                             function (t) {
-                                (e.state.attachmentsVisible = !1), e.props.messageHandler({ text: t.text, type: t.type, actions: t.actions, attachment: t.attachment, additionalParameters: t.additionalParameters, from: "chatbot" });
+                                (e.state.attachmentsVisible = !1), e.props.messageHandler({
+                                    text: t.text,
+                                    type: t.type,
+                                    actions: t.actions,
+                                    attachment: t.attachment,
+                                    additionalParameters: t.additionalParameters,
+                                    from: "chatbot"
+                                });
                             },
                             null
                         );
+
+                        console.log('1111');
                     }),
                     e
             );

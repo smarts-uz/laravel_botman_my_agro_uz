@@ -1747,10 +1747,9 @@ let apps;
         // ;
         var o = {
 
-
-            chatServer:"/botman",
-            frameEndpoint: "/package/build/chat.html",
-            bubbleAvatarUrl: "/images/logo.png",
+            chatServer:`${chatServer}`,
+            frameEndpoint: `${frameEndpoint}`,
+            bubbleAvatarUrl: `${bubbleAvatarUrl}`,
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             cookieValidInDays: 1,
@@ -1762,21 +1761,21 @@ let apps;
             desktopHeight: `${desktopHeight}`,
             desktopWidth: `${desktopWidth}`,
             mobileHeight: `${mobileHeight}`,
-            mobileWidth: `${mobileWidth}`,
+            mobileWidth: `${mobileWidth}`,      
             videoHeight: `${videoHeight}`,
             chatId: "",
-            userId: "",
-            alwaysUseFloatingButton: !1,
-            aboutLink: `${aboutLink}`,
-            aboutText: `${aboutText}`,
-            introMessage: `${ChatIntro}`,
-            title: `${title}`,
-            placeholderText: `${placeholderText}`,
-        };
-        n.d(e, "a", function () {
-            return o;
-        });
-    },
-]);
+                userId: "",
+                alwaysUseFloatingButton: !1,
+                aboutLink: `${aboutLink}`,
+                aboutText: `${aboutText}`,
+                introMessage: `${ChatIntroText}`,
+                title: `${title}`,
+                placeholderText: `${placeholderText}`,
+            };
+            n.d(e, "a", function () {
+                return o;
+            });
+        },
+    ]);
 
 
