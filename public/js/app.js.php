@@ -16,7 +16,7 @@ ob_end_flush();
 
 // $settings = \Illuminate\Support\Facades\DB::table('settings');
 // $title = $settings->where('key', 'chatbot.chat_title')->first()->value;
-$servername = getenv('DB_HOST');
+$servername = $_SERVER['DB_HOST'];
 $username = $_SERVER['DB_USERNAME'];
 $password = $_SERVER['DB_PASSWORD'];
 $dbname = $_SERVER['DB_DATABASE'];
@@ -40,11 +40,11 @@ $file = $folder . '/public/package/build/js/widget.js';
 //echo $file;
 
 $content = file_get_contents($file);
-
+($d = $settings['chatbot.chat_intro_message']['value']);
 $print = strtr($content, [
     '${title}' => $settings['chatbot.chat_title']['value'],
     '${placeholderText}' => $settings['chatbot.placeholder_text']['value'],
-    '${ChatIntro}' => $settings['chatbot.ChatIntro']['value'],
+    '${ChatIntro}' => $settings['chatbot.chat_intro_message']['value'],
     '${aboutText}' => $settings['chatbot.aboutText']['value'],
     '${aboutLink}' => $settings['chatbot.aboutLink']['value'],
     '${videoHeight}' => $settings['chatbot.videoHeight']['value'],

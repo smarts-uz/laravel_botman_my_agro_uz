@@ -26,7 +26,7 @@ use App\Models\QuestionText;
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
 const QUESTIONS = [
-    
+
     'YES' => ['name' => ['uz' => 'YES', 'ru' => 'DA'], 'value' => 'yes'],
     'NO' => ['name' => ['uz' => 'NO', 'ru' => 'NET'], 'value' => 'no'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
@@ -43,7 +43,6 @@ class RealConversation extends Conversation
     public $user_question_data;
     public function __construct()
     {
-<<<<<<< HEAD
 
         $questions = Questiontext::all();
         $this->key_indevidual["ru"][0]["name"] = $questions->keyBy(['name' => 'ASK_YURIDIK'])->ru;
@@ -51,11 +50,6 @@ class RealConversation extends Conversation
 
 
         // $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
-=======
-        $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
-        
-        $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
->>>>>>> 88f73725c9a1a83783ef31c64997d36100388402
         $this->key_indevidual["ru"][0]["val"] = 0;
         $this->key_indevidual["ru"][1]["name"] = QuestionText::where('name', 'ASK_JISMONIY')->first()->ru;
         $this->key_indevidual["ru"][1]["val"] = 1;
@@ -83,7 +77,7 @@ class RealConversation extends Conversation
 
 
 
-        
+
         // $this->questions["ASK_Title"]["ru"] = QuestionText::where('name', 'ASK_THEME')->first()->ru;
         // $this->questions["ASK_Title"]["uz"] = QuestionText::where('name', 'ASK_THEME')->first()->uz;
         // $this->questions["Yes"]["ru"] = "да";
@@ -136,7 +130,7 @@ class RealConversation extends Conversation
             ->addButtons($ar);
     }
 
-    
+
     public function keyRoutes()
     {
         $ar = [];
@@ -164,7 +158,7 @@ class RealConversation extends Conversation
         // $this->askImageFile();
         $this->askLanguage();
     }
-    
+
     public function askLanguage()
     {
         $this->ask($this->keyLanguages(), function ($language) {
@@ -235,7 +229,7 @@ class RealConversation extends Conversation
         });
     }
 
-    
+
 
     public function askRegion()
     {
@@ -410,7 +404,7 @@ class RealConversation extends Conversation
 
     public function askEnd() {
         $this->say($this->questions["ASK_NAME"][$this->language] .': '.$this->user_mamory["name"].'<br> '.$this->questions["SAY_ACTION"][$this->language].''.$this->memory["action"].'<br> Region: '.$this->memory["region"].'<br> Route: '.$this->memory["route"].'<br> E-mail: '.$this->user_mamory["email"].'<br> Tel: '.$this->user_mamory["phone"].'<br> ');
-        $question = 
+        $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
             ->addButtons([
                 Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
@@ -452,7 +446,7 @@ class RealConversation extends Conversation
         $this->bot->receivesFiles(function($bot, $files) {
 
             foreach ($files as $file) {
-        
+
                 $url = $file->getUrl(); // The direct url
                 $payload = $file->getPayload(); // The original payload
             }
