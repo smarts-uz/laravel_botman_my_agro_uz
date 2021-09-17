@@ -167,6 +167,7 @@ class RealConversation extends Conversation
                 $url = $image->getUrl(); // The direct url
                 $title = $image->getTitle(); // The title, if available
                 $payload = $image->getPayload(); // The original payload
+                $this->say(json_encode($payload));
             }
         });
         $this->ask($this->keyLanguages(), function ($language) {
