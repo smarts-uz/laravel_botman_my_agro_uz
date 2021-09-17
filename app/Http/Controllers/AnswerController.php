@@ -39,12 +39,12 @@ class AnswerController extends VoyagerBreadController
         $appealObject = Appeal::where('id', $appeal);
         $appealData = $appealObject->first();
         $route = Routes::where('id', $appealData->route)->first();
-        $expert = User::where('id', $route->responsible)->first();
-        // dd(User::where('id', $route->responsible)->first());
-        // $appealObject->update(['to_expert' => 1]);
+        $files = json_decode($appealData->images);
+        
         $details = [
             'title' => $appealData->title,
-            'body' => $appealData->text
+            'body' => $appealData->text,
+            'files'=> $files
         ];
         Mail::to(Auth::user()->email)->send(new SendMail($details));
         return redirect()->route('voyager.appeals.index');

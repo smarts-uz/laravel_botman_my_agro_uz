@@ -1765,18 +1765,18 @@ let apps;
             videoHeight: 160,
 
             chatId: "",
-            userId: "",
-            alwaysUseFloatingButton: !1,
-            aboutLink: `${aboutLink}`,
-            aboutText: `${aboutText}`,
-            introMessage: `${ChatIntroText}`,
-            title: `${title}`,
-            placeholderText: `${placeholderText}`,
-        };
-        n.d(e, "a", function () {
-            return o;
-        });
-    },
-]);
+                userId: "",
+                alwaysUseFloatingButton: !1,
+                aboutLink: `${aboutLink}`,
+                aboutText: `${aboutText}`,
+                introMessage: `${ChatIntroText}`,
+                title: `${title}`,
+                placeholderText: `${placeholderText}`,
+            };
+            n.d(e, "a", function () {
+                return o;
+            });
+        },
+    ]);
 
 
