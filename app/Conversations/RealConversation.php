@@ -22,6 +22,7 @@ use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 use App\Models\QuestionText;
+use Illuminate\Support\Facades\Storage;
 
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
@@ -157,27 +158,20 @@ class RealConversation extends Conversation
     }
     public function askImageFile(){
         $this->askForFiles('Please upload an file.', function ($files) {
+            $dirname = $this->user_mamory["email"];
             foreach ($files as $image) {
-
                 $url = $image->getUrl(); // The direct url
-                $title = $image->getTitle(); // The title, if available
                 $payload = $image->getPayload(); // The original payload
-                $this->say(json_encode($url));
+
+                $this->say(json_encode($payload));
+                // Storage::makeDirectory($dirname);
+                Storage::put($dirname.'/'.$payload['file_name'],file_get_contents($url));
+                $this->say(json_encode(Storage::allFiles($dirname)));
             }
         });
     }
     public function askLanguage()
     {
-        $this->bot->receivesImages(function($bot, $images) {
-
-            foreach ($images as $image) {
-
-                $url = $image->getUrl(); // The direct url
-                $title = $image->getTitle(); // The title, if available
-                $payload = $image->getPayload(); // The original payload
-                $this->say(json_encode($url));
-            }
-        });
         $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
@@ -194,7 +188,8 @@ class RealConversation extends Conversation
             $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
             if ($x == true) {
                 $this->user_mamory["email"] = $email->getText();
-
+                $dirname = $this->user_mamory["email"];
+                Storage::makeDirectory($dirname);
                 $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
