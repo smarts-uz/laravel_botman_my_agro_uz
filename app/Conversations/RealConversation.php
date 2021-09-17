@@ -45,11 +45,8 @@ class RealConversation extends Conversation
     {
 
         $questions = Questiontext::all();
-        $this->key_indevidual["ru"][0]["name"] = $questions->keyBy(['name' => 'ASK_YURIDIK'])->ru;
 
-
-
-        // $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
+        $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
         $this->key_indevidual["ru"][0]["val"] = 0;
         $this->key_indevidual["ru"][1]["name"] = QuestionText::where('name', 'ASK_JISMONIY')->first()->ru;
         $this->key_indevidual["ru"][1]["val"] = 1;
