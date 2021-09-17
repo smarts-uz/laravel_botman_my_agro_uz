@@ -6,6 +6,6 @@
     <title>AgroChat</title>
 </head>
 <body>
-<script src="/js/app.js.php"></script>
+<script src="/js/widget.js.php"></script>
 </body>
 </html>
