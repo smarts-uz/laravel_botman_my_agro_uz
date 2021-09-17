@@ -14,6 +14,7 @@ use BotMan\BotMan\Messages\Attachments\Contact;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -38,7 +39,9 @@ class RealConversation extends Conversation
     public $memory = [];
     public $language;
     public $usertype;
+    public $user_memory;
     protected $verify;
+
     public $key_indevidual;
     public $questions;
     public $user_question_data;
@@ -57,16 +60,16 @@ class RealConversation extends Conversation
         $this->key_indevidual["ru"][1]["val"] = 1;
 
         $this->user_question_data["ASK_USER_A"][1]["uz"] = $this->questions["ASK_JOB"]["uz"];
-        $this->user_question_data["ASK_USER_A"][1]["ru"] =  $this->questions["ASK_JOB"]["uz"];
+        $this->user_question_data["ASK_USER_A"][1]["ru"] = $this->questions["ASK_JOB"]["uz"];
 
         $this->user_question_data["ASK_USER_A"][0]["uz"] = $this->questions["ASK_COMPANY_NAME"]["uz"];
-        $this->user_question_data["ASK_USER_A"][0]["ru"] =  $this->questions["ASK_COMPANY_NAME"]["ru"];
+        $this->user_question_data["ASK_USER_A"][0]["ru"] = $this->questions["ASK_COMPANY_NAME"]["ru"];
 
-        $this->user_question_data["ASK_USER_B"][1]["uz"] =  $this->questions["ASK_COMPANY_NAME"]["uz"];
-        $this->user_question_data["ASK_USER_B"][1]["ru"] =  $this->questions["ASK_COMPANY_NAME"]["ru"];
+        $this->user_question_data["ASK_USER_B"][1]["uz"] = $this->questions["ASK_COMPANY_NAME"]["uz"];
+        $this->user_question_data["ASK_USER_B"][1]["ru"] = $this->questions["ASK_COMPANY_NAME"]["ru"];
 
-        $this->user_question_data["ASK_USER_B"][0]["uz"] =  $this->questions["ASK_FIELD"]["uz"];
-        $this->user_question_data["ASK_USER_B"][0]["ru"] =  $this->questions["ASK_FIELD"]["ru"];
+        $this->user_question_data["ASK_USER_B"][0]["uz"] = $this->questions["ASK_FIELD"]["uz"];
+        $this->user_question_data["ASK_USER_B"][0]["ru"] = $this->questions["ASK_FIELD"]["ru"];
     }
 
 
@@ -146,8 +149,11 @@ class RealConversation extends Conversation
     public function askWebFile()
     {
 
+
+        $email = Arr::get($this->user_memory, 'email');
+
         $code = <<<HTML
-<div class="files"></div>
+<div class="files" data-email="{$email}"></div>
 HTML;
 
         $this->say($code);
@@ -159,13 +165,13 @@ HTML;
     {
 
         $this->askForFiles('Please upload an file.', function ($files) {
-            $dirname = 'uploads/' . $this->user_mamory["email"];
+            $dirname = 'uploads/' . $this->user_memory["email"];
             foreach ($files as $image) {
                 $url = $image->getUrl(); // The direct url
                 $payload = $image->getPayload(); // The original payload
 
                 $this->say(json_encode($payload));
-                $this->user_mamory["filename"] = $payload['file_name'];
+                $this->user_memory["filename"] = $payload['file_name'];
                 // Storage::makeDirectory($dirname);
                 Storage::put($dirname . '/' . $payload['file_name'], file_get_contents($url));
                 $this->say(json_encode(Storage::allFiles($dirname)));
@@ -193,8 +199,8 @@ HTML;
         $this->ask($this->questions["ASK_EMAIL"][$this->language], function ($email) {
             $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
             if ($x == true) {
-                $this->user_mamory["email"] = $email->getText();
-                $dirname = $this->user_mamory["email"];
+                $this->user_memory["email"] = $email->getText();
+                $dirname = $this->user_memory["email"];
                 Storage::makeDirectory($dirname);
                 $this->askAction();
             } elseif ($x == false) {
@@ -218,7 +224,7 @@ HTML;
     public function askTitle()
     {
         $this->ask($this->questions["ASK_THEME"][$this->language], function ($answer) {
-            $this->user_mamory["title"] = $answer->getText();
+            $this->user_memory["title"] = $answer->getText();
             $this->askAppeal();
         });
     }
@@ -272,57 +278,57 @@ HTML;
 
     public function UserLogin()
     {
-        $user = User::where('email', $this->user_mamory["email"])->first();
+        $user = User::where('email', $this->user_memory["email"])->first();
         $this->memory["pass"] = "nopass";
 
         if (!$user) {
             $this->memory["pass"] = $this->generatePass();
-            $text = 'Your username ' . $this->user_mamory["email"] . '  and password ' . $this->memory["pass"] . ' for Cabinet';
-            if ($this->user_mamory["usertype"] == 1) {
+            $text = 'Your username ' . $this->user_memory["email"] . '  and password ' . $this->memory["pass"] . ' for Cabinet';
+            if ($this->user_memory["usertype"] == 1) {
                 $user = User::create([
-                    'name' => $this->user_mamory["name"],
+                    'name' => $this->user_memory["name"],
                     'role_id' => 2,
-                    'phone' => $this->user_mamory["phone"],
-                    'individual' => $this->user_mamory["usertype"],
+                    'phone' => $this->user_memory["phone"],
+                    'individual' => $this->user_memory["usertype"],
                     'remember_token' => $this->generatePass(32),
-                    "email" => $this->user_mamory["email"],
+                    "email" => $this->user_memory["email"],
                     "password" => Hash::make($this->memory["pass"]),
-                    "individual" => $this->user_mamory["usertype"],
+                    "individual" => $this->user_memory["usertype"],
                     "place_of_work" => $this->memory["data"]["a"]
                 ]);
             } else {
                 $user = User::create([
-                    'name' => $this->user_mamory["name"],
+                    'name' => $this->user_memory["name"],
                     'role_id' => 2,
-                    'phone' => $this->user_mamory["phone"],
-                    'individual' => $this->user_mamory["usertype"],
+                    'phone' => $this->user_memory["phone"],
+                    'individual' => $this->user_memory["usertype"],
                     'remember_token' => $this->generatePass(32),
-                    "email" => $this->user_mamory["email"],
+                    "email" => $this->user_memory["email"],
                     "password" => Hash::make($this->memory["pass"]),
-                    "individual" => $this->user_mamory["usertype"],
+                    "individual" => $this->user_memory["usertype"],
                     "organization" => $this->memory["data"]["a"],
                     "activity" => $this->memory["data"]["b"]
                 ]);
             }
-            $email = $this->user_mamory["email"];
+            $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
             $text = $this->language == "uz" ? setting('sms.AccountUz') . '<br>Email:' . $email . '<br>Password:' . $password : setting('sms.AccountRu') . '<br>Email:' . $email . '<br>Password:' . $password;
 
             $smsSender = new SmsService();
-            $smsSender->send($this->user_mamory["phone"], $text);
+            $smsSender->send($this->user_memory["phone"], $text);
 
             $details = [
                 'title' => 'AGRO.UZ ',
                 'body' => $text
             ];
-            Mail::to($this->user_mamory["email"])->send(new SendMail($details));
+            Mail::to($this->user_memory["email"])->send(new SendMail($details));
         } else {
-            $this->user_mamory["usertype"] = $user->individeual;
-            $this->user_mamory["phone"] = $user->phone;
-            $this->user_mamory["name"] = $user->name;
+            $this->user_memory["usertype"] = $user->individeual;
+            $this->user_memory["phone"] = $user->phone;
+            $this->user_memory["name"] = $user->name;
         }
 
-        $this->user_mamory["id"] = $user->id;
+        $this->user_memory["id"] = $user->id;
         $this->askEnd();
     }
 
@@ -332,8 +338,8 @@ HTML;
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
             $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
             if ($x == true) {
-                $this->user_mamory["phone"] = $phone->getText();
-                $this->verifyPhone($this->user_mamory["phone"]);
+                $this->user_memory["phone"] = $phone->getText();
+                $this->verifyPhone($this->user_memory["phone"]);
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
@@ -365,8 +371,8 @@ HTML;
         $this->ask(
             $this->questions["ASK_NAME"][$this->language],
             function ($name) {
-                $this->user_mamory["name"] = $name->getText();
-                $user = User::where('email', $this->user_mamory["email"])->first();
+                $this->user_memory["name"] = $name->getText();
+                $user = User::where('email', $this->user_memory["email"])->first();
                 if ($user) {
                     Log::info($user->phone);
                     $this->verifyPhone($user->phone);
@@ -380,17 +386,17 @@ HTML;
 
     public function askUser()
     {
-        if ($this->user_mamory["usertype"] == 0) {
-            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function ($ask1) {
+        if ($this->user_memory["usertype"] == 0) {
+            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_memory["usertype"]][$this->language], function ($ask1) {
                 $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask($this->user_question_data["ASK_USER_B"][$this->user_mamory["usertype"]][$this->language]
+                $this->ask($this->user_question_data["ASK_USER_B"][$this->user_memory["usertype"]][$this->language]
                     , function ($ask2) {
                         $this->memory["data"]['b'] = $ask2->getText();
                         $this->askName();
                     });
             });
         } else {
-            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function ($ask1) {
+            $this->ask($this->user_question_data["ASK_USER_A"][$this->user_memory["usertype"]][$this->language], function ($ask1) {
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->askName();
 
@@ -404,7 +410,7 @@ HTML;
     {
         $this->ask($this->keyUserType(), function ($usertype) {
             if ($usertype->isInteractiveMessageReply()) {
-                $this->user_mamory["usertype"] = $usertype->getValue();
+                $this->user_memory["usertype"] = $usertype->getValue();
                 $this->askUser();
             } else $this->repeat();
         });
@@ -413,7 +419,7 @@ HTML;
 
     public function askEnd()
     {
-        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_mamory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . '' . $this->memory["action"] . '<br> Region: ' . $this->memory["region"] . '<br> Route: ' . $this->memory["route"] . '<br> E-mail: ' . $this->user_mamory["email"] . '<br> Tel: ' . $this->user_mamory["phone"] . '<br> ');
+        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . '' . $this->memory["action"] . '<br> Region: ' . $this->memory["region"] . '<br> Route: ' . $this->memory["route"] . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
         $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
                 ->addButtons([
@@ -423,20 +429,20 @@ HTML;
 
         $this->ask($question, function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
-                $dirname = $this->user_mamory["email"];
+                $dirname = $this->user_memory["email"];
                 $files = Storage::allFiles($dirname . '/');
 
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
                     $appeal = new Appeal();
-                    $appeal->title = $this->user_mamory["title"];
+                    $appeal->title = $this->user_memory["title"];
                     $appeal->text = $this->memory["answer"];
-                    $appeal->user_id = $this->user_mamory["id"];
+                    $appeal->user_id = $this->user_memory["id"];
                     $appeal->region = $this->memory["region"];
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
-                    $appeal->fullname = $this->user_mamory["name"];
+                    $appeal->fullname = $this->user_memory["name"];
                     $appeal->images = json_encode($files);
-                    if($this->user_mamory["usertype"]==1) {
+                    if ($this->user_memory["usertype"] == 1) {
                         $appeal->company = $this->memory["data"]["a"];
                         $appeal->branch = $this->memory["data"]["b"];
                     } else {
@@ -445,7 +451,7 @@ HTML;
                     $appeal->save();
 
                     foreach ($files as $file) {
-                        Storage::move($file, 'files/' . $dirname . '/' . $appeal->id . '/' . $this->user_mamory["filename"]);
+                        Storage::move($file, 'files/' . $dirname . '/' . $appeal->id . '/' . $this->user_memory["filename"]);
                     }
 
                     $this->say($this->questions["FINISH"][$this->language]);

@@ -745,6 +745,8 @@
                                 // loop over input elements
                                 Array.from(inputElements).forEach(inputElement => {
 
+                                    var email = inputElement.attr('data-email');
+                                    console.log('Email:' + email);
 
 
                                     var uppy = new Uppy.Core({
@@ -778,23 +780,42 @@
                                             height: 470,
                                             metaFields: [
                                                 {id: 'name', name: 'Name', placeholder: 'file name'},
-                                                {id: 'caption', name: 'Caption', placeholder: 'describe what the image is about'}
+                                                {
+                                                    id: 'caption',
+                                                    name: 'Caption',
+                                                    placeholder: 'describe what the image is about'
+                                                }
                                             ],
                                             browserBackButtonClose: true
                                         })
 
-                                        .use(Uppy.GoogleDrive, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
-                                        .use(Uppy.Dropbox, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
-                                        .use(Uppy.Instagram, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
-                                        .use(Uppy.Facebook, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
-                                        .use(Uppy.OneDrive, {target: Uppy.Dashboard, companionUrl: 'https://companion.uppy.io'})
+                                        .use(Uppy.GoogleDrive, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
+                                        .use(Uppy.Dropbox, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
+                                        .use(Uppy.Instagram, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
+                                        .use(Uppy.Facebook, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
+                                        .use(Uppy.OneDrive, {
+                                            target: Uppy.Dashboard,
+                                            companionUrl: 'https://companion.uppy.io'
+                                        })
                                         .use(Uppy.Webcam, {target: Uppy.Dashboard})
                                         .use(Uppy.ScreenCapture, {target: Uppy.Dashboard})
                                         .use(Uppy.ImageEditor, {target: Uppy.Dashboard})
                                         .use(Uppy.DropTarget, {target: document.body})
                                         .use(Uppy.GoldenRetriever)
                                         .use(Uppy.XHRUpload, {
-                                            endpoint: '${endpoint}',
+                                            endpoint: '${endpoint}?email=' + email,
                                             fieldName: 'file',
                                             headers: file => ({
                                                 'X-CSRF-TOKEN': '${csrf_token}'

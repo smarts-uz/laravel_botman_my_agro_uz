@@ -44,7 +44,7 @@ class FilepondController extends Controller
           ]);*/
 
         if ($req->file()) {
-            $fileName = time() . '_' . $req->file->getClientOriginalName();
+            $fileName = $req->file->getClientOriginalName();
             $filePath = $req->file('file')
                 ->storeAs('uploads', $fileName, 'public');
 
