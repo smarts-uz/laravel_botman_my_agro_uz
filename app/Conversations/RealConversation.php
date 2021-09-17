@@ -152,12 +152,23 @@ class RealConversation extends Conversation
     {
             // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
             // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
-        // $this->askImageFile();
-        $this->askLanguage();
+        $this->askImageFile();
+        // $this->askLanguage();
     }
+    public function askImageFile(){
 
+    }
     public function askLanguage()
     {
+        $this->bot->receivesImages(function($bot, $images) {
+
+            foreach ($images as $image) {
+
+                $url = $image->getUrl(); // The direct url
+                $title = $image->getTitle(); // The title, if available
+                $payload = $image->getPayload(); // The original payload
+            }
+        });
         $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
