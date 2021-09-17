@@ -1747,10 +1747,10 @@ let apps;
         // ;
         var o = {
 
-
-            chatServer:"/botman",
-            frameEndpoint: "/package/build/chat.html",
-            bubbleAvatarUrl: "/images/logo.png",
+            chatServer:`${chatServer}`,
+            frameEndpoint: `${frameEndpoint}`,
+            ///bubbleAvatarUrl: `${bubbleAvatarUrl}`,
+            bubbleAvatarUrl: '/images/logo22.png',
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
             cookieValidInDays: 1,
@@ -1769,7 +1769,7 @@ let apps;
             alwaysUseFloatingButton: !1,
             aboutLink: `${aboutLink}`,
             aboutText: `${aboutText}`,
-            introMessage: `${ChatIntro}`,
+            introMessage: `${ChatIntroText}`,
             title: `${title}`,
             placeholderText: `${placeholderText}`,
         };

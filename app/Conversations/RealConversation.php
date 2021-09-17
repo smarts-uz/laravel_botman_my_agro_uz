@@ -22,6 +22,7 @@ use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 use App\Models\QuestionText;
+use Illuminate\Support\Facades\Storage;
 
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
@@ -70,11 +71,6 @@ class RealConversation extends Conversation
 
         $this->user_question_data["ASK_USER_B"][0]["uz"] = QuestionText::where('name', 'ASK_FIELD')->first()->uz;
         $this->user_question_data["ASK_USER_B"][0]["ru"] = QuestionText::where('name', 'ASK_FIELD')->first()->ru;
-
-
-
-
-        LOG::info($this->questions["ASK_LANGUAGE"]);
     }
 
     public function keyLanguages(){
@@ -143,32 +139,30 @@ class RealConversation extends Conversation
     {
             // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
             // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
-        $this->askImageFile();
-        // $this->askLanguage();
+        // $this->askImageFile();
+        // $this->say(Storage::allFiles('fayzulloev'));
+        $this->askLanguage();
     }
     public function askImageFile(){
         $this->askForFiles('Please upload an file.', function ($files) {
+            $dirname = 'uploads/'.$this->user_mamory["email"];
             foreach ($files as $image) {
-
                 $url = $image->getUrl(); // The direct url
-                $title = $image->getTitle(); // The title, if available
                 $payload = $image->getPayload(); // The original payload
-                $this->say(json_encode($url));
+
+                $this->say(json_encode($payload));
+                $this->user_mamory["filename"] = $payload['file_name'];
+                // Storage::makeDirectory($dirname);
+                Storage::put($dirname.'/'.$payload['file_name'],file_get_contents($url));
+                $this->say(json_encode(Storage::allFiles($dirname)));
             }
+            $this->askRoute();
+
         });
+
     }
     public function askLanguage()
     {
-        $this->bot->receivesImages(function($bot, $images) {
-
-            foreach ($images as $image) {
-
-                $url = $image->getUrl(); // The direct url
-                $title = $image->getTitle(); // The title, if available
-                $payload = $image->getPayload(); // The original payload
-                $this->say(json_encode($url));
-            }
-        });
         $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
@@ -185,14 +179,14 @@ class RealConversation extends Conversation
             $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
             if ($x == true) {
                 $this->user_mamory["email"] = $email->getText();
-
+                $dirname = $this->user_mamory["email"];
+                Storage::makeDirectory($dirname);
                 $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
             }
         });
-        // $this->user_mamory["email"]
     }
 
     public function askAction()
@@ -228,8 +222,8 @@ class RealConversation extends Conversation
     {
         $this->ask($this->mediaRoutes(), function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
-                if ($answer->getValue() == "ha") {
-                    $this->askRoute();
+                if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
+                    $this->askImageFile();
                 } else {
                     $this->askRoute();
                 }
@@ -270,7 +264,7 @@ class RealConversation extends Conversation
         if (!$user) {
             $this->memory["pass"] = $this->generatePass();
             $text = 'Your username ' . $this->user_mamory["email"] . '  and password ' . $this->memory["pass"] . ' for Cabinet';
-            if ($this->user_mamory["usertype"] == 0) {
+            if ($this->user_mamory["usertype"] == 1) {
                 $user = User::create([
                     'name' => $this->user_mamory["name"],
                     'role_id' => 2,
@@ -299,7 +293,6 @@ class RealConversation extends Conversation
             $email=$this->user_mamory["email"];
             $password=$this->memory["pass"];
             $text = $this->language == "uz" ? setting('sms.AccountUz').'<br>Email:'.$email.'<br>Password:'.$password : setting('sms.AccountRu').'<br>Email:'.$email.'<br>Password:'.$password;
-            // $text = 'E-Mail: ' . $this->user_mamory["email"].' Password:'. $this->memory["pass"];
 
             $smsSender = new SmsService();
             $smsSender->send($this->user_mamory["phone"], $text);
@@ -316,8 +309,6 @@ class RealConversation extends Conversation
         }
 
         $this->user_mamory["id"] = $user->id;
-        // Auth::login($user);
-
         $this->askEnd();
     }
 
@@ -388,7 +379,6 @@ class RealConversation extends Conversation
                 });
             });
         } else {
-            LOG::info($this->user_mamory["usertype"]);
             $this->ask($this->user_question_data["ASK_USER_A"][$this->user_mamory["usertype"]][$this->language], function($ask1){
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->askName();
@@ -421,6 +411,9 @@ class RealConversation extends Conversation
 
         $this->ask($question, function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
+                $dirname = $this->user_mamory["email"];
+                $files = Storage::allFiles($dirname.'/');
+
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
                     $appeal = new Appeal();
                     $appeal->title = $this->user_mamory["title"];
@@ -436,11 +429,15 @@ class RealConversation extends Conversation
                     } else {
                         $appeal->workplace = $this->memory["data"]["a"];
                     }
-
-
                     $appeal->save();
+
+                    foreach($files as $file){
+                        Storage::move($file, 'files/'.$dirname.'/'.$appeal->id.'/'.$this->user_mamory["filename"]);
+                    }
+
                     $this->say( $this->questions["FINISH"][$this->language]);
                 }else {
+                    Storage::delete($files);
                     $this->askAppeal();
                 }
             } else {
@@ -450,18 +447,6 @@ class RealConversation extends Conversation
 
         });
     }
-    public function askFiles(){
-        $this->bot->receivesFiles(function($bot, $files) {
-
-            foreach ($files as $file) {
-
-                $url = $file->getUrl(); // The direct url
-                $payload = $file->getPayload(); // The original payload
-            }
-            $this->say(json_encode($file->getPayload()));
-        });
-    }
-
     static function generatePass($length = 4)
     {
         $characters = '0123456789';
