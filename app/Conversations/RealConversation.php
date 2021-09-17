@@ -47,26 +47,26 @@ class RealConversation extends Conversation
     {
         $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
 
-        $this->key_indevidual["ru"][0]["name"] = $this->questions["ASK_YURIDIK"]["RU"];
-        $this->key_indevidual["ru"][1]["name"] = $this->questions["ASK_JISMONIY"]["RU"];
-        $this->key_indevidual["uz"][0]["name"] = $this->questions["ASK_YURIDIK"]["UZ"];
-        $this->key_indevidual["uz"][1]["name"] = $this->questions["ASK_JISMONIY"]["UZ"];
+        $this->key_indevidual["ru"][0]["name"] = $this->questions["ASK_YURIDIK"]["ru"];
+        $this->key_indevidual["ru"][1]["name"] = $this->questions["ASK_JISMONIY"]["ru"];
+        $this->key_indevidual["uz"][0]["name"] = $this->questions["ASK_YURIDIK"]["uz"];
+        $this->key_indevidual["uz"][1]["name"] = $this->questions["ASK_JISMONIY"]["uz"];
         $this->key_indevidual["uz"][0]["val"] = 0;
         $this->key_indevidual["ru"][0]["val"] = 0;
         $this->key_indevidual["uz"][1]["val"] = 1;
         $this->key_indevidual["ru"][1]["val"] = 1;
 
-        $this->user_question_data["ASK_USER_A"][1]["uz"] = $this->questions["ASK_JOB"]["UZ"];
-        $this->user_question_data["ASK_USER_A"][1]["ru"] =  $this->questions["ASK_JOB"]["RU"];
+        $this->user_question_data["ASK_USER_A"][1]["uz"] = $this->questions["ASK_JOB"]["uz"];
+        $this->user_question_data["ASK_USER_A"][1]["ru"] =  $this->questions["ASK_JOB"]["uz"];
 
-        $this->user_question_data["ASK_USER_A"][0]["uz"] = $this->questions["ASK_COMPANY_NAME"]["UZ"];
-        $this->user_question_data["ASK_USER_A"][0]["ru"] =  $this->questions["ASK_COMPANY_NAME"]["RU"];
+        $this->user_question_data["ASK_USER_A"][0]["uz"] = $this->questions["ASK_COMPANY_NAME"]["uz"];
+        $this->user_question_data["ASK_USER_A"][0]["ru"] =  $this->questions["ASK_COMPANY_NAME"]["ru"];
 
-        $this->user_question_data["ASK_USER_B"][1]["uz"] =  $this->questions["ASK_COMPANY_NAME"]["UZ"];
-        $this->user_question_data["ASK_USER_B"][1]["ru"] =  $this->questions["ASK_COMPANY_NAME"]["RU"];
+        $this->user_question_data["ASK_USER_B"][1]["uz"] =  $this->questions["ASK_COMPANY_NAME"]["uz"];
+        $this->user_question_data["ASK_USER_B"][1]["ru"] =  $this->questions["ASK_COMPANY_NAME"]["ru"];
 
-        $this->user_question_data["ASK_USER_B"][0]["uz"] =  $this->questions["ASK_FIELD"]["UZ"];
-        $this->user_question_data["ASK_USER_B"][0]["ru"] =  $this->questions["ASK_FIELD"]["RU"];
+        $this->user_question_data["ASK_USER_B"][0]["uz"] =  $this->questions["ASK_FIELD"]["uz"];
+        $this->user_question_data["ASK_USER_B"][0]["ru"] =  $this->questions["ASK_FIELD"]["ru"];
     }
 
 

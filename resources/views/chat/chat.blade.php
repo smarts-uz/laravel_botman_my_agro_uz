@@ -12,7 +12,7 @@
 <link href="https://releases.transloadit.com/uppy/v2.1.0/uppy.min.css" rel="stylesheet">
 <script src="https://releases.transloadit.com/uppy/v2.1.0/uppy.min.js"></script>
 
-<script src="https://my.agro.uz/js/chat.js.php"></script>
+<script src="https://my.agro.uz/js/chat.js.php?csrf_token={{csrf_token()}}"></script>
 
 </body>
 </html>

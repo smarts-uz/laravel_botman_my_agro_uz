@@ -29,6 +29,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("/uzchat", [ChatController::class, "app"]);
+
 Route::get('/admin/answer/appeal/{appeal}', [AnswerController::class, 'answer'])->name('answer.reply');
 // Route::get('/admin/redirect/appeal/{appeal}', [AnswerController::class, 'redirect'])->name('answer.redirect');
 // Route::get('/admin/appeal/update/{appeal}', [AnswerController::class, 'update'])->name('answer.update');
@@ -41,7 +43,7 @@ Route::post('/appeal/chat/close/{appeal}', [ConversationController::class, 'clos
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('/botman/tinker', [BotManController::class, 'tinker']);
 
-Route::get('notify',[NotificationController::class, 'notify']);
+Route::get('notify', [NotificationController::class, 'notify']);
 Route::view('/notification', 'notification');
 
 
@@ -71,10 +73,11 @@ Route::get('send-mail', function () {
 
 Route::view("form", "form");
 
-Route::post("/form/send", [FormController::class,"run"]);
+Route::post("/form/send", [FormController::class, "run"]);
 Route::get('/', [FileUpload::class, 'createForm']);
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
-Route::post("/upload",[FilepondController::class,"upload"]);
-Route::post("/fileUpload",[FilepondController::class,"fileUpload"]);
+Route::post("/upload", [FilepondController::class, "upload"]);
+Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
+
