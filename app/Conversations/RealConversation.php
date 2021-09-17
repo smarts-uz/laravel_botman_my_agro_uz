@@ -14,6 +14,7 @@ use BotMan\BotMan\Messages\Attachments\Contact;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use BotMan\Drivers\Web\WebDriver;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -143,7 +144,6 @@ class RealConversation extends Conversation
         // $this->askImageFile();
         // $this->say(Storage::allFiles('fayzulloev'));
         $this->askLanguage();
-        $this->askWebFile();
     }
 
     public function askWebFile()
@@ -156,7 +156,17 @@ class RealConversation extends Conversation
 HTML;
 
         $this->say($code);
+        $this->askRoute();
 
+    }
+
+    public function isTG()
+    {
+        $driver = $this->bot->getDriver();
+        if ($driver instanceof WebDriver)
+            return false;
+
+        return true;
     }
 
 
@@ -241,12 +251,15 @@ HTML;
 
     public function askMedia()
     {
+
+
         $this->ask($this->mediaRoutes(), function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
-                    
-
-                    $this->askImageFile();
+                    if ($this->isTG())
+                        $this->askImageFile();
+                    else
+                        $this->askWebFile();
                 } else {
                     $this->askRoute();
                 }
