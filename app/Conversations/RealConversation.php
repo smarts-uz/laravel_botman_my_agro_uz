@@ -44,7 +44,6 @@ class RealConversation extends Conversation
     public function __construct()
     {
         $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
-        $questions = Questiontext::all();
 
         $this->key_indevidual["ru"][0]["name"] = QuestionText::where('name', 'ASK_YURIDIK')->first()->ru;
         $this->key_indevidual["ru"][0]["val"] = 0;
@@ -75,14 +74,6 @@ class RealConversation extends Conversation
 
 
 
-        // $this->questions["ASK_Title"]["ru"] = QuestionText::where('name', 'ASK_THEME')->first()->ru;
-        // $this->questions["ASK_Title"]["uz"] = QuestionText::where('name', 'ASK_THEME')->first()->uz;
-        // $this->questions["Yes"]["ru"] = "да";
-        // $this->questions["Yes"]["uz"] = "HA";
-        // $this->questions["No"]["ru"] = "Нет";
-        // $this->questions["No"]["uz"] = "Yo'q";
-        // $this->questions["ASK_TRUE"]["ru"] = "Вы подтверждаете, что подали обращение правильно?";
-        // $this->questions["ASK_TRUE"]["uz"] = "Murojaatingizni to'g'ri yuborganingizni tasdiqlaysizmi?";
         LOG::info($this->questions["ASK_LANGUAGE"]);
     }
 

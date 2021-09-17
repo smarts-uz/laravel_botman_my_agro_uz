@@ -12,6 +12,5 @@ $botman = BotManFactory::create($config);
 $botman = resolve('botman');
 
 $botman->hears('/start', function ($bot) {
-    $bot->say("salom");
-    // $bot->startConversation(new RealConversation());
+    $bot->startConversation(new RealConversation());
 });
