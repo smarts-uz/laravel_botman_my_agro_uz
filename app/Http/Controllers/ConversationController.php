@@ -8,13 +8,13 @@ use App\Models\Conversation;
 use App\Models\Region;
 use App\Models\Routes;
 use App\Models\User;
+use TCG\Voyager\Http\Controllers\VoyagerController;
 
-class ConversationController extends Controller
+class ConversationController extends VoyagerController
 {
-    public function index(Appeal $appeal){
-        // dd($appeal);
+    public function showChat(Appeal $appeal){
         $conversations = Conversation::where('appeal_id', $appeal->id)->get()->sortBy('created_at');
-        $user = User::where('id', $appeal->user_id)->first()->name;
+        $user = (User::where('id', $appeal->user_id)->first()) !== null ? User::where('id', $appeal->user_id)->first()->name : 'Deleted user';
         $region = Region::where('id', $appeal->region)->first()->ru;
         $route = Routes::where('id', $appeal->route)->first()->ru;
 

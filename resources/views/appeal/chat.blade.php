@@ -1,11 +1,9 @@
 @extends('voyager::master')
+<link rel="stylesheet"  href="/css/admin/conversation.css" />
 
-<link rel="stylesheet" href="sweetalert2.min.css">
+
 @section('content')
-<style src="{{ assets('css/admin.conversation.css') }}"></style>
-</head>
 
-<body>
 
     <div class="inputs">
         <section class="msger">
@@ -94,7 +92,7 @@
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                         {{-- @csrf --}}
-                        <button onclose="askClose()" type="button" class="btn">Закрыть тикет</button>
+                        <button onclick="askClose()" type="button" class="btn">Закрыть тикет</button>
                     {{-- </form> --}}
                 </div>
                 @else
@@ -121,8 +119,11 @@
 
 
 </script>
-<script src="{{ assets('js/admin/conversation.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="{{ asset('js/admin/conversation.js') }}"></script>
+
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="sweetalert2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.all.min.js"></script>
     @endsection

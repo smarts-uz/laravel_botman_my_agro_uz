@@ -52,7 +52,7 @@ Route::group(['prefix' => 'admin'], function () {
     // Route::get('/appeal/chat/{chat}', [ChatController::class, 'index'])->name("answer.chat");
     // Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
-    Route::get('/appeal/chat/{appeal}', [ConversationController::class, 'index'])->name("conversation.index");
+    Route::get('/appeal/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
 
 
 });
