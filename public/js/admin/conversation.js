@@ -25,7 +25,6 @@ function askClose() {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             Rate()
-            //   Swal.fire('Muloqot muvaffaqiyatli tugatildi!', '', 'success')
         }
     })
 
