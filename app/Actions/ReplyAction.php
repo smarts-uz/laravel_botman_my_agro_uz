@@ -29,7 +29,7 @@ class ReplyAction extends AbstractAction {
     }
     public function shouldActionDisplayOnDataType()
     {
-        if(Auth::user()->role->name != "user"){
+        if(Auth::user()->role->name != "user" && Auth::user()->role->name != "moderator"){
             return $this->dataType->slug == 'appeals';
 
         }

@@ -2,7 +2,7 @@
 
 namespace App\Widgets;
 
-use App\Models\Appeal;
+use App\Models\Conversation;
 use App\Models\AppealAnswer;
 use Arrilot\Widgets\AbstractWidget;
 use Illuminate\Support\Facades\App;
@@ -26,7 +26,8 @@ class AnswersDimmer extends BaseDimmer
      */
     public function run()
     {
-        $count = AppealAnswer::count();
+        // dd(Conversation::groupBy('appeal_id'));
+        $count = Conversation::groupBy('appeal_id')->count();
         $string = trans_choice('voyager::dimmer.post', $count);
         $string = "Ответы";
 

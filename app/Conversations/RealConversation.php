@@ -49,6 +49,9 @@ class RealConversation extends Conversation
     public $user_question_data;
 
 
+
+
+
     public function __construct()
     {
         $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
@@ -80,7 +83,7 @@ class RealConversation extends Conversation
     {
         $ar = [];
         foreach (LANGUAGE as $key) {
-            array_push($ar, Button::create($key['key'])->value($key['value']));
+            $ar[] = Button::create($key['key'])->value($key['value']);
         }
         return Question::create($this->questions["ASK_LANGUAGE"]["uz"])
             ->addButtons($ar);
@@ -455,7 +458,11 @@ HTML;
 
     public function askEnd()
     {
-        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . '' . $this->memory["action"] . '<br> Region: ' . $this->memory["region"] . '<br> Route: ' . $this->memory["route"] . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
+        $action = Action::where('id', $this->memory["action"])->first()->name;
+        $region = Region::where('id', $this->memory["region"])->first()->name;
+        $route = Routes::where('id', $this->memory["route"])->first()->name;
+
+        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . '' . $action . '<br> Region: ' . $region . '<br> Route: ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
         $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
                 ->addButtons([
