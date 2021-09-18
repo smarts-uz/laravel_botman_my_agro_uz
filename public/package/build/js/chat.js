@@ -793,28 +793,6 @@
                                             browserBackButtonClose: true
                                         })
 
-                                        .use(Uppy.GoogleDrive, {
-                                            target: Uppy.Dashboard,
-                                            companionUrl: 'https://companion.uppy.io'
-                                        })
-                                        .use(Uppy.Dropbox, {
-                                            target: Uppy.Dashboard,
-                                            companionUrl: 'https://companion.uppy.io'
-                                        })
-                                        .use(Uppy.Instagram, {
-                                            target: Uppy.Dashboard,
-                                            companionUrl: 'https://companion.uppy.io'
-                                        })
-                                        .use(Uppy.Facebook, {
-                                            target: Uppy.Dashboard,
-                                            companionUrl: 'https://companion.uppy.io'
-                                        })
-                                        .use(Uppy.OneDrive, {
-                                            target: Uppy.Dashboard,
-                                            companionUrl: 'https://companion.uppy.io'
-                                        })
-                                        .use(Uppy.Webcam, {target: Uppy.Dashboard})
-                                        .use(Uppy.ScreenCapture, {target: Uppy.Dashboard})
                                         .use(Uppy.ImageEditor, {target: Uppy.Dashboard})
                                         .use(Uppy.DropTarget, {target: document.body})
                                         .use(Uppy.GoldenRetriever)
