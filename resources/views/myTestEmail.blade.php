@@ -9,9 +9,9 @@
 <p>{{ $details['body'] }}</p>
 <p>Link for Cobinet : https://my.agro.uz/admin</p>
 
-    @foreach($details['files'] as $file)
+    {{-- @foreach($details['files'] as $file)
     <a href='{{url("")."/storage/".$file}}'>FILE</a> <br/>
-    @endforeach 
+    @endforeach  --}}
 
 <p>Thank you</p>
 </body>
