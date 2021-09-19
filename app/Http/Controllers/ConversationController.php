@@ -9,11 +9,10 @@ use App\Models\Region;
 use App\Models\Routes;
 use App\Models\User;
 use TCG\Voyager\Http\Controllers\VoyagerController;
-
 class ConversationController extends VoyagerController
 {
     public function showChat(Appeal $appeal){
-       
+
         $conversations = Conversation::where('appeal_id', $appeal->id)->get()->sortBy('created_at');
         $user = (User::where('id', $appeal->user_id)->first()) !== null ? User::where('id', $appeal->user_id)->first()->name : 'Deleted user';
         $region = Region::where('id', $appeal->region)->first()->ru;
@@ -46,5 +45,9 @@ class ConversationController extends VoyagerController
         if(Appeal::where('id', $appeal)->update(["status" => 3])){
             return back()->with('success', 'Closed');
         } return back()->with('warning', 'something went wrong!');
+    }
+    public function showAppeal(){
+        $appeals = Appeal::orderBy('created_at', 'DESC')->paginate('10');
+        return view('appeal.appeals')->with('appeals', $appeals);
     }
 }

@@ -4,9 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-
 class Appeal extends Model
 {
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region');
+    }
+    public function routes()
+    {
+        return $this->belongsTo(Routes::class, 'route', 'id');
+    }
+    public function action()
+    {
+        return $this->belongsTo(Action::class, 'type', 'id');
+    }
     // protected $fillable = ["messages"];
     public function scopeCurrentUser($query)
     {

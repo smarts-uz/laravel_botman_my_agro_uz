@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\FilepondController;
-
+use App\Http\Controllers\AppealsCustomController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,18 +25,14 @@ use App\Http\Controllers\FilepondController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::view('/', 'welcome');
 Route::get("/uzchat", [ChatController::class, "app"]);
 
 Route::get('/admin/answer/appeal/{appeal}', [AnswerController::class, 'answer'])->name('answer.reply');
-// Route::get('/admin/redirect/appeal/{appeal}', [AnswerController::class, 'redirect'])->name('answer.redirect');
-// Route::get('/admin/appeal/update/{appeal}', [AnswerController::class, 'update'])->name('answer.update');
 Route::get('/admin/redirect/appeal/{appeal}', [AnswerController::class, 'toExpert'])->name('answer.redirect');
 Route::post('/admin/appeal/update/{appeal}', [AnswerController::class, 'updateAnswer'])->name('appeal.update');
 Route::get('/admin/appeal/{appeal}/send', [AnswerController::class, 'sendAnswer'])->name('answer.send');
+
 Route::post('/appeal/chat/close/{appeal}', [ConversationController::class, 'close'])->name("appeal.close");
 
 
@@ -49,36 +45,21 @@ Route::view('/notification', 'notification');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-    // Route::get('/appeal/chat/{chat}', [ChatController::class, 'index'])->name("answer.chat");
-    // Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
+    Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
-    Route::get('/appeal/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
+    Route::get('/appeals/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
 
 
-});
-
-use Illuminate\Support\Facades\Mail;
-
-Route::get('send-mail', function () {
-
-    $details = [
-        'title' => 'Asror Zokirov',
-        'body' => 'Test mail sent by Laravel 8 using SMTP.'
-    ];
-
-    Mail::to('xolmuhammedovm@gmail.com')->send(new \App\Mail\SendMail($details));
-
-    dd("Email is Sent, please check your inbox.");
 });
 
 Route::view("form", "form");
-
 Route::post("/form/send", [FormController::class, "run"]);
+
 Route::get('/', [FileUpload::class, 'createForm']);
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
-
-Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
 Route::post("/upload", [FilepondController::class, "upload"]);
 Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
 
-Route::view("/admin/appeals", "appeals")->name('voyager.appeals.index');
+Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
+
+Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
