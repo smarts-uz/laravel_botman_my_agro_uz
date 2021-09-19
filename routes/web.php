@@ -63,3 +63,7 @@ Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
 
 Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
+Route::get("/admin/ok", function(){
+    dd(pathinfo('files/fayzulloevasadbek@gmail.com/161/uploads/fayzulloevasadbek@gmail.com/images(1).png', PATHINFO_BASENAME));
+});
+

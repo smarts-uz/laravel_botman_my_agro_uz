@@ -37,8 +37,6 @@
                 </td>
              </tr>
         @endforeach
-
-
     </tbody>
   </table>
   {{ $appeals->links('pagination::bootstrap-4') }}

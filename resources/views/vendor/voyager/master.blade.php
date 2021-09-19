@@ -139,7 +139,6 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
     }
     @endif
 </script>
-<script src="{{asset('js/customVoyager.js')}}">
 @include('voyager::media.manager')
 @yield('javascript')
 @stack('javascript')

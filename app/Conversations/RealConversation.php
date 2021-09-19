@@ -475,7 +475,7 @@ HTML;
             if ($answer->isInteractiveMessageReply()) {
 
                 $dirname = '/uploads/' . $this->user_memory["email"];
-                $files = Storage::allFiles($dirname . '/');
+                $files = Storage::files($dirname . '/');
                 Log::info(json_encode($files));
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
                     $appeal = new Appeal();
@@ -495,16 +495,18 @@ HTML;
                     $appeal->save();
 
                     if ($this->user_memory["email"]) {
+                        $dirname =  '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
+
                        foreach ($files as $file) {
-                            $dirname =  '/files//' . $this->user_memory["email"] . '/' . $appeal->id . '/';
-                            Log::info($dirname);
-                            Storage::move($file, $dirname);
+                            // Storage::makeDirectory('/files//' . $this->user_memory["email"] . '/' . $appeal->id);
+
+                            Log::info($file);
+                            Storage::move($file, $dirname . '/' . pathinfo($file, PATHINFO_BASENAME));
                         }
 
                         $files = Storage::allFiles('files/' . $this->user_memory["email"] . '/' . $appeal->id . '/');
                     }
-                    
-                    $appeal->images = json_encode($files);
+                    Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
 
                     $this->say($this->questions["FINISH"][$this->language]);
                 } else {
