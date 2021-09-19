@@ -2,6 +2,9 @@
 @extends('voyager::master')
 @section('content')
 <table class="table">
+    @php
+        $lang = app()->getLocale();
+    @endphp
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -20,10 +23,10 @@
                 {{-- @dd($appeal->user()->first()->name); --}}
                 <th scope="row">{{ $appeal->id }}</th>
                 <td>{{ $appeal->title }}</td>
-                <td>{{ ($appeal->region()->first() !== null) ? $appeal->region()->first()->uz : 'Deleted Region' }}</td>
-                <td>{{  ($appeal->routes()->first() !== null) ? $appeal->routes()->first()->uz : 'Deleted Route' }}</td>
+                <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru" ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : 'Deleted Region' }}</td>
+                <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>
                 <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
-                <td>{{ ($appeal->action()->first() !== null) ? $appeal->action()->first()->uz : 'Deleted User' }}</td>
+                <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}</td>
                 <td style=" color: white; {{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red;') }}">{{ $appeal->status==1 ? "Open" : 'Closed' }}</td>
                 <td scope="row"><a class="btn btn-primary" href="{{ route('voyager.appeals.show', $appeal->id) }}">Show</a>
                     <a class="btn btn-warning" href="{{ route('voyager.appeals.edit', $appeal->id) }}">Edit</a>
