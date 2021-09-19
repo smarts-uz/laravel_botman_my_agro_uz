@@ -39,24 +39,49 @@ $folder = dirname(__DIR__, 2);
 $file = $folder . '/public/package/build/js/widget.js';
 //echo $file;
 
+
+$host = $_SERVER['HTTP_REFERER'];
+switch ($host) {
+    case 'http://agro.tested.uz/':
+    case 'https://agro.tested.uz/':
+    case 'http://agro.uz/':
+    case 'https://agro.uz/':
+        $before = 'https://my.agro.uz';
+        break;
+
+    default:
+        $before = '';
+}
+
+/*var_dump($host);
+var_dump($before);
+die;*/
+
 $content = file_get_contents($file);
 ($d = $settings['chatbot.chat_intro_message']['value']);
 $print = strtr($content, [
     '${title}' => $settings['chatbot.chat_title']['value'],
     '${placeholderText}' => $settings['chatbot.placeholder_text']['value'],
     '${ChatIntroText}' => $settings['chatbot.ChatIntroText']['value'],
+
+
+
+
+
     '${aboutText}' => $settings['chatbot.aboutText']['value'],
     '${aboutLink}' => $settings['chatbot.aboutLink']['value'],
-    '${videoHeight}' => $settings['chatbot.videoHeight']['value'],
-    '${mobileWidth}' => $settings['chatbot.mobileWidth']['value'],
-    '${mobileHeight}' => $settings['chatbot.mobileHeight']['value'],
-    '${desktopWidth}' => $settings['chatbot.desktopWidth']['value'],
-    '${desktopHeight}' => $settings['chatbot.desktopHeight']['value'],
+
+    '${videoHeight}' => 160,
+    '${mobileWidth}' => "300px",
+    '${mobileHeight}' => "100%",
+    '${desktopWidth}' => 370,
+    '${desktopHeight}' => 450,
+
     '${textColor}' => $settings['chatbot.textColor']['value'],
     '${mainColor}' => $settings['chatbot.mainColor']['value'],
-    '${frameEndpoint}' => $settings['chatbot.frameEndpoint']['value'],
-    '${bubbleAvatarUrl}' => $settings['chatbot.bubbleAvatarUrl']['value'],
-    '${chatServer}' => $settings['chatbot.chatServer']['value'],
+    '${frameEndpoint}' => $before . '/uzchat',
+    '${bubbleAvatarUrl}' => $before . '/images/logo.png',
+    '${chatServer}' => $before . '/botman',
 ]);
 
 echo $print;
