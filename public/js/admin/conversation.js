@@ -32,7 +32,8 @@ function askClose() {
 
 function Rate() {
     let x = document.querySelector("#submit")
-    x.style.display = "block"
+    console.log(x);
+    // x.style.display = "block"
     Swal.fire({
         title: '<strong>Expertni baholang</strong>',
         icon: 'info',
@@ -41,14 +42,16 @@ function Rate() {
         showCloseButton: true,
         showCancelButton: true,
         
-        focusConfirm: false,
+        focusConfirm: true,
         
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
            x.submit()
-            
+        }else{
+            document.location.reload()
         }
-        x.style.display = "none"
+        // x.style.display = "hidden"
+            
     })
 }

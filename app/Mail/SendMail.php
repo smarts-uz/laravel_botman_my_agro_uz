@@ -30,7 +30,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Online Web Tutor')
+        return $this->subject('AGRO.uz')
             ->view('myTestEmail');
     }
 }
