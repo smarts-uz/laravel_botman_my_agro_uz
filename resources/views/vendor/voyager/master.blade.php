@@ -140,6 +140,7 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
     @endif
 </script>
 @include('voyager::media.manager')
+@include('sweetalert::alert')
 @yield('javascript')
 @stack('javascript')
 @if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->

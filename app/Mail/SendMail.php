@@ -30,6 +30,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
+<<<<<<< HEAD
         dd($this->details['files']);
         $email = $this->subject('AGRO.uz')->view('myTestEmail');
         if($this->details['files']){
@@ -47,5 +48,9 @@ class SendMail extends Mailable
          return $this->subject('AGRO.uz')
         ->view('myTestEmail');
 
+=======
+        return $this->subject('AGRO.uz')
+            ->view('myTestEmail');
+>>>>>>> a35e4539732e55c1603f2f8152813341242b698d
     }
 }
