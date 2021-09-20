@@ -7,6 +7,7 @@ use App\Models\Appeal;
 use App\Models\Conversation;
 use App\Models\Region;
 use App\Models\Routes;
+use Auth;
 use App\Models\User;
 use TCG\Voyager\Http\Controllers\VoyagerController;
 class ConversationController extends VoyagerController
@@ -28,7 +29,7 @@ class ConversationController extends VoyagerController
         $con->appeal_id = $appeal;
         $request->user()->role == 'user' ? $con->is_answer = 0 : $con->is_answer = 1;
         $con->save();
-        $conversations = Conversation::where('appeal_id', $appeal->id)->get()->sortBy('created_at');
+        $conversations = Conversation::where('appeal_id', $appeal)->get()->sortBy('created_at');
 
         $appeal = Appeal::where('id', $appeal);
 
@@ -49,5 +50,17 @@ class ConversationController extends VoyagerController
     public function showAppeal(){
         $appeals = Appeal::orderBy('created_at', 'DESC')->paginate('10');
         return view('appeal.appeals')->with('appeals', $appeals);
+    }
+
+    public function rating($appeal, Request $request) {
+        $appealData =Appeal::where('id', $appeal);
+        $rating = floatval((intval($request->rating) + intval($appealData->first()->rating))/2);
+
+        User::where('id', $appeal)->update(['rating'=>$rating]);
+
+        if(Appeal::where('id', $appeal)->update(["status" => 3])){
+            return redirect()->route('voyager.appeals.index')->with('success', 'Closed');
+        } return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
+
     }
 }

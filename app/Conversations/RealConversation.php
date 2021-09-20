@@ -451,9 +451,9 @@ HTML;
 
     public function askEnd()
     {
-        $action = Action::where('id', $this->memory["action"])->first()->name;
-        $region = Region::where('id', $this->memory["region"])->first()->name;
-        $route = Routes::where('id', $this->memory["route"])->first()->name;
+        $action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz;
+        $region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz;
+        $route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
 
         $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . '' . $action . '<br> Region: ' . $region . '<br> Route: ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
         $question =
