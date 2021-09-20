@@ -1195,7 +1195,7 @@ let apps;
                     x.style.border = "none"
                     x.style.fontSize = "15px"
                     x.style.fontWeight = "bold"
-                    x.style.borderRadius = "4px"
+                    x.style.color = "#ffffff"
                     x.style.cursor = "pointer"
                     // x.style
                     // e.currentTarget.childNodes[0].appendChild(fileUp)
@@ -1204,14 +1204,14 @@ let apps;
                     x.onclick = function () {
                         botmanChatWidget.say('/start');
                         x.style.display = "none"
-                        // fileUp.style.display = 'block' 
+                        // fileUp.style.display = 'block'
                     }
                     isTrust = false
                 } else if (isTrust == false) {
                     e.currentTarget.childNodes[0].removeChild(x)
                     x.style.display = "none"
                     isTrust = true
-                    // fileUp.style.display = 'none' 
+                    // fileUp.style.display = 'none'
                 }
             }
             (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
