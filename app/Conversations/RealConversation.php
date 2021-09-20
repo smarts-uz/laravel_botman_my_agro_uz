@@ -6,17 +6,11 @@ use App\Models\Action;
 use App\Models\Region;
 use App\Models\Routes;
 use App\Models\User;
-use App\Services\Mailer\MailService;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
-use BotMan\BotMan\Messages\Attachments\Contact;
-use BotMan\Drivers\Telegram\Extensions\Keyboard;
-use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
-use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\Drivers\Web\WebDriver;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Services\SmsService\SmsService;
@@ -25,7 +19,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 use App\Models\QuestionText;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Filesystem;
 
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 

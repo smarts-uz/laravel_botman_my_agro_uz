@@ -3,17 +3,16 @@
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\FileUpload;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\NotificationController;
 use App\Services\Mailer\MailService;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\FilepondController;
-use App\Http\Controllers\AppealsCustomController;
+use Illuminate\Support\Facades\Storage;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,3 +66,7 @@ Route::get("/admin/ok", function(){
     dd(pathinfo('files/fayzulloevasadbek@gmail.com/161/uploads/fayzulloevasadbek@gmail.com/images(1).png', PATHINFO_BASENAME));
 });
 
+Route::get("/admin/mail", function(){
+
+    dd(mime_content_type(storage_path().'\files\fayzulloevasadbek@gmail.com\164\view.png'));
+});

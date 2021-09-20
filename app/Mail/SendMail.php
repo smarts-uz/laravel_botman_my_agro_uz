@@ -30,7 +30,22 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Online Web Tutor')
-            ->view('myTestEmail');
+        dd($this->details['files']);
+        $email = $this->subject('AGRO.uz')->view('myTestEmail');
+        if($this->details['files']){
+            foreach($this->details['files'] as $file){
+                $email->attach(storage_path() . $file),
+                [
+                    'as' => $file,
+                    'mime' => 'application/pdf',
+                ]
+                );
+            }
+        }
+
+
+         return $this->subject('AGRO.uz')
+        ->view('myTestEmail');
+
     }
 }
