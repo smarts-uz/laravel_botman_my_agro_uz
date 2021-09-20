@@ -4,6 +4,7 @@
 
 @section('content')
 
+{{-- @dd($totalDuration) --}}
 
 <div class="inputs">
     <section class="msger">
@@ -35,9 +36,8 @@
                 </div>
             </div>
             @foreach ($conversations as $conversation)
-            {{-- @dd($conversation); --}}
-            @php
-            @endphp
+            {{-- @dd($duration); --}}
+
 
             <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
                 <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">
@@ -58,7 +58,7 @@
 
         </main>
         {{-- @if($appeal->is_closed == 0) --}}
-        @if($totalDurations)
+
         <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
             @csrf
             <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : ""}} required
@@ -66,7 +66,6 @@
             <button type="submit" required class="msger-send-btn "
                 {{ $appeal->is_closed == 1 ? "disabled" : ""}}>Send</button>
         </form>
-        @ebdif
         {{-- @endif --}}
     </section>
     <div class="right">
@@ -94,21 +93,21 @@
                 <span>Состояние/Приоритет</span>
                 <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
             </div>
-            @if($appeal->is_closed == 0)
-            <div class="block text-center bloc1">
-                {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
-                {{-- @csrf --}}
-                <button onclick="askClose()" type="button" class="btn">Закрыть тикет</button>
-                {{-- </form> --}}
-            </div>
+            @if($appeal->is_closed == 0 && $totalDuration>48)
+                <div class="block text-center bloc1">
+                    {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
+                    {{-- @csrf --}}
+                    <button onclick="askClose()" type="button" class="btn">Закрыть тикет</button>
+                    {{-- </form> --}}
+                </div>
             @else
-            <button type="button" class="btn disabled buttonDis">Закрыть тикет</button>
+                <button type="button" class="btn disabled buttonDis">Закрыть тикет</button>
             @endif
         </div>
     </div>
 
 </div>
-
+@if($totalDuration>48)
 <div class="wrap1">
     @if($appeal->is_closed == 0)
     <div class="block text-center bloc1">
@@ -121,7 +120,6 @@
     <button type="button" class="btn disabled buttonDis">Закрыть тикет</button>
     @endif
 </div>
-
 <form id="submit"  action="{{route('conversation.rating',$appeal)}}" method="POST">
     @csrf
     <div class="stars">
@@ -133,10 +131,7 @@
             stars</label><label for="star4">4 stars</label><label for="star5">5 stars</label>
     </div>
 </form>
-<script>
-
-
-</script>
+@endif
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

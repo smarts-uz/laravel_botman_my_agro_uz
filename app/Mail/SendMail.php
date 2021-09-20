@@ -30,27 +30,21 @@ class SendMail extends Mailable
      */
     public function build()
     {
-<<<<<<< HEAD
-        dd($this->details['files']);
+        // dd($this->details['files']);
         $email = $this->subject('AGRO.uz')->view('myTestEmail');
-        if($this->details['files']){
-            foreach($this->details['files'] as $file){
-                $email->attach(storage_path() . $file),
-                [
-                    'as' => $file,
-                    'mime' => 'application/pdf',
-                ]
-                );
-            }
-        }
+        // if($this->details['files']){
+        //     foreach($this->details['files'] as $file){
+        //         $email->attach(storage_path('files\fayzulloevasadbek@gmail.com\163\Download.jpg'),
+        //         [
+        //             'as' => 'files\fayzulloevasadbek@gmail.com\163\Download.jpg',
+        //             'mime' => 'image/png',
+        //         ]
+        //         );
+        //     }
+        // }
 
 
-         return $this->subject('AGRO.uz')
-        ->view('myTestEmail');
+         return $email;
 
-=======
-        return $this->subject('AGRO.uz')
-            ->view('myTestEmail');
->>>>>>> a35e4539732e55c1603f2f8152813341242b698d
     }
 }

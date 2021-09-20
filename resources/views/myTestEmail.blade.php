@@ -7,11 +7,11 @@
 
 <h1>{{ $details['title'] }}</h1>
 <p>{{ $details['body'] }}</p>
-<p>Link for Cobinet : https://my.agro.uz/admin</p>
+<p>Link for Cabinet : https://my.agro.uz/admin</p>
 
-    {{-- @foreach($details['files'] as $file)
-    <a href='{{url("")."/storage/".$file}}'>FILE</a> <br/>
-    @endforeach  --}}
+    @forelse($details['files'] as $file)
+    <a href='{{url("")."/storage/".$file}}'>{{ pathinfo($file, PATHINFO_BASENAME) }}</a> <br/>
+    @endforeach
 
 <p>Thank you</p>
 </body>

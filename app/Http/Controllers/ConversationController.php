@@ -32,7 +32,7 @@ class ConversationController extends VoyagerController
         $region = app()->getLocale()=="uz" ? Region::where('id', $appeal->region)->first()->uz : Region::where('id', $appeal->region)->first()->ru;
         $route = app()->getLocale()=="uz" ? Routes::where('id', $appeal->route)->first()->uz : Routes::where('id', $appeal->route)->first()->ru;
 
-        return view('appeal.chat', compact('conversations', 'appeal', 'user', 'region', 'route', 'finishTime'));
+        return view('appeal.chat', compact('conversations', 'appeal', 'user', 'region', 'route', 'finishTime', 'totalDuration'));
     }
     public function send($appeal, Request $request){
 
