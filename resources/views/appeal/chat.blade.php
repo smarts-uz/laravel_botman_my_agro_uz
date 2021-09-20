@@ -112,7 +112,7 @@
     <div class="block text-center bloc1">
         <form action="{{ route('appeal.close', $appeal) }}" method="POST">
             @csrf
-            <button type="submit" class="btn">Закрыть тикет</button>
+            <button onclick="askClose()" type="button" class="btn">Закрыть тикет</button>
         </form>
     </div>
     @else
