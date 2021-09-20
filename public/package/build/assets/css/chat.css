@@ -2,7 +2,7 @@
 
 
 html, body {
-    background: #C1CBCA;
+    background: #c1cbca1a;
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     margin: 0;
@@ -25,7 +25,7 @@ html, body {
 /* M E S S A G E S */
 #messageArea {
     overflow-y: scroll;
-    background: #C1CBCA;
+    background: #c1cbca1a;
 }
 
 
