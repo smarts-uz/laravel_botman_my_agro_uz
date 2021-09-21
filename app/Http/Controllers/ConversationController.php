@@ -7,7 +7,7 @@ use App\Models\Appeal;
 use App\Models\Conversation;
 use App\Models\Region;
 use App\Models\Routes;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use TCG\Voyager\Http\Controllers\VoyagerController;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -43,13 +43,12 @@ class ConversationController extends VoyagerController
         $con->save();
         $conversations = Conversation::where('appeal_id', $appeal)->orderBy('created_at', 'DESC');
         $appeal = Appeal::where('id', $appeal)->first();
-
         Auth::user()->hasrole('user') ? $appeal->update(["status" => 1]) : $appeal->update(["status" => 2]);
         $user = User::where('id', $appeal->user_id)->first()->name;
         $region = app()->getLocale()=="uz" ? Region::where('id', $appeal->region)->first()->uz : Region::where('id', $appeal->region)->first()->ru;
         $route = app()->getLocale()=="uz" ? Routes::where('id', $appeal->route)->first()->uz : Routes::where('id', $appeal->route)->first()->ru;
         $appeals = Appeal::orderBy('created_at', 'DESC')->paginate(10);
-        return view('appeal.appeals')->with(['appeals' => $appeals, 'conversations' => $conversations, 'region' =>  $region, 'route' => $route, 'user' => $user]);
+        return redirect()->route('voyager.appeals.index');
     }
     public function close($appeal){
 
@@ -58,7 +57,7 @@ class ConversationController extends VoyagerController
         } return back()->with('warning', 'something went wrong!');
     }
     public function showAppeal(){
-        $appeals = Appeal::orderBy('created_at', 'DESC')->paginate('10');
+        $appeals = Appeal::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate('10');
         return view('appeal.appeals')->with('appeals', $appeals);
     }
 
