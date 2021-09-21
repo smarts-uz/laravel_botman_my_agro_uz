@@ -19,7 +19,6 @@ class ConversationController extends VoyagerController
         $appealData =Appeal::where('id', $appeal);
         // $conversationObject = Conversation::orderBy("created_at", 'DESC');
         $conversations = Conversation::where('appeal_id', $appeal->id);
-
         if(($conversations->first() !== null)){
             $starttime = $appeal->created_at;
         } else $starttime = $appeal->created_at;
@@ -27,7 +26,7 @@ class ConversationController extends VoyagerController
         $totalDuration = $finishTime->diffInHours($starttime);
 
 
-        $conversations = $conversations->orderBy('created_at', 'DESC');
+        $conversations = Conversation::where('appeal_id', $appeal->id)->orderBy('created_at', 'DESC')->get();
         $user = (User::where('id', $appeal->user_id)->first()) !== null ? User::where('id', $appeal->user_id)->first()->name : 'Deleted user';
         $region = app()->getLocale()=="uz" ? Region::where('id', $appeal->region)->first()->uz : Region::where('id', $appeal->region)->first()->ru;
         $route = app()->getLocale()=="uz" ? Routes::where('id', $appeal->route)->first()->uz : Routes::where('id', $appeal->route)->first()->ru;
@@ -43,16 +42,14 @@ class ConversationController extends VoyagerController
         $request->user()->role == 'user' ? $con->is_answer = 0 : $con->is_answer = 1;
         $con->save();
         $conversations = Conversation::where('appeal_id', $appeal)->orderBy('created_at', 'DESC');
-
-        $appeal = Appeal::where('id', $appeal);
+        $appeal = Appeal::where('id', $appeal)->first();
 
         Auth::user()->hasrole('user') ? $appeal->update(["status" => 1]) : $appeal->update(["status" => 2]);
-
         $user = User::where('id', $appeal->user_id)->first()->name;
         $region = app()->getLocale()=="uz" ? Region::where('id', $appeal->region)->first()->uz : Region::where('id', $appeal->region)->first()->ru;
         $route = app()->getLocale()=="uz" ? Routes::where('id', $appeal->route)->first()->uz : Routes::where('id', $appeal->route)->first()->ru;
-
-        return redirect()->route('/appeals')->with(['appeal' => $appeal, 'conversations' => $conversations, 'region' =>  $region, 'route' => $route, 'user' => $user]);
+        $appeals = Appeal::orderBy('created_at', 'DESC')->paginate(10);
+        return view('appeal.appeals')->with(['appeals' => $appeals, 'conversations' => $conversations, 'region' =>  $region, 'route' => $route, 'user' => $user]);
     }
     public function close($appeal){
 
