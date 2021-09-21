@@ -27,7 +27,7 @@
                 <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>
                 <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
                 <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}</td>
-                <td style=" color: white; {{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red;') }}">{{ $appeal->status==1 ? "Open" : 'Closed' }}</td>
+                <td style=" color: white; {{ $appeal->status==1 ? 'background: rgb(0, 211, 0);' : ($appeal->status==2 ? 'background: rgb(226, 226, 0);' : 'background: #BBBBBB;') }}">{{ $appeal->status==1 ? "Open" : 'Closed' }}</td>
                 <td scope="row"><a class="btn btn-primary" href="{{ route('voyager.appeals.show', $appeal->id) }}">Show</a>
                     <a class="btn btn-warning" href="{{ route('voyager.appeals.edit', $appeal->id) }}">Edit</a>
                     <a class="btn btn-danger" href="{{ route('voyager.appeals.destroy', $appeal->id) }}">Delete</a>
