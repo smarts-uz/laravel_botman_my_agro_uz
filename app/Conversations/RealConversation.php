@@ -146,10 +146,6 @@ class RealConversation extends Conversation
 
     public function run()
     {
-        // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
-        // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
-        // $this->askImageFile();
-        // $this->say(Storage::allFiles('fayzulloev'));
         $this->askLanguage();
     }
 
