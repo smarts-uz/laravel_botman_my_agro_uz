@@ -12,7 +12,6 @@
         @forelse($details['files'] as $file)
         <a href='{{url("")."/storage/".$file}}'>{{ pathinfo($file, PATHINFO_BASENAME) }}</a> <br/>
         @empty
-
         @endforelse
     @endif
 <p>Thank you</p>

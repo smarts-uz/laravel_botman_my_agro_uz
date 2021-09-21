@@ -493,7 +493,8 @@ HTML;
                        foreach ($files as $file) {
                             // Storage::makeDirectory('/files//' . $this->user_memory["email"] . '/' . $appeal->id);
 
-                            Log::info($file);
+                            $e = Storage::mimeType($file);
+                            Log::info($e);
                             Storage::move($file, $dirname . '/' . pathinfo($file, PATHINFO_BASENAME));
                         }
 
