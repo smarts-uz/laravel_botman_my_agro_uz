@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 class Appeal extends Model
 {
-    protected $fillable = [
-        'status'
-    ];
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
