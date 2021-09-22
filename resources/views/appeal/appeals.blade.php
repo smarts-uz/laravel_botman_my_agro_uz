@@ -4,6 +4,7 @@
 <table class="table">
     @php
         $lang = app()->getLocale();
+
     @endphp
     <thead>
       <tr>

@@ -1,7 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-top">
 
     <div class="container-fluid">
-    <h4 class="ml-auto">Hello</h4>
 
         <div class="navbar-header">
             <button class="hamburger btn-link">
