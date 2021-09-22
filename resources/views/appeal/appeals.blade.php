@@ -1,7 +1,9 @@
 
 @extends('voyager::master')
 @section('content')
-
+@php
+$lang = json_decode(Auth::user()->settings);
+@endphp
 <style>
 
   .table-container{
@@ -39,14 +41,12 @@
 {{-- Top Buttons --}}
 <div class="container-fluid">
   <h1 class="page-title">
-      <i class="voyager-person"></i> Пользователи
+      <i class="voyager-person"></i>
   </h1>
   <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
     <i class="voyager-plus"></i> <span>Добавить</span>
   </a>
-  <!-- <a href="{{route('voyager.appeals.destroy')}}" class="btn btn-danger" id="bulk_delete_btn">
-    <i class="voyager-trash"></i> <span>Удалить выбранное</span>
-  </a> -->
+
 
 <!-- /.modal -->
 
