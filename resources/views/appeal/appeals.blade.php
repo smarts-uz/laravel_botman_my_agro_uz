@@ -1,7 +1,10 @@
 
 @extends('voyager::master')
 @section('content')
-<table class="table"> 
+<table class="table">
+    @php
+        $lang = app()->getLocale();
+    @endphp
     <thead>
       <tr>
         <th scope="col">ID</th>
