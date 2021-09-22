@@ -10,14 +10,8 @@
       @endphp
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap.min.css">
-<!-- <style>
+      <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.bootstrap.min.css">
 
-  tfoot input {
-        width: 100%;
-        padding: 3px;
-        box-sizing: border-box;
-    }
-</style> -->
 
 {{-- Top Buttons --}}
 <div class="container-fluid">
@@ -77,6 +71,8 @@
 <div class="table-container">
   {{-- Table --}}
   <table id="example" class="table table-striped table-bordered" style="width:100%">
+
+      
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -119,28 +115,6 @@
                </tr>
           @endforeach
       </tbody>
-      <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot>
-      </thead>
- 
- <tfoot>
-     <tr>
-         <th>Name</th>
-         <th>Position</th>
-         <th>Office</th>
-         <th>Age</th>
-         <th>Start date</th>
-         <th>Salary</th>
-     </tr>
- </tfoot>
   </table>
 </div>
 
@@ -148,29 +122,9 @@
 <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap.min.js"></script>
 <script>
-  $(document).ready(function() {
-    $('#example').DataTable();
-} );
-
 $(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    $('#example tfoot th').each( function () {
-        var title = $('#example thead th').eq( $(this).index() ).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    } );
- 
-    // DataTable
-    var table = $('#example').DataTable();
- 
-    // Apply the search
-    table.columns().every( function () {
-        var that = this;
- 
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            that
-                .search( this.value )
-                .draw();
-        } );
+    $('#example').DataTable( {
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
     } );
 } );
 </script>
