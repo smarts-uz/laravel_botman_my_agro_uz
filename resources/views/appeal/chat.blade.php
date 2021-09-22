@@ -38,16 +38,14 @@
             @foreach ($conversations as $conversation)
             {{-- @dd($duration); --}}
 
-            @php
-                $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
-            @endphp
+
             <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
                 <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">
                 </div>
 
                 <div class="msg-bubble">
                     <div class="msg-info">
-                        <div class="msg-info-name">{{ $appeal_user->name }}</div>
+                        <div class="msg-info-name">{{ $user }}</div>
                         <div class="msg-info-time">{{ date('H:m', strtotime($conversation->created_at)) }}</div>
                     </div>
                     <div class="msg-text">
