@@ -8,14 +8,14 @@
     @endphp
     <thead>
       <tr>
-        <th scope="col">{{ ($lang == "uz" ? IDDdd : ID) }}</th>
-        <th scope="col">Title</th>
-        <th scope="col">Region</th>
-        <th scope="col">Route</th>
-        <th scope="col">Author</th>
-        <th scope="col">Action</th>
-        <th scope="col">Status</th>
-        <th scope="col">Actions</th>
+        <th scope="col">ID</th>
+        <th scope="col">{{ $lang == "en" ? "Title" : ($lang == "uz" ? "Mavzu" : "Тема") }}</th>
+        <th scope="col">{{ $lang == "en" ? "Region" : ($lang == "uz" ? "Viloyat" : "Область") }}</th>
+        <th scope="col">{{ $lang == "en" ? "Route" : ($lang == "uz" ? "Yo'nalish" : "Направление") }}</th>
+        <th scope="col">{{ $lang == "en" ? "Author" : ($lang == "uz" ? "Muallif" : "Автор") }}</th>
+        <th scope="col">{{ $lang == "en" ? "Action" : ($lang == "uz" ? "Murojaat turi" : "Тип заявления") }}</th>
+        <th scope="col">{{ $lang == "en" ? "Status" : ($lang == "uz" ? "Holati" : "Cтатус") }}</th>
+        <th scope="col">{{ $lang == "en" ? "Actions" : ($lang == "uz" ? "Harakatlar" : "Действия") }}</th>
       </tr>
     </thead>
     <tbody>
