@@ -11,6 +11,7 @@ class AppealsController extends VoyagerController
     public function index()
     {
         $appeals = Appeal::orderBy('created_at', 'DESC');
+        dd($appeals);
         return view('appeal.appeals')->with('appeals', $appeals);
     }
 }
