@@ -32,7 +32,7 @@ class SendMail extends Mailable
     {
         // dd($this->details['files']);
         $email = $this->subject('AGRO.uz')->view('myTestEmail');
-        if($this->details['files']){
+        if(isset($this->details['files'])){
             foreach($this->details['files'] as $file){
                 // dd( pathinfo($file, PATHINFO_BASENAME));
                 $email->attachData(storage_path($file),pathinfo($file, PATHINFO_BASENAME),

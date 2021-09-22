@@ -43,10 +43,16 @@ $lang = json_decode(Auth::user()->settings);
   <h1 class="page-title">
       <i class="voyager-person"></i>
   </h1>
+  @if(Auth::user()->hasRole('user'))
   <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
     <i class="voyager-plus"></i> <span>Добавить</span>
   </a>
+<<<<<<< HEAD
 
+=======
+  @endif
+ 
+>>>>>>> 749f29f840a782c6d009326e106e2248867082c9
 
 <!-- /.modal -->
 
@@ -95,8 +101,11 @@ $lang = json_decode(Auth::user()->settings);
   {{-- Table --}}
   <table class="table">
       @php
-          $lang = json_decode(Auth::user()->settings);
-          dd($lang)
+          if(json_decode(Auth::user()->settings)!=null){
+            $lang = json_decode(Auth::user()->settings)->locale;
+          } else 
+          $lang = app()->getLocale();
+          
       @endphp
       <thead>
         <tr>

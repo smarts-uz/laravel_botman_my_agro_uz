@@ -43,7 +43,6 @@
 =======
 >>>>>>> 29019731f5b113da5028116489fa7d13ef2aa4b7
             {{-- lang selector --}}
-            @dd(settings('voyager.locales'))
             <li style="margin-top: 20px;">
                 <select class="selectLang" data-width="fit" style="border: none; padding: 5px 2px;border-radius: 2px">
                     <option>English</option>
