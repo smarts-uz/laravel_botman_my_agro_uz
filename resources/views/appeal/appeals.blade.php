@@ -41,12 +41,12 @@
   <h1 class="page-title">
       <i class="voyager-person"></i> Пользователи
   </h1>
-  <a href="{{ route('voyager.appeals') }}" class="btn btn-success btn-add-new">
+  <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
     <i class="voyager-plus"></i> <span>Добавить</span>
   </a>
-  <a class="btn btn-danger" id="bulk_delete_btn">
+  <!-- <a href="{{route('voyager.appeals.destroy')}}" class="btn btn-danger" id="bulk_delete_btn">
     <i class="voyager-trash"></i> <span>Удалить выбранное</span>
-  </a>
+  </a> -->
 
 <!-- /.modal -->
 
