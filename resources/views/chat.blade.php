@@ -11,7 +11,6 @@
 <link href="/css/chatt.css">
 @section('content')
 
-
 <div class="container">
 <div class="content container-fluid bootstrap snippets bootdey">
       <div class="row row-broken">
