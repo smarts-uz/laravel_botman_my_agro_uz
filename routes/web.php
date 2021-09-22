@@ -48,12 +48,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
     Route::get('/appeals/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
     Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
-    Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
-
-
-
-
+    
 });
+Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
 
 Route::group(['prefix' => LaravelLocalization::setLocale(),
 'middleware' => ['localize', 'localizationRedirect']

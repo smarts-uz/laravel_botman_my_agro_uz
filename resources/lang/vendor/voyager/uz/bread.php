@@ -46,4 +46,6 @@ return [
     'updated_order'             => 'Saralash muvaffaqiyatli yangilandi',
     'url_slug'                  => 'Slug URL (yagona bo`lishi kerak)',
     'url_slug_ph'               => 'URL slug (misol, posts)',
+
+    
 ];

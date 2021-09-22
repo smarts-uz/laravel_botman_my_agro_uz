@@ -1,52 +1,29 @@
-
+﻿
 @extends('voyager::master')
 @section('content')
+@php
+          if(json_decode(Auth::user()->settings)!=null){
+            $lang = json_decode(Auth::user()->settings)->locale;
+          } else
+          $lang = app()->getLocale();
 
-<style>
+      @endphp
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.bootstrap.min.css">
 
-  .table-container{
-    background-color: #fff;
-    border-radius: 4px;
-    padding: 80px 20px 20px;
-    margin: 10px 20px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .pagination{
-    float: right;
-  }
-
-  .table{
-    color: #292929;
-    font-weight: 500;
-  }
-  .table > tfoot > tr > th, .table > thead > tr > th{
-    font-weight: 900;
-    color: #292929;
-    padding: 15px 0px;
-  }
-  .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-    vertical-align: middle;
-  }
-
-  .top-button-container{
-    margin-top: 80px;
-    padding-left: 20px
-  }
-</style>
 
 {{-- Top Buttons --}}
 <div class="container-fluid">
   <h1 class="page-title">
-      <i class="voyager-person"></i> Пользователи
+      <i class="voyager-person"></i> {{$lang == "ru" ? "Пользователи" : ($lang == "uz" ? "Arizalar" : "Appeals")}}
   </h1>
   @if(Auth::user()->hasRole('user'))
   <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
     <i class="voyager-plus"></i> <span>Добавить</span>
   </a>
   @endif
- 
+
 
 <!-- /.modal -->
 
@@ -93,14 +70,9 @@
 {{-- Table Container --}}
 <div class="table-container">
   {{-- Table --}}
-  <table class="table">
-      @php
-          if(json_decode(Auth::user()->settings)!=null){
-            $lang = json_decode(Auth::user()->settings)->locale;
-          } else 
-          $lang = app()->getLocale();
-          
-      @endphp
+  <table id="example" class="table table-striped table-bordered" style="width:100%">
+
+      
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -123,27 +95,37 @@
                   <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>
                   <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
                   <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}</td>
-                  <td class="btn mt-2" style=" color: white; {{ $appeal->status==1 ? 'background: green; margin-top: 18%;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red; margin-top: 18%;') }}">
-                    {{ $appeal->status==1 ? "Open" : 'Closed' }}
+                  <td class="mt-2 btn" style=" color: white; {{ $appeal->status==1 ? 'background: green; margin-top: 18%;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red; margin-top: 18%;') }}">
+                    {{$lang == "ru" ?  ($appeal->status==1 ? "Открытый" : ($appeal->status==2 ? "Модерирование" : 'закрытый' )) : ($lang == "uz" ?  ($appeal->status==1 ? "Ochiq" : ($appeal->status==2 ? "Ko'rilmoqda" : 'yopilgan' )):  ($appeal->status==1 ? "Open" : ($appeal->status==2 ? "Moderating" : 'Closed' )))}}
+
                   </td>
                   <td scope="row"><a class="btn btn-primary" href="{{ route('voyager.appeals.show', $appeal->id) }}">Show</a>
                       @if(!Auth::user()->hasRole('user'))
-                      {{-- @if(user()->role) --}}
+
                       @if(!Auth::user()->hasRole('moderator'))
                           <a class="btn btn-danger" href="{{ route('voyager.appeals.destroy', $appeal->id) }}">Delete</a>
                           <a class="btn btn-warning" href="{{ route('voyager.appeals.edit', $appeal->id) }}">Edit</a>
 
                       @endif
                       <a class="btn btn-primary" href="{{ route('answer.redirect', $appeal->id) }}">To EXpert</a>
-                      <a class="btn btn-primary" href="{{ route('conversation.index', $appeal->id) }}">Chat</a>
-                      @endif
 
+                      @endif
+<a class="btn btn-primary" href="{{ route('conversation.index', $appeal->id) }}">Chat</a>
                   </td>
                </tr>
           @endforeach
       </tbody>
   </table>
-  {{-- Pagination --}}
-  <div class="pagination">{{ $appeals->links('pagination::bootstrap-4') }}</div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
+</script>
 @endsection
