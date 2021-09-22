@@ -61,7 +61,7 @@ class ConversationController extends VoyagerController
         } return back()->with('warning', 'something went wrong!');
     }
     public function showAppeal(){
-        Auth::user()->hasRole('user') ? $appeals =  Appeal::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC') :  $appeals =  Appeal::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC');
+        Auth::user()->hasRole('user') ? $appeals =  Appeal::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC') :  $appeals =  Appeal::orderBy('created_at', 'DESC');
         $appeals = $appeals->paginate('10');
         return view('appeal.appeals')->with('appeals', $appeals);
     }
