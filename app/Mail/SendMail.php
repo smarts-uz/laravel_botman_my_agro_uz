@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-
+use Illuminate\Support\Facades\Storage;
 class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -32,16 +32,16 @@ class SendMail extends Mailable
     {
         // dd($this->details['files']);
         $email = $this->subject('AGRO.uz')->view('myTestEmail');
-        // if($this->details['files']){
-        //     foreach($this->details['files'] as $file){
-        //         $email->attach(storage_path('files\fayzulloevasadbek@gmail.com\163\Download.jpg'),
-        //         [
-        //             'as' => 'files\fayzulloevasadbek@gmail.com\163\Download.jpg',
-        //             'mime' => 'image/png',
-        //         ]
-        //         );
-        //     }
-        // }
+        if($this->details['files']){
+            foreach($this->details['files'] as $file){
+                // dd( pathinfo($file, PATHINFO_BASENAME));
+                $email->attachData(storage_path($file),pathinfo($file, PATHINFO_BASENAME),
+                [
+                    'mime' => Storage::mimeType($file),
+                ]
+                );
+            }
+        }
 
 
          return $email;

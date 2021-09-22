@@ -1,5 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-top">
+
     <div class="container-fluid">
+    <h4 class="ml-auto">Hello</h4>
+
         <div class="navbar-header">
             <button class="hamburger btn-link">
                 <span class="hamburger-inner"></span>
@@ -31,10 +34,14 @@
                 @endif
             </ol>
             @show
+
         </div>
+
         <ul class="nav navbar-nav @if (__('voyager::generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
+
             <li class="dropdown profile">
-                <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button"
+
+                <a href="#" class="text-right dropdown-toggle" data-toggle="dropdown" role="button"
                    aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img"> <span
                             class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-animated">
@@ -74,5 +81,6 @@
                 </ul>
             </li>
         </ul>
+
     </div>
 </nav>
