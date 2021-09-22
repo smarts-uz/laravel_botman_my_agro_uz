@@ -1,9 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-top">
     <div class="container-fluid">
-<<<<<<< HEAD
-
-=======
->>>>>>> 1909f09f6b2c0858e3290dfd4718a605d83712b6
         <div class="navbar-header">
             <button class="hamburger btn-link">
                 <span class="hamburger-inner"></span>
