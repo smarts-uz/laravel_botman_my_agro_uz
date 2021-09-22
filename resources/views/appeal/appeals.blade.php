@@ -37,14 +37,58 @@
 </style>
 
 {{-- Top Buttons --}}
-<div class="top-button-container">
-  <a href="#" class="btn btn-success btn-add-new">
+<div class="container-fluid">
+  <h1 class="page-title">
+      <i class="voyager-person"></i> Пользователи
+  </h1>
+  <a href="http://agrochat-2.local/admin/users/create" class="btn btn-success btn-add-new">
     <i class="voyager-plus"></i> <span>Добавить</span>
   </a>
-  <a href="#" class="btn btn-danger" id="bulk_delete_btn">
+  <a class="btn btn-danger" id="bulk_delete_btn">
     <i class="voyager-trash"></i> <span>Удалить выбранное</span>
   </a>
+
 <!-- /.modal -->
+
+  <script>
+    window.onload = function () {
+    // Bulk delete selectors
+    var $bulkDeleteBtn = $('#bulk_delete_btn');
+    var $bulkDeleteModal = $('#bulk_delete_modal');
+    var $bulkDeleteCount = $('#bulk_delete_count');
+    var $bulkDeleteDisplayName = $('#bulk_delete_display_name');
+    var $bulkDeleteInput = $('#bulk_delete_input');
+    // Reposition modal to prevent z-index issues
+    $bulkDeleteModal.appendTo('body');
+    // Bulk delete listener
+    $bulkDeleteBtn.click(function () {
+      var ids = [];
+      var $checkedBoxes = $('#dataTable input[type=checkbox]:checked').not('.select_all');
+      var count = $checkedBoxes.length;
+      if (count) {
+          // Reset input value
+          $bulkDeleteInput.val('');
+          // Deletion info
+          var displayName = count > 1 ? 'Пользователи' : 'User';
+          displayName = displayName.toLowerCase();
+          $bulkDeleteCount.html(count);
+          $bulkDeleteDisplayName.html(displayName);
+          // Gather IDs
+          $.each($checkedBoxes, function () {
+              var value = $(this).val();
+              ids.push(value);
+          })
+          // Set input value
+          $bulkDeleteInput.val(ids);
+          // Show modal
+          $bulkDeleteModal.modal('show');
+      } else {
+          // No row selected
+          toastr.warning('Вы ничего не выбрали для удаления!');
+      }
+    });
+    }
+  </script>
 </div>
 {{-- Table Container --}}
 <div class="table-container">
@@ -75,7 +119,9 @@
                   <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>
                   <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
                   <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}</td>
-                  <td style=" color: white; {{ $appeal->status==1 ? 'color: green; font-weight: 900;' : ($appeal->status==2 ? 'color: yellow; font-weight: 900;' : 'color: red; font-weight: 900;') }}">{{ $appeal->status==1 ? "Open" : 'Closed' }}</td>
+                  <td class="btn mt-2" style=" color: white; {{ $appeal->status==1 ? 'background: green; margin-top: 18%;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red; margin-top: 18%;') }}">
+                    {{ $appeal->status==1 ? "Open" : 'Closed' }}
+                  </td>
                   <td scope="row"><a class="btn btn-primary" href="{{ route('voyager.appeals.show', $appeal->id) }}">Show</a>
                       @if(!Auth::user()->hasRole('user'))
                       {{-- @if(user()->role) --}}
