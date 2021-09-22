@@ -49,9 +49,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/appeals/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
     Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
     
-    
-    
-    
 });
 Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
 
