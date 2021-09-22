@@ -1,9 +1,18 @@
-
+﻿
 @extends('voyager::master')
 @section('content')
 @php
+<<<<<<< HEAD
 $lang = json_decode(Auth::user()->settings);
 @endphp
+=======
+          if(json_decode(Auth::user()->settings)!=null){
+            $lang = json_decode(Auth::user()->settings)->locale;
+          } else 
+          $lang = app()->getLocale();
+          
+      @endphp
+>>>>>>> f86ba7c630c7333cf521938da259943947fd4870
 <style>
 
   .table-container{
@@ -41,7 +50,11 @@ $lang = json_decode(Auth::user()->settings);
 {{-- Top Buttons --}}
 <div class="container-fluid">
   <h1 class="page-title">
+<<<<<<< HEAD
       <i class="voyager-person"></i>
+=======
+      <i class="voyager-person"></i> {{$lang == "ru" ? "Пользователи" : ($lang == "uz" ? "Arizalar" : "Appeals")}}
+>>>>>>> f86ba7c630c7333cf521938da259943947fd4870
   </h1>
   @if(Auth::user()->hasRole('user'))
   <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
@@ -100,13 +113,7 @@ $lang = json_decode(Auth::user()->settings);
 <div class="table-container">
   {{-- Table --}}
   <table class="table">
-      @php
-          if(json_decode(Auth::user()->settings)!=null){
-            $lang = json_decode(Auth::user()->settings)->locale;
-          } else 
-          $lang = app()->getLocale();
-          
-      @endphp
+      
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -130,20 +137,21 @@ $lang = json_decode(Auth::user()->settings);
                   <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
                   <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}</td>
                   <td class="btn mt-2" style=" color: white; {{ $appeal->status==1 ? 'background: green; margin-top: 18%;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red; margin-top: 18%;') }}">
-                    {{ $appeal->status==1 ? "Open" : 'Closed' }}
+                    {{$lang == "ru" ?  ($appeal->status==1 ? "Открытый" : ($appeal->status==2 ? "Модерирование" : 'закрытый);' )) : ($lang == "uz" ?  ($appeal->status==1 ? "Ochiq" : ($appeal->status==2 ? "Ko'rilmoqda" : 'yopilgan' )):  ($appeal->status==1 ? "Open" : ($appeal->status==2 ? "Moderating" : 'Closed' )))}}
+                 
                   </td>
                   <td scope="row"><a class="btn btn-primary" href="{{ route('voyager.appeals.show', $appeal->id) }}">Show</a>
                       @if(!Auth::user()->hasRole('user'))
-                      {{-- @if(user()->role) --}}
+                     
                       @if(!Auth::user()->hasRole('moderator'))
                           <a class="btn btn-danger" href="{{ route('voyager.appeals.destroy', $appeal->id) }}">Delete</a>
                           <a class="btn btn-warning" href="{{ route('voyager.appeals.edit', $appeal->id) }}">Edit</a>
 
                       @endif
                       <a class="btn btn-primary" href="{{ route('answer.redirect', $appeal->id) }}">To EXpert</a>
-                      <a class="btn btn-primary" href="{{ route('conversation.index', $appeal->id) }}">Chat</a>
+                      
                       @endif
-
+<a class="btn btn-primary" href="{{ route('conversation.index', $appeal->id) }}">Chat</a>
                   </td>
                </tr>
           @endforeach
