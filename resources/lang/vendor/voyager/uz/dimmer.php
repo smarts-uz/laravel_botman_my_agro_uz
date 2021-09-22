@@ -10,4 +10,5 @@ return [
     'user' 				       => 'foydalanuvchi | foydalanuvchilar',
     'user_link_text' 	=> 'Barcha foydalanuvchilar',
     'user_text' 		    => 'Ma`lumotlar bazasida :count :string',
+    
 ];
