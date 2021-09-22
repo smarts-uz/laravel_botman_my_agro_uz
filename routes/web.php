@@ -48,12 +48,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
     Route::get('/appeals/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
     Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
-    Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
-
 
 
 
 });
+
 
 Route::view("form", "form");
 Route::post("/form/send", [FormController::class, "run"]);
@@ -63,4 +62,5 @@ Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload
 Route::post("/upload", [FilepondController::class, "upload"]);
 Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
+Route::get("/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
 
