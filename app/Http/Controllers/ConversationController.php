@@ -62,7 +62,7 @@ if(Auth::user()->hasRole('user')){
 } else {
 $appeals = Appeal::orderBy('created_at', 'DESC');
 }
-        $appeals = $appeals->paginate('10');
+        $appeals = $appeals->get();
         return view('appeal.appeals')->with('appeals', $appeals);
 	}
 
