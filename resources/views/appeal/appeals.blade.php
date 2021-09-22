@@ -3,7 +3,7 @@
 @section('content')
 <table class="table">
     @php
-        $lang = app()->getLocale();
+        $lang = json_decode(Auth::user()->settings)->locale;
     @endphp
     <thead>
       <tr>
