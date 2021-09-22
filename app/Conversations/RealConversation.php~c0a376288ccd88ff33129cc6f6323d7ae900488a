@@ -138,18 +138,14 @@ class RealConversation extends Conversation
 
     public function askUploadedFile()
     {
-        return Question::create('Нажмите далее после того как загрузите файл')
+        return Question::create($this->questions["ASK_UPLOAD"][$this->language])
             ->addButtons([
-                Button::create('Далее')->value('Next'),
+                Button::create($this->questions["ASK_UPLOAD_FINISH"][$this->language])->value('Next'),
             ]);
     }
 
     public function run()
     {
-        // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
-        // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
-        // $this->askImageFile();
-        // $this->say(Storage::allFiles('fayzulloev'));
         $this->askLanguage();
     }
 
@@ -164,9 +160,9 @@ HTML;
 
         $this->say($code);
 
-        $this->ask(Question::create('Нажмите далее после того как загрузите файл')
+        $this->ask(Question::create($this->questions["ASK_UPLOAD"][$this->language])
             ->addButtons([
-                Button::create('Далее')->value('Next'),
+                Button::create($this->questions["ASK_UPLOAD_FINISH"][$this->language])->value('Next'),
             ]), function ($apps) {
             if ($apps->isInteractiveMessageReply()) {
                 if ($apps->getValue() === 'Next')
@@ -493,7 +489,8 @@ HTML;
                        foreach ($files as $file) {
                             // Storage::makeDirectory('/files//' . $this->user_memory["email"] . '/' . $appeal->id);
 
-                            Log::info($file);
+                            $e = Storage::mimeType($file);
+                            Log::info($e);
                             Storage::move($file, $dirname . '/' . pathinfo($file, PATHINFO_BASENAME));
                         }
 
