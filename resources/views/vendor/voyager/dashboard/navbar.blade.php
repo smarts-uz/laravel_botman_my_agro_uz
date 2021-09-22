@@ -6,6 +6,7 @@
             </button>
             @section('breadcrumbs')
             <ol class="breadcrumb hidden-xs">
+                @dd(Voyager('se'))
                 @php
                 $segments = array_filter(explode('/', str_replace(route('voyager.dashboard'), '', Request::url())));
                 $url = route('voyager.dashboard');
@@ -33,6 +34,17 @@
             @show
         </div>
         <ul class="nav navbar-nav @if (__('voyager::generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
+
+            {{-- lang selector --}}
+            <li style="margin-top: 20px;">
+                <select class="selectLang" data-width="fit" style="border: none; padding: 5px 2px;border-radius: 2px">
+                    <option>English</option>
+                    <option>Russian</option>
+                    <option>Uzbek</option>
+                </select>
+            </li>
+            {{-- /lang selector --}}
+
             <li class="dropdown profile">
                 <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button"
                    aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img"> <span
