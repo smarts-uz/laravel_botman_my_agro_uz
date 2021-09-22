@@ -1,10 +1,18 @@
 
 @extends('voyager::master')
 @section('content')
+
+<style>
+  .table > tfoot > tr > th, .table > thead > tr > th{
+    font-weight: 900;
+    color: #292929;
+    padding: 15px 0px;
+  }
+</style>
+
 <table class="table">
     @php
         $lang = app()->getLocale();
-        dd($lang);
     @endphp
     <thead>
       <tr>
