@@ -32,7 +32,7 @@
 
   .top-button-container{
     margin-top: 80px;
-    padding-left: 20px 
+    padding-left: 20px
   }
 </style>
 
@@ -132,12 +132,12 @@
                       @if(!Auth::user()->hasRole('moderator'))
                           <a class="btn btn-danger" href="{{ route('voyager.appeals.destroy', $appeal->id) }}">Delete</a>
                           <a class="btn btn-warning" href="{{ route('voyager.appeals.edit', $appeal->id) }}">Edit</a>
-  
+
                       @endif
                       <a class="btn btn-primary" href="{{ route('answer.redirect', $appeal->id) }}">To EXpert</a>
                       <a class="btn btn-primary" href="{{ route('conversation.index', $appeal->id) }}">Chat</a>
                       @endif
-  
+
                   </td>
                </tr>
           @endforeach

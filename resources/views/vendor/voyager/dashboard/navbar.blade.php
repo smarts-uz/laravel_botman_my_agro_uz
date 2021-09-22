@@ -8,6 +8,7 @@
             </button>
             @section('breadcrumbs')
             <ol class="breadcrumb hidden-xs">
+                @dd(Voyager('se'))
                 @php
                 $segments = array_filter(explode('/', str_replace(route('voyager.dashboard'), '', Request::url())));
                 $url = route('voyager.dashboard');
@@ -37,6 +38,10 @@
         </div>
 
         <ul class="nav navbar-nav @if (__('voyager::generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
+<<<<<<< HEAD
+
+=======
+>>>>>>> 29019731f5b113da5028116489fa7d13ef2aa4b7
             {{-- lang selector --}}
             <li style="margin-top: 20px;">
                 <select class="selectLang" data-width="fit" style="border: none; padding: 5px 2px;border-radius: 2px">
@@ -46,7 +51,7 @@
                 </select>
             </li>
             {{-- /lang selector --}}
-            
+
             <li class="dropdown profile">
 
                 <a href="#" class="text-right dropdown-toggle" data-toggle="dropdown" role="button"
