@@ -138,9 +138,9 @@ class RealConversation extends Conversation
 
     public function askUploadedFile()
     {
-        return Question::create('Нажмите далее после того как загрузите файл')
+        return Question::create($this->questions["ASK_UPLOAD"][$this->language])
             ->addButtons([
-                Button::create('Далее')->value('Next'),
+                Button::create($this->questions["ASK_UPLOAD_FINISH"][$this->language])->value('Next'),
             ]);
     }
 
@@ -164,9 +164,9 @@ HTML;
 
         $this->say($code);
 
-        $this->ask(Question::create('Нажмите далее после того как загрузите файл')
+        $this->ask(Question::create($this->questions["ASK_UPLOAD"][$this->language])
             ->addButtons([
-                Button::create('Далее')->value('Next'),
+                Button::create($this->questions["ASK_UPLOAD_FINISH"][$this->language])->value('Next'),
             ]), function ($apps) {
             if ($apps->isInteractiveMessageReply()) {
                 if ($apps->getValue() === 'Next')
@@ -224,7 +224,7 @@ HTML;
     public function askEmail()
     {
         $this->ask($this->questions["ASK_EMAIL"][$this->language], function ($email) {
-            $x = preg_match('/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
+            $x = preg_match('/^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  ', $email->getText()) == 1 ? true : false;
             if ($x == true) {
                 $this->user_memory["email"] = $email->getText();
                 $dirname = $this->user_memory["email"];

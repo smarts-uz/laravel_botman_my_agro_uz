@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
     Route::get('/appeals/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
     Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
+    Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
 
 
 
@@ -61,15 +62,5 @@ Route::get('/', [FileUpload::class, 'createForm']);
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 Route::post("/upload", [FilepondController::class, "upload"]);
 Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
-
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
 
-Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
-Route::get("/admin/ok", function(){
-    dd(pathinfo('files/fayzulloevasadbek@gmail.com/161/uploads/fayzulloevasadbek@gmail.com/images(1).png', PATHINFO_BASENAME));
-});
-
-Route::get("/admin/mail", function(){
-
-    dd(mime_content_type(storage_path().'\files\fayzulloevasadbek@gmail.com\164\view.png'));
-});

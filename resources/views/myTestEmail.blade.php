@@ -16,11 +16,7 @@ if(json_decode(Auth::user()->settings)!=null){
 <h1>Murojaat matni</h1>
 <p>{{ $details['body'] }}</p>
 <p>Link for Cabinet : https://my.agro.uz/admin</p>
-
-    <!-- @forelse($details['files'] as $file)
-    <a href='{{url("")."/storage/".$file}}'>{{ pathinfo($file, PATHINFO_BASENAME) }}</a> <br/>
-    @endforeach -->
-
+    
 <p>Thank you</p>
 </body>
 </html>
