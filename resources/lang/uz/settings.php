@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'usage_help'            => 'yordamdan foydalanish',
+    'save'                  => 'Saqlash',
+    'new'                   => 'Yangi',
+    'help_name'             => 'Yordam nomi',
+    'help_key'              => 'Yordam kaliti',
+    'help_option'           => 'Yordam turi',
+    'add_new'               => 'Yangi qo\'shish',
+    'delete_question'       => 'O\'chirish so\'rovi',
+    'delete_confirm'        => 'O\'chirish roziligi',
+    'successfully_created'  => 'Muvoffaqqiyatli yaratildi',
+    'successfully_saved'    => 'Muvoffaqqiyatli saqlandi',
+    'successfully_deleted'  => 'Muvoffaqqiyatli o\'chirildi',
+    'already_at_top'        => 'Allaqachon yuqorida',
+    'already_at_bottom'     => 'Allaqachon quyida',
+    'key_already_exists'    => 'Kalit allaqachon mavjud',
+    'moved_order_up'        => 'Buyurtma yuqoriga ko\'chirildi',
+    'moved_order_down'      => 'Buyurtma pastga ko\'chirildi',
+    'successfully_removed'  => 'Muvoffaqqiyatli olib tashlandi',
+    'group_general'         => 'Umumiy guruh',
+    'group_admin'           => 'Guruh Admini',
+    'group_site'            => 'Guruh sayti',
+    'group'                 => 'Guruh',
+    'help_group'            => 'Guruhga yordam',
+];

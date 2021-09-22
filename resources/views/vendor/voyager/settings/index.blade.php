@@ -353,7 +353,7 @@
                 </div>
 
             </div>
-            <button type="submit" class="btn btn-primary pull-right">{{ __('voyager::settings.save') }}</button>
+            <button type="submit" class="btn btn-primary pull-right">@lang('settings.save')</button>
         </form>
 
         <div style="clear:both"></div>
@@ -362,7 +362,7 @@
         <div class="panel" style="margin-top:10px;">
             <div class="panel-heading new-setting">
                 <hr>
-                <h3 class="panel-title"><i class="voyager-plus"></i> {{ __('voyager::settings.new') }}</h3>
+                <h3 class="panel-title"><i class="voyager-plus"></i> @lang('settings.new')</h3>
             </div>
             <div class="panel-body">
                 <form action="{{ route('voyager.settings.store') }}" method="POST">

@@ -110,7 +110,7 @@
           <th scope="col">{{ $lang == "en" ? "Author" : ($lang == "uz" ? "Muallif" : "Автор") }}</th>
           <th scope="col">{{ $lang == "en" ? "Action" : ($lang == "uz" ? "Murojaat turi" : "Тип заявления") }}</th>
           <th scope="col">{{ $lang == "en" ? "Status" : ($lang == "uz" ? "Holati" : "Cтатус") }}</th>
-          <th scope="col">{{ $lang == "en" ? "Actions" : ($lang == "uz" ? "Harakatlar" : "Действия") }}</th>
+          <th scope="col">{{ $lang == "e__n" ? "Actions" : ($lang == "uz" ? "Harakatlar" : "Действия") }}</th>
         </tr>
       </thead>
       <tbody>

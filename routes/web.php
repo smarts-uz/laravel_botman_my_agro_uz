@@ -55,6 +55,25 @@ Route::group(['prefix' => 'admin'], function () {
 
 });
 
+Route::group(['prefix' => LaravelLocalization::setLocale(),
+'middleware' => ['localize', 'localizationRedirect']
+],
+    
+    function()
+{
+	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+	Route::get('/', function()
+    
+	{
+
+		return view('welcome');
+    });
+
+	Route::get('test',function(){
+		return View::make('test');
+	});
+});
+
 Route::view("form", "form");
 Route::post("/form/send", [FormController::class, "run"]);
 
