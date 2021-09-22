@@ -8,39 +8,16 @@
           $lang = app()->getLocale();
 
       @endphp
-<style>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap.min.css">
+<!-- <style>
 
-  .table-container{
-    background-color: #fff;
-    border-radius: 4px;
-    padding: 80px 20px 20px;
-    margin: 10px 20px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .pagination{
-    float: right;
-  }
-
-  .table{
-    color: #292929;
-    font-weight: 500;
-  }
-  .table > tfoot > tr > th, .table > thead > tr > th{
-    font-weight: 900;
-    color: #292929;
-    padding: 15px 0px;
-  }
-  .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-    vertical-align: middle;
-  }
-
-  .top-button-container{
-    margin-top: 80px;
-    padding-left: 20px
-  }
-</style>
+  tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+</style> -->
 
 {{-- Top Buttons --}}
 <div class="container-fluid">
@@ -99,8 +76,7 @@
 {{-- Table Container --}}
 <div class="table-container">
   {{-- Table --}}
-  <table class="table">
-
+  <table id="example" class="table table-striped table-bordered" style="width:100%">
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -143,8 +119,59 @@
                </tr>
           @endforeach
       </tbody>
+      <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+      </thead>
+
+ <tfoot>
+     <tr>
+         <th>Name</th>
+         <th>Position</th>
+         <th>Office</th>
+         <th>Age</th>
+         <th>Start date</th>
+         <th>Salary</th>
+     </tr>
+ </tfoot>
   </table>
-  {{-- Pagination --}}
-  <div class="pagination">{{ $appeals->links('pagination::bootstrap-4') }}</div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+} );
+
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example tfoot th').each( function () {
+        var title = $('#example thead th').eq( $(this).index() ).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+    // DataTable
+    var table = $('#example').DataTable();
+
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            that
+                .search( this.value )
+                .draw();
+        } );
+    } );
+} );
+</script>
 @endsection
