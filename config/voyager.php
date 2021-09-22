@@ -110,15 +110,9 @@ return [
          * Select languages that are supported.
          */
         'locales' => [
-            'en',
             'ru',
-<<<<<<< HEAD
             'uz',
             'en'
-=======
-            'uz'
-        
->>>>>>> f062c56cf533bdf3bc2431b7e8e4376a0d847df7
         ],
     ],
 

@@ -8,7 +8,6 @@
     <thead>
       <tr>
         <th scope="col">ID</th>
-<<<<<<< HEAD
         <th scope="col">Title</th>
         <th scope="col">Region</th>
         <th scope="col">Route</th>
@@ -16,15 +15,6 @@
         <th scope="col">Action</th>
         <th scope="col">Status</th>
         <th scope="col">Actions</th>
-=======
-        <th scope="col">{{ $lang == "en" ? "Title" : ($lang == "uz" ? "Mavzu" : "Тема") }}</th>
-        <th scope="col">{{ $lang == "en" ? "Region" : ($lang == "uz" ? "Viloyat" : "Область") }}</th>
-        <th scope="col">{{ $lang == "en" ? "Route" : ($lang == "uz" ? "Yo'nalish" : "Направление") }}</th>
-        <th scope="col">{{ $lang == "en" ? "Author" : ($lang == "uz" ? "Muallif" : "Автор") }}</th>
-        <th scope="col">{{ $lang == "en" ? "Action" : ($lang == "uz" ? "Murojaat turi" : "Тип заявления") }}</th>
-        <th scope="col">{{ $lang == "en" ? "Status" : ($lang == "uz" ? "Holati" : "Cтатус") }}</th>
-        <th scope="col">{{ $lang == "en" ? "Actions" : ($lang == "uz" ? "Harakatlar" : "Действия") }}</th>
->>>>>>> f062c56cf533bdf3bc2431b7e8e4376a0d847df7
       </tr>
     </thead>
     <tbody>
