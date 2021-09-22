@@ -479,6 +479,7 @@ HTML;
                     $appeal->route = $this->memory["route"];
                     $appeal->type = $this->memory["action"];
                     $appeal->fullname = $this->user_memory["name"];
+                    $appeal->status = 1;
                     if ($this->user_memory["usertype"] === 1) {
                         $appeal->company = $this->memory["data"]["a"];
                         // $appeal->branch = $this->memory["data"]["b"];

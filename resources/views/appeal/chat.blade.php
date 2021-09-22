@@ -9,20 +9,10 @@
 <div class="inputs">
     <section class="msger">
         <div class="titles">{{$appeal->title}}</div>
-        <header class="msger-header">
 
-            <div class="msger-header-title">
-
-                <i class="fas fa-comment-alt"></i>
-                <h4>SimpleChat</h4>
-            </div>
-            <div class="msger-header-options">
-                <span><i class="fas fa-cog"></i></span>
-            </div>
-        </header>
         <main class="msger-chat">
             <div class='msg {{ $appeal->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
-                <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">
+                <div class="msg-img" style="background-image: url({{ asset('storage/'. Auth::user()->avatar)}})">
                 </div>
 
                 <div class="msg-bubble">
@@ -42,7 +32,7 @@
                 $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
             @endphp
             <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
-                <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">
+                <div class="msg-img" style="background-image: url({{ asset('storage/'. Auth::user()->avatar)}})">
                 </div>
 
                 <div class="msg-bubble">
@@ -66,7 +56,7 @@
             <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : ""}} required
                 placeholder="Enter your message...">
             <button type="submit" required class="msger-send-btn "
-                {{ $appeal->is_closed == 1 ? "disabled" : ""}}>Send</button>
+                {{ $appeal->status == 3 ? "disabled" : ""}}>Send</button>
         </form>
         {{-- @endif --}}
     </section>
@@ -95,7 +85,8 @@
                 <span>Состояние/Приоритет</span>
                 <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
             </div>
-            @if($appeal->is_closed == 0 && $totalDuration>48)
+            
+            @if($appeal->status != 3 && $totalDuration>48)
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                     {{-- @csrf --}}
