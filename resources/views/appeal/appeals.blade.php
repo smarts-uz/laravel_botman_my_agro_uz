@@ -41,12 +41,12 @@
   <h1 class="page-title">
       <i class="voyager-person"></i> Пользователи
   </h1>
+  @if(Auth::user()->hasRole('user'))
   <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
     <i class="voyager-plus"></i> <span>Добавить</span>
   </a>
-  <!-- <a href="{{route('voyager.appeals.destroy')}}" class="btn btn-danger" id="bulk_delete_btn">
-    <i class="voyager-trash"></i> <span>Удалить выбранное</span>
-  </a> -->
+  @endif
+ 
 
 <!-- /.modal -->
 
@@ -95,7 +95,11 @@
   {{-- Table --}}
   <table class="table">
       @php
+          if(json_decode(Auth::user()->settings)!=null){
+            $lang = json_decode(Auth::user()->settings)->locale;
+          } else 
           $lang = app()->getLocale();
+          
       @endphp
       <thead>
         <tr>
