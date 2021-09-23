@@ -69,6 +69,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 	Route::get('test',function(){
 		return View::make('test');
 	});
+
+    
+
+
+    
 });
 
 Route::view("form", "form");
