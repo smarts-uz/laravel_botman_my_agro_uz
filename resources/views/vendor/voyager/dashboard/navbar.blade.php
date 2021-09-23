@@ -46,22 +46,13 @@
                 </select>
             </li> --}}
             <li>
-                {{-- @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    <option><a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <li><a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                             {{ $properties['native'] }}
                         </a>
-                    </option>
+                    </li>
                 @endforeach
-                </select> --}}
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle d-flex align-items-center" data-toggle="dropdown"><span class="iconify" data-icon="eva:arrow-ios-downward-outline"></span>
-                    {{-- @lang('site.lang')</a> --}}
-                    <div class="dropdown-menu">
-                        <a href="/uz/admin" class="dropdown-item">UZ</a>
-                        <a href="/ru/admin" class="dropdown-item">RU</a>
-                        <a href="/en/admin" class="dropdown-item">EN</a>
-                    </div>
-                </div>
+
             </li>
 
             {{-- /lang selector --}}

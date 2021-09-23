@@ -81,7 +81,7 @@ class RealConversation extends Conversation
             $ar[] = Button::create($key['key'])->value($key['value']);
         }
         return Question::create($this->questions["ASK_LANGUAGE"]["uz"])
-            ->addButtons($ar);
+        ->addButtons($ar);
     }
 
     public function keyUserType()
@@ -152,21 +152,21 @@ class RealConversation extends Conversation
         // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
         // $this->askImageFile();
         // $this->say(Storage::allFiles('fayzulloev'));
-        // $this->askLanguage();
-    $this->ask('Shall we proceed? Say YES or NO', [
-        [
-            'pattern' => 'yes|yep',
-            'callback' => function ($bot) {
-                $this->say(json_encode($bot->getMessage()));
-            }
-        ],
-        [
-            'pattern' => 'nah|no|nope',
-            'callback' => function () {
-                $this->say('PANIC!! Stop the engines NOW!');
-            }
-        ]
-    ]);
+        $this->askLanguage();
+    // $this->ask($this->keyLanguages(), [
+    //     [
+    //         'pattern' => 'yes|yep',
+    //         'callback' => function ($bot) {
+    //             $this->say();
+    //         }
+    //     ],
+    //     [
+    //         'pattern' => 'nah|no|nope',
+    //         'callback' => function () {
+    //             $this->say('PANIC!! Stop the engines NOW!');
+    //         }
+    //     ]
+    // ]);
         // $this->say("Hello");
         // $apiParameters = [
         //     'chat_id' => '511057877',
@@ -181,6 +181,8 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
+                $this->say(json_encode($this->bot->getMessage()->getPayload()));
+
                 $this->askEmail();
             } else {
                 return $this->repeat();
