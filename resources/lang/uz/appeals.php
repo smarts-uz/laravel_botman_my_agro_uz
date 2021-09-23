@@ -1,8 +1,7 @@
 <?php
 return[
     'appeals' => 'Arizalar',
-    'add',
-    'warning' => 'ksjks',
+    'add' => 'qo\'shish',
     'title'  => 'Mavzular',
     'region' => 'Viloyat',
     'route'  => 'Yo\'nalish',
@@ -36,7 +35,7 @@ return[
 
 
 
-] 
+];
 
 
 ?>
