@@ -7,7 +7,7 @@
 {{-- @dd($totalDuration) --}}
 <div class="inputs">
     <section class="msger">
-        <div class="titles">{{$appeal->title}}</div>
+        <div class="titles">@lang('site.title')</div>
 
         <main class="msger-chat">
             <div class='msg {{ $appeal->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>

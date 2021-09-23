@@ -1,9 +1,7 @@
 ﻿@extends('voyager::master')
 @section('content')
 @php
-if(json_decode(Auth::user()->settings)!=null){
-$lang = json_decode(Auth::user()->settings)->locale;
-} else
+
 $lang = app()->getLocale();
 
 
@@ -77,7 +75,7 @@ $lang = app()->getLocale();
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">@lang('appeals.title')</th>
+          {{-- <th scope="col">@lang('appeals.title')</th> --}}
           <th scope="col">@lang('appeals.region')</th>
           <th scope="col">@lang('appeals.route')</th>
           <th scope="col">@lang('appeals.author')</th>
@@ -91,13 +89,13 @@ $lang = app()->getLocale();
               <tr>
                   {{-- @dd($appeal->user()->first()->name); --}}
                   <th scope="row">{{ $appeal->id }}</th>
-                  <td>{{ $appeal->title }}</td>
+                  {{-- <td>{{ $appeal->title }}</td> --}}
                   <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru"
                        ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : 'Deleted Region' }}</td>
                   <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>
                   <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
                   <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}</td>
-                  <td class="mt-2 btn" style="color: white; display: flex; border-radius: 2px; margin-top: 6px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red;') }}">
+                  <td scope="row" class="btn btn-primary" style="margin: 6px; color: white; display: flex; border-radius: 2px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: #FF8C00;' : 'background: red;') }}">
                    {{ $appeal->status==1 ? trans('appeals.open') : ($appeal->status==2 ? trans('appeals.moderating') : trans('appeals.closed'))}}
 
                 </td>
