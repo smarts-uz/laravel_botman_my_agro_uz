@@ -269,7 +269,9 @@ HTML;
         $this->ask($this->keyActions(), function ($actions) {
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
-                $this->askTitle();
+                // $this->askTitle();
+                 $this->askAppeal();
+
 
             } else $this->repeat();
         });
@@ -482,7 +484,7 @@ HTML;
         $region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz;
         $route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
 
-        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . '' . $action . '<br> Region: ' . $region . '<br> Route: ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
+        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $action . '<br>  '. $this->questions["ASK_REGION_TEXT"][$this->language] . ': '. $region . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] .': ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
         $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
                 ->addButtons([
@@ -499,7 +501,6 @@ HTML;
                 Log::info(json_encode($files));
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
                     $appeal = new Appeal();
-                    $appeal->title = $this->user_memory["title"];
                     $appeal->text = $this->memory["answer"];
                     $appeal->user_id = $this->user_memory["id"];
                     $appeal->region = $this->memory["region"];

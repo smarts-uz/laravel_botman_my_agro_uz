@@ -48,7 +48,7 @@ class ConversationController extends VoyagerController
         $appeal = Appeal::where('id', $appeal)->first();
         Auth::user()->hasrole('user') ? $appeal->update(["status" => 1]) : $appeal->update(["status" => 2]);
 
-        return redirect()->route('voyager.appeals.index');
+        return redirect()->route('conversation.index', $appeal);
     }
     public function close($appeal)
     {
@@ -67,7 +67,9 @@ class ConversationController extends VoyagerController
         }
         $appeals = $appeals->get();
         return view('appeal.appeals')->with('appeals', $appeals);
+
     }
+
 
     public function rating($appeal, Request $request)
     {
@@ -81,10 +83,10 @@ class ConversationController extends VoyagerController
         $totalDuration = $finishTime->diffInHours($starttime);
         $rating = floatval((intval($request->rating) + intval($appealData->first()->rating)) / 2);
 
-        if ($totalDuration == 48) {
-            // Alert::error('impossible close', 'You couldn`t close conversation!!!');
-            redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
-        } else {
+        // if ($totalDuration == 48) {
+        //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
+        //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
+        // } else {
             User::where('id', $appeal)->update(['rating' => $rating]);
             dd($totalDuration);
 
@@ -95,6 +97,6 @@ class ConversationController extends VoyagerController
                 Alert::error('impossible close', 'You couldn`t close conversation!!!');
                 return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
             }
-        }
+        // }
     }
 }
