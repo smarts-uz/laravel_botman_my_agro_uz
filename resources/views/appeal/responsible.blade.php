@@ -3,7 +3,7 @@
     <div class="side-body padding-top">
         <h1 class="page-title">
             <i class=""></i>
-            Redirect appeal to expert
+            @lang('appeals.redirect_appeal_to_expert')
         </h1>
         <div id="voyager-notifications"></div>
         <div class="page-content edit-add container-fluid">
@@ -27,7 +27,7 @@
 
                                 <div class="form-group col-md-12 ">
 
-                                    <label class="control-label" for="name">Select responsible person</label>
+                                    <label class="control-label" for="name">@lang('appeals.select_responsible_person')</label>
                                     <select name="responsible">
                                         @foreach(\App\Models\User::all() as $user)
                                             <option value="{{$user->id}}">{{$user->name}}</option>
@@ -66,12 +66,12 @@
                     </div>
 
                     <div class="modal-body">
-                        <h4>Are you sure you want to delete '<span class="confirm_delete_name"></span>'</h4>
+                        <h4>@lang('appeals.are_you_sure_want_to_delete') '<span class="confirm_delete_name"></span>'</h4>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="confirm_delete">Yes, Delete it!</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('appeals.cancel')</button>
+                        <button type="button" class="btn btn-danger" id="confirm_delete">@lang('yes_delete_it')</button>
                     </div>
                 </div>
             </div>
