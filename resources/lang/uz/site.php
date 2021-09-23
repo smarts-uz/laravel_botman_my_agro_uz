@@ -12,5 +12,13 @@ return [
     'top_countries'             => 'Eng yaxshi mamlakatlar',
     'various_visualizations'    => 'Har xil vizualizatsiyalar',
 
-    'title'                     => 'Chat'
+    'title'                     => 'Chat',
+    'info'                      => 'Ariza haqida ma\'lumot',
+    'appealer'                  => 'Ariza yuboruvchi',
+    'region'                    => 'Viloyat',
+    'route'                     => 'Yo\'nalish',
+    'sent'                      => 'Yuborilgan',
+    'status'                    => 'Holati',
+    'close'                     => 'Yopish',
+    'send_button'               => 'Yuborish'
 ];
