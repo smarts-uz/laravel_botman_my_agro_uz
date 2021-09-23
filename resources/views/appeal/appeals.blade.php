@@ -68,6 +68,7 @@ $lang = app()->getLocale();
 </div>
 {{-- Table Container --}}
 <div class="table-container">
+    @lang('bread.add_bread');
     {{-- Table --}}
     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
