@@ -29,17 +29,17 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
-            
+
+
+
+
             @foreach ($conversations as $conversation)
             {{-- @dd($duration); --}}
 
             @php
                 $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
             @endphp
-           
+
             <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
                 <div class="msg-img" style="background-image: url({{ asset('storage/'. Auth::user()->avatar)}})">
                 </div>

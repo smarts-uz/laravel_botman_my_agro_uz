@@ -169,8 +169,8 @@ class RealConversation extends Conversation
     // ]);
         // $this->say("Hello");
         // $apiParameters = [
-        //     'chat_id' => '511057877',
-        //     'message_id' => '5809'
+        //     'chat_id' => 'mceiov',
+        //     'message_id' => '1'
         //     ];
         //     $this->bot->sendRequest('deleteMessage', $apiParameters);
         //     $this->say("OK");
@@ -181,7 +181,7 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
-                $this->say(json_encode($this->bot->getMessage()->getPayload()));
+                // $this->say(json_encode($this->bot->getBotMessages()->getPayload()));
 
                 $this->askEmail();
             } else {
