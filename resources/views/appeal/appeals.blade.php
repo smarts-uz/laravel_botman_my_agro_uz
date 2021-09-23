@@ -72,7 +72,7 @@ $lang = app()->getLocale();
     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
 
-      
+
       <thead>
         <tr>
           <th scope="col">ID</th>

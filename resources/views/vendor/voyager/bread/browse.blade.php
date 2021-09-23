@@ -9,7 +9,7 @@
         </h1>
         @can('add', app($dataType->model_name))
             <a href="{{ route('voyager.'.$dataType->slug.'.create') }}" class="btn btn-success btn-add-new">
-                <i class="voyager-plus"></i> <span>{{ __('voyager::generic.add_new') }}</span>
+                <i class="voyager-plus"></i> <span>@lang('generic.add_new')</span>
             </a>
         @endcan
         @can('delete', app($dataType->model_name))
@@ -18,13 +18,13 @@
         @can('edit', app($dataType->model_name))
             @if(!empty($dataType->order_column) && !empty($dataType->order_display_column))
                 <a href="{{ route('voyager.'.$dataType->slug.'.order') }}" class="btn btn-primary btn-add-new">
-                    <i class="voyager-list"></i> <span>{{ __('voyager::bread.order') }}</span>
+                    <i class="voyager-list"></i> <span>@lang('bread.order'</span>
                 </a>
             @endif
         @endcan
         @can('delete', app($dataType->model_name))
             @if($usesSoftDeletes)
-                <input type="checkbox" @if ($showSoftDeleted) checked @endif id="show_soft_deletes" data-toggle="toggle" data-on="{{ __('voyager::bread.soft_deletes_off') }}" data-off="{{ __('voyager::bread.soft_deletes_on') }}">
+                <input type="checkbox" @if ($showSoftDeleted) checked @endif id="show_soft_deletes" data-toggle="toggle" data-on="@lang('bread.soft_deletes_off')" data-off="@lang('bread.soft_deletes_on')">
             @endif
         @endcan
         @foreach($actions as $action)
@@ -60,7 +60,7 @@
                                         </select>
                                     </div>
                                     <div class="input-group col-md-12">
-                                        <input type="text" class="form-control" placeholder="{{ __('voyager::generic.search') }}" name="s" value="{{ $search->value }}">
+                                        <input type="text" class="form-control" placeholder="@lang('generic.search')" name="s" value="{{ $search->value }}">
                                         <span class="input-group-btn">
                                             <button class="btn btn-info btn-lg" type="submit">
                                                 <i class="voyager-search"></i>
@@ -101,7 +101,7 @@
                                             @endif
                                         </th>
                                         @endforeach
-                                        <th class="actions text-right dt-not-orderable" style="width: 200px !important;">{{ __('voyager::generic.actions') }} </th>
+                                        <th class="actions text-right dt-not-orderable" style="width: 200px !important;">@lang('generic.actions') </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -140,7 +140,7 @@
                                                                 @endif
                                                             @endforeach
                                                         @else
-                                                            {{ __('voyager::generic.none') }}
+                                                            {{ trans('generic.none') }}
                                                         @endif
                                                     @endif
 
@@ -152,7 +152,7 @@
                                                                 @endif
                                                             @endforeach
                                                         @else
-                                                            {{ __('voyager::generic.none') }}
+                                                            {{ trans('generic.none') }}
                                                         @endif
 
                                                 @elseif(($row->type == 'select_dropdown' || $row->type == 'radio_btn') && property_exists($row->details, 'options'))
@@ -231,7 +231,7 @@
                                                             </ul>
                                                         @endif
                                                         @if (count($files) > 3)
-                                                            {{ __('voyager::media.files_more', ['count' => (count($files) - 3)]) }}
+                                                            {{ trans('media.files_more', ['count' => (count($files) - 3)]) }}
                                                         @endif
                                                     @elseif (is_array($files) && count($files) == 0)
                                                         {{ trans_choice('voyager::media.files', 0) }}
@@ -293,16 +293,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }} {{ strtolower($dataType->getTranslatedAttribute('display_name_singular')) }}?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="@lang('generic.close')"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="voyager-trash"></i> @lang('generic.delete_question') {{ strtolower($dataType->getTranslatedAttribute('display_name_singular')) }}?</h4>
                 </div>
                 <div class="modal-footer">
                     <form action="#" id="delete_form" method="POST">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
-                        <input type="submit" class="btn btn-danger pull-right delete-confirm" value="{{ __('voyager::generic.delete_confirm') }}">
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm" value="@lang('generic.delete_confirm')">
                     </form>
-                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{ __('voyager::generic.cancel') }}</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">@lang('generic.cancel')</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -326,7 +326,7 @@
                 var table = $('#dataTable').DataTable({!! json_encode(
                     array_merge([
                         "order" => $orderColumn,
-                        "language" => __('voyager::datatable'),
+                        "language" => @lang('datatable'),
                         "columnDefs" => [
                             ['targets' => 'dt-not-orderable', 'searchable' =>  false, 'orderable' => false],
                         ],

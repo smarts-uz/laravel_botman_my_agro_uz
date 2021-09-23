@@ -5,7 +5,6 @@
 @section('content')
 
 {{-- @dd($totalDuration) --}}
-
 <div class="inputs">
     <section class="msger">
         <div class="titles">{{$appeal->title}}</div>
@@ -95,7 +94,7 @@
                 <span>Состояние/Приоритет</span>
                 <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
             </div>
-            
+
             @if($appeal->status != 3 && $totalDuration>48)
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}

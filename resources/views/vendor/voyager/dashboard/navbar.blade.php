@@ -13,10 +13,10 @@
                 $url = route('voyager.dashboard');
                 @endphp
                 @if(count($segments) == 0)
-                    <li class="active"><i class="voyager-boat"></i> {{ __('voyager::generic.dashboard') }}</li>
+                    <li class="active"><i class="voyager-boat"></i> @lang('generic.dashboard')</li>
                 @else
                     <li class="active">
-                        <a href="{{ route('voyager.dashboard')}}"><i class="voyager-boat"></i> {{ __('voyager::generic.dashboard') }}</a>
+                        <a href="{{ route('voyager.dashboard')}}"><i class="voyager-boat"></i> @lang('generic.dashboard')</a>
                     </li>
                     @foreach ($segments as $segment)
                         @php
@@ -36,15 +36,34 @@
 
         </div>
 
-        <ul class="nav navbar-nav @if (__('voyager::generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
+        <ul class="nav navbar-nav @if (@lang('generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
             {{-- lang selector --}}
-            <li style="margin-top: 20px;">
+            {{-- <li style="margin-top: 20px;">
                 <select class="selectLang" data-width="fit" style="border: none; padding: 5px 2px;border-radius: 2px">
                     <option>English</option>
                     <option>Russian</option>
                     <option>Uzbek</option>
                 </select>
+            </li> --}}
+            <li>
+                {{-- @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <option><a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                            {{ $properties['native'] }}
+                        </a>
+                    </option>
+                @endforeach
+                </select> --}}
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle d-flex align-items-center" data-toggle="dropdown"><span class="iconify" data-icon="eva:arrow-ios-downward-outline"></span>
+                    {{-- @lang('site.lang')</a> --}}
+                    <div class="dropdown-menu">
+                        <a href="/uz/admin" class="dropdown-item">UZ</a>
+                        <a href="/ru/admin" class="dropdown-item">RU</a>
+                        <a href="/en/admin" class="dropdown-item">EN</a>
+                    </div>
+                </div>
             </li>
+
             {{-- /lang selector --}}
 
             <li class="dropdown profile">

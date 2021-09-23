@@ -4,7 +4,7 @@
 
 @section('page_header')
 <h1 class="page-title">
-    <i class="voyager-list"></i>{{ $dataType->getTranslatedAttribute('display_name_plural') }} {{ __('voyager::bread.order') }}
+    <i class="voyager-list"></i>{{ $dataType->getTranslatedAttribute('display_name_plural') }} @lang('bread.order')
 </h1>
 @stop
 
@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <div class="panel panel-bordered">
                 <div class="panel-heading">
-                    <p class="panel-title" style="color:#777">{{ __('voyager::generic.drag_drop_info') }}</p>
+                    <p class="panel-title" style="color:#777">@lang('generic.drag_drop_info')</p>
                 </div>
 
                 <div class="panel-body" style="padding:30px;">
@@ -61,7 +61,7 @@ $(document).ready(function () {
             order: JSON.stringify($('.dd').nestable('serialize')),
             _token: '{{ csrf_token() }}'
         }, function (data) {
-            toastr.success("{{ __('voyager::bread.updated_order') }}");
+            toastr.success("@lang('bread.updated_order')");
         });
     });
 });
