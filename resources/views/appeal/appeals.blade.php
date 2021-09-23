@@ -72,34 +72,30 @@ $lang = app()->getLocale();
     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
 
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">{{ $lang == "en" ? "Title" : ($lang == "uz" ? "Mavzu" : "Тема") }}</th>
-                <th scope="col">{{ $lang == "en" ? "Region" : ($lang == "uz" ? "Viloyat" : "Область") }}</th>
-                <th scope="col">{{ $lang == "en" ? "Route" : ($lang == "uz" ? "Yo'nalish" : "Направление") }}</th>
-                <th scope="col">{{ $lang == "en" ? "Author" : ($lang == "uz" ? "Muallif" : "Автор") }}</th>
-                <th scope="col">{{ $lang == "en" ? "Action" : ($lang == "uz" ? "Murojaat turi" : "Тип заявления") }}
-                </th>
-                <th scope="col">{{ $lang == "en" ? "Status" : ($lang == "uz" ? "Holati" : "Cтатус") }}</th>
-                <th scope="col">{{ $lang == "en" ? "Actions" : ($lang == "uz" ? "Harakatlar" : "Действия") }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($appeals as $appeal)
-            <tr>
-                {{-- @dd($appeal->user()->first()->name); --}}
-                <th scope="row">{{ $appeal->id }}</th>
-                <td>{{ $appeal->title }}</td>
-                <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru" ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : 'Deleted Region' }}
-                </td>
-                <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}
-                </td>
-                <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
-                <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}
-                </td>
-                <td class="text-center"
-                    style="color: white; display: flex; border-radius: 2px; margin-top: 6px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green; width: 80% ;  ' : ($appeal->status==2 ? 'background: #FF8C00; ' : 'background: red; width: 80%;') }}">
+      
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">{{ $lang == "en" ? "Title" : ($lang == "uz" ? "Mavzu" : "Тема") }}</th>
+          <th scope="col">{{ $lang == "en" ? "Region" : ($lang == "uz" ? "Viloyat" : "Область") }}</th>
+          <th scope="col">{{ $lang == "en" ? "Route" : ($lang == "uz" ? "Yo'nalish" : "Направление") }}</th>
+          <th scope="col">{{ $lang == "en" ? "Author" : ($lang == "uz" ? "Muallif" : "Автор") }}</th>
+          <th scope="col">{{ $lang == "en" ? "Action" : ($lang == "uz" ? "Murojaat turi" : "Тип заявления") }}</th>
+          <th scope="col">{{ $lang == "en" ? "Status" : ($lang == "uz" ? "Holati" : "Cтатус") }}</th>
+          <th scope="col">{{ $lang == "e__n" ? "Actions" : ($lang == "uz" ? "Harakatlar" : "Действия") }}</th>
+        </tr>
+      </thead>
+      <tbody>
+          @forelse($appeals as $appeal)
+              <tr>
+                  {{-- @dd($appeal->user()->first()->name); --}}
+                  <th scope="row">{{ $appeal->id }}</th>
+                  <td>{{ $appeal->title }}</td>
+                  <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru" ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : 'Deleted Region' }}</td>
+                  <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>
+                  <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
+                  <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}</td>
+                  <td class="mt-2 btn" style="color: white; display: flex; border-radius: 2px; margin-top: 6px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red;') }}">
                     {{$lang == "ru" ?  ($appeal->status==1 ? "Открытый" : ($appeal->status==2 ? "Модерирование" : 'закрытый' )) : ($lang == "uz" ?  ($appeal->status==1 ? "Ochiq" : ($appeal->status==2 ? "Ko'rilmoqda" : 'yopilgan' )):  ($appeal->status==1 ? "Open" : ($appeal->status==2 ? "Moderating" : 'Closed' )))}}
 
                 </td>

@@ -8,6 +8,10 @@
             </button>
             @section('breadcrumbs')
             <ol class="breadcrumb hidden-xs">
+<<<<<<< HEAD
+         
+=======
+>>>>>>> b8ebe8d4f4075f3523a2e0b3936709fc55ac3b7b
                 @php
                 $segments = array_filter(explode('/', str_replace(route('voyager.dashboard'), '', Request::url())));
                 $url = route('voyager.dashboard');
