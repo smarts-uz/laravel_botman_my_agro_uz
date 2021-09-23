@@ -63,4 +63,3 @@ Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload
 Route::post("/upload", [FilepondController::class, "upload"]);
 Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
-

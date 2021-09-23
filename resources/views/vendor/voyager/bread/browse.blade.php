@@ -326,7 +326,7 @@
                 var table = $('#dataTable').DataTable({!! json_encode(
                     array_merge([
                         "order" => $orderColumn,
-                        "language" => @lang('datatable'),
+                        "language" => trans('datatable'),
                         "columnDefs" => [
                             ['targets' => 'dt-not-orderable', 'searchable' =>  false, 'orderable' => false],
                         ],
