@@ -104,7 +104,6 @@ class ConversationController extends VoyagerController
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
             User::where('id', $appeal)->update(['rating' => $rating]);
-            dd($totalDuration);
 
             if (Appeal::where('id', $appeal)->update(["status" => 3])) {
                 Alert::success('Closed', 'Conversation closed succesfully!');
@@ -114,5 +113,15 @@ class ConversationController extends VoyagerController
                 return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
             }
         // }
+    }
+    public function setLang(){
+        app()->setlocale('uz');
+
+        return response()->json([
+            "success" => true,
+            "message" => "File unsuccessfully uploaded",
+
+        ]);
+
     }
 }

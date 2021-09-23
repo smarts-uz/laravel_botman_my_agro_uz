@@ -1,9 +1,7 @@
 ﻿@extends('voyager::master')
 @section('content')
 @php
-if(json_decode(Auth::user()->settings)!=null){
-$lang = json_decode(Auth::user()->settings)->locale;
-} else
+
 $lang = app()->getLocale();
 
 
@@ -77,7 +75,7 @@ $lang = app()->getLocale();
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">@lang('appeals.title')</th>
+          {{-- <th scope="col">@lang('appeals.title')</th> --}}
           <th scope="col">@lang('appeals.region')</th>
           <th scope="col">@lang('appeals.route')</th>
           <th scope="col">@lang('appeals.author')</th>
@@ -91,7 +89,7 @@ $lang = app()->getLocale();
               <tr>
                   {{-- @dd($appeal->user()->first()->name); --}}
                   <th scope="row">{{ $appeal->id }}</th>
-                  <td>{{ $appeal->title }}</td>
+                  {{-- <td>{{ $appeal->title }}</td> --}}
                   <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru"
                        ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : 'Deleted Region' }}</td>
                   <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>

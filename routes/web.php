@@ -1,17 +1,16 @@
 <?php
 
-use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\FileUpload;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\NotificationController;
-use App\Services\Mailer\MailService;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\FilepondController;
-use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,34 +25,24 @@ use Illuminate\Support\Facades\Storage;
 
 Route::view('/', 'welcome');
 Route::get("/uzchat", [ChatController::class, "app"]);
-
-
-Route::get('/admin/redirect/appeal/{appeal}', [AnswerController::class, 'toExpert'])->name('answer.redirect');
-
-Route::post('/admin/appeal/update/{appeal}', [AnswerController::class, 'updateAnswer'])->name('appeal.update');
-Route::get('/admin/appeal/{appeal}/send', [AnswerController::class, 'sendAnswer'])->name('answer.send');
-
-Route::post('/appeal/chat/close/{appeal}', [ConversationController::class, 'close'])->name("appeal.close");
-
-
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
-Route::get('/botman/tinker', [BotManController::class, 'tinker']);
+
 
 Route::get('notify', [NotificationController::class, 'notify']);
 Route::view('/notification', 'notification');
 
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'], ], function () {
-    // Auth::user()->update(['settings'=>json_encode(['locale' => 'uz'])]);
-    //dd(app()->getLocale());
+
+    // User::where('id', Auth::user()->id)->update(['settings'=>json_encode(['locale' => app()->getLocale()])]);
     Voyager::routes();
-    Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
-
-    Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
+    Route::get('/redirect/appeal/{appeal}', [ConversationController::class, 'toExpert'])->name('answer.redirect');
     Route::get('/appeals/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
-    Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
-
     Route::get("/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
+    Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
+    Route::post('/appeal/chat/close/{appeal}', [ConversationController::class, 'close'])->name("appeal.close");
+    Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
+    Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
 });
 
 
