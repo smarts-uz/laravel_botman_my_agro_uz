@@ -3,20 +3,21 @@
     <div class="side-body padding-top">
         <h1 class="page-title">
             <i class=""></i>
-            Add Appeal Asnwer
+            @lang('ok.add_appeal')
         </h1>
         <div id="voyager-notifications"></div>
         <div class="page-content edit-add container-fluid">
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="panel panel-bor dered">
+                    <div class="panel panel-bordered">
                         <!-- form start -->
-                        <form role="form" class="form-edit-add" action="{{ route('appeal.update', $appeal) }}"
+                        <form role="form" class="form-edit-add" action="http://agrochat.local/admin/appeal-asnwers"
                             method="POST" enctype="multipart/form-data">
                             <!-- PUT Method if we are editing -->
-                            @csrf
+
                             <!-- CSRF TOKEN -->
+                            <input type="hidden" name="_token" value="732C36Z9vY7TaQhIX2Yp8JufZMJtjWnEKBlIAptr">
 
                             <div class="panel-body">
 
@@ -27,7 +28,8 @@
 
                                 <div class="form-group col-md-12 ">
 
-                                    {{-- <div id="mceu_17" class="mce-tinymce mce-container mce-panel" hidefocus="1"
+                                    <label class="control-label" for="name">Text</label>
+                                    <div id="mceu_17" class="mce-tinymce mce-container mce-panel" hidefocus="1"
                                         tabindex="-1" role="application"
                                         style="visibility: hidden; border-width: 1px; width: 100%;">
                                         <div id="mceu_17-body" class="mce-container-body mce-stack-layout">
@@ -260,15 +262,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> --}}
-                                    <h3>Question:</h3><br>
-                                    <p>{{ \App\Models\Appeal::where('id', $appeal)->first()->text }}</p>
-                                    <h3><label class="control-label" for="name">Write Answer:</label></h3>
-
-                                    <textarea style="height: 200px;"class="form-control richTextBox" name="answer_text" id="richtexttext" {{ (\Illuminate\Support\Facades\Auth::user()->hasRole('expert')) ? (\App\Models\Appeal::where('id', $appeal)->where('to_expert', '1')->first() ? '' : 'disabled') : '' }}>
-                                        {{ \App\Models\Appeal::where('id', $appeal)->first()->answer_text}}
-                                    </textarea>
-                                    <input name="user_id" value="{{\App\Models\Appeal::where('id', $appeal)->first()->user_id}}" hidden >
+                                    </div><textarea class="form-control richTextBox" name="text" id="richtexttext"
+                                        style="display: none;" aria-hidden="true">
+    </textarea>
 
 
 
@@ -276,8 +272,7 @@
                                 <!-- GET THE DISPLAY OPTIONS -->
 
                                 <div class="form-group col-md-12 ">
-                                    {{-- @dd($appeal); --}}
-                                    <input name="appeal_id" value="{{ $appeal }}" hidden>
+                                    <input name="appeal_id" value="{{ $appeal }}">
                                 </div>
 
                             </div><!-- panel-body -->
@@ -286,6 +281,7 @@
                                 <button type="submit" class="btn btn-primary save">Save</button>
                             </div>
                         </form>
+
                         <iframe id="form_target" name="form_target" style="display:none"></iframe>
                         <form id="my_form" action="http://agrochat.local/admin/upload" target="form_target" method="post"
                             enctype="multipart/form-data" style="width:0;height:0;overflow:hidden">
@@ -322,8 +318,4 @@
         </div>
         <!-- End Delete File Modal -->
     </div>
-    <!-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'richtexttext' );
-</script> -->
 @endsection

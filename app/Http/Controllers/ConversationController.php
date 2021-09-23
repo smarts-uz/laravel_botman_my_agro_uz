@@ -11,10 +11,26 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use TCG\Voyager\Http\Controllers\VoyagerController;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 class ConversationController extends VoyagerController
 {
 
+    public function toExpert($appeal){
+
+        $appealObject = Appeal::where('id', $appeal);
+        $appealData = $appealObject->first();
+        $route = Routes::where('id', $appealData->route)->first();
+        $files = json_decode($appealData->images);
+
+        $details = [
+            'title' => $appealData->title,
+            'body' => $appealData->text,
+            'files'=> $files
+        ];
+        Mail::to(Auth::user()->email)->send(new SendMail($details));
+        return redirect()->route('voyager.appeals.index');
+    }
     public function showChat(Appeal $appeal)
     {
         $finishTime = now();
@@ -46,9 +62,9 @@ class ConversationController extends VoyagerController
         $request->user()->role == 'user' ? $con->is_answer = 0 : $con->is_answer = 1;
         $con->save();
         $appeal = Appeal::where('id', $appeal)->first();
-        Auth::user()->hasrole('user') ? $appeal->update(["status" => 1]) : $appeal->update(["status" => 2]);
+        Auth::user()->hasRole('user') ? $appeal->update(["status" => 1]) : $appeal->update(["status" => 2]);
 
-        return back();
+        return redirect()->route('conversation.index', $appeal);
     }
     public function close($appeal)
     {
@@ -67,7 +83,9 @@ class ConversationController extends VoyagerController
         }
         $appeals = $appeals->get();
         return view('appeal.appeals')->with('appeals', $appeals);
+
     }
+
 
     public function rating($appeal, Request $request)
     {
@@ -81,12 +99,11 @@ class ConversationController extends VoyagerController
         $totalDuration = $finishTime->diffInHours($starttime);
         $rating = floatval((intval($request->rating) + intval($appealData->first()->rating)) / 2);
 
-        if ($totalDuration == 48) {
-            // Alert::error('impossible close', 'You couldn`t close conversation!!!');
-            redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
-        } else {
+        // if ($totalDuration == 48) {
+        //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
+        //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
+        // } else {
             User::where('id', $appeal)->update(['rating' => $rating]);
-            dd($totalDuration);
 
             if (Appeal::where('id', $appeal)->update(["status" => 3])) {
                 Alert::success('Closed', 'Conversation closed succesfully!');
@@ -95,6 +112,16 @@ class ConversationController extends VoyagerController
                 Alert::error('impossible close', 'You couldn`t close conversation!!!');
                 return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
             }
-        }
+        // }
+    }
+    public function setLang(){
+        app()->setlocale('uz');
+
+        return response()->json([
+            "success" => true,
+            "message" => "File unsuccessfully uploaded",
+
+        ]);
+
     }
 }

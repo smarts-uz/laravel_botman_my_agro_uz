@@ -270,8 +270,8 @@ HTML;
         $this->ask($this->keyActions(), function ($actions) {
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
-                $this->askTitle();
                 $this->say($this->questions["ASK_ACTION"][$this->language]."-"."<strong>".$action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz."</strong>");
+                $this->askTitle();
             } else $this->repeat();
         });
     }

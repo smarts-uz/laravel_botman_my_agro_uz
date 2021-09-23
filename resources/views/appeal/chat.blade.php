@@ -7,7 +7,7 @@
 {{-- @dd($totalDuration) --}}
 <div class="inputs">
     <section class="msger">
-        <div class="titles">{{$appeal->title}}</div>
+        <div class="titles">@lang('site.title')</div>
 
         <main class="msger-chat">
             <div class='msg {{ $appeal->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
@@ -17,7 +17,7 @@
                 <div class="msg-bubble">
                     <div class="msg-info">
                         <div class="msg-info-name">{{ $user }}</div>
-                        <div class="msg-info-time">{{ date('H:m', strtotime($appeal->created_at)) }}</div>
+                        <div class="msg-info-time">{{ date('h:m:s', strtotime($appeal->created_at)) }}</div>
                     </div>
                     <div class="msg-text">
                         {{ $appeal->text }}
@@ -65,37 +65,37 @@
             <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : ""}} required
                 placeholder="Enter your message...">
             <button type="submit" required class="msger-send-btn "
-                {{ $appeal->status == 3 ? "disabled" : ""}}>Send</button>
+                {{ $appeal->status == 3 ? "disabled" : ""}}>@lang('site.send_button')</button>
         </form>
         {{-- @endif --}}
     </section>
     <div class="right">
         <div class="wrap">
             <div class="block text-center">
-                <h2>Информация о заявке</h2>
+                <h2>@lang('site.info')</h2>
             </div>
             <div class="block">
-                <span>Запрашивающий</span>
+                <span>@lang('site.appealer')</span>
                 <p>{{ $user }} </p>
             </div>
             <div class="block">
-                <span>Область</span>
+                <span>@lang('site.region')</span>
                 <p>{{ $region }}</p>
             </div>
             <div class="block">
-                <span>Направления</span>
+                <span>@lang('site.route')</span>
                 <p>{{ $route }}</p>
             </div>
             <div class="block">
-                <span>Отправлен</span>
+                <span>@lang('site.sent')</span>
                 <p>{{ date('d.m.y (H:m)', strtotime($appeal->created_at)) }}</p>
             </div>
             <div class="block">
-                <span>Состояние/Приоритет</span>
+                <span>@lang('site.status')</span>
                 <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
             </div>
 
-            @if($appeal->status != 3 && $totalDuration>48)
+            @if(($appeal->status != 3 && $totalDuration>48) || Auth::user()->hasRole('user'))
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                     {{-- @csrf --}}
@@ -103,23 +103,23 @@
                     {{-- </form> --}}
                 </div>
             @else
-                <button type="button" class="btn disabled buttonDis">Закрыть тикет</button>
+                <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
             @endif
         </div>
     </div>
 
 </div>
-@if($totalDuration>48)
+@if($totalDuration>48 || Auth::user()->hasRole('user'))
 <div class="wrap1">
-    @if($appeal->is_closed == 0)
+    @if($appeal->status == 1)
     <div class="block text-center bloc1">
         <form action="{{ route('appeal.close', $appeal) }}" method="POST">
             @csrf
-            <button onclick="askClose()" type="button" class="btn">Закрыть тикет</button>
+            <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
         </form>
     </div>
     @else
-    <button type="button" class="btn disabled buttonDis">Закрыть тикет</button>
+    <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
     @endif
 </div>
 <form id="submit"  action="{{route('conversation.rating',$appeal)}}" method="POST">

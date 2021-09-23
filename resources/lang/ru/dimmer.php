@@ -7,7 +7,9 @@ return [
     'post'           => 'запись|записи',
     'post_link_text' => 'Все записи',
     'post_text'      => 'В базе данных :count :string',
-    'user'           => 'пользователь|пользователей',
+    'user'           => 'заявления|заявление',
     'user_link_text' => 'Все пользователи',
     'user_text'      => 'В базе данных :count :string',
+    'buttonappeals'  => 'Все заявлении',
+    'buttonanswers'  => 'Все ответы',
 ];

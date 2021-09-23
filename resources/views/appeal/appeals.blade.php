@@ -1,9 +1,7 @@
 ﻿@extends('voyager::master')
 @section('content')
 @php
-if(json_decode(Auth::user()->settings)!=null){
-$lang = json_decode(Auth::user()->settings)->locale;
-} else
+
 $lang = app()->getLocale();
 
 
@@ -16,11 +14,11 @@ $lang = app()->getLocale();
 {{-- Top Buttons --}}
 <div class="container-fluid">
     <h1 class="page-title">
-        <i class="voyager-person"></i> @lang('site.first')
+        <i class="voyager-receipt"></i> @lang('appeals.appeals')
     </h1>
     @if(Auth::user()->hasRole('user'))
     <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
-        <i class="voyager-plus"></i> <span>Добавить</span>
+        <i class="voyager-plus"></i> <span>@lang('appeals.add')</span>
     </a>
     @endif
 
@@ -61,7 +59,7 @@ $lang = app()->getLocale();
                 $bulkDeleteModal.modal('show');
             } else {
                 // No row selected
-                toastr.warning('Вы ничего не выбрали для удаления!');
+                toastr.warning(@lang('appeals.warning'));
             }
         });
     }
@@ -69,7 +67,6 @@ $lang = app()->getLocale();
 </div>
 {{-- Table Container --}}
 <div class="table-container">
-    @lang('bread.add_bread');
     {{-- Table --}}
     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -78,13 +75,13 @@ $lang = app()->getLocale();
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">{{ $lang == "en" ? "Title" : ($lang == "uz" ? "Mavzu" : "Тема") }}</th>
-          <th scope="col">{{ $lang == "en" ? "Region" : ($lang == "uz" ? "Viloyat" : "Область") }}</th>
-          <th scope="col">{{ $lang == "en" ? "Route" : ($lang == "uz" ? "Yo'nalish" : "Направление") }}</th>
-          <th scope="col">{{ $lang == "en" ? "Author" : ($lang == "uz" ? "Muallif" : "Автор") }}</th>
-          <th scope="col">{{ $lang == "en" ? "Action" : ($lang == "uz" ? "Murojaat turi" : "Тип заявления") }}</th>
-          <th scope="col">{{ $lang == "en" ? "Status" : ($lang == "uz" ? "Holati" : "Cтатус") }}</th>
-          <th scope="col">{{ $lang == "e__n" ? "Actions" : ($lang == "uz" ? "Harakatlar" : "Действия") }}</th>
+          {{-- <th scope="col">@lang('appeals.title')</th> --}}
+          <th scope="col">@lang('appeals.region')</th>
+          <th scope="col">@lang('appeals.route')</th>
+          <th scope="col">@lang('appeals.author')</th>
+          <th scope="col">@lang('appeals.action')</th>
+          <th scope="col">@lang('appeals.status')</th>
+          <th scope="col">@lang('appeals.buttons')</th>
         </tr>
       </thead>
       <tbody>
@@ -92,26 +89,27 @@ $lang = app()->getLocale();
               <tr>
                   {{-- @dd($appeal->user()->first()->name); --}}
                   <th scope="row">{{ $appeal->id }}</th>
-                  <td>{{ $appeal->title }}</td>
-                  <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru" ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : 'Deleted Region' }}</td>
+                  {{-- <td>{{ $appeal->title }}</td> --}}
+                  <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru"
+                       ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : 'Deleted Region' }}</td>
                   <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>
                   <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : 'Deleted User' }}</td>
                   <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : 'Deleted User' }}</td>
-                  <td class="mt-2 btn" style="color: white; display: flex; border-radius: 2px; margin-top: 6px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: yellow;' : 'background: red;') }}">
-                    {{$lang == "ru" ?  ($appeal->status==1 ? "Открытый" : ($appeal->status==2 ? "Модерирование" : 'закрытый' )) : ($lang == "uz" ?  ($appeal->status==1 ? "Ochiq" : ($appeal->status==2 ? "Ko'rilmoqda" : 'yopilgan' )):  ($appeal->status==1 ? "Open" : ($appeal->status==2 ? "Moderating" : 'Closed' )))}}
+                  <td scope="row" class="btn btn-primary" style="margin: 6px; color: white; display: flex; border-radius: 2px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: #FF8C00;' : 'background: red;') }}">
+                   {{ $appeal->status==1 ? trans('appeals.open') : ($appeal->status==2 ? trans('appeals.moderating') : trans('appeals.closed'))}}
 
                 </td>
 
                 <td scope="row"><a class="btn btn-primary" style="margin:auto;"
-                        href="{{ route('voyager.appeals.show', $appeal->id) }}">Show</a>
+                        href="{{ route('voyager.appeals.show', $appeal->id) }}">@lang('appeals.show')</a>
                     @if(!Auth::user()->hasRole('user'))
 
                     @if(!Auth::user()->hasRole('moderator'))
-                    <a class="btn btn-danger"  style="margin:auto;" href="{{ route('voyager.appeals.destroy', $appeal->id) }}">Delete</a>
-                    <a class="btn btn-warning" style="margin:auto;" href="{{ route('voyager.appeals.edit', $appeal->id) }}">Edit</a>
+                    <a class="btn btn-danger"  style="margin:auto;" href="{{ route('voyager.appeals.destroy', $appeal->id) }}">@lang('appeals.delete')</a>
+                    <a class="btn btn-warning" style="margin:auto;" href="{{ route('voyager.appeals.edit', $appeal->id) }}">@lang('appeals.edit')</a>
 
                     @endif
-                    <a class="btn btn-primary" style="margin:auto;" href="{{ route('answer.redirect', $appeal->id) }}">To EXpert</a>
+                    <a class="btn btn-primary" style="margin:auto;" href="{{ route('answer.redirect', $appeal->id) }}">@lang('appeals.redirect')</a>
 
                     @endif
                     <a class="btn btn-primary" style="margin:auto;" href="{{ route('conversation.index', $appeal->id) }}">Chat</a>
