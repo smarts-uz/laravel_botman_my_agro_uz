@@ -28,7 +28,8 @@ class ConversationController extends VoyagerController
         $totalDuration = $finishTime->diffInHours($starttime);
 
 
-        $conversations = Conversation::where('appeal_id', $appeal->id)->orderBy('created_at', 'DESC')->get();
+        $conversations = Conversation::where('appeal_id', $appeal->id)->orderBy('created_at', 'ASC')->get();
+        // dd($conversations);
         $user = (User::where('id', $appeal->user_id)->first()) !== null ? User::where('id', $appeal->user_id)->first()->name : 'Deleted user';
         $region = app()->getLocale() == "uz" ? Region::where('id', $appeal->region)->first()->uz : Region::where('id', $appeal->region)->first()->ru;
         $route = app()->getLocale() == "uz" ? Routes::where('id', $appeal->route)->first()->uz : Routes::where('id', $appeal->route)->first()->ru;
@@ -44,14 +45,10 @@ class ConversationController extends VoyagerController
         $con->appeal_id = $appeal;
         $request->user()->role == 'user' ? $con->is_answer = 0 : $con->is_answer = 1;
         $con->save();
-        $conversations = Conversation::where('appeal_id', $appeal)->orderBy('created_at', 'DESC');
         $appeal = Appeal::where('id', $appeal)->first();
         Auth::user()->hasrole('user') ? $appeal->update(["status" => 1]) : $appeal->update(["status" => 2]);
-        $user = User::where('id', $appeal->user_id)->first()->name;
-        $region = app()->getLocale() == "uz" ? Region::where('id', $appeal->region)->first()->uz : Region::where('id', $appeal->region)->first()->ru;
-        $route = app()->getLocale() == "uz" ? Routes::where('id', $appeal->route)->first()->uz : Routes::where('id', $appeal->route)->first()->ru;
-        $appeals = Appeal::orderBy('created_at', 'DESC')->paginate(10);
-        return redirect()->route('voyager.appeals.index');
+
+        return redirect()->route('conversation.index', $appeal);
     }
     public function close($appeal)
     {
@@ -70,7 +67,9 @@ class ConversationController extends VoyagerController
         }
         $appeals = $appeals->get();
         return view('appeal.appeals')->with('appeals', $appeals);
+
     }
+
 
     public function rating($appeal, Request $request)
     {
@@ -84,10 +83,10 @@ class ConversationController extends VoyagerController
         $totalDuration = $finishTime->diffInHours($starttime);
         $rating = floatval((intval($request->rating) + intval($appealData->first()->rating)) / 2);
 
-        if ($totalDuration == 48) {
-            // Alert::error('impossible close', 'You couldn`t close conversation!!!');
-            redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
-        } else {
+        // if ($totalDuration == 48) {
+        //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
+        //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
+        // } else {
             User::where('id', $appeal)->update(['rating' => $rating]);
             dd($totalDuration);
 
@@ -98,6 +97,6 @@ class ConversationController extends VoyagerController
                 Alert::error('impossible close', 'You couldn`t close conversation!!!');
                 return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
             }
-        }
+        // }
     }
 }

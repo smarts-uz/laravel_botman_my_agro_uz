@@ -17,7 +17,7 @@
                 <div class="msg-bubble">
                     <div class="msg-info">
                         <div class="msg-info-name">{{ $user }}</div>
-                        <div class="msg-info-time">{{ date('H:m', strtotime($appeal->created_at)) }}</div>
+                        <div class="msg-info-time">{{ date('h:m:s', strtotime($appeal->created_at)) }}</div>
                     </div>
                     <div class="msg-text">
                         {{ $appeal->text }}
@@ -29,17 +29,17 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
-            
+
+
+
+
             @foreach ($conversations as $conversation)
             {{-- @dd($duration); --}}
 
             @php
                 $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
             @endphp
-           
+
             <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
                 <div class="msg-img" style="background-image: url({{ asset('storage/'. Auth::user()->avatar)}})">
                 </div>
@@ -95,7 +95,7 @@
                 <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
             </div>
 
-            @if($appeal->status != 3 && $totalDuration>48)
+            @if(($appeal->status != 3 && $totalDuration>48) || Auth::user()->hasRole('user'))
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                     {{-- @csrf --}}
@@ -109,9 +109,9 @@
     </div>
 
 </div>
-@if($totalDuration>48)
+@if($totalDuration>48 || Auth::user()->hasRole('user'))
 <div class="wrap1">
-    @if($appeal->is_closed == 0)
+    @if($appeal->status == 1)
     <div class="block text-center bloc1">
         <form action="{{ route('appeal.close', $appeal) }}" method="POST">
             @csrf

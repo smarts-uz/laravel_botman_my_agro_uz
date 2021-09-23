@@ -3,7 +3,7 @@
     <div class="side-body padding-top">
         <h1 class="page-title">
             <i class=""></i>
-            Add Appeal Asnwer
+            @lang('appeals.add_answer_appeal')
         </h1>
         <div id="voyager-notifications"></div>
         <div class="page-content edit-add container-fluid">
@@ -53,7 +53,7 @@
                                                                                 role="button" aria-haspopup="true"><button
                                                                                     id="mceu_0-open" role="presentation"
                                                                                     type="button" tabindex="-1"><span
-                                                                                        class="mce-txt">Formats</span> <i
+                                                                                        class="mce-txt">@lang('appeals.formats')</span> <i
                                                                                         class="mce-caret"></i></button>
                                                                             </div>
                                                                             <div id="mceu_1" class="mce-widget mce-btn"
@@ -253,7 +253,7 @@
                                                     <div id="mceu_30" class="mce-flow-layout-item mce-resizehandle"><i
                                                             class="mce-ico mce-i-resize"></i></div><span id="mceu_31"
                                                         class="mce-branding mce-widget mce-label mce-flow-layout-item mce-last">
-                                                        Powered by <a
+                                                        @lang('appeals.powered_by') <a
                                                             href="https://www.tiny.cloud/?utm_campaign=editor_referral&amp;utm_medium=poweredby&amp;utm_source=tinymce"
                                                             rel="noopener" target="_blank" role="presentation"
                                                             tabindex="-1">Tiny</a></span>
@@ -261,9 +261,9 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <h3>Question:</h3><br>
+                                    <h3>@lang('appeals.question'):</h3><br>
                                     <p>{{ \App\Models\Appeal::where('id', $appeal)->first()->text }}</p>
-                                    <h3><label class="control-label" for="name">Write Answer:</label></h3>
+                                    <h3><label class="control-label" for="name">@lang(appeals.write_answer):</label></h3>
 
                                     <textarea style="height: 200px;"class="form-control richTextBox" name="answer_text" id="richtexttext" {{ (\Illuminate\Support\Facades\Auth::user()->hasRole('expert')) ? (\App\Models\Appeal::where('id', $appeal)->where('to_expert', '1')->first() ? '' : 'disabled') : '' }}>
                                         {{ \App\Models\Appeal::where('id', $appeal)->first()->answer_text}}
@@ -306,11 +306,11 @@
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title"><i class="voyager-warning"></i> Are you sure</h4>
+                        <h4 class="modal-title"><i class="voyager-warning"></i> @lang('appeals.are_you_sure')</h4>
                     </div>
 
                     <div class="modal-body">
-                        <h4>Are you sure you want to delete '<span class="confirm_delete_name"></span>'</h4>
+                        <h4>@lang('appeals.are_you_sure_want_to_delete')'<span class="confirm_delete_name"></span>'</h4>
                     </div>
 
                     <div class="modal-footer">

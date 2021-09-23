@@ -3,7 +3,7 @@
     <div class="side-body padding-top">
         <h1 class="page-title">
             <i class=""></i>
-            Add Appeal Asnwer
+            @lang('ok.add_appeal')
         </h1>
         <div id="voyager-notifications"></div>
         <div class="page-content edit-add container-fluid">
