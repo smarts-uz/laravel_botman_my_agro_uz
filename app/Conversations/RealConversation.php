@@ -269,7 +269,9 @@ HTML;
         $this->ask($this->keyActions(), function ($actions) {
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
-                $this->askTitle();
+                // $this->askTitle();
+                 $this->askAppeal();
+
 
             } else $this->repeat();
         });
@@ -499,7 +501,6 @@ HTML;
                 Log::info(json_encode($files));
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
                     $appeal = new Appeal();
-                    $appeal->title = $this->user_memory["title"];
                     $appeal->text = $this->memory["answer"];
                     $appeal->user_id = $this->user_memory["id"];
                     $appeal->region = $this->memory["region"];
