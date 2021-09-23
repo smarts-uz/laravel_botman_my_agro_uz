@@ -11,4 +11,6 @@ return [
     'top_browsers'              => 'Eng yaxshi brauzerlar',
     'top_countries'             => 'Eng yaxshi mamlakatlar',
     'various_visualizations'    => 'Har xil vizualizatsiyalar',
+
+    'title'                     => 'Chat'
 ];
