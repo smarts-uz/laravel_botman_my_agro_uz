@@ -10,6 +10,6 @@ return [
     'user'           => 'заявления|заявление',
     'user_link_text' => 'Все пользователи',
     'user_text'      => 'В базе данных :count :string',
-    'buttonappeals'  => 'Barcha arizalar',
-    'buttonanswers'  => 'Barcha javoblar',
+    'buttonappeals'  => 'Все заявлении',
+    'buttonanswers'  => 'Все ответы',
 ];
