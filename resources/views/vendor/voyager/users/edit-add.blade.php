@@ -9,7 +9,7 @@
 @section('page_header')
     <h1 class="page-title">
         <i class="{{ $dataType->icon }}"></i>
-        {{ __('voyager::generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->getTranslatedAttribute('display_name_singular') }}
+        @lang('generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->getTranslatedAttribute('display_name_singular')
     </h1>
 @stop
 
@@ -40,29 +40,29 @@
 
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="name">{{ __('voyager::generic.name') }}</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('voyager::generic.name') }}"
+                                <label for="name">@lang('generic.name')</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="@lang('generic.name')"
                                        value="{{ old('name', $dataTypeContent->name ?? '') }}">
                             </div>
 
                             <div class="form-group">
-                                <label for="email">{{ __('voyager::generic.email') }}</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{ __('voyager::generic.email') }}"
+                                <label for="email">@lang('generic.email')</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="@lang('generic.email')"
                                        value="{{ old('email', $dataTypeContent->email ?? '') }}">
                             </div>
 
                             <div class="form-group">
-                                <label for="password">{{ __('voyager::generic.password') }}</label>
+                                <label for="password">@lang('generic.password')</label>
                                 @if(isset($dataTypeContent->password))
                                     <br>
-                                    <small>{{ __('voyager::profile.password_hint') }}</small>
+                                    <small>@lang('profile.password_hint')</small>
                                 @endif
                                 <input type="password" class="form-control" id="password" name="password" value="" autocomplete="new-password">
                             </div>
 
                             @can('editRoles', $dataTypeContent)
                                 <div class="form-group">
-                                    <label for="default_role">{{ __('voyager::profile.role_default') }}</label>
+                                    <label for="default_role">@lang('profile.role_defult')</label>
                                     @php
                                         $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
 
@@ -89,7 +89,7 @@
 
                             @endphp
                             <div class="form-group">
-                                <label for="locale">{{ __('voyager::generic.locale') }}</label>
+                                <label for="locale">@lang('generic.locale')</label>
                                 <select class="form-control select2" id="locale" name="locale">
                                     @foreach (Voyager::getLocales() as $locale)
                                     <option value="{{ $locale }}"

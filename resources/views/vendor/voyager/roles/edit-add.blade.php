@@ -54,8 +54,8 @@
                                 </div>
                             @endforeach
 
-                            <label for="permission">{{ __('voyager::generic.permissions') }}</label><br>
-                            <a href="#" class="permission-select-all">{{ __('voyager::generic.select_all') }}</a> / <a href="#"  class="permission-deselect-all">{{ __('voyager::generic.deselect_all') }}</a>
+                            <label for="permission">@lang('generic.permissions')</label><br>
+                            <a href="#" class="permission-select-all">@lang('generic.select_all')</a> / <a href="#"  class="permission-deselect-all">@lang('generic.deselect_all') </a>
                             <ul class="permissions checkbox">
                                 <?php
                                     $role_permissions = (isset($dataTypeContent)) ? $dataTypeContent->permissions->pluck('key')->toArray() : [];
@@ -77,7 +77,7 @@
                             </ul>
                         </div><!-- panel-body -->
                         <div class="panel-footer">
-                            <button type="submit" class="btn btn-primary">{{ __('voyager::generic.submit') }}</button>
+                            <button type="submit" class="btn btn-primary">@lang('generic.submit')</button>
                         </div>
                     </form>
 

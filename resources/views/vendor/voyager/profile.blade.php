@@ -21,7 +21,7 @@
         <div class="user-email text-muted">{{ ucwords(Auth::user()->email) }}</div>
         <p>{{ Auth::user()->bio }}</p>
         @if ($route != '')
-            <a href="{{ $route }}" class="btn btn-primary">{{ __('voyager::profile.edit') }}</a>
+            <a href="{{ $route }}" class="btn btn-primary">@lang('profile.edit')</a>
         @endif
     </div>
 @stop
