@@ -6,6 +6,7 @@ $lang = json_decode(Auth::user()->settings)->locale;
 } else
 $lang = app()->getLocale();
 
+
 @endphp
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap.min.css">
@@ -15,7 +16,7 @@ $lang = app()->getLocale();
 {{-- Top Buttons --}}
 <div class="container-fluid">
     <h1 class="page-title">
-        <i class="voyager-person"></i> {{$lang == "ru" ? "Пользователи" : ($lang == "uz" ? "Arizalar" : "Appeals")}}
+        <i class="voyager-person"></i> @lang('site.first')
     </h1>
     @if(Auth::user()->hasRole('user'))
     <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
@@ -68,6 +69,7 @@ $lang = app()->getLocale();
 </div>
 {{-- Table Container --}}
 <div class="table-container">
+    @lang('bread.add_bread');
     {{-- Table --}}
     <table id="example" class="table table-striped table-bordered" style="width:100%">
 

@@ -43,15 +43,16 @@ Route::view('/notification', 'notification');
 
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'], ], function () {
-    
+    // Auth::user()->update(['settings'=>json_encode(['locale' => 'uz'])]);
+    //dd(app()->getLocale());
     Voyager::routes();
     Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
     Route::get('/appeals/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
     Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
 
+    Route::get("/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
 });
-Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
 
 // Route::group(['prefix' => LaravelLocalization::setLocale(),
 // 'middleware' => ['localize', 'localizationRedirect']
