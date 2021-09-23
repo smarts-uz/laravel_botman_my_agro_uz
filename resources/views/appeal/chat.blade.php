@@ -21,15 +21,25 @@
                     </div>
                     <div class="msg-text">
                         {{ $appeal->text }}
+                        <div>
+                        @forelse(json_decode($appeal->images) as $img)
+                            <a href="{{asset('storage/' . $img)}}">user file</a> <br/>
+                        @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            
+            
+            
             @foreach ($conversations as $conversation)
             {{-- @dd($duration); --}}
 
             @php
                 $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
             @endphp
+           
             <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
                 <div class="msg-img" style="background-image: url({{ asset('storage/'. Auth::user()->avatar)}})">
                 </div>

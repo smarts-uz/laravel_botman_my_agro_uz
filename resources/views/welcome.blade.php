@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AgroChat</title>
+    <p> @lang('site.first') </p>
 </head>
 <body>
 <script src="/js/widget.js.php"></script>
