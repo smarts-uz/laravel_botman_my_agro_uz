@@ -15,7 +15,12 @@ use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 class ConversationController extends VoyagerController
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
 
+        // return back();
+    }
     public function toExpert($appeal){
 
         $appealObject = Appeal::where('id', $appeal);
@@ -114,14 +119,9 @@ class ConversationController extends VoyagerController
             }
         // }
     }
-    public function setLang(){
-        app()->setlocale('uz');
-
-        return response()->json([
-            "success" => true,
-            "message" => "File unsuccessfully uploaded",
-
-        ]);
+    public function setLang($lang){
+        dd($lang);
 
     }
+
 }

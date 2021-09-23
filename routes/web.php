@@ -31,9 +31,10 @@ Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('notify', [NotificationController::class, 'notify']);
 Route::view('/notification', 'notification');
 
+Route::get('/{lang}/admin/', [ConversationController::class, 'setLang']);
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'], ], function () {
-
+    // User::where('id', Auth::user()->id)->update(['settings' => json_encode(['locale'=>app()->getLocale()])]);
     // User::where('id', Auth::user()->id)->update(['settings'=>json_encode(['locale' => app()->getLocale()])]);
     Voyager::routes();
     Route::get('/redirect/appeal/{appeal}', [ConversationController::class, 'toExpert'])->name('answer.redirect');
@@ -42,7 +43,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
     Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
     Route::post('/appeal/chat/close/{appeal}', [ConversationController::class, 'close'])->name("appeal.close");
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
-    Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
 });
 
 
