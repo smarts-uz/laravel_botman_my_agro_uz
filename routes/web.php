@@ -43,6 +43,7 @@ Route::view('/notification', 'notification');
 
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'], ], function () {
+    
     Voyager::routes();
     Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
@@ -80,5 +81,3 @@ Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload
 Route::post("/upload", [FilepondController::class, "upload"]);
 Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
-Route::get("/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
-

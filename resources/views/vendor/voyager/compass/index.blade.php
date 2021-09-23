@@ -16,6 +16,7 @@
 
 @section('content')
 
+
     <div id="gradient_bg"></div>
 
     <div class="container-fluid">
@@ -137,7 +138,7 @@
         $('#table-log').DataTable({
           "order": [1, 'desc'],
           "stateSave": true,
-          "language": {!! json_encode(@lang('datatable')) !!},
+          "language": {!! json_encode(trans('datatable')) !!},
           "stateSaveCallback": function (settings, data) {
             window.localStorage.setItem("datatable", JSON.stringify(data));
           },
