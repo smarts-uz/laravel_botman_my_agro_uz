@@ -7,7 +7,7 @@ use Pusher\Pusher;
 
 class NotificationController extends Controller
 {
-    public function notify(Request )
+    public function notify()
     {
         $options = array(
                         'cluster' => env('PUSHER_APP_CLUSTER'),
