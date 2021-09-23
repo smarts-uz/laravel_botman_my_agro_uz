@@ -3,33 +3,33 @@
 @section('content')
     <div class="login-container">
 
-        <p>{{ __('voyager::login.signin_below') }}</p>
+        <p>@lang('login.signin_below') }}</p>
 
         <form action="{{ route('voyager.login') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group form-group-default" id="emailGroup">
-                <label>{{ __('voyager::generic.email') }}</label>
+                <label>@lang('generic.email')</label>
                 <div class="controls">
-                    <input type="text" name="email" id="email" value="{{ old('email') }}" placeholder="{{ __('voyager::generic.email') }}" class="form-control" required>
+                    <input type="text" name="email" id="email" value="{{ old('email') }}" placeholder="@lang('generic.email')" class="form-control" required>
                 </div>
             </div>
 
             <div class="form-group form-group-default" id="passwordGroup">
-                <label>{{ __('voyager::generic.password') }}</label>
+                <label>@lang('generic.password')</label>
                 <div class="controls">
-                    <input type="password" name="password" placeholder="{{ __('voyager::generic.password') }}" class="form-control" required>
+                    <input type="password" name="password" placeholder="@lang('generic.password')" class="form-control" required>
                 </div>
             </div>
 
             <div class="form-group" id="rememberMeGroup">
                 <div class="controls">
-                    <input type="checkbox" name="remember" id="remember" value="1"><label for="remember" class="remember-me-text">{{ __('voyager::generic.remember_me') }}</label>
+                    <input type="checkbox" name="remember" id="remember" value="1"><label for="remember" class="remember-me-text">@lang('generic.remember_me')</label>
                 </div>
             </div>
 
             <button type="submit" class="btn btn-block login-button">
-                <span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
-                <span class="signin">{{ __('voyager::generic.login') }}</span>
+                <span class="signingin hidden"><span class="voyager-refresh"></span> @lang('login.loggingin')...</span>
+                <span class="signin">@lang('generic.login')</span>
             </button>
 
         </form>

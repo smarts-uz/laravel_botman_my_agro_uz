@@ -13,10 +13,10 @@
                 $url = route('voyager.dashboard');
                 @endphp
                 @if(count($segments) == 0)
-                    <li class="active"><i class="voyager-boat"></i> {{ __('voyager::generic.dashboard') }}</li>
+                    <li class="active"><i class="voyager-boat"></i> @lang('generic.dashboard')</li>
                 @else
                     <li class="active">
-                        <a href="{{ route('voyager.dashboard')}}"><i class="voyager-boat"></i> {{ __('voyager::generic.dashboard') }}</a>
+                        <a href="{{ route('voyager.dashboard')}}"><i class="voyager-boat"></i> @lang('generic.dashboard')</a>
                     </li>
                     @foreach ($segments as $segment)
                         @php
@@ -36,7 +36,7 @@
 
         </div>
 
-        <ul class="nav navbar-nav @if (__('voyager::generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
+        <ul class="nav navbar-nav @if (@lang('generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
             {{-- lang selector --}}
             {{-- <li style="margin-top: 20px;">
                 <select class="selectLang" data-width="fit" style="border: none; padding: 5px 2px;border-radius: 2px">

@@ -17,7 +17,7 @@
                 @if(isset($query))
                     <p>{{ $query->{$options->label} }}</p>
                 @else
-                    <p>{{ __('voyager::generic.no_results') }}</p>
+                    <p>@lang('generic.no_results')</p>
                 @endif
 
             @else
@@ -36,7 +36,7 @@
                     @endphp
 
                     @if(!$row->required)
-                        <option value="">{{__('voyager::generic.none')}}</option>
+                        <option value="">@lang('generic.none')</option>
                     @endif
 
                     @foreach($query as $relationshipData)
@@ -59,7 +59,7 @@
             @if(isset($query))
                 <p>{{ $query->{$options->label} }}</p>
             @else
-                <p>{{ __('voyager::generic.no_results') }}</p>
+                <p>@lang('generic.no_results')</p>
             @endif
 
         @elseif($options->type == 'hasMany')
@@ -81,13 +81,13 @@
                         if(mb_strlen($string_values) > 25){ $string_values = mb_substr($string_values, 0, 25) . '...'; }
                     @endphp
                     @if(empty($selected_values))
-                        <p>{{ __('voyager::generic.no_results') }}</p>
+                        <p>@lang('generic.no_results')</p>
                     @else
                         <p>{{ $string_values }}</p>
                     @endif
                 @else
                     @if(empty($selected_values))
-                        <p>{{ __('voyager::generic.no_results') }}</p>
+                        <p>('voyager::generic.no_results')</p>
                     @else
                         <ul>
                             @foreach($selected_values as $selected_value)
@@ -112,7 +112,7 @@
                     </ul>
 
                 @else
-                    <p>{{ __('voyager::generic.no_results') }}</p>
+                    <p>@lang('generic.no_results')</p>
                 @endif
 
             @endif
@@ -135,13 +135,13 @@
                         if(mb_strlen($string_values) > 25){ $string_values = mb_substr($string_values, 0, 25) . '...'; }
                     @endphp
                     @if(empty($selected_values))
-                        <p>{{ __('voyager::generic.no_results') }}</p>
+                        <p>@lang('generic.no_results')</p>
                     @else
                         <p>{{ $string_values }}</p>
                     @endif
                 @else
                     @if(empty($selected_values))
-                        <p>{{ __('voyager::generic.no_results') }}</p>
+                        <p>@lang('generic.no_results')</p>
                     @else
                         <ul>
                             @foreach($selected_values as $selected_value)
@@ -162,7 +162,7 @@
                     @if(isset($options->taggable) && $options->taggable === 'on')
                         data-route="{{ route('voyager.'.\Illuminate\Support\Str::slug($options->table).'.store') }}"
                         data-label="{{$options->label}}"
-                        data-error-message="{{__('voyager::bread.error_tagging')}}"
+                        data-error-message="@lang('bread.error_tagging')"
                     @endif
                     @if($row->required == 1) required @endif
                 >
@@ -176,7 +176,7 @@
                         @endphp
 
                         @if(!$row->required)
-                            <option value="">{{__('voyager::generic.none')}}</option>
+                            <option value="">@lang('generic.none')</option>
                         @endif
 
                         @foreach($relationshipOptions as $relationshipOption)
