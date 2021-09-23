@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Appeal;
 use App\Models\QuestionText;
 use Illuminate\Support\Facades\Storage;
+use BotMan\BotMan\Messages\Incoming\Answer;
+use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
 const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
@@ -150,9 +152,42 @@ class RealConversation extends Conversation
         // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
         // $this->askImageFile();
         // $this->say(Storage::allFiles('fayzulloev'));
-        $this->askLanguage();
-    }
+        // $this->askLanguage();
+    $this->ask('Shall we proceed? Say YES or NO', [
+        [
+            'pattern' => 'yes|yep',
+            'callback' => function ($bot) {
+                $this->say(json_encode($bot->getMessage()));
+            }
+        ],
+        [
+            'pattern' => 'nah|no|nope',
+            'callback' => function () {
+                $this->say('PANIC!! Stop the engines NOW!');
+            }
+        ]
+    ]);
+        // $this->say("Hello");
+        // $apiParameters = [
+        //     'chat_id' => '511057877',
+        //     'message_id' => '5809'
+        //     ];
+        //     $this->bot->sendRequest('deleteMessage', $apiParameters);
+        //     $this->say("OK");
 
+    }
+    public function askLanguage()
+    {
+        $this->ask($this->keyLanguages(), function ($language) {
+            if ($language->isInteractiveMessageReply()) {
+                $this->language = $language->getValue();
+                $this->askEmail();
+            } else {
+                return $this->repeat();
+            }
+        },
+    );
+    }
     public function askWebFile()
     {
 
@@ -209,17 +244,7 @@ HTML;
 
     }
 
-    public function askLanguage()
-    {
-        $this->ask($this->keyLanguages(), function ($language) {
-            if ($language->isInteractiveMessageReply()) {
-                $this->language = $language->getValue();
-                $this->askEmail();
-            } else {
-                return $this->repeat();
-            }
-        });
-    }
+
 
     public function askEmail()
     {

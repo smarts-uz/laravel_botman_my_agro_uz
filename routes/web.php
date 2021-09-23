@@ -42,39 +42,35 @@ Route::get('notify', [NotificationController::class, 'notify']);
 Route::view('/notification', 'notification');
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'], ], function () {
     Voyager::routes();
     Route::post('/appeal/chat/post', [ChatController::class, 'addd'])->name("chat.post");
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
     Route::get('/appeals/chat/{appeal}', [ConversationController::class, 'showChat'])->name("conversation.index");
     Route::post('/appeals/chat/rate/{appeal}', [ConversationController::class, 'rating'])->name("conversation.rating");
-    
+
 });
 Route::get("/admin/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
 
-Route::group(['prefix' => LaravelLocalization::setLocale(),
-'middleware' => ['localize', 'localizationRedirect']
-],
-    
-    function()
-{
-	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-	Route::get('/', function()
-    
-	{
+// Route::group(['prefix' => LaravelLocalization::setLocale(),
+// 'middleware' => ['localize', 'localizationRedirect']
+// ],
 
-		return view('welcome');
-    });
+//     function()
+// {
+// 	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+// 	Route::get('/', function()
 
-	Route::get('test',function(){
-		return View::make('test');
-	});
+// 	{
 
-    
+// 		return view('welcome');
+//     });
 
+// 	Route::get('test',function(){
+// 		return View::make('test');
+// 	});
+// });
 
-    
-});
 
 Route::view("form", "form");
 Route::post("/form/send", [FormController::class, "run"]);
@@ -84,4 +80,5 @@ Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload
 Route::post("/upload", [FilepondController::class, "upload"]);
 Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
+Route::get("/appeals", [ConversationController::class, 'showAppeal'])->name('voyager.appeals.index');
 
