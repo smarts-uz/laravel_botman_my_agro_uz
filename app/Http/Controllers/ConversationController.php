@@ -48,7 +48,7 @@ class ConversationController extends VoyagerController
         $appeal = Appeal::where('id', $appeal)->first();
         Auth::user()->hasrole('user') ? $appeal->update(["status" => 1]) : $appeal->update(["status" => 2]);
 
-        return redirect()->route('voyager.appeals.index');
+        return back();
     }
     public function close($appeal)
     {
