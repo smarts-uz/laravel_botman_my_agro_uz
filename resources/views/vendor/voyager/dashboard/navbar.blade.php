@@ -48,10 +48,15 @@
             <li>
                 <form action="{{route('user.lang')}}" id="form-id" method="post">
                 @csrf
-                    <button  class="btn " name="lang" value="ru" type="submit">russkiy</a>
-                    <button  class="btn" name="lang" value="uz"  type="submit">uzbek</a>
+                    <button  class="btn " name="lang" value="ru" type="submit">Русский</button>
+                </form>    
+            </li>
+                
+            <li>       
+                <form action="{{route('user.lang')}}" id="form-id" method="post">
+                @csrf
+                    <button  class="btn" name="lang" value="uz"  type="submit">O`zbek</button>
                 </form>
-
             </li>
 
             {{-- /lang selector --}}
