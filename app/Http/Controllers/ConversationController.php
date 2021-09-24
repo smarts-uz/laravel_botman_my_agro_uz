@@ -117,11 +117,11 @@ class ConversationController extends VoyagerController
                 Alert::error('impossible close', 'You couldn`t close conversation!!!');
                 return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
             }
-        // }
     }
-    public function setLang($lang){
-        dd($lang);
+    // }
+    // public function setLang($lang){
+    //     dd($lang);
 
-    }
+    // }
 
 }
