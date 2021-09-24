@@ -925,7 +925,7 @@ INSERT INTO `settings` VALUES (3, 'site.logo', 'Site Logo', '', '', 'image', 3, 
 INSERT INTO `settings` VALUES (4, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', NULL, '', 'text', 4, 'Site');
 INSERT INTO `settings` VALUES (5, 'admin.bg_image', 'Admin Background Image', '', '', 'image', 5, 'Admin');
 INSERT INTO `settings` VALUES (6, 'admin.title', 'Admin Title', 'AgroChat', '', 'text', 1, 'Admin');
-INSERT INTO `settings` VALUES (7, 'admin.description', 'Admin Description', 'AgroChat shahsiy Cabinet', '', 'text', 2, 'Admin');
+INSERT INTO `settings` VALUES (7, 'admin.description', 'Admin Description', 'AgroChat shahsiy Kabinet', '', 'text', 2, 'Admin');
 INSERT INTO `settings` VALUES (9, 'admin.icon_image', 'Admin Icon Image', 'settings\\August2021\\TcVzTBjN7cIxQQyPvn97.jpg', '', 'image', 4, 'Admin');
 INSERT INTO `settings` VALUES (10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', NULL, '', 'text', 1, 'Admin');
 INSERT INTO `settings` VALUES (11, 'chatbot.chat_title', 'ChatTitle', 'Agro.uz Chat', NULL, 'text', 6, 'ChatBot');

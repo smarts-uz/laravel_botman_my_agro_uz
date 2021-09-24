@@ -67,6 +67,7 @@ return [
     'public_url'             => 'Barchaga ruxsat etilgan URL',
     'read'                   => 'O`qish',
     'rename'                 => 'Qayta nomlash',
+    'remember_me'            => 'Meni eslab qol',
     'required'               => 'Majburiy',
     'return_to_list'         => 'Ro`yxatga qaytish',
     'route'                  => 'Marshrut',
