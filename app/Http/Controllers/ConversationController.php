@@ -120,8 +120,8 @@ class ConversationController extends VoyagerController
         // }
     }
     public function setLang($lang){
-        dd($lang);
-
+    User::where('id', Auth::user()->id)->update(['settings' => json_encode(['locale'=>app()->getLocale()])]);
+return back();
     }
 
 }
