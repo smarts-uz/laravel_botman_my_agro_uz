@@ -13,6 +13,7 @@ class Appeal extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     public function region()
     {
         return $this->belongsTo(Region::class, 'region');
