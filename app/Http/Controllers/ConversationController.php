@@ -13,6 +13,8 @@ use TCG\Voyager\Http\Controllers\VoyagerController;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\App;
+
 class ConversationController extends VoyagerController
 {
     public function __construct()
@@ -21,7 +23,8 @@ class ConversationController extends VoyagerController
 
         // return back();
     }
-    public function toExpert($appeal){
+    public function toExpert($appeal)
+    {
 
         $appealObject = Appeal::where('id', $appeal);
         $appealData = $appealObject->first();
@@ -31,7 +34,7 @@ class ConversationController extends VoyagerController
         $details = [
             'title' => $appealData->title,
             'body' => $appealData->text,
-            'files'=> $files
+            'files' => $files
         ];
         Mail::to(Auth::user()->email)->send(new SendMail($details));
         return redirect()->route('voyager.appeals.index');
@@ -82,13 +85,12 @@ class ConversationController extends VoyagerController
     public function showAppeal()
     {
         if (Auth::user()->hasRole('user')) {
-            $appeals = Appeal::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC');
+            $appeals = Appeal::where('user_id', Auth::user()->id)->orderBy('created_at', 'ASC');
         } else {
-            $appeals = Appeal::orderBy('created_at', 'DESC');
+            $appeals = Appeal::orderBy('id', 'ASC');
         }
         $appeals = $appeals->get();
         return view('appeal.appeals')->with('appeals', $appeals);
-
     }
 
 
@@ -108,20 +110,23 @@ class ConversationController extends VoyagerController
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
-            User::where('id', $appeal)->update(['rating' => $rating]);
+        User::where('id', $appeal)->update(['rating' => $rating]);
 
-            if (Appeal::where('id', $appeal)->update(["status" => 3])) {
-                Alert::success('Closed', 'Conversation closed succesfully!');
-                return redirect()->route('voyager.appeals.index')->with('success', 'Closed');
-            } else {
-                Alert::error('impossible close', 'You couldn`t close conversation!!!');
-                return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
-            }
+        if (Appeal::where('id', $appeal)->update(["status" => 3])) {
+            Alert::success('Closed', 'Conversation closed succesfully!');
+            return redirect()->route('voyager.appeals.index')->with('success', 'Closed');
+        } else {
+            Alert::error('impossible close', 'You couldn`t close conversation!!!');
+            return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
+        }
     }
     // }
-    // public function setLang($lang){
-    //     dd($lang);
+    public function setLang(Request $request)
+    {
 
-    // }
+        $user = User::where('id', Auth::user()->id)->update(["settings" => ["locale" => $request->lang]]);
+        $x = App::setLocale($request->lang);
 
+        return back();
+    }
 }

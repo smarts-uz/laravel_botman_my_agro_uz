@@ -17,7 +17,7 @@
                 <div class="msg-bubble">
                     <div class="msg-info">
                         <div class="msg-info-name">{{ $user }}</div>
-                        <div class="msg-info-time">{{ date('h:m:s', strtotime($appeal->created_at)) }}</div>
+                        <div class="msg-info-time">{{date_format($appeal->created_at, 'G:i a')  }}</div>
                     </div>
                     <div class="msg-text">
                         {{ $appeal->text }}
@@ -38,6 +38,7 @@
 
             @php
                 $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
+                
             @endphp
 
             <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
@@ -47,7 +48,7 @@
                 <div class="msg-bubble">
                     <div class="msg-info">
                         <div class="msg-info-name">{{ $appeal_user->name }}</div>
-                        <div class="msg-info-time">{{ date('H:m', strtotime($conversation->created_at)) }}</div>
+                        <div class="msg-info-time">{{ date_format($conversation->created_at, 'G:i a') }}</div>
                     </div>
                     <div class="msg-text">
                         {{ $conversation->text }}
@@ -95,7 +96,7 @@
                 <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
             </div>
 
-            @if(($appeal->status != 3 && $totalDuration>48) || Auth::user()->hasRole('user'))
+            @if(($appeal->status != 3 && $totalDuration>48) || Auth::user()->hasRole('user' && $appeal->is_closed == 0))
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                     {{-- @csrf --}}
@@ -122,6 +123,7 @@
     <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
     @endif
 </div>
+@endif
 <form id="submit"  action="{{route('conversation.rating',$appeal)}}" method="POST">
     @csrf
     <div class="stars">
@@ -133,7 +135,6 @@
             stars</label><label for="star4">4 stars</label><label for="star5">5 stars</label>
     </div>
 </form>
-@endif
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
