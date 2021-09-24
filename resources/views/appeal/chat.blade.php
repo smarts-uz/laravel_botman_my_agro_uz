@@ -123,6 +123,7 @@
     <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
     @endif
 </div>
+@endif
 <form id="submit"  action="{{route('conversation.rating',$appeal)}}" method="POST">
     @csrf
     <div class="stars">
@@ -134,7 +135,6 @@
             stars</label><label for="star4">4 stars</label><label for="star5">5 stars</label>
     </div>
 </form>
-@endif
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
