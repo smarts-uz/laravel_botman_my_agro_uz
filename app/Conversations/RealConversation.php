@@ -330,8 +330,8 @@ HTML;
         $this->ask($this->keyRoutes(), function ($routes) {
             if ($routes->isInteractiveMessageReply()) {
                 $this->memory["route"] = $routes->getValue();
-                $this->askRegion();
                 $this->say($this->questions["ASK_ROUTE"][$this->language]."-"."<strong>".$route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz."</strong>");
+                $this->askRegion();
             } else $this->repeat();
         });
     }
