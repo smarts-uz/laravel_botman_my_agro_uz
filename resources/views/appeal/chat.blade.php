@@ -47,7 +47,7 @@
                 <div class="msg-bubble">
                     <div class="msg-info">
                         <div class="msg-info-name">{{ $appeal_user->name }}</div>
-                        <div class="msg-info-time">{{ date('H:m', strtotime($conversation->created_at)) }}</div>
+                        <div class="msg-info-time">{{ $conversation->created_at}}</div>
                     </div>
                     <div class="msg-text">
                         {{ $conversation->text }}
