@@ -83,9 +83,9 @@ class ConversationController extends VoyagerController
     public function showAppeal()
     {
         if (Auth::user()->hasRole('user')) {
-            $appeals = Appeal::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC');
+            $appeals = Appeal::where('user_id', Auth::user()->id)->orderBy('created_at', 'ASC');
         } else {
-            $appeals = Appeal::orderBy('created_at', 'DESC');
+            $appeals = Appeal::orderBy('created_at', 'ASC');
         }
         $appeals = $appeals->get();
         return view('appeal.appeals')->with('appeals', $appeals);
