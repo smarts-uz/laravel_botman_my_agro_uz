@@ -125,7 +125,7 @@ class ConversationController extends VoyagerController
         $user = User::where('id',Auth::user()->id)->update(["settings"=>["locale"=>$request->lang]]);
         $x = App::setLocale($request->lang);
 
-        return back();
+        return redirect();
     }
 
 }
