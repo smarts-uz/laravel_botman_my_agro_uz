@@ -31,7 +31,7 @@ Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('notify', [NotificationController::class, 'notify']);
 Route::view('/notification', 'notification');
 
-// Route::get('/{lang}/admin/', [ConversationController::class, 'setLang']);
+Route::any('(.*)', [ConversationController::class, 'setLang'])->name('user.lang');
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'], ], function () {
     // User::where('id', Auth::user()->id)->update(['settings' => json_encode(['locale'=>app()->getLocale()])]);

@@ -13,6 +13,7 @@ use TCG\Voyager\Http\Controllers\VoyagerController;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\App;
 class ConversationController extends VoyagerController
 {
     public function __construct()
@@ -119,9 +120,12 @@ class ConversationController extends VoyagerController
             }
     }
     // }
-    // public function setLang($lang){
-    //     dd($lang);
+    public function setLang(Request $request){
+        
+        $user = User::where('id',Auth::user()->id)->update(["settings"=>["locale"=>$request->lang]]);
+        $x = App::setLocale($request->lang);
 
-    // }
+        return back();
+    }
 
 }
