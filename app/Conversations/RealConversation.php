@@ -271,18 +271,18 @@ HTML;
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
                 $this->say($this->questions["ASK_ACTION"][$this->language]."-"."<strong>".$action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz."</strong>");
-                $this->askTitle();
+                $this->askAppeal();
             } else $this->repeat();
         });
     }
 
-    public function askTitle()
-    {
-        $this->ask($this->questions["ASK_THEME"][$this->language], function ($answer) {
-            $this->user_memory["title"] = $answer->getText();
-            $this->askAppeal();
-        });
-    }
+    // public function askTitle()
+    // {
+    //     $this->ask($this->questions["ASK_THEME"][$this->language], function ($answer) {
+    //         $this->user_memory["title"] = $answer->getText();
+    //         $this->askAppeal();
+    //     });
+    // }
 
     public function askAppeal()
     {
