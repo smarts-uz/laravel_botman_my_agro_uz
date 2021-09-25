@@ -36,19 +36,19 @@
     </div>
     <div v-if="hidden_element">
         <div class="btn btn-sm btn-default" v-on:click="isExpanded = !isExpanded;" style="width:100%">
-            <div v-if="!isExpanded"><i class="voyager-double-down"></i> @lang('generic.open') }}</div>
-            <div v-if="isExpanded"><i class="voyager-double-up"></i> @lang('generic.close') }}</div>
+            <div v-if="!isExpanded"><i class="voyager-double-down"></i> @lang('generic.open')</div>
+            <div v-if="isExpanded"><i class="voyager-double-up"></i> @lang('generic.close')</div>
         </div>
     </div>
     <div id="toolbar" v-if="showToolbar" :style="isExpanded ? 'display:block' : 'display:none'">
         <div class="btn-group offset-right">
             <button type="button" class="btn btn-primary" id="upload" v-if="allowUpload">
                 <i class="voyager-upload"></i>
-                @lang('generic.upload') }}
+                @lang('generic.upload')
             </button>
             <button type="button" class="btn btn-primary" v-if="allowCreateFolder" data-toggle="modal" :data-target="'#create_dir_modal_'+this._uid">
                 <i class="voyager-folder"></i>
-                @lang('generic.add_folder') }}
+                @lang('generic.add_folder')
             </button>
         </div>
         <button type="button" class="btn btn-default" v-on:click="getFiles()">
@@ -57,19 +57,19 @@
         <div class="btn-group offset-right">
             <button type="button" :disabled="selected_files.length == 0" v-if="allowUpload && hidden_element" class="btn btn-default" v-on:click="addSelectedFiles()">
                 <i class="voyager-upload"></i>
-                @lang('media.add_all_selected') }}
+                @lang('media.add_all_selected')
             </button>
             <button type="button" v-if="showFolders && allowMove" class="btn btn-default" data-toggle="modal" :data-target="'#move_files_modal_'+this._uid">
                 <i class="voyager-move"></i>
-                @lang('generic.move') }}
+                @lang('generic.move')
             </button>
             <button type="button" v-if="allowDelete" :disabled="selected_files.length == 0" class="btn btn-default" data-toggle="modal" :data-target="'#confirm_delete_modal_'+this._uid">
                 <i class="voyager-trash"></i>
-                @lang('generic.delete') }}
+                @lang('generic.delete')
             </button>
             <button v-if="allowCrop" :disabled="selected_files.length != 1 || !fileIs(selected_file, 'image')" type="button" class="btn btn-default" data-toggle="modal" :data-target="'#crop_modal_'+this._uid">
                 <i class="voyager-crop"></i>
-                @lang('media.crop') }}
+                @lang('media.crop')
             </button>
         </div>
     </div>
@@ -82,7 +82,7 @@
             <ol class="breadcrumb filemanager">
                 <li class="media_breadcrumb" v-on:click="setCurrentPath(-1)">
                     <span class="arrow"></span>
-                    <strong>@lang('media.library') }}</strong>
+                    <strong>@lang('media.library')</strong>
                 </li>
                 <li v-for="(folder, i) in getCurrentPath()" v-on:click="setCurrentPath(i)">
                     <span class="arrow"></span>
@@ -133,18 +133,18 @@
                     @else
                     <img src="{{ Voyager::image($admin_loader_img) }}" alt="Voyager Loader">
                     @endif
-                    <p>@lang('media.loading') }}</p>
+                    <p>@lang('media.loading')</p>
                 </div>
 
                 <div id="no_files" v-if="files.length == 0">
-                    <h3><i class="voyager-meh"></i> @lang('media.no_files_in_folder') }}</h3>
+                    <h3><i class="voyager-meh"></i> @lang('media.no_files_in_folder')</h3>
                 </div>
             </div>
             <div id="right">
                 <div class="right_details">
                     <div v-if="selected_files.length > 1" class="right_none_selected">
                         <i class="voyager-list"></i>
-                        <p>@{{ selected_files.length }} @lang('media.files_selected') }}</p>
+                        <p>@{{ selected_files.length }} @lang('media.files_selected')</p>
                     </div>
                     <div v-else-if="selected_files.length == 1" class="right_details">
                         <div class="detail_img">
@@ -156,7 +156,7 @@
                                     <source :src="selected_file.path" type="video/mp4">
                                     <source :src="selected_file.path" type="video/ogg">
                                     <source :src="selected_file.path" type="video/webm">
-                                    @lang('media.browser_video_support') }}
+                                    @lang('media.browser_video_support')
                                 </video>
                             </div>
                             <div v-else-if="fileIs(selected_file, 'audio')">
@@ -164,7 +164,7 @@
                                 <audio controls style="width:100%; margin-top:5px;" ref="audioplayer">
                                     <source :src="selected_file.path" type="audio/ogg">
                                     <source :src="selected_file.path" type="audio/mpeg">
-                                    @lang('media.browser_audio_support') }}
+                                    @lang('media.browser_audio_support')
                                 </audio>
                             </div>
                             <div v-else-if="fileIs(selected_file, 'zip')">
@@ -179,26 +179,26 @@
                         </div>
                         <div class="detail_info">
                             <span>
-                                <h4>@lang('media.title') }}:</h4>
+                                <h4>@lang('media.title')</h4>
                                 <input v-if="allowRename" type="text" class="form-control" :value="selected_file.name" @keydown.enter.prevent="renameFile">
                                 <p v-else>@{{ selected_file.name }}</p>
                             </span>
                             <span>
-                                <h4>@lang('media.type') }}:</h4>
+                                <h4>@lang('media.type')</h4>
                                 <p>@{{ selected_file.type }}</p>
                             </span>
 
                             <template v-if="!fileIs(selected_file, 'folder')">
                                 <span>
-                                    <h4>@lang('media.size') }}:</h4>
+                                    <h4>@lang('media.size')</h4>
                                     <p><span class="selected_file_size">@{{ bytesToSize(selected_file.size) }}</span></p>
                                 </span>
                                 <span>
-                                    <h4>@lang('media.public_url') }}:</h4>
-                                    <p><a :href="selected_file.path" target="_blank">@lang('generic.click_here') }}</a></p>
+                                    <h4>@lang('media.public_url')</h4>
+                                    <p><a :href="selected_file.path" target="_blank">@lang('generic.click_here')</a></p>
                                 </span>
                                 <span>
-                                    <h4>@lang('media.last_modified') }}:</h4>
+                                    <h4>@lang('media.last_modified')</h4>
                                     <p>@{{ dateFilter(selected_file.last_modified) }}</p>
                                 </span>
                             </template>
@@ -217,7 +217,7 @@
                     </div>
                     <div v-else class="right_none_selected">
                         <i class="voyager-cursor"></i>
-                        <p>@lang('media.nothing_selected') }}</p>
+                        <p>@lang('media.nothing_selected')</p>
                     </div>
                 </div>
             </div>
@@ -250,7 +250,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="voyager-folder"></i> @lang('media.add_new_folder') }}</h4>
+                    <h4 class="modal-title"><i class="voyager-folder"></i> @lang('media.add_new_folder')</h4>
                 </div>
 
                 <div class="modal-body">
@@ -258,8 +258,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('generic.cancel') }}</button>
-                    <button type="button" class="btn btn-info" v-on:click="createFolder">@lang('media.create_new_folder') }}
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('generic.cancel')</button>
+                    <button type="button" class="btn btn-info" v-on:click="createFolder">@lang('media.create_new_folder')
                     </button>
                 </div>
             </div>
@@ -273,22 +273,22 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="voyager-warning"></i> @lang('generic.are_you_sure') }}</h4>
+                    <h4 class="modal-title"><i class="voyager-warning"></i> @lang('generic.are_you_sure') </h4>
                 </div>
 
                 <div class="modal-body">
-                    <h4>@lang('media.delete_question') }}</h4>
+                    <h4>@lang('media.delete_question')</h4>
                     <ul>
                         <li v-for="file in selected_files">@{{ file.name }}</li>
                     </ul>
                     <h5 class="folder_warning">
-                        <i class="voyager-warning"></i> @lang('media.delete_folder_question') }}
+                        <i class="voyager-warning"></i> @lang('media.delete_folder_question')
                     </h5>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('generic.cancel') }}</button>
-                    <button type="button" class="btn btn-danger" v-on:click="deleteFiles">@lang('generic.delete_confirm') }}
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('generic.cancel')</button>
+                    <button type="button" class="btn btn-danger" v-on:click="deleteFiles">@lang('generic.delete_confirm')
                     </button>
                 </div>
             </div>
@@ -303,21 +303,21 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="voyager-move"></i> @lang('media.move_file_folder') }}</h4>
+                    <h4 class="modal-title"><i class="voyager-move"></i> @lang('media.move_file_folder')</h4>
                 </div>
 
                 <div class="modal-body">
-                    <h4>@lang('media.destination_folder') }}</h4>
+                    <h4>@lang('media.destination_folder')</h4>
                     <select class="form-control" v-model="modals.move_files.destination">
-                        <option value="" disabled>@lang('media.destination_folder') }}</option>
+                        <option value="" disabled>@lang('media.destination_folder')</option>
                         <option v-if="current_folder != basePath && showFolders" value="/../">../</option>
                         <option v-for="file in files" v-if="file.type == 'folder' && !selected_files.includes(file)" :value="current_folder+'/'+file.name">@{{ file.name }}</option>
                     </select>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('generic.cancel') }}</button>
-                    <button type="button" class="btn btn-warning" v-on:click="moveFiles">@lang('generic.move') }}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('generic.cancel')</button>
+                    <button type="button" class="btn btn-warning" v-on:click="moveFiles">@lang('generic.move')</button>
                 </div>
             </div>
         </div>
@@ -331,7 +331,7 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">@lang('media.crop_image') }}</h4>
+                    <h4 class="modal-title">@lang('media.crop_image')</h4>
                 </div>
 
                 <div class="modal-body">
@@ -339,14 +339,14 @@
                         <img :id="'cropping-image_'+this._uid" v-if="selected_files.length == 1 && fileIs(selected_file, 'image')" class="img img-responsive" :src="selected_file.path + '?' + selected_file.last_modified" />
                     </div>
                     <div class="new-image-info">
-                        @lang('media.width') }} <span :id="'new-image-width_'+this._uid"></span>, @lang('media.height') }}<span :id="'new-image-height_'+this._uid"></span>
+                        @lang('media.width')<span :id="'new-image-width_'+this._uid"></span>, @lang('media.height')<span :id="'new-image-height_'+this._uid"></span>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('generic.cancel') }}</button>
-                    <button type="button" class="btn btn-warning" v-on:click="crop(false)">@lang('media.crop') }}</button>
-                    <button type="button" class="btn btn-warning" v-on:click="crop(true)">@lang('media.crop_and_create') }}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('generic.cancel')</button>
+                    <button type="button" class="btn btn-warning" v-on:click="crop(false)">@lang('media.crop')</button>
+                    <button type="button" class="btn btn-warning" v-on:click="crop(true)">@lang('media.crop_and_create')</button>
                 </div>
             </div>
         </div>
