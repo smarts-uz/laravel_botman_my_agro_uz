@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ $appeal->id }}</title>
+    <title>Agro</title>
 </head>
 <body>
 
