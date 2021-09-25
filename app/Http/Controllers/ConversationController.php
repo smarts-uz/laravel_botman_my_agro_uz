@@ -54,7 +54,7 @@ class ConversationController extends VoyagerController
 
         $conversations = Conversation::where('appeal_id', $appeal->id)->orderBy('created_at', 'ASC')->get();
         // dd($conversations);
-        $user = (User::where('id', $appeal->user_id)->first()) !== null ? User::where('id', $appeal->user_id)->first()->name : 'Deleted user';
+        $user = (User::where('id', $appeal->user_id)->first()) !== null ? User::where('id', $appeal->user_id)->first()->name : @trans('site.deleted_user');
         $region = app()->getLocale() == "uz" ? Region::where('id', $appeal->region)->first()->uz : Region::where('id', $appeal->region)->first()->ru;
         $route = app()->getLocale() == "uz" ? Routes::where('id', $appeal->route)->first()->uz : Routes::where('id', $appeal->route)->first()->ru;
 

@@ -20,5 +20,6 @@ return [
     'sent'                      => 'Yuborilgan',
     'status'                    => 'Holati',
     'close'                     => 'Yopish',
-    'send_button'               => 'Yuborish'
+    'send_button'               => 'Yuborish',
+    'deleted_user'              => 'O\'chirilgan akkount'
 ];
