@@ -9,8 +9,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\FilepondController;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +29,9 @@ Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('notify', [NotificationController::class, 'notify']);
 Route::view('/notification', 'notification');
 
-Route::get('/{lang}/admin/', [ConversationController::class, 'setLang']);
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'], ], function () {
+    Route::any('(.*)', [ConversationController::class, 'setLang'])->name('user.lang');
     // User::where('id', Auth::user()->id)->update(['settings' => json_encode(['locale'=>app()->getLocale()])]);
     // User::where('id', Auth::user()->id)->update(['settings'=>json_encode(['locale' => app()->getLocale()])]);
     Voyager::routes();

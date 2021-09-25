@@ -19,7 +19,7 @@ return[
     'action' => 'Murojaat turi',
     'open' => 'Ochiq',
     'closed' => 'Yopilgan',
-    'moderating' => 'Ko\'rilmoqda',
+    'moderating' => 'Javob berildi',
 
 
 
