@@ -92,7 +92,7 @@ $lang = app()->getLocale();
                   {{-- <td>{{ $appeal->title }}</td> --}}
                   <td>{{ ($appeal->regionObject()->first() !== null) ? ($lang == "ru"
                        ? $appeal->regionObject()->first()->ru : $appeal->regionObject()->first()->uz) : 'Deleted Region' }}</td>
-                  <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : 'Deleted Route' }}</td>
+                  <td>{{  ($appeal->routesObject()->first() !== null) ? ($lang == "ru" ? $appeal->routesObject()->first()->ru : $appeal->routesObject()->first()->uz) : 'Deleted Route' }}</td>
                   <td>{{  ($appeal->userObject()->first() !== null) ? $appeal->userObject()->first()->name : 'Deleted User' }}</td>
                   <td>{{ ($appeal->actionObject()->first() !== null) ? ($lang == "ru" ? $appeal->actionObject()->first()->ru : $appeal->actionObject()->first()->uz) : 'Deleted User' }}</td>
                   <td scope="row" class="btn btn-primary" style="margin: 6px; color: white; display: flex; border-radius: 2px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: #FF8C00;' : 'background: red;') }}">
