@@ -148,33 +148,7 @@ class RealConversation extends Conversation
 
     public function run()
     {
-        // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
-        // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
-        // $this->askImageFile();
-        // $this->say(Storage::allFiles('fayzulloev'));
         $this->askLanguage();
-    // $this->ask($this->keyLanguages(), [
-    //     [
-    //         'pattern' => 'yes|yep',
-    //         'callback' => function ($bot) {
-    //             $this->say();
-    //         }
-    //     ],
-    //     [
-    //         'pattern' => 'nah|no|nope',
-    //         'callback' => function () {
-    //             $this->say('PANIC!! Stop the engines NOW!');
-    //         }
-    //     ]
-    // ]);
-        // $this->say("Hello");
-        // $apiParameters = [
-        //     'chat_id' => 'mceiov',
-        //     'message_id' => '1'
-        //     ];
-        //     $this->bot->sendRequest('deleteMessage', $apiParameters);
-        //     $this->say("OK");
-
     }
     public function askLanguage()
     {
@@ -275,14 +249,6 @@ HTML;
             } else $this->repeat();
         });
     }
-
-    // public function askTitle()
-    // {
-    //     $this->ask($this->questions["ASK_THEME"][$this->language], function ($answer) {
-    //         $this->user_memory["title"] = $answer->getText();
-    //         $this->askAppeal();
-    //     });
-    // }
 
     public function askAppeal()
     {
