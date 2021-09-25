@@ -383,7 +383,7 @@ HTML;
             ];
             Mail::to($this->user_memory["email"])->send(new SendMail($details));
         } else {
-            $this->user_memory["usertype"] = $user->individeual;
+            $this->user_memory["usertype"] = $user->individual;
             $this->user_memory["phone"] = $user->phone;
             $this->user_memory["name"] = $user->name;
         }
