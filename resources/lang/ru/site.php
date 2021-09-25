@@ -12,7 +12,7 @@ return[
     'top_browsers'              => 'Eng yaxshi brauzerlar',
     'top_countries'             => 'Eng yaxshi mamlakatlar',
     'various_visualizations'    => 'Har xil vizualizatsiyalar',
-    
+
     'title'                     => 'Чат',
     'info'                      => 'Информация о заявке',
     'appealer'                  => 'Запрашивающий',
@@ -20,9 +20,14 @@ return[
     'route'                     => 'Направления',
     'sent'                      => 'Отправлен',
     'status'                    => 'Состояние',
-    'close'                     => 'Закрыть тикетdfdf',
+    'close'                     => 'Закрыть тикет',
     'send_button'               => 'Отправить',
-    'deleted_user'              => 'Удаленный пользователь'
+    'deleted_user'              => 'Удаленный пользователь',
+    'deleted_route'             => 'Удалено',
+    'deleted_action'            => 'Удалено',
+    'medium'                    => 'Средняя',
+    'low'                       => 'Низкая',
+    'high'                      => 'Високая'
 
 ];
 ?>
