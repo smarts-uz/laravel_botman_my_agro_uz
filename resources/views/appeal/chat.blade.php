@@ -38,7 +38,7 @@
 
             @php
                 $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
-                
+
             @endphp
 
             <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
@@ -63,7 +63,7 @@
 
         <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
             @csrf
-            <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : ""}} required
+            <input name="text" type="text" class="msger-input" {{ $appeal->status == 3 ? "disabled" : ""}} required
                 placeholder="Enter your message...">
             <button type="submit" required class="msger-send-btn "
                 {{ $appeal->status == 3 ? "disabled" : ""}}>@lang('site.send_button')</button>
@@ -96,7 +96,7 @@
                 <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
             </div>
 
-            @if(($appeal->status != 3 && $totalDuration>48) || Auth::user()->hasRole('user' && $appeal->is_closed == 0))
+            @if( $appeal->status != 3 && (Auth::user()->hasRole('user') ||  $totalDuration>48))
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                     {{-- @csrf --}}
@@ -110,7 +110,7 @@
     </div>
 
 </div>
-@if($totalDuration>48 || Auth::user()->hasRole('user'))
+@if( $appeal->status != 3 && (Auth::user()->hasRole('user') ||  $totalDuration>48))
 <div class="wrap1">
     @if($appeal->status == 1)
     <div class="block text-center bloc1">
@@ -123,7 +123,6 @@
     <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
     @endif
 </div>
-@endif
 <form id="submit"  action="{{route('conversation.rating',$appeal)}}" method="POST">
     @csrf
     <div class="stars">
@@ -135,6 +134,8 @@
             stars</label><label for="star4">4 stars</label><label for="star5">5 stars</label>
     </div>
 </form>
+@endif
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

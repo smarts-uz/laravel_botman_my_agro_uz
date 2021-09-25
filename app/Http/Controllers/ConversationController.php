@@ -14,12 +14,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
+use Carbon\Carbon;
 
-class ConversationController extends VoyagerController
+class ConversationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin.user');
 
         // return back();
     }
@@ -36,24 +37,26 @@ class ConversationController extends VoyagerController
             'body' => $appealData->text,
             'files' => $files
         ];
-        Mail::to(Auth::user()->email)->send(new SendMail($details));
+        if(Mail::to(Auth::user()->email)->send(new SendMail($details))){
+            Alert::success('Send', 'Appeal sent to expert');
+        };
         return redirect()->route('voyager.appeals.index');
     }
     public function showChat(Appeal $appeal)
     {
-        $finishTime = now();
-        $appealData = Appeal::where('id', $appeal);
-        // $conversationObject = Conversation::orderBy("created_at", 'DESC');
+        $finishTime = Carbon::now();
         $conversations = Conversation::where('appeal_id', $appeal->id);
-        if (($conversations->first() !== null)) {
-            $starttime = $appeal->created_at;
-        } else $starttime = $appeal->created_at;
+        $con = $conversations->orderBy("created_at", 'DESC');
 
+        if (($con->first() !== null)) {
+            $starttime = $con->first()->created_at;
+        } else $starttime = new Carbon(($starttime = $appeal->created_at));
+        // $carbon = new Carbon(new \DateTime($appeal->created_at), new \DateTimeZone('Asia/Tashkent')); // equivalent to previous instance
+        // You can create Carbon or CarbonImmutable instance from:
         $totalDuration = $finishTime->diffInHours($starttime);
 
-
         $conversations = Conversation::where('appeal_id', $appeal->id)->orderBy('created_at', 'ASC')->get();
-        // dd($conversations);
+        // dd($totalDuration);
         $user = (User::where('id', $appeal->user_id)->first()) !== null ? User::where('id', $appeal->user_id)->first()->name : 'Deleted user';
         $region = app()->getLocale() == "uz" ? Region::where('id', $appeal->region)->first()->uz : Region::where('id', $appeal->region)->first()->ru;
         $route = app()->getLocale() == "uz" ? Routes::where('id', $appeal->route)->first()->uz : Routes::where('id', $appeal->route)->first()->ru;
@@ -99,25 +102,27 @@ class ConversationController extends VoyagerController
         $finishTime = now();
         $appealData = Appeal::where('id', $appeal);
         $conversationObject = Conversation::orderBy("created_at", 'DESC');
-        if (($conversationObject->first() !== null)) {
-            $starttime = $conversationObject->first()->created_at;
-        } else $starttime = $appealData->first()->created_at;
-
-        $totalDuration = $finishTime->diffInHours($starttime);
         $rating = floatval((intval($request->rating) + intval($appealData->first()->rating)) / 2);
 
         // if ($totalDuration == 48) {
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
-        User::where('id', $appeal)->update(['rating' => $rating]);
-
-        if (Appeal::where('id', $appeal)->update(["status" => 3])) {
-            Alert::success('Closed', 'Conversation closed succesfully!');
-            return redirect()->route('voyager.appeals.index')->with('success', 'Closed');
-        } else {
-            Alert::error('impossible close', 'You couldn`t close conversation!!!');
+        $users_array = $conversationObject->where('appeal_id', $appeal)->pluck('user_id')->toArray();
+        $user = User::where('role_id', 3)->whereIn('id', $users_array)->first();
+        if($user == null){
+            Alert::error('Not Answer', 'No answer from moderator!');
             return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
+        } else {
+            $user->update(['rating' => $rating]);
+
+            if (Appeal::where('id', $appeal)->update(["status" => 3])) {
+                Alert::success('Closed', 'Conversation closed succesfully!');
+                return redirect()->route('voyager.appeals.index')->with('success', 'Closed');
+            } else {
+                Alert::error('impossible close', 'You couldn`t close conversation!!!');
+                return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
+            }
         }
     }
     // }
