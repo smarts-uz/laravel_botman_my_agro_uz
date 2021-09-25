@@ -5,9 +5,6 @@
 </head>
 <body>
 
-
-
-
 <h1><span>{{ $details['title'] }}</span></h1>
 <h1>Murojaat matni</h1>
 <br>
