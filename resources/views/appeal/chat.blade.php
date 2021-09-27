@@ -22,9 +22,9 @@
                     <div class="msg-text">
                         {{ $appeal->text }}
                         <div>
-                        @forelse(json_decode($appeal->images) as $img)
-                            <a href="{{asset('storage/' . $img)}}">user file</a> <br/>
-                        @endforeach
+                            @forelse(json_decode($appeal->images) as $img)
+                            <a href="{{asset('storage/' . $img)}}">user file</a> <br />
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -37,11 +37,11 @@
             {{-- @dd($duration); --}}
 
             @php
-                $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
-                
+            $appeal_user = \App\Models\User::where('id', $conversation->user_id)->first();
+
             @endphp
 
-            <div class='msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
+            <div class="msg {{ $conversation->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }}">
                 <div class="msg-img" style="background-image: url({{ asset('storage/'. Auth::user()->avatar)}})">
                 </div>
 
@@ -59,14 +59,15 @@
 
 
         </main>
-        {{-- @if($appeal->is_closed == 0) --}}
+        {{-- @if($appeal->is_closed == 1) --}}
 
         <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
             @csrf
-            <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : "style=display:none"}} required
+            <input name="text" type="text" class="msger-input"
+                {{ $appeal->is_closed == 1 ? "disabled" : "style=display:none"}} required
                 placeholder="Enter your message...">
             <button type="submit" required class="msger-send-btn "
-                {{ $appeal->status == 3 ? "disabled" : "style=display:none"}}>@lang('site.send_button')</button>
+                {{ $appeal->status == 3 ? "disabled" : 'style=display:none'}}>@lang('site.send_button')</button>
         </form>
         {{-- @endif --}}
     </section>
@@ -93,18 +94,19 @@
             </div>
             <div class="block">
                 <span>@lang('site.status')</span>
-                <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.yuqori')) }}</p>
+                <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.yuqori')) }}
+                </p>
             </div>
 
-            @if(($appeal->status != 3 && $totalDuration>48) || Auth::user()->hasRole('user' ) && $appeal->is_closed == 0)
-                <div class="block text-center bloc1">
-                    {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
-                    {{-- @csrf --}}
-                    <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
-                    {{-- </form> --}}
-                </div>
+            @if( $appeal->status==1 || $appeal->status==2 )
+            <div class="block text-center bloc1">
+                {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
+                {{-- @csrf --}}
+                <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
+                {{-- </form> --}}
+            </div>
             @else
-                <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
+            <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
             @endif
         </div>
     </div>
@@ -124,7 +126,7 @@
     @endif
 </div>
 @endif
-<form id="submit"  action="{{route('conversation.rating',$appeal)}}" method="POST">
+<form id="submit" action="{{route('conversation.rating',$appeal)}}" method="POST">
     @csrf
     <div class="stars">
         <input type="radio" id="star1" name="rating" value="1" /><input type="radio" id="star2" name="rating"
