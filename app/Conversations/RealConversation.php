@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
-const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
+const LANGUAGE = [['key' => "O`zbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
 const QUESTIONS = [
 
