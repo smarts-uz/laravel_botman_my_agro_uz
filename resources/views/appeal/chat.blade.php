@@ -93,8 +93,8 @@
             </div>
             <div class="block">
                 <span>@lang('site.status')</span>
-                <p>{{ ($appeal->status == 1) ? 'Средняя' : (($appeal->status == 0) ? 'Низкая': 'Високая') }}</p>
-            </div>
+                <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.high')) }}</p>       
+              </div>
 
             @if( $appeal->status != 3 && (Auth::user()->hasRole('user') ||  $totalDuration>48))
                 <div class="block text-center bloc1">

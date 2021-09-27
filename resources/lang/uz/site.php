@@ -20,5 +20,11 @@ return [
     'sent'                      => 'Yuborilgan',
     'status'                    => 'Holati',
     'close'                     => 'Yopish',
-    'send_button'               => 'Yuborish'
+    'send_button'               => 'Yuborish',
+    'deleted_user'              => 'O\'chirilgan akkount',
+    'deleted_route'             => 'O\'chirilgan',
+    'deleted_action'            => 'o\'chirilgan',
+    'medium'                    => 'O\'rtacha',
+    'low'                       => 'Past',
+    'high'                      => 'Yuqori'
 ];
