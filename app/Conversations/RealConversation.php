@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
-const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
+const LANGUAGE = [['key' => "O`zbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
 const QUESTIONS = [
 
@@ -386,7 +386,7 @@ HTML;
             ];
             Mail::to($this->user_memory["email"])->send(new SendMail($details));
         } else {
-            $this->user_memory["usertype"] = $user->individeual;
+            $this->user_memory["usertype"] = $user->individual;
             $this->user_memory["phone"] = $user->phone;
             $this->user_memory["name"] = $user->name;
         }
