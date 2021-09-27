@@ -103,35 +103,23 @@
                 <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.high')) }}
                 </p>
             </div>
-
-            @if( $appeal->status==1 || $appeal->status==2 || $totalDuration>48)
-            <div class="block text-center bloc1">
-                {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
-                {{-- @csrf --}}
-                <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
-                {{-- </form> --}}
-            </div>
-            @else
-            <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
-            @endif
+            @if(($totalDuration < 48) && Auth::user()->hasRole('moderator'))
+                <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
+                @elseif( $appeal->status==1 || $appeal->status==2 )
+                <div class="block text-center bloc1">
+                    {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
+                    {{-- @csrf --}}
+                    <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
+                    {{-- </form> --}}
+                </div>
+                @else
+                <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
+                @endif
         </div>
     </div>
 
 </div>
-@if($totalDuration>48 || Auth::user()->hasRole('user'))
-<div class="wrap1">
-    @if($appeal->status == 1)
-    <div class="block text-center bloc1">
-        <form action="{{ route('appeal.close', $appeal) }}" method="POST">
-            @csrf
-            <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
-        </form>
-    </div>
-    @else
-    <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
-    @endif
-</div>
-@endif
+
 <form id="submit" action="{{route('conversation.rating',$appeal)}}" method="POST">
     @csrf
     <div class="stars">
