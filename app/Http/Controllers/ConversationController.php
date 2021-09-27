@@ -102,6 +102,11 @@ class ConversationController extends Controller
         $finishTime = now();
         $appealData = Appeal::where('id', $appeal);
         $conversationObject = Conversation::orderBy("created_at", 'DESC');
+        if (($conversationObject->first() !== null)) {
+            $starttime = $conversationObject->first()->created_at;
+        } else $starttime = $appealData->first()->created_at;
+
+        $totalDuration = $finishTime->diffInHours($starttime);
         $rating = floatval((intval($request->rating) + intval($appealData->first()->rating)) / 2);
 
         // if ($totalDuration == 48) {
@@ -117,16 +122,6 @@ class ConversationController extends Controller
         } else {
             Alert::error('impossible close', 'You couldn`t close conversation!!!');
             return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
-        } else {
-            $user->update(['rating' => $rating]);
-
-            if (Appeal::where('id', $appeal)->update(["status" => 3])) {
-                Alert::success('Closed', 'Conversation closed succesfully!');
-                return redirect()->route('voyager.appeals.index')->with('success', 'Closed');
-            } else {
-                Alert::error('impossible close', 'You couldn`t close conversation!!!');
-                return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
-            }
         }
     }
     // }
