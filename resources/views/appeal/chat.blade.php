@@ -111,6 +111,8 @@
                 <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
                 {{-- </form> --}}
             </div>
+            @elseif($totalDuration>48 || Auth::user()->hasRole('user')) 
+            <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
             @else
             <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
             @endif
