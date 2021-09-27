@@ -100,7 +100,7 @@
             </div>
             <div class="block">
                 <span>@lang('site.status')</span>
-                <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.yuqori')) }}
+                <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.high')) }}
                 </p>
             </div>
 
