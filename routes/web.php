@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'admin');
 Route::get("/uzchat", [ChatController::class, "app"]);
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
