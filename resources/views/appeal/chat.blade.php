@@ -63,10 +63,14 @@
 
         <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
             @csrf
+<<<<<<< HEAD
             <input name="text" type="text" class="msger-input" {{ $appeal->status == 3 ? "disabled" : ""}} required
+=======
+            <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : "style=display:none"}} required
+>>>>>>> e3319f4f89ad5fe37018ed17b394b595d566afa2
                 placeholder="Enter your message...">
             <button type="submit" required class="msger-send-btn "
-                {{ $appeal->status == 3 ? "disabled" : ""}}>@lang('site.send_button')</button>
+                {{ $appeal->status == 3 ? "disabled" : "style=display:none"}}>@lang('site.send_button')</button>
         </form>
         {{-- @endif --}}
     </section>

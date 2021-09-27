@@ -108,10 +108,14 @@ class ConversationController extends Controller
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
-        $users_array = $conversationObject->where('appeal_id', $appeal)->pluck('user_id')->toArray();
-        $user = User::where('role_id', 3)->whereIn('id', $users_array)->first();
-        if($user == null){
-            Alert::error('Not Answer', 'No answer from moderator!');
+        
+        User::where('id', Auth::user()->id)->update(['rating' => $request->rating]);
+
+        if (Appeal::where('id', $appeal)->update(["status" => 3])) {
+            Alert::success('Closed', 'Conversation closed succesfully!');
+            return redirect()->route('voyager.appeals.index')->with('success', 'Closed');
+        } else {
+            Alert::error('impossible close', 'You couldn`t close conversation!!!');
             return redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         } else {
             $user->update(['rating' => $rating]);
