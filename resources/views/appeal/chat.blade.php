@@ -63,10 +63,10 @@
 
         <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
             @csrf
-            <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : ""}} required
+            <input name="text" type="text" class="msger-input" {{ $appeal->is_closed == 1 ? "disabled" : "style=display:none"}} required
                 placeholder="Enter your message...">
             <button type="submit" required class="msger-send-btn "
-                {{ $appeal->status == 3 ? "disabled" : ""}}>@lang('site.send_button')</button>
+                {{ $appeal->status == 3 ? "disabled" : "style=display:none"}}>@lang('site.send_button')</button>
         </form>
         {{-- @endif --}}
     </section>
@@ -96,7 +96,7 @@
                 <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.yuqori')) }}</p>
             </div>
 
-            @if(($appeal->status != 3 && $totalDuration>48) || Auth::user()->hasRole('user' && $appeal->is_closed == 0))
+            @if(($appeal->status != 3 && $totalDuration>48) || Auth::user()->hasRole('user' ) && $appeal->is_closed == 0)
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                     {{-- @csrf --}}

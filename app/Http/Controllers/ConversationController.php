@@ -110,7 +110,8 @@ class ConversationController extends VoyagerController
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
-        User::where('id', $appeal)->update(['rating' => $rating]);
+        
+        User::where('id', Auth::user()->id)->update(['rating' => $request->rating]);
 
         if (Appeal::where('id', $appeal)->update(["status" => 3])) {
             Alert::success('Closed', 'Conversation closed succesfully!');
