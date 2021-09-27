@@ -10,7 +10,7 @@
         <div class="titles">@lang('site.title')</div>
 
         <main class="msger-chat">
-            <div class='msg {{ $appeal->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} '>
+            <div class="msg {{ $appeal->user_id == Auth::user()->id ? 'right-msg' : 'left-msg' }} ">
                 <div class="msg-img" style="background-image: url({{ asset('storage/'. Auth::user()->avatar)}})">
                 </div>
 
@@ -59,17 +59,23 @@
 
 
         </main>
-        {{-- @if($appeal->is_closed == 1) --}}
-
+        @if($appeal->status == 1 || $appeal->status == 2)
+        <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
+            @csrf
+            <input name="text" type="text" class="msger-input" placeholder="Enter your message..." />
+            <button type="submit" required class="msger-send-btn ">@lang('site.send_button')</button>
+        </form>
+        @else
         <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
             @csrf
             <input name="text" type="text" class="msger-input"
-                {{ $appeal->is_closed == 1 ? "disabled" : "style=display:none"}} required
-                placeholder="Enter your message...">
+                {{ $appeal->is_closed == 1 ? "style=display:none" : "style=display:none"}} required
+                placeholder="Enter your message..." />
             <button type="submit" required class="msger-send-btn "
-                {{ $appeal->status == 3 ? "disabled" : 'style=display:none'}}>@lang('site.send_button')</button>
+                {{ $appeal->is_closed == 1 ? "style=display:none" : "style=display:none"}}
+                required>@lang('site.send_button')</button>
         </form>
-        {{-- @endif --}}
+        @endif
     </section>
     <div class="right">
         <div class="wrap">
