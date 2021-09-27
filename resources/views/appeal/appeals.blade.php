@@ -90,11 +90,11 @@ $lang = app()->getLocale();
                   {{-- @dd($appeal->user()->first()->name); --}}
                   <th scope="row">{{ $appeal->id }}</th>
                   {{-- <td>{{ $appeal->title }}</td> --}}
-                  <td>{{ ($appeal->regionObject()->first() !== null) ? ($lang == "ru"
-                       ? $appeal->regionObject()->first()->ru : $appeal->regionObject()->first()->uz) : 'Deleted Region' }}</td>
-                  <td>{{  ($appeal->routesObject()->first() !== null) ? ($lang == "ru" ? $appeal->routesObject()->first()->ru : $appeal->routesObject()->first()->uz) : 'Deleted Route' }}</td>
-                  <td>{{  ($appeal->userObject()->first() !== null) ? $appeal->userObject()->first()->name : 'Deleted User' }}</td>
-                  <td>{{ ($appeal->actionObject()->first() !== null) ? ($lang == "ru" ? $appeal->actionObject()->first()->ru : $appeal->actionObject()->first()->uz) : 'Deleted User' }}</td>
+                  <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru"
+                       ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : @trans('site.deleted_action') }}</td>
+                  <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : @trans('site.deleted_action') }}</td>
+                  <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : @trans('site.deleted_user') }}</td>
+                  <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : @trans('site.deleted_action') }}</td>
                   <td scope="row" class="btn btn-primary" style="margin: 6px; color: white; display: flex; border-radius: 2px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: #FF8C00;' : 'background: red;') }}">
                    {{ $appeal->status==1 ? trans('appeals.open') : ($appeal->status==2 ? trans('appeals.moderating') : trans('appeals.closed'))}}
 
