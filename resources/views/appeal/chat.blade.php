@@ -104,15 +104,13 @@
                 </p>
             </div>
 
-            @if( $appeal->status==1 || $appeal->status==2 )
+            @if( $appeal->status==1 || $appeal->status==2 || $totalDuration>48)
             <div class="block text-center bloc1">
                 {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                 {{-- @csrf --}}
                 <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
                 {{-- </form> --}}
             </div>
-            @elseif($totalDuration>48 || Auth::user()->hasRole('user')) 
-            <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
             @else
             <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
             @endif
