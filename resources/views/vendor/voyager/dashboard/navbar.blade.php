@@ -64,11 +64,11 @@
             <li class="dropdown profile">
 
                 <a href="#" class="text-right dropdown-toggle" data-toggle="dropdown" role="button"
-                   aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img"> <span
+                   aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img" style="object-fit: cover;" > <span
                             class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-animated">
                     <li class="profile-img">
-                        <img src="{{ $user_avatar }}" class="profile-img">
+                        <img src="{{ $user_avatar }}" class="profile-img" style="object-fit: cover;"  >
                         <div class="profile-body">
                             <h5>{{ Auth::user()->name }}</h5>
                             <h6>{{ Auth::user()->email }}</h6>
