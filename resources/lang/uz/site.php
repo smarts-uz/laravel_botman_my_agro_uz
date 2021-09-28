@@ -24,7 +24,7 @@ return [
     'deleted_user'              => 'O\'chirilgan akkount',
     'deleted_route'             => 'O\'chirilgan',
     'deleted_action'            => 'o\'chirilgan',
-    'medium'                    => 'O\rtacha',
+    'medium'                    => 'O\'rtacha',
     'low'                       => 'Past',
     'high'                      => 'Yuqori'
 ];

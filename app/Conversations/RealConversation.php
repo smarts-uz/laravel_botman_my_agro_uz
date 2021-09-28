@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
-const LANGUAGE = [['key' => "Uzbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
+const LANGUAGE = [['key' => "O`zbek", 'value' => 'uz'], ['key' => "Pусский", 'value' => 'ru']];
 
 const QUESTIONS = [
 
@@ -178,19 +178,20 @@ class RealConversation extends Conversation
     }
     public function askLanguage()
     {
-        $this->ask(
-            $this->keyLanguages(),
-            function ($language) {
-                if ($language->isInteractiveMessageReply()) {
-                    $this->language = $language->getValue();
-                    $this->say($this->questions["ASK_LANGUAGE"]["uz"] . ":" . "<strong>" . $this->language . "</strong>");
-
-                    $this->askEmail();
+        $this->ask($this->keyLanguages(), function ($language) {
+            if ($language->isInteractiveMessageReply()) {
+                $this->language = $language->getValue();
+                if($language->getValue() == 'uz'){
+                    $this->say("<strong> O`zbek </strong>");
                 } else {
-                    return $this->repeat();
+                    $this->say("<strong> Pусский </strong>");
                 }
-            },
-        );
+                $this->askEmail();
+            } else {
+                return $this->repeat();
+            }
+        },
+    );
     }
     public function askWebFile()
     {
@@ -255,7 +256,7 @@ HTML;
                 $this->user_memory["email"] = $email->getText();
                 $dirname = $this->user_memory["email"];
                 Storage::makeDirectory('uploads/' . $dirname);
-                $this->say($this->questions["ASK_EMAIL"][$this->language] . ":" . "<strong>" . $this->user_memory["email"] . "</strong>");
+                $this->say("<strong>".$this->user_memory["email"]."</strong>");
                 $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
@@ -269,7 +270,7 @@ HTML;
         $this->ask($this->keyActions(), function ($actions) {
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
-                $this->say($this->questions["ASK_ACTION"][$this->language] . ":" . "<strong>" . $action = $this->language == "ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz . "</strong>");
+                $this->say("<strong>".$action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz."</strong>");
                 $this->askAppeal();
             } else $this->repeat();
         });
@@ -316,7 +317,7 @@ HTML;
         $this->ask($this->keyRegions(), function ($regions) {
             if ($regions->isInteractiveMessageReply()) {
                 $this->memory["region"] = $regions->getValue();
-                $this->say($this->questions["ASK_REGION"][$this->language] . ":" . "<strong>" . $region = $this->language == "ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz . "</strong>");
+                $this->say("<strong>".$region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz."</strong>");
                 $this->askUserType();
             } else $this->repeat();
         });
@@ -327,7 +328,7 @@ HTML;
         $this->ask($this->keyRoutes(), function ($routes) {
             if ($routes->isInteractiveMessageReply()) {
                 $this->memory["route"] = $routes->getValue();
-                $this->say($this->questions["ASK_ROUTE"][$this->language] . ":" . "<strong>" . $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz . "</strong>");
+                $this->say("<strong>".$route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz."</strong>");
                 $this->askRegion();
             } else $this->repeat();
         });
@@ -380,7 +381,7 @@ HTML;
             ];
             Mail::to($this->user_memory["email"])->send(new SendMail($details));
         } else {
-            $this->user_memory["usertype"] = $user->individeual;
+            $this->user_memory["usertype"] = $user->individual;
             $this->user_memory["phone"] = $user->phone;
             $this->user_memory["name"] = $user->name;
         }

@@ -9,8 +9,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\FilepondController;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +21,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::view('/', 'welcome');
+// Route::view('/', 'admin');
+Route::get('/', function () {
+    return view('welcome');
+});
 Route::get("/uzchat", [ChatController::class, "app"]);
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
@@ -49,7 +50,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
 Route::view("form", "form");
 Route::post("/form/send", [FormController::class, "run"]);
 
-Route::get('/', [FileUpload::class, 'createForm']);
+// Route::get('/', [FileUpload::class, 'createForm']);
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 Route::post("/upload", [FilepondController::class, "upload"]);
 Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
