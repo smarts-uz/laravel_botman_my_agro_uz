@@ -81,7 +81,7 @@ class RealConversation extends Conversation
             $ar[] = Button::create($key['key'])->value($key['value']);
         }
         return Question::create($this->questions["ASK_LANGUAGE"]["uz"])
-        ->addButtons($ar);
+            ->addButtons($ar);
     }
 
     public function keyUserType()
@@ -153,20 +153,20 @@ class RealConversation extends Conversation
         // $this->askImageFile();
         // $this->say(Storage::allFiles('fayzulloev'));
         $this->askLanguage();
-    // $this->ask($this->keyLanguages(), [
-    //     [
-    //         'pattern' => 'yes|yep',
-    //         'callback' => function ($bot) {
-    //             $this->say();
-    //         }
-    //     ],
-    //     [
-    //         'pattern' => 'nah|no|nope',
-    //         'callback' => function () {
-    //             $this->say('PANIC!! Stop the engines NOW!');
-    //         }
-    //     ]
-    // ]);
+        // $this->ask($this->keyLanguages(), [
+        //     [
+        //         'pattern' => 'yes|yep',
+        //         'callback' => function ($bot) {
+        //             $this->say();
+        //         }
+        //     ],
+        //     [
+        //         'pattern' => 'nah|no|nope',
+        //         'callback' => function () {
+        //             $this->say('PANIC!! Stop the engines NOW!');
+        //         }
+        //     ]
+        // ]);
         // $this->say("Hello");
         // $apiParameters = [
         //     'chat_id' => 'mceiov',
@@ -214,7 +214,6 @@ HTML;
             } else
                 $this->repeat();
         });
-
     }
 
     public function isTG()
@@ -244,9 +243,7 @@ HTML;
                 $this->say(json_encode(Storage::allFiles($dirname)));
             }
             $this->askRoute();
-
         });
-
     }
 
 
@@ -312,7 +309,6 @@ HTML;
                 }
             } else $this->repeat();
         });
-
     }
 
 
@@ -323,7 +319,6 @@ HTML;
                 $this->memory["region"] = $regions->getValue();
                 $this->say("<strong>".$region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz."</strong>");
                 $this->askUserType();
-
             } else $this->repeat();
         });
     }
@@ -407,7 +402,6 @@ HTML;
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
             }
-
         });
     }
 
@@ -420,13 +414,11 @@ HTML;
             Log::info($this->verify);
             if ($verifycode == $this->verify) {
                 $this->UserLogin();
-
             } else {
                 $this->say($this->questions["SAY_INCORRECT_CODE"][$this->language]);
                 $this->repeat();
             }
         });
-
     }
 
     public function askName()
@@ -442,7 +434,6 @@ HTML;
                 } else {
                     $this->askPhone();
                 }
-
             }
         );
     }
@@ -452,21 +443,20 @@ HTML;
         if ($this->user_memory["usertype"] == 0) {
             $this->ask($this->user_question_data["ASK_USER_A"][$this->user_memory["usertype"]][$this->language], function ($ask1) {
                 $this->memory["data"]["a"] = $ask1->getText();
-                $this->ask($this->user_question_data["ASK_USER_B"][$this->user_memory["usertype"]][$this->language]
-                    , function ($ask2) {
+                $this->ask(
+                    $this->user_question_data["ASK_USER_B"][$this->user_memory["usertype"]][$this->language],
+                    function ($ask2) {
                         $this->memory["data"]['b'] = $ask2->getText();
                         $this->askName();
-                    });
+                    }
+                );
             });
         } else {
             $this->ask($this->user_question_data["ASK_USER_A"][$this->user_memory["usertype"]][$this->language], function ($ask1) {
                 $this->memory["data"]["a"] = $ask1->getText();
                 $this->askName();
-
             });
         }
-
-
     }
 
     public function askUserType()
@@ -482,17 +472,17 @@ HTML;
 
     public function askEnd()
     {
-        $action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz;
-        $region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz;
-        $route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
+        $action = $this->language == "ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz;
+        $region = $this->language == "ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz;
+        $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
 
-        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $action . '<br>  '. $this->questions["ASK_REGION_TEXT"][$this->language] . ': '. $region . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] .': ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
+        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $action . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $region . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
         $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
-                ->addButtons([
-                    Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
-                    Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
-                ]);
+            ->addButtons([
+                Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
+                Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
+            ]);
 
         $this->ask($question, function ($answer) {
 
@@ -521,7 +511,7 @@ HTML;
                     if ($this->user_memory["email"]) {
                         $dirname =  '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
 
-                       foreach ($files as $file) {
+                        foreach ($files as $file) {
                             // Storage::makeDirectory('/files//' . $this->user_memory["email"] . '/' . $appeal->id);
 
                             Log::info($file);
@@ -540,8 +530,6 @@ HTML;
             } else {
                 $this->repeat();
             }
-
-
         });
     }
 

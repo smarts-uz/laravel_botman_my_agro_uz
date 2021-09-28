@@ -12,6 +12,9 @@ $lang = app()->getLocale();
 
 
 {{-- Top Buttons --}}
+<div hidden id="lang">
+    {{$lang}}
+</div>
 <div class="container-fluid">
     <h1 class="page-title">
         <i class="voyager-receipt"></i> @lang('appeals.appeals')
@@ -126,12 +129,16 @@ $lang = app()->getLocale();
 <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap.min.js"></script>
 <script>
 $(document).ready(function() {
+    let lang = $('#lang').text().trim();
     $('#example').DataTable({
         "lengthMenu": [
             [10, 25, 50, -1],
             [10, 25, 50, "All"]
         ],
-        "order": [[0, 'desc']]
+        "order": [[0, 'desc']],
+        language: {
+            url: `https://cdn.datatables.net/plug-ins/1.11.3/i18n/${lang}.json`
+        }
     });
 });
 </script>
