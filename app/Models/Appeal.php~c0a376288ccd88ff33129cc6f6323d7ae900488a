@@ -9,19 +9,19 @@ class Appeal extends Model
     protected $fillable = [
         'status'
     ];
-    public function user()
+    public function userObject()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function region()
+    public function regionObject()
     {
         return $this->belongsTo(Region::class, 'region');
     }
-    public function routes()
+    public function routesObject()
     {
         return $this->belongsTo(Routes::class, 'route', 'id');
     }
-    public function action()
+    public function actionObject()
     {
         return $this->belongsTo(Action::class, 'type', 'id');
     }
