@@ -23,7 +23,7 @@
                         {{ $appeal->text }}
                         <div>
                             @forelse(json_decode($appeal->images) as $img)
-                            <a href="{{asset('storage/' . $img)}}">user file</a> <br />
+                            <a href="{{asset('storage/' . $img)}}">{{ $img }}</a> <br />
                             @endforeach
                         </div>
                     </div>
