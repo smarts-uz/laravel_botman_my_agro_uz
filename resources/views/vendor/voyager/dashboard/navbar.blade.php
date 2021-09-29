@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top navbar-top">
+﻿<nav class="navbar navbar-default navbar-fixed-top navbar-top">
 
     <div class="container-fluid">
 
@@ -7,7 +7,7 @@
                 <span class="hamburger-inner"></span>
             </button>
             @section('breadcrumbs')
-            <ol class="breadcrumb hidden-xs">
+            <ol class="breadcrumb hidden-xs" style="display:none;">
                 @php
                 $segments = array_filter(explode('/', str_replace(route('voyager.dashboard'), '', Request::url())));
                 $url = route('voyager.dashboard');
