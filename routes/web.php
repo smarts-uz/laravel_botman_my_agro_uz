@@ -23,6 +23,9 @@ use App\Http\Controllers\FilepondController;
 
 // Route::view('/', 'admin');
 Route::get('/', function () {
+    return view('login');
+});
+Route::get('/chat', function () {
     return view('welcome');
 });
 Route::get("/uzchat", [ChatController::class, "app"]);
