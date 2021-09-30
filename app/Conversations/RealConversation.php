@@ -26,8 +26,8 @@ const LANGUAGE = [['key' => "O`zbek", 'value' => 'uz'], ['key' => "Pусский
 
 const QUESTIONS = [
 
-    'YES' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
-    'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
+    'YES' => ['name' => ['uz' => 'Ha', 'ru' => 'Да'], 'value' => 'Yes'],
+    'NO' => ['name' => ['uz' => 'Yo`q', 'ru' => 'Нет'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
 ];
