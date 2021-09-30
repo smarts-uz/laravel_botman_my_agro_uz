@@ -373,7 +373,8 @@ HTML;
             $text = $this->language == "uz" ? setting('sms.AccountUz') . ' ' . 'Email: ' . $email . ' ' . 'Password:' . $password : setting('sms.AccountRu') . ' ' . ' Email: ' . $email . ' ' . 'Password:' . $password;
 
             $smsSender = new SmsService();
-            $smsSender->send($this->user_memory["phone"], $text);
+            $smsSender->send('998' . $this->user_memory["phone"], $text);
+
 
             $details = [
                 'title' => 'AGRO.UZ ',
