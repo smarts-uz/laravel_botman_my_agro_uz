@@ -373,7 +373,13 @@ HTML;
             $text = $this->language == "uz" ? setting('sms.AccountUz') . ' ' . 'Email: ' . $email . ' ' . 'Password:' . $password : setting('sms.AccountRu') . ' ' . ' Email: ' . $email . ' ' . 'Password:' . $password;
 
             $smsSender = new SmsService();
-            $smsSender->send('998' . $this->user_memory["phone"], ",l,mfmgmgbmg");
+            $smsSender->send('998' . $this->user_memory["phone"], "Ваш доступ к персональному кабинету в портале My.Agro.Uz.
+
+            Adress: http://my.agro.uz/admin
+            E-Mail:	asror.zk@gmail.com
+            Пароль: вые42352п
+
+            Спасибо за пользование нашим сервисом.");
 
             $details = [
                 'title' => 'AGRO.UZ ',
