@@ -24,6 +24,12 @@ class ConversationController extends Controller
 
         // return back();
     }
+    public function index(){
+        if(Auth::user()->hasRole('admin')){
+            return view('voyager::index');
+        }
+        return redirect()->route('voyager.appeals.index');
+    }
     public function toExpert($appeal)
     {
 

@@ -39,4 +39,10 @@ class AppealDimmer extends BaseDimmer
             'image' => "https://www.solidbackgrounds.com/images/1920x1080/1920x1080-red-solid-color-background.jpg",
         ]));
     }
+    public function shouldBeDisplayed()
+    {
+        return auth()->user()->hasRole('admin');
+    }
+
+
 }
