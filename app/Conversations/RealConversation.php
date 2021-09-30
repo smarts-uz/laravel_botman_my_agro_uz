@@ -94,7 +94,7 @@ class RealConversation extends Conversation
         foreach ($this->key_indevidual[$this->language] as $key) {
             array_push($ar, Button::create($key["name"])->value($key["val"]));
         }
-        return Question::create(" ")
+        return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
             ->addButtons($ar);
     }
 
@@ -134,7 +134,7 @@ class RealConversation extends Conversation
 
     public function mediaRoutes()
     {
-        return Question::create(" ")
+        return Question::create($this->questions["ASK_FILE_UPLOAD"][$this->language])
             ->addButtons([
                 Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
                 Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
@@ -260,7 +260,6 @@ HTML;
                 $this->user_memory["email"] = $email->getText();
                 $dirname = $this->user_memory["email"];
                 Storage::makeDirectory('uploads/' . $dirname);
-                $this->say("<strong>".$this->user_memory["email"]."</strong>");
                 $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
@@ -274,7 +273,7 @@ HTML;
         $this->ask($this->keyActions(), function ($actions) {
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
-                $this->say("<strong>".$action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz."</strong>");
+                $this->say("<strong>".$action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
                 $this->askAppeal();
             } else $this->repeat();
         });
@@ -321,7 +320,7 @@ HTML;
         $this->ask($this->keyRegions(), function ($regions) {
             if ($regions->isInteractiveMessageReply()) {
                 $this->memory["region"] = $regions->getValue();
-                $this->say("<strong>".$region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz."</strong>");
+                $this->say("<strong>".$region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
                 $this->askUserType();
             } else $this->repeat();
         });
@@ -332,7 +331,7 @@ HTML;
         $this->ask($this->keyRoutes(), function ($routes) {
             if ($routes->isInteractiveMessageReply()) {
                 $this->memory["route"] = $routes->getValue();
-                $this->say("<strong>".$route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz."</strong>");
+                $this->say("<strong>".$route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
                 $this->askRegion();
             } else $this->repeat();
         });
