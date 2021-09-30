@@ -28,6 +28,10 @@ const QUESTIONS = [
 
     'YES' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
     'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
+
+    
+    'Ha' => ['name' => ['uz' => 'HA', 'ru' => 'Да'], 'value' => 'Yes'],
+    'Yoq' => ['name' => ['uz' => 'Yo`q', 'ru' => 'Нет'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
 ];
@@ -372,7 +376,12 @@ HTML;
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
             $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
-            $textsms = "Address: https://my.agro.uz/admin Email: " .  $email . 'Password: '. $password;
+            
+            $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
+            $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
+            $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
+
+            $textsms = $address." https://my.agro.uz/admin ".$emailtext .  $email . $passwordtext . $password;
             $smsSender = new SmsService();
             $smsSender->send('998' . $this->user_memory["phone"], $textsms);
 
@@ -410,8 +419,7 @@ HTML;
     {
         $this->verify = $this->generatePass(4);
         $smsSender = new SmsService();
-        $smstext = $this->language=="uz" ? setting('sms.ConfirmUz') : setting('sms.ConfirmRu');
-        $smsSender->send('998' . $phone, $smstext . $this->verify);
+        $smsSender->send('998' . $phone, "My.Agro.Uz portali uchun tasdiqlash kodi: " . $this->verify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function ($verifycode) {
 
             if ($verifycode == $this->verify) {
@@ -482,8 +490,8 @@ HTML;
         $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
             ->addButtons([
-                Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
-                Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
+                Button::create(QUESTIONS["Ha"]["name"][$this->language])->value(QUESTIONS["Ha"]["value"]),
+                Button::create(QUESTIONS["Yoq"]["name"][$this->language])->value(QUESTIONS["Yoq"]["value"])
             ]);
 
         $this->ask($question, function ($answer) {
@@ -493,7 +501,7 @@ HTML;
                 $dirname = '/uploads/' . $this->user_memory["email"];
                 $files = Storage::files($dirname . '/');
                 Log::info(json_encode($files));
-                if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
+                if ($answer->getValue() == QUESTIONS["Ha"]["value"]) {
                     $appeal = new Appeal();
                     $appeal->text = $this->memory["answer"];
                     $appeal->user_id = $this->user_memory["id"];
