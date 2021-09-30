@@ -182,7 +182,7 @@ class RealConversation extends Conversation
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
                 if($language->getValue() == 'uz'){
-                    $this->say("<strong> O`zbek </strong>");
+                    $this->isTG() ? $this->say("*O`zbek*") : $this->say("<strong> O`zbek </strong>");
                 } else {
                     $this->say("<strong> Pусский </strong>");
                 }
@@ -352,7 +352,8 @@ HTML;
                     "email" => $this->user_memory["email"],
                     "password" => Hash::make($this->memory["pass"]),
                     "individual" => $this->user_memory["usertype"],
-                    "place_of_work" => $this->memory["data"]["a"]
+                    "place_of_work" => $this->memory["data"]["a"],
+                    "settings" => json_encode()
                 ]);
             } else {
                 $user = User::create([
@@ -412,7 +413,7 @@ HTML;
         $smstext = $this->language=="uz" ? setting('sms.ConfirmUz') : setting('sms.ConfirmRu');
         $smsSender->send('998' . $phone, $smstext . $this->verify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function ($verifycode) {
-            Log::info($this->verify);
+
             if ($verifycode == $this->verify) {
                 $this->UserLogin();
             } else {
