@@ -52,6 +52,11 @@ class ConversationController extends Controller
     }
     public function showChat(Appeal $appeal)
     {
+
+        if( $appeal->user_id == Auth::user()->id && Auth::user()->hasRole("user")){
+            return back();
+        }
+
         $finishTime = Carbon::now();
         $conversations = Conversation::where('appeal_id', $appeal->id);
         $con = $conversations->orderBy("created_at", 'DESC');
@@ -108,7 +113,7 @@ class ConversationController extends Controller
     public function rating($appeal, Request $request)
     {
         $finishTime = now();
-        $appealData = Appeal::where('id', $appeal);
+        $appealData = User::where('id', Auth::user()->id);
         $conversationObject = Conversation::orderBy("created_at", 'DESC');
         if (($conversationObject->first() !== null)) {
             $starttime = $conversationObject->first()->created_at;

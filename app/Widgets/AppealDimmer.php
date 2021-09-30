@@ -28,7 +28,6 @@ class AppealDimmer extends BaseDimmer
         $count = Appeal::count();
         $string = trans_choice('dimmer.user', $count);
         // $string = trans('site.by_users');
-
         return view('voyager::dimmer', array_merge($this->config, [
             'icon'   => 'voyager-news',
             'title'  => "{$count} {$string}",
