@@ -28,6 +28,10 @@ const QUESTIONS = [
 
     'YES' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
     'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
+
+    
+    'Ha' => ['name' => ['uz' => 'HA', 'ru' => 'Да'], 'value' => 'Yes'],
+    'Yoq' => ['name' => ['uz' => 'Yo`q', 'ru' => 'Нет'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
 ];
@@ -90,7 +94,7 @@ class RealConversation extends Conversation
         foreach ($this->key_indevidual[$this->language] as $key) {
             array_push($ar, Button::create($key["name"])->value($key["val"]));
         }
-        return Question::create(" ")
+        return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
             ->addButtons($ar);
     }
 
@@ -130,7 +134,7 @@ class RealConversation extends Conversation
 
     public function mediaRoutes()
     {
-        return Question::create(" ")
+        return Question::create($this->questions["ASK_FILE_UPLOAD"][$this->language])
             ->addButtons([
                 Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
                 Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
@@ -182,9 +186,9 @@ class RealConversation extends Conversation
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
                 if($language->getValue() == 'uz'){
-                    $this->say("<strong> O`zbek </strong>");
+                    $this->say("<strong>O`zbek</strong>", ["parse_mode" => "HTML"]);
                 } else {
-                    $this->say("<strong> Pусский </strong>");
+                    $this->say("<strong>Pусский</strong>", ["parse_mode" => "HTML"]);
                 }
                 $this->askEmail();
             } else {
@@ -256,7 +260,6 @@ HTML;
                 $this->user_memory["email"] = $email->getText();
                 $dirname = $this->user_memory["email"];
                 Storage::makeDirectory('uploads/' . $dirname);
-                $this->say("<strong>".$this->user_memory["email"]."</strong>");
                 $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
@@ -270,7 +273,7 @@ HTML;
         $this->ask($this->keyActions(), function ($actions) {
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
-                $this->say("<strong>".$action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz."</strong>");
+                $this->say("<strong>".$action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
                 $this->askAppeal();
             } else $this->repeat();
         });
@@ -317,7 +320,7 @@ HTML;
         $this->ask($this->keyRegions(), function ($regions) {
             if ($regions->isInteractiveMessageReply()) {
                 $this->memory["region"] = $regions->getValue();
-                $this->say("<strong>".$region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz."</strong>");
+                $this->say("<strong>".$region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
                 $this->askUserType();
             } else $this->repeat();
         });
@@ -328,7 +331,7 @@ HTML;
         $this->ask($this->keyRoutes(), function ($routes) {
             if ($routes->isInteractiveMessageReply()) {
                 $this->memory["route"] = $routes->getValue();
-                $this->say("<strong>".$route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz."</strong>");
+                $this->say("<strong>".$route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
                 $this->askRegion();
             } else $this->repeat();
         });
@@ -352,7 +355,8 @@ HTML;
                     "email" => $this->user_memory["email"],
                     "password" => Hash::make($this->memory["pass"]),
                     "individual" => $this->user_memory["usertype"],
-                    "place_of_work" => $this->memory["data"]["a"]
+                    "place_of_work" => $this->memory["data"]["a"],
+                    'settings' => json_encode(['locale' => $this->language])
                 ]);
             } else {
                 $user = User::create([
@@ -370,15 +374,15 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur. " : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
+            
+            $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
+            $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
+            $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
 
+            $textsms = $address." https://my.agro.uz/admin ".$emailtext .  $email . $passwordtext . $password;
             $smsSender = new SmsService();
-            $smsSender->send('998' . $this->user_memory["phone"], "Ваш доступ к персональному кабинету в портале My.Agro.Uz.
-
-            Adress: http://my.agro.uz/admin
-            E-Mail:	asror.zk@gmail.com
-            Пароль: вые42352п
-            Спасибо за пользование нашим сервисом.");
+            $smsSender->send('998' . $this->user_memory["phone"], $textsms);
 
             $details = [
                 'title' => 'AGRO.UZ ',
@@ -414,10 +418,9 @@ HTML;
     {
         $this->verify = $this->generatePass(4);
         $smsSender = new SmsService();
-        $smstext = $this->language=="uz" ? setting('sms.ConfirmUz') : setting('sms.ConfirmRu');
-        $smsSender->send('998' . $phone, $smstext . $this->verify);
+        $smsSender->send('998' . $phone, "My.Agro.Uz portali uchun tasdiqlash kodi: " . $this->verify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function ($verifycode) {
-            Log::info($this->verify);
+
             if ($verifycode == $this->verify) {
                 $this->UserLogin();
             } else {
@@ -486,8 +489,8 @@ HTML;
         $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
             ->addButtons([
-                Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
-                Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
+                Button::create(QUESTIONS["Ha"]["name"][$this->language])->value(QUESTIONS["Ha"]["value"]),
+                Button::create(QUESTIONS["Yoq"]["name"][$this->language])->value(QUESTIONS["Yoq"]["value"])
             ]);
 
         $this->ask($question, function ($answer) {
@@ -497,7 +500,7 @@ HTML;
                 $dirname = '/uploads/' . $this->user_memory["email"];
                 $files = Storage::files($dirname . '/');
                 Log::info(json_encode($files));
-                if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
+                if ($answer->getValue() == QUESTIONS["Ha"]["value"]) {
                     $appeal = new Appeal();
                     $appeal->text = $this->memory["answer"];
                     $appeal->user_id = $this->user_memory["id"];
