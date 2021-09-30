@@ -101,7 +101,7 @@
                 <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.high')) }}
                 </p>
             </div>
-            @if( Auth::user()->hasRole('moderator'))
+            @if(($totalDuration < 48) && Auth::user()->hasRole('moderator'))
                 <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
                 @elseif( ($appeal->status==1 || $appeal->status==2 ) && Auth::user()->hasRole('user'))
                 <div class="block text-center bloc1">
