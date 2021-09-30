@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CustomMiddleware
+class Custom
 {
     /**
      * Handle an incoming request.

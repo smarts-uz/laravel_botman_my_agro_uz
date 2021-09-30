@@ -24,6 +24,12 @@ class ConversationController extends Controller
 
         // return back();
     }
+    public function index(){
+        if(Auth::user()->hasRole('admin')){
+            return view('voyager::index');
+        }
+        return redirect()->route('voyager.appeals.index');
+    }
     public function toExpert($appeal)
     {
 
@@ -113,7 +119,7 @@ class ConversationController extends Controller
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
-        
+
         User::where('id', Auth::user()->id)->update(['rating' => $request->rating]);
 
         if (Appeal::where('id', $appeal)->update(["status" => 3])) {
