@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
-@section('page_title', __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->getTranslatedAttribute('display_name_singular'))
+@section('page_title', __('voyager::generic.'.($edit ? 'edit' : 'add')))
 
 @section('page_header')
     <h1 class="page-title">
@@ -94,7 +94,7 @@
 
                         <div class="panel-footer">
                             @section('submit-buttons')
-                                <button type="submit" class="btn btn-primary save">@lang('voyager::generic.save')</button>
+                                <button type="submit" class="btn btn-primary save">@lang('generic.save')</button>
                             @stop
                             @yield('submit-buttons')
                         </div>
