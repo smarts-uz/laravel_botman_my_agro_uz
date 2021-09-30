@@ -15,6 +15,8 @@ use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ConversationController extends Controller
 {
@@ -114,13 +116,15 @@ class ConversationController extends Controller
 
         $totalDuration = $finishTime->diffInHours($starttime);
         $rating = floatval((intval($request->rating) + intval($appealData->first()->rating)) / 2);
-
+        $experts = DB::select('SELECT user_id FROM conversations WHERE appeal_id =277 AND user_id IN (SELECT id FROM users WHERE role_id != 2) ORDER BY created_at ASC LIMIT 1');
         // if ($totalDuration == 48) {
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
+        foreach ($experts as $expert){
+            $expertUser = User::where('id', $expert->user_id)->update(['rating' => $request->rating]);
+        }
 
-        User::where('id', Auth::user()->id)->update(['rating' => $request->rating]);
 
         if (Appeal::where('id', $appeal)->update(["status" => 3])) {
             Alert::success('Closed', 'Conversation closed succesfully!');
