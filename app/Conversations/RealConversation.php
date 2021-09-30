@@ -26,10 +26,8 @@ const LANGUAGE = [['key' => "O`zbek", 'value' => 'uz'], ['key' => "Pусский
 
 const QUESTIONS = [
 
-    'HA' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
-    'YOQ' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
-    'YES' => ['name' => ['uz' => 'Ha', 'ru' => 'Да'], 'value' => 'Yes'],
-    'NO' => ['name' => ['uz' => 'Yo\'q', 'ru' => 'Нет'], 'value' => 'No'],
+    'YES' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
+    'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
 ];
@@ -90,9 +88,9 @@ class RealConversation extends Conversation
     {
         $ar = [];
         foreach ($this->key_indevidual[$this->language] as $key) {
-            array_push($ar, Button::create($key["name"])->value($key["name"]));
+            array_push($ar, Button::create($key["name"])->value($key["val"]));
         }
-        return Question::create("")
+        return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
             ->addButtons($ar);
     }
 
@@ -134,8 +132,8 @@ class RealConversation extends Conversation
     {
         return Question::create(" ")
             ->addButtons([
-                Button::create(QUESTIONS["HA"]["name"][$this->language])->value(QUESTIONS["HA"]["value"]),
-                Button::create(QUESTIONS["YOQ"]["name"][$this->language])->value(QUESTIONS["YOQ"]["value"])
+                Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
+                Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
             ]);
     }
 
@@ -375,9 +373,13 @@ HTML;
             $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur.";
 
             $smsSender = new SmsService();
-            $smsSender->send('998' . $this->user_memory["phone"], ",l,mfmgmgbmg");
-            $smsSender = new SmsService();
+            $smsSender->send('998' . $this->user_memory["phone"], "Ваш доступ к персональному кабинету в портале My.Agro.Uz.
 
+            Adress: http://my.agro.uz/admin
+            E-Mail:	asror.zk@gmail.com
+            Пароль: вые42352п
+
+            Спасибо за пользование нашим сервисом.");
 
             $details = [
                 'title' => 'AGRO.UZ ',
@@ -413,7 +415,8 @@ HTML;
     {
         $this->verify = $this->generatePass(4);
         $smsSender = new SmsService();
-        $smsSender->send('998' . $phone, "My.Agro.Uz portali uchun tasdiqlash kodi: " . $this->verify);
+        $smstext = $this->language=="uz" ? setting('sms.ConfirmUz') : setting('sms.ConfirmRu');
+        $smsSender->send('998' . $phone, $smstext . $this->verify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function ($verifycode) {
             Log::info($this->verify);
             if ($verifycode == $this->verify) {
