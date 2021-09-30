@@ -12,15 +12,13 @@ $lang = app()->getLocale();
 
 
 {{-- Top Buttons --}}
+<div hidden id="lang">
+    {{$lang}}
+</div>
 <div class="container-fluid">
     <h1 class="page-title">
         <i class="voyager-receipt"></i> @lang('appeals.appeals')
     </h1>
-    @if(Auth::user()->hasRole('user'))
-    <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
-        <i class="voyager-plus"></i> <span>@lang('appeals.add')</span>
-    </a>
-    @endif
 
 
     <!-- /.modal -->
@@ -90,11 +88,11 @@ $lang = app()->getLocale();
                   {{-- @dd($appeal->user()->first()->name); --}}
                   <th scope="row">{{ $appeal->id }}</th>
                   {{-- <td>{{ $appeal->title }}</td> --}}
-                  <td>{{ ($appeal->region()->first() !== null) ? ($lang == "ru"
-                       ? $appeal->region()->first()->ru : $appeal->region()->first()->uz) : @trans('site.deleted_action') }}</td>
-                  <td>{{  ($appeal->routes()->first() !== null) ? ($lang == "ru" ? $appeal->routes()->first()->ru : $appeal->routes()->first()->uz) : @trans('site.deleted_action') }}</td>
-                  <td>{{  ($appeal->user()->first() !== null) ? $appeal->user()->first()->name : @trans('site.deleted_user') }}</td>
-                  <td>{{ ($appeal->action()->first() !== null) ? ($lang == "ru" ? $appeal->action()->first()->ru : $appeal->action()->first()->uz) : @trans('site.deleted_action') }}</td>
+                  <td>{{ ($appeal->regionObject()->first() !== null) ? ($lang == "ru"
+                       ? $appeal->regionObject()->first()->ru : $appeal->regionObject()->first()->uz) : 'Deleted Region' }}</td>
+                  <td>{{  ($appeal->routesObject()->first() !== null) ? ($lang == "ru" ? $appeal->routesObject()->first()->ru : $appeal->routesObject()->first()->uz) : 'Deleted Route' }}</td>
+                  <td>{{  ($appeal->userObject()->first() !== null) ? $appeal->userObject()->first()->name : 'Deleted User' }}</td>
+                  <td>{{ ($appeal->actionObject()->first() !== null) ? ($lang == "ru" ? $appeal->actionObject()->first()->ru : $appeal->actionObject()->first()->uz) : 'Deleted User' }}</td>
                   <td scope="row" class="btn btn-primary" style="margin: 6px; color: white; display: flex; border-radius: 2px; justify-content: center; align-items: center;{{ $appeal->status==1 ? 'background: green;' : ($appeal->status==2 ? 'background: #FF8C00;' : 'background: red;') }}">
                    {{ $appeal->status==1 ? trans('appeals.open') : ($appeal->status==2 ? trans('appeals.moderating') : trans('appeals.closed'))}}
 
@@ -126,12 +124,16 @@ $lang = app()->getLocale();
 <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap.min.js"></script>
 <script>
 $(document).ready(function() {
+    let lang = $('#lang').text().trim();
     $('#example').DataTable({
         "lengthMenu": [
             [10, 25, 50, -1],
             [10, 25, 50, "All"]
         ],
-        "order": [[0, 'desc']]
+        "order": [[0, 'desc']],
+        language: {
+            url: `https://cdn.datatables.net/plug-ins/1.11.3/i18n/${lang}.json`
+        }
     });
 });
 </script>

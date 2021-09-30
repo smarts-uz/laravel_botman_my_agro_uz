@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top navbar-top">
+﻿<nav class="navbar navbar-default navbar-fixed-top navbar-top">
 
     <div class="container-fluid">
 
@@ -7,7 +7,7 @@
                 <span class="hamburger-inner"></span>
             </button>
             @section('breadcrumbs')
-            <ol class="breadcrumb hidden-xs">
+            <ol class="breadcrumb hidden-xs" style="display:none;">
                 @php
                 $segments = array_filter(explode('/', str_replace(route('voyager.dashboard'), '', Request::url())));
                 $url = route('voyager.dashboard');
@@ -64,11 +64,11 @@
             <li class="dropdown profile">
 
                 <a href="#" class="text-right dropdown-toggle" data-toggle="dropdown" role="button"
-                   aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img"> <span
+                   aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img" style="object-fit: cover;" > <span
                             class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-animated">
                     <li class="profile-img">
-                        <img src="{{ $user_avatar }}" class="profile-img">
+                        <img src="{{ $user_avatar }}" class="profile-img" style="object-fit: cover;"  >
                         <div class="profile-body">
                             <h5>{{ Auth::user()->name }}</h5>
                             <h6>{{ Auth::user()->email }}</h6>
