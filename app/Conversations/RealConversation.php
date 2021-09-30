@@ -376,8 +376,6 @@ HTML;
 
             $smsSender = new SmsService();
             $smsSender->send('998' . $this->user_memory["phone"], ",l,mfmgmgbmg");
-            $smsSender = new SmsService();
-
 
             $details = [
                 'title' => 'AGRO.UZ ',
@@ -413,7 +411,8 @@ HTML;
     {
         $this->verify = $this->generatePass(4);
         $smsSender = new SmsService();
-        $smsSender->send('998' . $phone, "My.Agro.Uz portali uchun tasdiqlash kodi: " . $this->verify);
+        $smstext = $this->language=="uz" ? setting('sms.ConfirmUz') : setting('sms.ConfirmRu');
+        $smsSender->send('998' . $phone, $smstext . $this->verify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function ($verifycode) {
             Log::info($this->verify);
             if ($verifycode == $this->verify) {
