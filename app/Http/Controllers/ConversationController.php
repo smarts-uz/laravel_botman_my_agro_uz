@@ -120,14 +120,16 @@ class ConversationController extends Controller
         } else $starttime = $appealData->first()->created_at;
 
         $totalDuration = $finishTime->diffInHours($starttime);
-        $rating = floatval((intval($request->rating) + intval($appealData->first()->rating)) / 2);
         $experts = DB::select('SELECT user_id FROM conversations WHERE appeal_id =277 AND user_id IN (SELECT id FROM users WHERE role_id != 2) ORDER BY created_at ASC LIMIT 1');
         // if ($totalDuration == 48) {
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
         foreach ($experts as $expert){
-            $expertUser = User::where('id', $expert->user_id)->update(['rating' => $request->rating]);
+            // dd($expert->user_id);
+            $userObeject = User::where('id', $expert->user_id);
+            $rating = floatval((floatval($userObeject->first()->rating) + floatval($request->rating))/2);
+            $expertUser = $userObeject->update(['rating' => $rating]);
         }
 
 
