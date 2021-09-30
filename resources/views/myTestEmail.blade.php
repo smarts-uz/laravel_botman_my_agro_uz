@@ -10,7 +10,7 @@
 
 <h1><span>{{ $details['title'] }}</span></h1>
 <br>
-<p>{{ $details['body'] }}</p>
+{!! $details['body'] !!}
 <br>
 <p>Link for Cabinet : https://my.agro.uz/admin</p>
 
