@@ -37,6 +37,10 @@ class AnswersDimmer extends BaseDimmer
             'image' => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEVguSIPyqLvAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII=",
         ]));
     }
+    public function shouldBeDisplayed()
+    {
+        return auth()->user()->hasRole('admin');
+    }
 
 
 }

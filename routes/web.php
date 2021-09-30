@@ -37,6 +37,7 @@ Route::view('/notification', 'notification');
 
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'],], function () {
+    
     Route::any('(.*)', [ConversationController::class, 'setLang'])->name('user.lang');
     // User::where('id', Auth::user()->id)->update(['settings' => json_encode(['locale'=>app()->getLocale()])]);
     // User::where('id', Auth::user()->id)->update(['settings'=>json_encode(['locale' => app()->getLocale()])]);
@@ -48,7 +49,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
     Route::post('/appeal/chat/close/{appeal}', [ConversationController::class, 'close'])->name("appeal.close");
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
 });
-
+Route::get('/admin', function(){
+    return view('voyager::index');
+})->name('voyager.dashboard')->middleware('dash');
 
 Route::view("form", "form");
 Route::post("/form/send", [FormController::class, "run"]);
