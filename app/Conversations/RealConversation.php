@@ -378,7 +378,6 @@ HTML;
             Adress: http://my.agro.uz/admin
             E-Mail:	asror.zk@gmail.com
             Пароль: вые42352п
-
             Спасибо за пользование нашим сервисом.");
 
             $details = [
