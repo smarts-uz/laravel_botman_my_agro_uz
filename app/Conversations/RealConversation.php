@@ -186,9 +186,9 @@ class RealConversation extends Conversation
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
                 if($language->getValue() == 'uz'){
-                    $this->isTG() ? $this->say("*O`zbek*") : $this->say("<strong> O`zbek </strong>");
+                    $this->say("<strong>O`zbek</strong>", ["parse_mode" => "HTML"]);
                 } else {
-                    $this->say("<strong> Pусский </strong>");
+                    $this->say("<strong>Pусский</strong>", ["parse_mode" => "HTML"]);
                 }
                 $this->askEmail();
             } else {
@@ -357,7 +357,7 @@ HTML;
                     "password" => Hash::make($this->memory["pass"]),
                     "individual" => $this->user_memory["usertype"],
                     "place_of_work" => $this->memory["data"]["a"],
-                    "settings" => json_encode()
+                    'settings' => json_encode(['locale' => $this->language])
                 ]);
             } else {
                 $user = User::create([
