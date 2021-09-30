@@ -376,11 +376,11 @@ HTML;
             $password = $this->memory["pass"];
             $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
             
-            $address = $this->language=="uz" ? "Shaxsiy kabinet: " : "Личный кабинет: ";
-            $emailtext = $this->language=="uz" ? "E-mailingiz: " : "Ваш адрес электронной почты: ";
-            $passwordtext = $this->language=="uz" ? "Parolingiz: " : "Ваш пароль: ";
+            $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
+            $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
+            $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
 
-            $textsms = "Address: https://my.agro.uz/admin Email: " .  $email . 'Password: '. $password;
+            $textsms = $address." https://my.agro.uz/admin ".$emailtext .  $email . $passwordtext . $password;
             $smsSender = new SmsService();
             $smsSender->send('998' . $this->user_memory["phone"], $textsms);
 
