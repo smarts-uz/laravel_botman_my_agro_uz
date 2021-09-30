@@ -12,7 +12,6 @@
 <br>
 <p>{{ $details['body'] }}</p>
 <br>
-<p>Link for Cabinet : https://my.agro.uz/admin</p>
 
 <p>Thank you</p>
 </body>
