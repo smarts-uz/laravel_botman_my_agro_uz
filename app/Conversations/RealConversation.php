@@ -186,7 +186,7 @@ class RealConversation extends Conversation
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
                 if($language->getValue() == 'uz'){
-                    $this->say("<strong> O`zbek </strong>");
+                    $this->isTG() ? $this->say("*O`zbek*") : $this->say("<strong> O`zbek </strong>");
                 } else {
                     $this->say("<strong> Pусский </strong>");
                 }
@@ -421,7 +421,7 @@ HTML;
         $smsSender = new SmsService();
         $smsSender->send('998' . $phone, "My.Agro.Uz portali uchun tasdiqlash kodi: " . $this->verify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function ($verifycode) {
-            Log::info($this->verify);
+
             if ($verifycode == $this->verify) {
                 $this->UserLogin();
             } else {
