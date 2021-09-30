@@ -50,7 +50,7 @@ switch ($host) {
         break;
 
     default:
-        $before = 'https://my.agro.uz';
+        $before = '';
 }
 
 /*var_dump($host);
