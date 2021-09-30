@@ -29,7 +29,7 @@ const QUESTIONS = [
     'YES' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
     'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
 
-    
+
     'Ha' => ['name' => ['uz' => 'HA', 'ru' => 'Да'], 'value' => 'Yes'],
     'Yoq' => ['name' => ['uz' => 'Yo`q', 'ru' => 'Нет'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
@@ -376,7 +376,7 @@ HTML;
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
             $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
-            
+
             $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
             $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
             $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
@@ -486,6 +486,9 @@ HTML;
         $region = $this->language == "ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz;
         $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
 
+
+        $smsSender->send('998' . $this->user_memory["phone"], );
+
         $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $action . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $region . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
         $question =
             Question::create($this->questions["ASK_VERIFY"][$this->language])
@@ -517,6 +520,13 @@ HTML;
                         $appeal->workplace = $this->memory["data"]["a"];
                     }
                     $appeal->save();
+
+                    $text = $this->language="uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : "";
+                    $add = $this->language="uz" ? " Adress: " : "";
+                    $email = $this->language="uz" ? " E-Mail: " : "";
+
+                    $texttosms = $text . "http://my.agro.uz/admin" . $add . $email . $this->user_memory["email"];
+                    $smsSender = new SmsService();
 
                     if ($this->user_memory["email"]) {
                         $dirname =  '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
