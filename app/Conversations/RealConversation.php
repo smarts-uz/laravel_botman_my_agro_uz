@@ -186,9 +186,9 @@ class RealConversation extends Conversation
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
                 if($language->getValue() == 'uz'){
-                    $this->isTG() ? $this->say("*O`zbek*") : $this->say("<strong> O`zbek </strong>");
+                    $this->say("<strong>O`zbek</strong>", ["parse_mode" => "HTML"]);
                 } else {
-                    $this->say("<strong> Pусский </strong>");
+                    $this->say("<strong>Pусский</strong>", ["parse_mode" => "HTML"]);
                 }
                 $this->askEmail();
             } else {
