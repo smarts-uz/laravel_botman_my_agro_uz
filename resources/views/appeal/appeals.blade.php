@@ -19,11 +19,6 @@ $lang = app()->getLocale();
     <h1 class="page-title">
         <i class="voyager-receipt"></i> @lang('appeals.appeals')
     </h1>
-    @if(Auth::user()->hasRole('user'))
-    <a href="{{route('voyager.appeals.create')}}" class="btn btn-success btn-add-new">
-        <i class="voyager-plus"></i> <span>@lang('appeals.add')</span>
-    </a>
-    @endif
 
 
     <!-- /.modal -->
