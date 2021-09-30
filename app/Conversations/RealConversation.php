@@ -26,10 +26,8 @@ const LANGUAGE = [['key' => "O`zbek", 'value' => 'uz'], ['key' => "Pусский
 
 const QUESTIONS = [
 
-    'HA' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
-    'YOQ' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
-    'YES' => ['name' => ['uz' => 'Ha', 'ru' => 'Да'], 'value' => 'Yes'],
-    'NO' => ['name' => ['uz' => 'Yo\'q', 'ru' => 'Нет'], 'value' => 'No'],
+    'YES' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
+    'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
 ];
@@ -90,9 +88,9 @@ class RealConversation extends Conversation
     {
         $ar = [];
         foreach ($this->key_indevidual[$this->language] as $key) {
-            array_push($ar, Button::create($key["name"])->value($key["name"]));
+            array_push($ar, Button::create($key["name"])->value($key["val"]));
         }
-        return Question::create("")
+        return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
             ->addButtons($ar);
     }
 
@@ -134,8 +132,8 @@ class RealConversation extends Conversation
     {
         return Question::create(" ")
             ->addButtons([
-                Button::create(QUESTIONS["HA"]["name"][$this->language])->value(QUESTIONS["HA"]["value"]),
-                Button::create(QUESTIONS["YOQ"]["name"][$this->language])->value(QUESTIONS["YOQ"]["value"])
+                Button::create(QUESTIONS["YES"]["name"][$this->language])->value(QUESTIONS["YES"]["value"]),
+                Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
             ]);
     }
 
