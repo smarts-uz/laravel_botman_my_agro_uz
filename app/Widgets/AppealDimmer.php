@@ -28,7 +28,6 @@ class AppealDimmer extends BaseDimmer
         $count = Appeal::count();
         $string = trans_choice('dimmer.user', $count);
         // $string = trans('site.by_users');
-
         return view('voyager::dimmer', array_merge($this->config, [
             'icon'   => 'voyager-news',
             'title'  => "{$count} {$string}",
@@ -39,6 +38,10 @@ class AppealDimmer extends BaseDimmer
             ],
             'image' => "https://www.solidbackgrounds.com/images/1920x1080/1920x1080-red-solid-color-background.jpg",
         ]));
+    }
+    public function shouldBeDisplayed()
+    {
+        return auth()->user()->hasRole('admin');
     }
 
 

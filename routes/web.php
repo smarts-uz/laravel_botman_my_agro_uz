@@ -9,7 +9,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\FilepondController;
-
+use App\Http\Middleware\CustomMiddleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +37,7 @@ Route::view('/notification', 'notification');
 
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localize', 'localizationRedirect'],], function () {
+
     Route::any('(.*)', [ConversationController::class, 'setLang'])->name('user.lang');
     // User::where('id', Auth::user()->id)->update(['settings' => json_encode(['locale'=>app()->getLocale()])]);
     // User::where('id', Auth::user()->id)->update(['settings'=>json_encode(['locale' => app()->getLocale()])]);
@@ -48,7 +49,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
     Route::post('/appeal/chat/close/{appeal}', [ConversationController::class, 'close'])->name("appeal.close");
     Route::post('/appeal/chat/{id}', [ConversationController::class, 'send'])->name("conversation.send");
 });
-
+Route::get('/admin', [ConversationController::class, 'index'])->name('voyager.dashboard');
 
 Route::view("form", "form");
 Route::post("/form/send", [FormController::class, "run"]);

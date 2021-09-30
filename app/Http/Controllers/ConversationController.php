@@ -15,6 +15,8 @@ use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ConversationController extends Controller
 {
@@ -23,6 +25,12 @@ class ConversationController extends Controller
         $this->middleware('admin.user');
 
         // return back();
+    }
+    public function index(){
+        if(Auth::user()->hasRole('admin')){
+            return view('voyager::index');
+        }
+        return redirect()->route('voyager.appeals.index');
     }
     public function toExpert($appeal)
     {
@@ -44,6 +52,11 @@ class ConversationController extends Controller
     }
     public function showChat(Appeal $appeal)
     {
+
+        if( $appeal->user_id != Auth::user()->id && Auth::user()->hasRole("user")){
+            return back();
+        }
+
         $finishTime = Carbon::now();
         $conversations = Conversation::where('appeal_id', $appeal->id);
         $con = $conversations->orderBy("created_at", 'DESC');
@@ -100,7 +113,7 @@ class ConversationController extends Controller
     public function rating($appeal, Request $request)
     {
         $finishTime = now();
-        $appealData = Appeal::where('id', $appeal);
+        $appealData = User::where('id', Auth::user()->id);
         $conversationObject = Conversation::orderBy("created_at", 'DESC');
         if (($conversationObject->first() !== null)) {
             $starttime = $conversationObject->first()->created_at;
@@ -108,13 +121,15 @@ class ConversationController extends Controller
 
         $totalDuration = $finishTime->diffInHours($starttime);
         $rating = floatval((intval($request->rating) + intval($appealData->first()->rating)) / 2);
-
+        $experts = DB::select('SELECT user_id FROM conversations WHERE appeal_id =277 AND user_id IN (SELECT id FROM users WHERE role_id != 2) ORDER BY created_at ASC LIMIT 1');
         // if ($totalDuration == 48) {
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
-        
-        User::where('id', Auth::user()->id)->update(['rating' => $request->rating]);
+        foreach ($experts as $expert){
+            $expertUser = User::where('id', $expert->user_id)->update(['rating' => $request->rating]);
+        }
+
 
         if (Appeal::where('id', $appeal)->update(["status" => 3])) {
             Alert::success('Closed', 'Conversation closed succesfully!');
