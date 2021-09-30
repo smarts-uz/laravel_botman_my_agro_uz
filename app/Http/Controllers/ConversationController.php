@@ -100,7 +100,7 @@ class ConversationController extends Controller
     public function rating($appeal, Request $request)
     {
         $finishTime = now();
-        $appealData = Appeal::where('id', $appeal);
+        $appealData = User::where('id', Auth::user()->id);
         $conversationObject = Conversation::orderBy("created_at", 'DESC');
         if (($conversationObject->first() !== null)) {
             $starttime = $conversationObject->first()->created_at;
@@ -114,7 +114,7 @@ class ConversationController extends Controller
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
         
-        User::where('id', Auth::user()->id)->update(['rating' => $request->rating]);
+        User::where('id', Auth::user()->id)->update(['rating' => $rating]);
 
         if (Appeal::where('id', $appeal)->update(["status" => 3])) {
             Alert::success('Closed', 'Conversation closed succesfully!');

@@ -56,8 +56,6 @@
                 </div>
             </div>
             @endforeach
-
-
         </main>
         @if($appeal->status == 1 || $appeal->status == 2)
         <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
@@ -103,15 +101,20 @@
                 <p>{{ ($appeal->status == 1) ? trans('site.medium') : (($appeal->status == 0) ? trans('site.low') : trans('site.high')) }}
                 </p>
             </div>
-            @if(($totalDuration < 48) && Auth::user()->hasRole('moderator'))
+            @if( Auth::user()->hasRole('moderator'))
                 <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
-                @elseif( $appeal->status==1 || $appeal->status==2 )
+                @elseif( ($appeal->status==1 || $appeal->status==2 ) && Auth::user()->hasRole('user'))
                 <div class="block text-center bloc1">
                     {{-- <form action="{{ route('appeal.close', $appeal) }}" method="POST"> --}}
                     {{-- @csrf --}}
                     <button onclick="askClose()" type="button" class="btn">@lang('site.close')</button>
                     {{-- </form> --}}
                 </div>
+                @elseif(($appeal->status==1 || $appeal->status==2 ) && !Auth::user()->hasRole('user'))
+               <form action="{{ route('appeal.close', $appeal) }}" method="POST"> 
+                     @csrf 
+                    <button onclick="this.form.submit()" type="button" class="btn btn-danger">@lang('site.close')</button>
+                    </form> 
                 @else
                 <button type="button" class="btn disabled buttonDis">@lang('site.close')</button>
                 @endif

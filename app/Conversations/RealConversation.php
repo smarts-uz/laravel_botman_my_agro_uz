@@ -374,6 +374,7 @@ HTML;
 
             $smsSender = new SmsService();
             $smsSender->send('998' . $this->user_memory["phone"], $text);
+            $smsSender = new SmsService();
 
 
             $details = [
