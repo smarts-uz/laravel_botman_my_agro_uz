@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Agro</title>
+    <title>my.agro.uz</title>
 </head>
 <body>
 
-
-
-
 <h1><span>{{ $details['title'] }}</span></h1>
 <br>
-<p>{{ $details['body'] }}</p>
+{!! $details['body'] !!}
 <br>
-<p>Link for Cabinet : https://my.agro.uz/admin</p>
 
-<p>Thank you</p>
 </body>
 </html>

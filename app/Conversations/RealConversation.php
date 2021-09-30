@@ -374,10 +374,17 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
+<<<<<<< HEAD
             $text = $this->language == "uz" ? setting('sms.AccountUz') . ' ' . 'Email: ' . $email . ' ' . 'Password:' . $password : setting('sms.AccountRu') . ' ' . ' Email: ' . $email . ' ' . 'Password:' . $password;
 
             $smsSender = new SmsService();
             $smsSender->send($this->user_memory["phone"], $text);
+=======
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
+            $textsms = "Address: https://my.agro.uz/admin Email: " .  $email . 'Password: '. $password;
+            $smsSender = new SmsService();
+            $smsSender->send('998' . $this->user_memory["phone"], $textsms);
+>>>>>>> 9bb17a62b85aee8d5476370d07cd866a5b934477
 
             $details = [
                 'title' => 'AGRO.UZ ',
