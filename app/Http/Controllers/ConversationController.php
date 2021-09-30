@@ -53,7 +53,7 @@ class ConversationController extends Controller
     public function showChat(Appeal $appeal)
     {
 
-        if( $appeal->user_id == Auth::user()->id && Auth::user()->hasRole("user")){
+        if( $appeal->user_id != Auth::user()->id && Auth::user()->hasRole("user")){
             return back();
         }
 
