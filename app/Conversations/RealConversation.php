@@ -356,7 +356,8 @@ HTML;
                     "email" => $this->user_memory["email"],
                     "password" => Hash::make($this->memory["pass"]),
                     "individual" => $this->user_memory["usertype"],
-                    "place_of_work" => $this->memory["data"]["a"]
+                    "place_of_work" => $this->memory["data"]["a"],
+                    'settings' => json_encode(['locale' => $this->language])
                 ]);
             } else {
                 $user = User::create([
