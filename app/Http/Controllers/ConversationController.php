@@ -126,6 +126,7 @@ class ConversationController extends Controller
         //     // Alert::error('impossible close', 'You couldn`t close conversation!!!');
         //     redirect()->route('voyager.appeals.index')->with('warning', 'something went wrong!');
         // } else {
+        
         foreach ($experts as $expert){
             $expertUser = User::where('id', $expert->user_id)->update(['rating' => $request->rating]);
         }
