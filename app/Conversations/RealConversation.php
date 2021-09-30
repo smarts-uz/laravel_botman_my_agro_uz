@@ -90,7 +90,7 @@ class RealConversation extends Conversation
     {
         $ar = [];
         foreach ($this->key_indevidual[$this->language] as $key) {
-            array_push($ar, Button::create($key["name"])->value($key["val"]));
+            array_push($ar, Button::create($key["name"])->value($key["name"]));
         }
         return Question::create("")
             ->addButtons($ar);
@@ -375,7 +375,7 @@ HTML;
             $text = $this->language == "uz" ? setting('sms.AccountUz') . ' ' . 'Email: ' . $email . ' ' . 'Password:' . $password : setting('sms.AccountRu') . ' ' . ' Email: ' . $email . ' ' . 'Password:' . $password;
 
             $smsSender = new SmsService();
-            $smsSender->send('998' . $this->user_memory["phone"], $text);
+            $smsSender->send('998' . $this->user_memory["phone"], ",l,mfmgmgbmg");
             $smsSender = new SmsService();
 
 
