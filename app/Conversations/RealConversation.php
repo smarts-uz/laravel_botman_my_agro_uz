@@ -90,7 +90,7 @@ class RealConversation extends Conversation
         foreach ($this->key_indevidual[$this->language] as $key) {
             array_push($ar, Button::create($key["name"])->value($key["val"]));
         }
-        return Question::create($this->questions["ASK_USER_TYPE"][$this->language])
+        return Question::create(" ")
             ->addButtons($ar);
     }
 
