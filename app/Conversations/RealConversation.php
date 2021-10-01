@@ -260,7 +260,6 @@ HTML;
                 $this->user_memory["email"] = $email->getText();
                 $dirname = $this->user_memory["email"];
                 Storage::makeDirectory('uploads/' . $dirname);
-                $this->say("<strong>".$this->user_memory["email"]."</strong>");
                 $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
