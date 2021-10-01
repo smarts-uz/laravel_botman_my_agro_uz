@@ -86,4 +86,3 @@ $print = strtr($content, [
 
 echo $print;
 ?>
-
