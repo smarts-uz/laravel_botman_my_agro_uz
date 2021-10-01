@@ -7,6 +7,6 @@
 
 <h1><span>{{ $details['title'] }}</span></h1>
 <br>
-<p>{{ $details['body'] }}</p> 
+{!! $details['body'] !!}
 </body>
 </html>

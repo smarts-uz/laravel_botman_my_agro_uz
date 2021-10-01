@@ -374,8 +374,7 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') .'Adress: https://my.agro.uz/admin' . 'Email: ' . $email . ' ' . 'Password:' . $password. "Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . 'Adress: https://my.agro.uz/admin ' . 'Email:' . $email . ' ' . 'Password:' . $password. "Спасибо за пользование нашим сервисом.";
-            
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";            
             $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
             $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
             $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
