@@ -374,8 +374,7 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
-            
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";            
             $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
             $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
             $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
@@ -517,6 +516,7 @@ HTML;
                     }
                     $appeal->save();
 
+//                  
                     if ($this->user_memory["email"]) {
                         $dirname =  '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
 
@@ -532,6 +532,20 @@ HTML;
                     Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
 
                     $this->say($this->questions["FINISH"][$this->language]);
+                       $text = $this->language="uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
+                    $add = $this->language="uz" ? " Adress: " : "";
+                    $email = $this->language="uz" ? " E-Mail: " : "";
+// 
+                    $texttosms = $text . "https://my.agro.uz/admin" . $add . $email . $this->user_memory["email"];
+                    $smsSender = new SmsService();
+                    $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
+// 
+// 
+                    $details = [
+                        'title' => 'AGRO.UZ ',
+                        'body' => $texttosms
+                    ];
+                    Mail::to($this->user_memory["email"])->send(new SendMail($details));
                 } else {
                     Storage::delete($files);
                     $this->askAppeal();
