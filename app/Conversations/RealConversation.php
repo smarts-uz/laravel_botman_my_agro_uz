@@ -185,11 +185,7 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
-                if($language->getValue() == 'uz'){
-                    $this->say("<strong>O`zbek</strong>", ["parse_mode" => "HTML"]);
-                } else {
-                    $this->say("<strong>Pусский</strong>", ["parse_mode" => "HTML"]);
-                }
+                
                 $this->askEmail();
             } else {
                 return $this->repeat();
@@ -374,12 +370,8 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";            
-            $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
-            $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
-            $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
-
-            $textsms = $address." https://my.agro.uz/admin ".$emailtext .  $email . $passwordtext . $password;
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
+            $textsms = "Address: https://my.agro.uz/admin Email: " .  $email . 'Password: '. $password;
             $smsSender = new SmsService();
             $smsSender->send('998' . $this->user_memory["phone"], $textsms);
 
@@ -485,20 +477,9 @@ HTML;
         $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
 
         $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $action . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $region . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
-        $question =
-            Question::create($this->questions["ASK_VERIFY"][$this->language])
-            ->addButtons([
-                Button::create(QUESTIONS["Ha"]["name"][$this->language])->value(QUESTIONS["Ha"]["value"]),
-                Button::create(QUESTIONS["Yoq"]["name"][$this->language])->value(QUESTIONS["Yoq"]["value"])
-            ]);
-
-
-
-
                 $dirname = '/uploads/' . $this->user_memory["email"];
                 $files = Storage::files($dirname . '/');
                 Log::info(json_encode($files));
-                if ($answer->getValue() == QUESTIONS["Ha"]["value"]) {
                     $appeal = new Appeal();
                     $appeal->text = $this->memory["answer"];
                     $appeal->user_id = $this->user_memory["id"];
@@ -531,28 +512,7 @@ HTML;
                     Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
 
                     $this->say($this->questions["FINISH"][$this->language]);
-                       $text = $this->language="uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
-                    $add = $this->language="uz" ? " Adress: " : "";
-                    $email = $this->language="uz" ? " E-Mail: " : "";
-// 
-                    $texttosms = $text . "https://my.agro.uz/admin" . $add . $email . $this->user_memory["email"];
-                    $smsSender = new SmsService();
-                    $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
-// 
-// 
-                    $details = [
-                        'title' => 'AGRO.UZ ',
-                        'body' => $texttosms
-                    ];
-                    Mail::to($this->user_memory["email"])->send(new SendMail($details));
-                } else {
-                    Storage::delete($files);
-                    $this->askAppeal();
-                }
-            } else {
-                $this->repeat();
-            }
-        });
+            
     }
 
      public function generatePass($length = 4)
