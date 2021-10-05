@@ -30,7 +30,7 @@ const QUESTIONS = [
     'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
 
     
-    'Ha' => ['name' => ['uz' => 'HA', 'ru' => 'Да'], 'value' => 'Yes'],
+    'Ha' => ['name' => ['uz' => 'Ha', 'ru' => 'Да'], 'value' => 'Yes'],
     'Yoq' => ['name' => ['uz' => 'Yo`q', 'ru' => 'Нет'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
