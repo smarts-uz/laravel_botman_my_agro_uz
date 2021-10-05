@@ -492,9 +492,8 @@ HTML;
                 Button::create(QUESTIONS["Yoq"]["name"][$this->language])->value(QUESTIONS["Yoq"]["value"])
             ]);
 
-        $this->ask($question, function ($answer) {
 
-            if ($answer->isInteractiveMessageReply()) {
+
 
                 $dirname = '/uploads/' . $this->user_memory["email"];
                 $files = Storage::files($dirname . '/');
@@ -556,7 +555,7 @@ HTML;
         });
     }
 
-    static function generatePass($length = 4)
+     public function generatePass($length = 4)
     {
         $characters = '0123456789';
         $charactersLength = strlen($characters);
