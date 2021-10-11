@@ -185,7 +185,6 @@ class RealConversation extends Conversation
         $this->ask($this->keyLanguages(), function ($language) {
             if ($language->isInteractiveMessageReply()) {
                 $this->language = $language->getValue();
-                
                 $this->askEmail();
             } else {
                 return $this->repeat();
@@ -370,8 +369,12 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";
-            $textsms = "Address: https://my.agro.uz/admin Email: " .  $email . 'Password: '. $password;
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";            
+            $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
+            $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
+            $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
+
+            $textsms = $address." https://my.agro.uz/admin ".$emailtext .  $email . $passwordtext . $password;
             $smsSender = new SmsService();
             $smsSender->send('998' . $this->user_memory["phone"], $textsms);
 
@@ -477,6 +480,11 @@ HTML;
         $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
 
         $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $action . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $region . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
+      
+
+
+
+
                 $dirname = '/uploads/' . $this->user_memory["email"];
                 $files = Storage::files($dirname . '/');
                 Log::info(json_encode($files));
@@ -512,7 +520,20 @@ HTML;
                     Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
 
                     $this->say($this->questions["FINISH"][$this->language]);
-            
+                       $text = $this->language="uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
+                    $add = $this->language="uz" ? " Adress: " : "";
+                    $email = $this->language="uz" ? " E-Mail: " : "";
+// 
+                    $texttosms = $text . "https://my.agro.uz/admin" . $add . $email . $this->user_memory["email"];
+                    $smsSender = new SmsService();
+                    $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
+// 
+// 
+                    $details = [
+                        'title' => 'AGRO.UZ ',
+                        'body' => $texttosms
+                    ];
+                    Mail::to($this->user_memory["email"])->send(new SendMail($details));
     }
 
      public function generatePass($length = 4)

@@ -85,4 +85,8 @@ $print = strtr($content, [
 ]);
 
 echo $print;
+
+echo 'document.getElementsByTagName("body")[0].onscroll = function(){
+    document.getElementsByClassName("desktop-closed-message-avatar")[0].click();
+  }';
 ?>
