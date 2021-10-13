@@ -1,3 +1,5 @@
+var inits = true;
+
 !(function (t) {
     function e(r) {
         if (n[r]) return n[r].exports;
@@ -729,16 +731,26 @@
                         var callBack = function (data) {
 
                             console.log('CallBack');
-                            $('#messageArea').html("asdfasdf");
-                            $('#messageArea').text("asdfasdf");
-                            console.log('SET');
-
-                console.log($('#messageArea').html());
-                       //     $('.msg')[2].style= "display: none;"
-
-                         //   document.getElementsByClassName('msg')[2].style = "display: none;"
 
                             setTimeout(function () {
+
+                                if (inits)
+                                {
+                                    console.log('Inits True');
+                                    inits = false;
+                                }
+                                else
+                                    console.log('Inits False');
+
+                                console.log('SET Content');
+                               /* $('#messageArea').html("asdfasdf");
+                                $('#messageArea').text("asdfasdf");
+*/
+                                console.log($('#messageArea').html());
+
+                                //     $('.msg')[2].style= "display: none;"
+                                //   document.getElementsByClassName('msg')[2].style = "display: none;"
+
 
                                 console.log('START Uppy');
                                 /**

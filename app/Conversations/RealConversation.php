@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Conversations;
 
@@ -522,7 +522,7 @@ HTML;
         }
         $appeal->save();
 
-//                  
+//
         if ($this->user_memory["email"]) {
             $dirname = '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
 
@@ -541,12 +541,12 @@ HTML;
         $text = $this->language = "uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
         $add = $this->language = "uz" ? " Adress: " : "";
         $email = $this->language = "uz" ? " E-Mail: " : "";
-// 
+//
         $texttosms = $text . $add . "https://my.agro.uz/admin<br>" . $email . $this->user_memory["email"];
         $smsSender = new SmsService();
         $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
-// 
-// 
+//
+//
         $details = [
             'title' => 'AGRO.UZ ',
             'body' => $texttosms
