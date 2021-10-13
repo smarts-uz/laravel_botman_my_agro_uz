@@ -524,7 +524,7 @@ HTML;
                     $add = $this->language="uz" ? " Adress: " : "";
                     $email = $this->language="uz" ? " E-Mail: " : "";
 // 
-                    $texttosms = $text . "https://my.agro.uz/admin" . $add . $email . $this->user_memory["email"];
+                    $texttosms = $text . $add . "https://my.agro.uz/admin<br>". $email . $this->user_memory["email"];
                     $smsSender = new SmsService();
                     $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
 // 
