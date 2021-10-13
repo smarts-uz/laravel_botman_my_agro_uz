@@ -110,7 +110,7 @@ $lang = app()->getLocale();
                     <a class="btn btn-primary" style="margin:auto;" href="{{ route('answer.redirect', $appeal->id) }}">@lang('appeals.redirect')</a>
 
                     @endif
-                    <a class="btn btn-primary" style="margin:auto;" href="{{ route('conversation.index', $appeal->id) }}">Chat</a>
+                    <a class="btn btn-primary" style="margin:auto;" href="{{ route('conversation.index', $appeal->id) }}">@lang('appeals.chat')</a>
                 </td>
 
             </tr>

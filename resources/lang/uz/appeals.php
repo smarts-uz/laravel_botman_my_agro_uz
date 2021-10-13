@@ -7,6 +7,7 @@ return[
     'route'  => 'Yo\'nalish',
     'status' => 'Holati',
     'buttons' => 'Tugmalar',
+    'chat' => 'Chat',
     'show'    => 'Ko\'rsatish',
     'delete'    => 'O\'chirish',
     'edit'     => 'O\'zgartirish',

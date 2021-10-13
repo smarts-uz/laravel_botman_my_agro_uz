@@ -85,4 +85,15 @@ $print = strtr($content, [
 ]);
 
 echo $print;
+
+echo '
+window.addEventListener("scroll", function () {
+    console.log("scrol: " + (window.innerHeight + window.scrollY));
+    console.log("height: " + document.body.offsetHeight);
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        document.getElementsByClassName("desktop-closed-message-avatar")[0].click();
+    }
+  });
+  ';
+
 ?>
