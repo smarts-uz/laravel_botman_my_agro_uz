@@ -1310,6 +1310,12 @@ let apps;
                 l(e, t),
                     (e.prototype.componentDidMount = function () {
                         window.botmanChatWidget = new p.a(this);
+
+                        console.log('botmanChatWidget');
+                        console.log(botmanChatWidget);
+
+                        sessionStorage.setItem("botmanChatWidget",botmanChatWidget);
+
                     }),
                     (e.prototype.render = function (t, e) {
                         var n = t.conf,
@@ -1780,4 +1786,3 @@ let apps;
     ]);
 
 
-   

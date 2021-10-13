@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace App\Conversations;
 
@@ -277,7 +277,7 @@ HTML;
                 else
                     $actionApp = $action->uz;
 
-                $delimiter = ($this->isTG()) ? '**' : "<strong>";
+                $delimiter == ($this->isTG()) ? '**' : "<strong>";
 
                 $this->say($delimiter . $actionApp . $delimiter, ["parse_mode" => "HTML"]);
 
@@ -335,7 +335,7 @@ HTML;
                 }else{
                     $regionApp = $region->uz;
                 }
-                $delimiter = ($this->isTG()) ? '**' : "<strong>";
+                $delimiter == ($this->isTG()) ? '**' : "<strong>";
 
                 $this->say($delimiter . $regionApp . $delimiter, ["parse_mode" => "HTML"]);
 
@@ -356,7 +356,7 @@ HTML;
                 }else{
                     $route = $route->uz;
                 }
-                $delimiter = ($this->isTG()) ? '**' : "<strong>";
+                $delimiter == ($this->isTG()) ? '**' : "<strong>";
                 $this->say($delimiter . $route . $delimiter, ["parse_mode" => "HTML"]);
 
                 $this->askRegion();
@@ -598,9 +598,24 @@ HTML;
         Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
 
         $this->say($this->questions["FINISH"][$this->language]);
-        $text = $this->language = "uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
-        $add = $this->language = "uz" ? " Adress: " : "";
-        $email = $this->language = "uz" ? " E-Mail: " : "";
+        // $text = $this->language = "uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
+        if($this->language === "uz"){
+            $text = " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id;
+        }else{
+            $text = "";
+        }
+        // $add = $this->language = "uz" ? " Adress: " : "";
+        if($this->language === "uz"){
+            $add = " Adress: ";
+        }else{
+            $add = "";
+        }
+        // $email = $this->language = "uz" ? " E-Mail: " : "";
+        if($this->language === "uz"){
+            $email = " E-Mail: ";
+        }else{
+            $email = "";
+        }
 //
         $texttosms = $text . $add . "https://my.agro.uz/admin<br>" . $email . $this->user_memory["email"];
         $smsSender = new SmsService();

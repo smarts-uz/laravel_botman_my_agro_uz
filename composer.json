@@ -24,7 +24,8 @@
         "sopamo/laravel-filepond": "^0.6.2",
         "symfony/dotenv": "v5.3.7",
         "tcg/voyager": "v1.5.0",
-        "vlucas/phpdotenv": "v5.3.0"
+        "vlucas/phpdotenv": "v5.3.0",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

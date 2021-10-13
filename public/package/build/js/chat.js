@@ -1,5 +1,6 @@
 var inits = true;
 
+
 !(function (t) {
     function e(r) {
         if (n[r]) return n[r].exports;
@@ -732,21 +733,48 @@ var inits = true;
 
                             console.log('CallBack');
 
+
                             setTimeout(function () {
 
-                                if (inits)
-                                {
+                                console.log('Start Code');
+
+                                var botmanChatWidget = sessionStorage.getItem("botmanChatWidget");
+
+                                /*     console.log('botmanChatWidget');
+                                     console.log(botmanChatWidget);
+                                     botmanChatWidget.say('/start');
+     */
+                                //      console.log(botmanChatWidget);
+
+
+                                //        botmanChatWidget.say('/start');
+                                //    x.style.display = "none"
+
+
+                                if (inits) {
                                     console.log('Inits True');
                                     inits = false;
-                                }
-                                else
+                                } else
                                     console.log('Inits False');
 
                                 console.log('SET Content');
-                               /* $('#messageArea').html("asdfasdf");
-                                $('#messageArea').text("asdfasdf");
+
+                               /*
+                                if (!inits) {
+                                    var content = $('#messageArea').html()
+                                    sessionStorage.setItem("content", content);
+                                    console.log("Set Item content", content);
+                                } else {
+                                    var content = sessionStorage.getItem("content");
+                                    console.log("Get Item content", content);
+                                    $('#messageArea').html(content);
+                                }
 */
-                                console.log($('#messageArea').html());
+
+                                /*
+                                 $('#messageArea').text("asdfasdf");
+ */
+
 
                                 //     $('.msg')[2].style= "display: none;"
                                 //   document.getElementsByClassName('msg')[2].style = "display: none;"
@@ -926,6 +954,10 @@ var inits = true;
             c = r(s);
 
         console.log('Send File2');
+
+        //  console.log(window.botmanChatWidget);
+
+
         (c.Axios = a),
             (c.create = function (t) {
                 return r(o.merge(s, t));
@@ -2132,3 +2164,4 @@ var inits = true;
         })(i.a);
     },
 ]);
+
