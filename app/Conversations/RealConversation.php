@@ -29,7 +29,7 @@ const QUESTIONS = [
     'YES' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
     'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
 
-    
+
     'Ha' => ['name' => ['uz' => 'Ha', 'ru' => 'Да'], 'value' => 'Yes'],
     'Yoq' => ['name' => ['uz' => 'Yo`q', 'ru' => 'Нет'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
@@ -46,9 +46,6 @@ class RealConversation extends Conversation
     public $key_indevidual;
     public $questions;
     public $user_question_data;
-
-
-
 
 
     public function __construct()
@@ -180,6 +177,7 @@ class RealConversation extends Conversation
         //     $this->say("OK");
 
     }
+
     public function askLanguage()
     {
         $this->ask($this->keyLanguages(), function ($language) {
@@ -190,8 +188,9 @@ class RealConversation extends Conversation
                 return $this->repeat();
             }
         },
-    );
+        );
     }
+
     public function askWebFile()
     {
 
@@ -199,6 +198,7 @@ class RealConversation extends Conversation
 
         $code = <<<HTML
 <div class="files" data-email="{$email}"></div>
+<div style="display: none">sadfdsa<div>
 HTML;
 
         $this->say($code);
@@ -246,7 +246,6 @@ HTML;
     }
 
 
-
     public function askEmail()
     {
         $this->ask($this->questions["ASK_EMAIL"][$this->language], function ($email) {
@@ -268,7 +267,22 @@ HTML;
         $this->ask($this->keyActions(), function ($actions) {
             if ($actions->isInteractiveMessageReply()) {
                 $this->memory["action"] = $actions->getValue();
-                $this->say("<strong>".$action = $this->language=="ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
+
+                //   $this->isTG()
+
+
+                $action = Action::where('id', $this->memory["action"])->first();
+
+                if ($this->language === "ru")
+                    $actionApp = $action->ru;
+                else
+                    $actionApp = $action->uz;
+
+                $delimiter = ($this->isTG()) ? '**' : "<strong>";
+
+                $this->say($delimiter . $actionApp . $delimiter, ["parse_mode" => "HTML"]);
+
+
                 $this->askAppeal();
             } else $this->repeat();
         });
@@ -285,7 +299,7 @@ HTML;
     public function askAppeal()
     {
         $this->ask($this->questions["ASK_QUESTION"][$this->language], function ($conversation) {
-            if ($conversation->getText() != "tugat") {
+            if ($conversation->getText() !== "tugat") {
                 $this->memory["answer"] = $conversation->getText();
             } else $this->repeat();
             $this->askMedia();
@@ -315,7 +329,10 @@ HTML;
         $this->ask($this->keyRegions(), function ($regions) {
             if ($regions->isInteractiveMessageReply()) {
                 $this->memory["region"] = $regions->getValue();
-                $this->say("<strong>".$region = $this->language=="ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
+
+                $this->say("<strong>" . $region = $this->language == "ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz . "</strong>", ["parse_mode" => "HTML"]);
+
+
                 $this->askUserType();
             } else $this->repeat();
         });
@@ -326,7 +343,7 @@ HTML;
         $this->ask($this->keyRoutes(), function ($routes) {
             if ($routes->isInteractiveMessageReply()) {
                 $this->memory["route"] = $routes->getValue();
-                $this->say("<strong>".$route = $this->language=="ru"? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz."</strong>", ["parse_mode" => "HTML"]);
+                $this->say("<strong>" . $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz . "</strong>", ["parse_mode" => "HTML"]);
                 $this->askRegion();
             } else $this->repeat();
         });
@@ -369,12 +386,16 @@ HTML;
             }
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
-            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password. "<br/>Спасибо за пользование нашим сервисом.";            
-            $address = $this->language=="uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
-            $emailtext = $this->language=="uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
-            $passwordtext = $this->language=="uz" ? " Parolingiz: " : " Ваш пароль: ";
 
-            $textsms = $address." https://my.agro.uz/admin ".$emailtext .  $email . $passwordtext . $password;
+
+            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Спасибо за пользование нашим сервисом.";
+
+
+            $address = $this->language == "uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
+            $emailtext = $this->language == "uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
+            $passwordtext = $this->language == "uz" ? " Parolingiz: " : " Ваш пароль: ";
+
+            $textsms = $address . " https://my.agro.uz/admin " . $emailtext . $email . $passwordtext . $password;
             $smsSender = new SmsService();
             $smsSender->send('998' . $this->user_memory["phone"], $textsms);
 
@@ -480,63 +501,60 @@ HTML;
         $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
 
         $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $action . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $region . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
-      
 
 
-
-
-                $dirname = '/uploads/' . $this->user_memory["email"];
-                $files = Storage::files($dirname . '/');
-                Log::info(json_encode($files));
-                    $appeal = new Appeal();
-                    $appeal->text = $this->memory["answer"];
-                    $appeal->user_id = $this->user_memory["id"];
-                    $appeal->region = $this->memory["region"];
-                    $appeal->route = $this->memory["route"];
-                    $appeal->type = $this->memory["action"];
-                    $appeal->fullname = $this->user_memory["name"];
-                    $appeal->status = 1;
-                    if ($this->user_memory["usertype"] === 1) {
-                        $appeal->company = $this->memory["data"]["a"];
-                        // $appeal->branch = $this->memory["data"]["b"];
-                    } else {
-                        $appeal->workplace = $this->memory["data"]["a"];
-                    }
-                    $appeal->save();
+        $dirname = '/uploads/' . $this->user_memory["email"];
+        $files = Storage::files($dirname . '/');
+        Log::info(json_encode($files));
+        $appeal = new Appeal();
+        $appeal->text = $this->memory["answer"];
+        $appeal->user_id = $this->user_memory["id"];
+        $appeal->region = $this->memory["region"];
+        $appeal->route = $this->memory["route"];
+        $appeal->type = $this->memory["action"];
+        $appeal->fullname = $this->user_memory["name"];
+        $appeal->status = 1;
+        if ($this->user_memory["usertype"] === 1) {
+            $appeal->company = $this->memory["data"]["a"];
+            // $appeal->branch = $this->memory["data"]["b"];
+        } else {
+            $appeal->workplace = $this->memory["data"]["a"];
+        }
+        $appeal->save();
 
 //                  
-                    if ($this->user_memory["email"]) {
-                        $dirname =  '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
+        if ($this->user_memory["email"]) {
+            $dirname = '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
 
-                        foreach ($files as $file) {
-                            // Storage::makeDirectory('/files//' . $this->user_memory["email"] . '/' . $appeal->id);
+            foreach ($files as $file) {
+                // Storage::makeDirectory('/files//' . $this->user_memory["email"] . '/' . $appeal->id);
 
-                            Log::info($file);
-                            Storage::move($file, $dirname . '/' . pathinfo($file, PATHINFO_BASENAME));
-                        }
+                Log::info($file);
+                Storage::move($file, $dirname . '/' . pathinfo($file, PATHINFO_BASENAME));
+            }
 
-                        $files = Storage::allFiles('files/' . $this->user_memory["email"] . '/' . $appeal->id . '/');
-                    }
-                    Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
+            $files = Storage::allFiles('files/' . $this->user_memory["email"] . '/' . $appeal->id . '/');
+        }
+        Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
 
-                    $this->say($this->questions["FINISH"][$this->language]);
-                       $text = $this->language="uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
-                    $add = $this->language="uz" ? " Adress: " : "";
-                    $email = $this->language="uz" ? " E-Mail: " : "";
+        $this->say($this->questions["FINISH"][$this->language]);
+        $text = $this->language = "uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
+        $add = $this->language = "uz" ? " Adress: " : "";
+        $email = $this->language = "uz" ? " E-Mail: " : "";
 // 
-                    $texttosms = $text . $add . "https://my.agro.uz/admin<br>". $email . $this->user_memory["email"];
-                    $smsSender = new SmsService();
-                    $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
+        $texttosms = $text . $add . "https://my.agro.uz/admin<br>" . $email . $this->user_memory["email"];
+        $smsSender = new SmsService();
+        $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
 // 
 // 
-                    $details = [
-                        'title' => 'AGRO.UZ ',
-                        'body' => $texttosms
-                    ];
-                    Mail::to($this->user_memory["email"])->send(new SendMail($details));
+        $details = [
+            'title' => 'AGRO.UZ ',
+            'body' => $texttosms
+        ];
+        Mail::to($this->user_memory["email"])->send(new SendMail($details));
     }
 
-     public function generatePass($length = 4)
+    public function generatePass($length = 4)
     {
         $characters = '0123456789';
         $charactersLength = strlen($characters);

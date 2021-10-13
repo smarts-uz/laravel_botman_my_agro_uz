@@ -729,6 +729,14 @@
                         var callBack = function (data) {
 
                             console.log('CallBack');
+                            $('#messageArea').html("asdfasdf");
+                            $('#messageArea').text("asdfasdf");
+                            console.log('SET');
+
+                console.log($('#messageArea').html());
+                       //     $('.msg')[2].style= "display: none;"
+
+                         //   document.getElementsByClassName('msg')[2].style = "display: none;"
 
                             setTimeout(function () {
 
