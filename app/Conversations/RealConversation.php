@@ -329,8 +329,15 @@ HTML;
             if ($regions->isInteractiveMessageReply()) {
                 $this->memory["region"] = $regions->getValue();
 
-                $this->say("<strong>" . $region = $this->language == "ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz . "</strong>", ["parse_mode" => "HTML"]);
+                $region = Region::where('id', $this->memory["region"])->first();
+                if($this->language === "ru"){
+                    $regionApp = $region->ru;
+                }else{
+                    $regionApp = $region->uz;
+                }
+                $delimiter = ($this->isTG()) ? '**' : "<strong>";
 
+                $this->say($delimiter . $regionApp . $delimiter, ["parse_mode" => "HTML"]);
 
                 $this->askUserType();
             } else $this->repeat();
@@ -342,7 +349,16 @@ HTML;
         $this->ask($this->keyRoutes(), function ($routes) {
             if ($routes->isInteractiveMessageReply()) {
                 $this->memory["route"] = $routes->getValue();
-                $this->say("<strong>" . $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz . "</strong>", ["parse_mode" => "HTML"]);
+
+                $route = Routes::where('id', $this->memory["route"])->first();
+                if($this->language === "ru"){
+                    $route = $route->ru;
+                }else{
+                    $route = $route->uz;
+                }
+                $delimiter = ($this->isTG()) ? '**' : "<strong>";
+                $this->say($delimiter . $route . $delimiter, ["parse_mode" => "HTML"]);
+
                 $this->askRegion();
             } else $this->repeat();
         });
@@ -386,13 +402,33 @@ HTML;
             $email = $this->user_memory["email"];
             $password = $this->memory["pass"];
 
+            // $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Спасибо за пользование нашим сервисом.";
+            if( $this->language === "uz"){
+                $text =  setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur.";
+            }else{
+                $text = setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Спасибо за пользование нашим сервисом.";
+            }
 
-            $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Спасибо за пользование нашим сервисом.";
+            // $address = $this->language == "uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
+            if($this->language === "uz"){
+                $address = " Shaxsiy kabinet: ";
+            }else{
+                $address = " Личный кабинет: ";
+            }
+            
+            // $emailtext = $this->language == "uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
+            if($this->language === "uz"){
+                $emailtext = " Pochtangiz: ";
+            }else{
+                $emailtext = " Ваш адрес электронной почты: ";
+            }
+            // $passwordtext = $this->language == "uz" ? " Parolingiz: " : " Ваш пароль: ";
+            if($this->language === "uz"){
+                $passwordtext = " Parolingiz: ";
+            }else{
+                $passwordtext = " Ваш пароль: ";
+            }
 
-
-            $address = $this->language == "uz" ? " Shaxsiy kabinet: " : " Личный кабинет: ";
-            $emailtext = $this->language == "uz" ? " Pochtangiz: " : " Ваш адрес электронной почты: ";
-            $passwordtext = $this->language == "uz" ? " Parolingiz: " : " Ваш пароль: ";
 
             $textsms = $address . " https://my.agro.uz/admin " . $emailtext . $email . $passwordtext . $password;
             $smsSender = new SmsService();
@@ -495,11 +531,36 @@ HTML;
 
     public function askEnd()
     {
-        $action = $this->language == "ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz;
-        $region = $this->language == "ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz;
-        $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
 
-        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $action . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $region . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $route . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
+        // $action = $this->language == "ru" ? Action::where('id', $this->memory["action"])->first()->ru : Action::where('id', $this->memory["action"])->first()->uz;
+
+        $action = Action::where('id', $this->memory["action"])->first();
+        
+        if($this->language === "ru"){
+            $actionApp = $action->ru;
+        }else{
+            $actionApp = $action->uz;
+        }
+        // $region = $this->language == "ru" ? Region::where('id', $this->memory["region"])->first()->ru : Region::where('id', $this->memory["region"])->first()->uz;
+        $region = Region::where('id', $this->memory["region"])->first();
+        
+        if($this->language === "ru"){
+            $regionApp = $region->ru;
+        }else{
+            $regionApp = $region->uz;
+        }
+
+        // $route = $this->language == "ru" ? Routes::where('id', $this->memory["route"])->first()->ru : Routes::where('id', $this->memory["route"])->first()->uz;
+
+        $route = Routes::where('id', $this->memory["route"])->first();
+        
+        if($this->language === "ru"){
+            $routeApp = $route->ru;
+        }else{
+            $routeApp = $route->uz;
+        }
+        
+        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $actionApp . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $regionApp . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $routeApp . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
 
 
         $dirname = '/uploads/' . $this->user_memory["email"];
