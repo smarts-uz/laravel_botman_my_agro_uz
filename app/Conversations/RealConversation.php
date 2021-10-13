@@ -236,11 +236,10 @@ HTML;
                 $url = $image->getUrl(); // The direct url
                 $payload = $image->getPayload(); // The original payload
 
-                $this->say(json_encode($payload));
                 $this->user_memory["filename"] = $payload['file_name'];
                 // Storage::makeDirectory($dirname);
                 Storage::put($dirname . '/' . $payload['file_name'], file_get_contents($url));
-                $this->say(json_encode(Storage::allFiles($dirname)));
+                
             }
             $this->askRoute();
         });
@@ -394,7 +393,7 @@ HTML;
     public function askPhone()
     {
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
-            $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
+            $x = preg_match('/^998(9[012345789]|6[125679]|7[01234569])[0-9]{7}$/', $phone->getText()) == 1 ? true : false;
             if ($x == true) {
                 $this->user_memory["phone"] = $phone->getText();
                 $this->verifyPhone($this->user_memory["phone"]);

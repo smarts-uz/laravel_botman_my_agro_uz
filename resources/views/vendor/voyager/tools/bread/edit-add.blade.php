@@ -50,7 +50,7 @@
         @endif
     </li>
     <li>
-        {{ isset($dataType->id) ? __('voyager::generic.edit') : __('voyager::generic.add') }}
+        {{ isset($dataType->id) ? __('voyager::generic.edit') : trans('generic.add') }}
     </li>
 </ol>
 @endsection
