@@ -137,8 +137,8 @@ class RealConversation extends Conversation
                 Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
             ]);
     }
-    public function getUploadedImages($email){
-
+    public function getUploadedImages($email)
+    {
     }
 
     public function askUploadedFile()
@@ -193,16 +193,18 @@ class RealConversation extends Conversation
 
     public function askLanguage()
     {
-        $this->ask($this->keyLanguages(), function ($language) {
-            if ($language->isInteractiveMessageReply()) {
-                $this->language = $language->getValue();
+        $this->ask(
+            $this->keyLanguages(),
+            function ($language) {
+                if ($language->isInteractiveMessageReply()) {
+                    $this->language = $language->getValue();
 
-                $this->say($this->language . $this->msgRight('Tilni tanlang | Выберите язык'));
-                $this->askEmail();
-            } else {
-                return $this->repeat();
-            }
-        },
+                    // $this->say($this->language . $this->msgRight('Tilni tanlang | Выберите язык'));
+                    $this->askEmail();
+                } else {
+                    return $this->repeat();
+                }
+            },
         );
     }
 
@@ -253,7 +255,6 @@ HTML;
                 $this->user_memory["filename"] = $payload['file_name'];
                 // Storage::makeDirectory($dirname);
                 Storage::put($dirname . '/' . $payload['file_name'], file_get_contents($url));
-
             }
             $this->askRoute();
         });
@@ -269,7 +270,7 @@ HTML;
                 $dirname = $this->user_memory["email"];
                 Storage::makeDirectory('uploads/' . $dirname);
 
-                $this->say($email->getText() . $this->msgHide('Asosiy elektron pochta manzilingizni kiriting'));
+                // $this->say($email->getText() . $this->msgHide('Asosiy elektron pochta manzilingizni kiriting'));
 
                 $this->askAction();
             } elseif ($x == false) {
@@ -470,7 +471,7 @@ HTML;
     public function askPhone()
     {
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
-            $x = preg_match('/^998(9[012345789]|6[125679]|7[01234569])[0-9]{7}$/', $phone->getText()) == 1 ? true : false;
+            $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
             if ($x == true) {
                 $this->user_memory["phone"] = $phone->getText();
                 $this->verifyPhone($this->user_memory["phone"]);
@@ -599,7 +600,7 @@ HTML;
         }
         $appeal->save();
 
-//
+        //
         if ($this->user_memory["email"]) {
             $dirname = '/files/' . $this->user_memory["email"] . '/' . $appeal->id . '/';
 
@@ -633,12 +634,12 @@ HTML;
         } else {
             $email = "";
         }
-//
+        //
         $texttosms = $text . $add . "https://my.agro.uz/admin<br>" . $email . $this->user_memory["email"];
         $smsSender = new SmsService();
         $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
-//
-//
+        //
+        //
         $details = [
             'title' => 'AGRO.UZ ',
             'body' => $texttosms
