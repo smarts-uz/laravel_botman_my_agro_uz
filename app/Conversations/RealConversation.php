@@ -137,8 +137,19 @@ class RealConversation extends Conversation
                 Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
             ]);
     }
-    public function getUploadedImages($email)
+    public function getUploadedImages()
     {
+        if ($this->language == 'ru')
+            $text = 'Загруженные файлы: <br>';
+        else
+            $text = 'Yuklangan fayllar: <br>';
+        $path = 'uploads/fayzulloevasadbek@gmail.com/';
+
+        $files = Storage::allFiles($path);
+        foreach ($files as $file) {;
+            $text = $text . str_replace($path, '', $file) . '<br>';
+        }
+        return $text;
     }
 
     public function askUploadedFile()
@@ -151,34 +162,9 @@ class RealConversation extends Conversation
 
     public function run()
     {
-        // $arr= QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name');
-        // $this->say(json_encode($arr, JSON_UNESCAPED_UNICODE));
-        // $this->askImageFile();
-        // $this->say(Storage::allFiles('fayzulloev'));
         $this->askLanguage();
-        // $this->ask($this->keyLanguages(), [
-        //     [
-        //         'pattern' => 'yes|yep',
-        //         'callback' => function ($bot) {
-        //             $this->say();
-        //         }
-        //     ],
-        //     [
-        //         'pattern' => 'nah|no|nope',
-        //         'callback' => function () {
-        //             $this->say('PANIC!! Stop the engines NOW!');
-        //         }
-        //     ]
-        // ]);
-        // $this->say("Hello");
-        // $apiParameters = [
-        //     'chat_id' => 'mceiov',
-        //     'message_id' => '1'
-        //     ];
-        //     $this->bot->sendRequest('deleteMessage', $apiParameters);
-        //     $this->say("OK");
-
     }
+
 
 
     public function msgHide($text)
@@ -226,12 +212,16 @@ HTML;
             ]), function ($apps) {
             if ($apps->isInteractiveMessageReply()) {
                 if ($apps->getValue() === 'Next')
-                    $this->askRoute();
+                    $this->sayFileName();
             } else
                 $this->repeat();
         });
     }
-
+    public function sayFileName()
+    {
+        $this->say($this->getUploadedImages());
+        $this->askRoute();
+    }
     public function isTG()
     {
         $driver = $this->bot->getDriver();
@@ -268,9 +258,10 @@ HTML;
             if ($x == true) {
                 $this->user_memory["email"] = $email->getText();
                 $dirname = $this->user_memory["email"];
-                Storage::makeDirectory('uploads/' . $dirname);
-
-                // $this->say($email->getText() . $this->msgHide('Asosiy elektron pochta manzilingizni kiriting'));
+                $dir = Storage::makeDirectory('uploads/' . $dirname);
+                $files =   Storage::allFiles($dir);
+                Storage::delete($files);
+                $this->say($email->getText() . $this->msgHide('Asosiy elektron pochta manzilingizni kiriting'));
 
                 $this->askAction();
             } elseif ($x == false) {

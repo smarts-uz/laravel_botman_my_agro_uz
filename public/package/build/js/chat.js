@@ -247,7 +247,6 @@ var inits = true;
 
         function m(t) {
 
-            console.log('33333');
 
 
             return this._listeners[t.type]((E.event && E.event(t)) || t);
@@ -727,26 +726,46 @@ var inits = true;
                 function t() {
                     var t = this;
                     this.callAPI = function (e, n, r, i, a) {
-                        console.log('Send Request');
 
                         var callBack = function (data) {
 
-                            console.log('CallBack');
-
+                             console.log('CallBack');
                             setTimeout(function () {
 
                                 console.log('Start Code');
 
 
                                 let myApp = $('div.myApp');
+                                if(myApp[0]?.className.split(" ")[1] == "msgRight") {
+
+                                    console.log(myApp[0]?.parentNode.parentNode.parentNode.parentNode.classList.add("visitor") )
+                                }
                                 let innerText = myApp.text();
-                                console.log('innerText: ', innerText);
+                                // console.log('innerText: ', innerText);
 
-                                myApp.remove();
-                                console.log('innerText Removed: ', innerText);
+                                // myApp.remove();
+                                // console.log('innerText Removed: ', innerText);
 
 
-                                console.log('START Uppy');
+
+
+
+
+                            }, 10);
+
+                            setTimeout(function () {
+
+                                 console.log('Start Code');
+
+
+
+                                // console.log('innerText: ', innerText);
+
+                                // myApp.remove();
+                                // console.log('innerText Removed: ', innerText);
+
+
+                                // console.log('START Uppy');
                                 /**
                                  *
                                  * Uppy End
@@ -754,16 +773,16 @@ var inits = true;
 
                                 var inputElements = document.querySelectorAll('div.files');
 
-                                console.log(inputElements);
+                                // console.log(inputElements);
 
                                 // loop over input elements
                                 Array.from(inputElements).forEach(inputElement => {
 
-                                    console.log('inputElement:' + inputElement);
+                                    // console.log('inputElement:' + inputElement);
 
 
                                     var email = $(inputElement).data('email');
-                                    console.log('Email:' + email);
+                                    // console.log('Email:' + email);
 
 
                                     var uppy = new Uppy.Core({
@@ -833,8 +852,8 @@ var inits = true;
                                         })
                                     });
                                     uppy.on('complete', result => {
-                                        console.log('successful files:', result.successful)
-                                        console.log('failed files:', result.failed)
+                                        // console.log('successful files:', result.successful)
+                                        // console.log('failed files:', result.failed)
                                     });
 
                                 });
@@ -850,9 +869,9 @@ var inits = true;
 
                         a = callBack;
 
-                        console.log('User ID:' + t.userId);
-                        console.log('Message:' + e);
-                        console.log('Attachment:' + r);
+                        // console.log('User ID:' + t.userId);
+                        // console.log('Message:' + e);
+                        // console.log('Attachment:' + r);
 
                         void 0 === n && (n = !1), void 0 === r && (r = null);
                         var s = new FormData(),
@@ -868,7 +887,7 @@ var inits = true;
                         }),
                             o.a.post(t.chatServer, s).then(function (t) {
 
-                                console.log('After Send');
+                                // console.log('After Send');
 
                                 var e = t.data.messages || [];
                                 i &&
@@ -919,7 +938,7 @@ var inits = true;
             s = n(2),
             c = r(s);
 
-        console.log('Send File2');
+        // console.log('Send File2');
 
         //  console.log(window.botmanChatWidget);
 
@@ -1406,7 +1425,7 @@ var inits = true;
                         }),
                             window.addEventListener("message", function (e) {
 
-                                console.log('asdfasdfasdf');
+                                // console.log('asdfasdfasdf');
 
                                 try {
                                     t[e.data.method].apply(t, e.data.params);
@@ -2045,7 +2064,7 @@ var inits = true;
                             null
                         );
 
-                        console.log('1111');
+                        // console.log('1111');
                     }),
                     e
             );
@@ -2123,7 +2142,7 @@ var inits = true;
                             null
                         );
 
-                        console.log('1111');
+                        // console.log('1111');
                     }),
                     e
             );
