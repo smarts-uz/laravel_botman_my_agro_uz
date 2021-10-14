@@ -736,14 +736,22 @@ var inits = true;
 
 
                                 let myApp = $('div.myApp');
-                                if(myApp[0]?.className.split(" ")[1] == "msgRight") {
 
-                                    console.log(myApp[0]?.parentNode.parentNode.parentNode.parentNode.classList.add("visitor") )
+                                    for (let i  of myApp) {
+                                       if(i?.className.split(" ")[1] == "msgRight") {
+                                      i.parentNode.parentNode.parentNode.parentNode.classList.add("visitor")
+                                    }else if(i?.className.split(" ")[1] == "msgHide"){
+                                           console.log(i.parentNode.parentNode.parentNode.parentNode.style.display = "none");
+                                           console.log(i.parentNode.parentNode.parentNode.parentNode.previousElementSibling.style.display = "none")
+                                       }
+                                    // let innerText = myApp.text();
+                                    // console.log("sasaa")
+                                    // myApp[0]?.parentNode.parentNode.parentNode.parentNode
+                                    // myApp.remove();
                                 }
-                                let innerText = myApp.text();
                                 // console.log('innerText: ', innerText);
 
-                                // myApp.remove();
+
                                 // console.log('innerText Removed: ', innerText);
 
 
