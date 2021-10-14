@@ -1175,7 +1175,6 @@ let apps;
         function r() {
             var t = document.createElement("div");
             let isTrust = true
-            let x = document.createElement("button")
             // let fileUp = document.querySelector("#form")
             let body = document.querySelector("body")
 
@@ -1185,34 +1184,7 @@ let apps;
             //     fileUp.style.display = "none"
             // }
             t.onclick = (e) => {
-                if (isTrust == true) {
-                    x.textContent = "Murojaat yuborish | Отправить обращение"
-                    x.style.width = "100%"
-                    x.style.height = "59px"
-                    x.style.position = "absolute"
-                    x.style.bottom = "1px"
-                    x.style.backgroundColor = "#417E76"
-                    x.style.border = "none"
-                    x.style.fontSize = "15px"
-                    x.style.fontWeight = "bold"
-                    x.style.color = "#ffffff"
-                    x.style.cursor = "pointer"
-                    // x.style
-                    // e.currentTarget.childNodes[0].appendChild(fileUp)
-                    e.currentTarget.childNodes[0].appendChild(x)
 
-                    x.onclick = function () {
-                        botmanChatWidget.say('/start');
-                        x.style.display = "none"
-                        // fileUp.style.display = 'block'
-                    }
-                    isTrust = false
-                } else if (isTrust == false) {
-                    e.currentTarget.childNodes[0].removeChild(x)
-                    x.style.display = "none"
-                    isTrust = true
-                    // fileUp.style.display = 'none'
-                }
             }
             (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
             var e = {};
@@ -1741,7 +1713,7 @@ let apps;
             );
         })();
     },
-    
+
     function salom(t, e, n) {
         "use strict";
         console.log(t);
