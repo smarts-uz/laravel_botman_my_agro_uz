@@ -733,51 +733,17 @@ var inits = true;
 
                             console.log('CallBack');
 
-
                             setTimeout(function () {
 
                                 console.log('Start Code');
 
-                                var botmanChatWidget = sessionStorage.getItem("botmanChatWidget");
 
-                                /*     console.log('botmanChatWidget');
-                                     console.log(botmanChatWidget);
-                                     botmanChatWidget.say('/start');
-     */
-                                //      console.log(botmanChatWidget);
+                                let myApp = $('div.myApp');
+                                let innerText = myApp.text();
+                                console.log('innerText: ', innerText);
 
-
-                                //        botmanChatWidget.say('/start');
-                                //    x.style.display = "none"
-
-
-                                if (inits) {
-                                    console.log('Inits True');
-                                    inits = false;
-                                } else
-                                    console.log('Inits False');
-
-                                console.log('SET Content');
-
-                               /*
-                                if (!inits) {
-                                    var content = $('#messageArea').html()
-                                    sessionStorage.setItem("content", content);
-                                    console.log("Set Item content", content);
-                                } else {
-                                    var content = sessionStorage.getItem("content");
-                                    console.log("Get Item content", content);
-                                    $('#messageArea').html(content);
-                                }
-*/
-
-                                /*
-                                 $('#messageArea').text("asdfasdf");
- */
-
-
-                                //     $('.msg')[2].style= "display: none;"
-                                //   document.getElementsByClassName('msg')[2].style = "display: none;"
+                                myApp.remove();
+                                console.log('innerText Removed: ', innerText);
 
 
                                 console.log('START Uppy');

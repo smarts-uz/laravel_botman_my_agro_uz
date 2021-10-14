@@ -1312,7 +1312,11 @@ let apps;
                         window.botmanChatWidget = new p.a(this);
 
                         console.log('botmanChatWidget Say Start');
-                        botmanChatWidget.say('/start');
+
+                        // $('.desktop-closed-message-avatar').click();
+                  //      botmanChatWidget.say('/start');
+
+                   //     $()
 
                         // sessionStorage.setItem("botmanChatWidget",botmanChatWidget);
 
