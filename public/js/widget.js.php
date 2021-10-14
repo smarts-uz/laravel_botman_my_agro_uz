@@ -50,7 +50,7 @@ switch ($host) {
         break;
 
     default:
-        $before = 'https://my.agro.uz';
+        $before = '';
 }
 
 /*var_dump($host);
@@ -58,16 +58,11 @@ var_dump($before);
 die;*/
 
 $content = file_get_contents($file);
-($d = $settings['chatbot.chat_intro_message']['value']);
+//($d = $settings['chatbot.chat_intro_message']['value']);
 $print = strtr($content, [
     '${title}' => $settings['chatbot.chat_title']['value'],
     '${placeholderText}' => $settings['chatbot.placeholder_text']['value'],
     '${ChatIntroText}' => $settings['chatbot.ChatIntroText']['value'],
-
-
-
-
-
     '${aboutText}' => $settings['chatbot.aboutText']['value'],
     '${aboutLink}' => $settings['chatbot.aboutLink']['value'],
 
