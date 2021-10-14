@@ -142,12 +142,13 @@ class RealConversation extends Conversation
             $text = 'Загруженные файлы: <br>';
         else
             $text = 'Yuklangan fayllar: <br>';
-        $path = 'uploads/fayzulloevasadbek@gmail.com/';
+        $path = 'uploads/'.$this->user_memory["email"];
 
         $files = Storage::allFiles($path);
         foreach ($files as $file){
             ;
             $text = $text . str_replace($path, '', $file) . '<br>';
+
         }
         return $text;
     }
@@ -185,6 +186,7 @@ class RealConversation extends Conversation
 
                 $this->say($this->language . $this->msgRight('Tilni tanlang | Выберите язык'));
                 $this->askEmail();
+
             } else {
                 return $this->repeat();
             }
@@ -209,6 +211,7 @@ HTML;
                 Button::create($this->questions["ASK_UPLOAD_FINISH"][$this->language])->value('Next'),
             ]), function ($apps) {
             if ($apps->isInteractiveMessageReply()) {
+                $this->say("Fefefe".$this->msgHide("okokd"));
                 if ($apps->getValue() === 'Next')
                     $this->sayFileName();
             } else
@@ -260,7 +263,6 @@ HTML;
                 $dir = Storage::makeDirectory('uploads/' . $dirname);
                 $files =   Storage::allFiles($dir);
                 Storage::delete($files);
-                $this->say($email->getText() . $this->msgHide('Asosiy elektron pochta manzilingizni kiriting'));
                 $this->askAction();
             } elseif ($x == false) {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
@@ -318,14 +320,21 @@ HTML;
 
         $this->ask($this->mediaRoutes(), function ($answer) {
             if ($answer->isInteractiveMessageReply()) {
+
                 if ($answer->getValue() == QUESTIONS["YES"]["value"]) {
+
+
                     if ($this->isTG())
                         $this->askImageFile();
                     else
+                        $this->say("Fefefe".$this->msgHide("okokd"));
                         $this->askWebFile();
                 } else {
+                    $this->say("Fefefe".$this->msgHide("okokd"));
                     $this->askRoute();
+
                 }
+
             } else $this->repeat();
         });
     }
@@ -345,7 +354,7 @@ HTML;
                 }
                 $delimiter = ($this->isTG()) ? '**' : "<strong>";
 
-                $this->say($delimiter . $regionApp . $delimiter, ["parse_mode" => "HTML"]);
+                $this->say( $regionApp . $this->msgRight("right"));
 
                 $this->askUserType();
             } else $this->repeat();
@@ -365,7 +374,7 @@ HTML;
                     $route = $route->uz;
                 }
                 $delimiter = ($this->isTG()) ? '**' : "<strong>";
-                $this->say($delimiter . $route . $delimiter, ["parse_mode" => "HTML"]);
+                $this->say($route . $this->msgRight("right"), );
 
                 $this->askRegion();
             } else $this->repeat();
@@ -530,6 +539,8 @@ HTML;
         $this->ask($this->keyUserType(), function ($usertype) {
             if ($usertype->isInteractiveMessageReply()) {
                 $this->user_memory["usertype"] = $usertype->getValue();
+
+                $this->say("Fefefe".$this->msgHide("okokd"));
                 $this->askUser();
             } else $this->repeat();
         });
