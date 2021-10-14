@@ -60,7 +60,7 @@
         @if($appeal->status == 1 || $appeal->status == 2)
         <form action="{{ route('conversation.send', $appeal->id) }}" method="post" class="msger-inputarea">
             @csrf
-            <input name="text" type="text" class="msger-input" placeholder="Enter your message..." />
+            <input required name="text" type="text" class="msger-input" placeholder="Enter your message..." />
             <button type="submit" required class="msger-send-btn ">@lang('site.send_button')</button>
         </form>
         @else

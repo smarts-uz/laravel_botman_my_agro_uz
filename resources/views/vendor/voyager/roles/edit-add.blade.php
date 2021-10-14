@@ -9,7 +9,7 @@
 @section('page_header')
     <h1 class="page-title">
         <i class="{{ $dataType->icon }}"></i>
-        {{ __('voyager::generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->getTranslatedAttribute('display_name_singular') }}
+        {{ trans('generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')) }}
     </h1>
 @stop
 
@@ -22,7 +22,6 @@
                 <div class="panel panel-bordered">
                     <!-- form start -->
                     <form class="form-edit-add" role="form"
-                          action="@if(isset($dataTypeContent->id)){{ route('voyager.'.$dataType->slug.'.update', $dataTypeContent->id) }}@else{{ route('voyager.'.$dataType->slug.'.store') }}@endif"
                           method="POST" enctype="multipart/form-data">
 
                         <!-- PUT Method if we are editing -->
@@ -55,7 +54,7 @@
                             @endforeach
 
                             <label for="permission">@lang('generic.permissions')</label><br>
-                            <a href="#" class="permission-select-all">@lang('generic.select_all')</a> / <a href="#"  class="permission-deselect-all">@lang('generic.deselect_all') </a>
+                            <a href="#" class="permission-select-all">@lang('generic.select_all') </a> / <a href="#"  class="permission-deselect-all">{{ trans('generic.deselect_all') }}</a>
                             <ul class="permissions checkbox">
                                 <?php
                                     $role_permissions = (isset($dataTypeContent)) ? $dataTypeContent->permissions->pluck('key')->toArray() : [];
@@ -77,7 +76,7 @@
                             </ul>
                         </div><!-- panel-body -->
                         <div class="panel-footer">
-                            <button type="submit" class="btn btn-primary">@lang('generic.submit')</button>
+                            <button type="submit" class="btn btn-primary">@lang('generic.submit') </button>
                         </div>
                     </form>
 

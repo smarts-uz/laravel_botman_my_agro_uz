@@ -91,8 +91,8 @@ return [
     'updated_order'          => 'Yangilanish tartibi',
     'upload'                 => 'Yulash',
     'url'                    => 'URL',
-    'view'                   => 'Ko`rishlar',
-    'viewing'                => 'Ko`rishlar',
+    'view'                   => 'Ko`rish',
+    'viewing'                => 'Ko`rish',
     'yes'                    => 'Ha',
     'yes_please'             => 'Ha, iltimos',
 ];

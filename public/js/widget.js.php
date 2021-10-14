@@ -4,7 +4,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 // var_dump(__DIR__ . '/../vendor/autoload.php');
 // use Symfony\Component\Dotenv\Dotenv;
-use Dotenv\Dotenv;
+use Dotenv\Dotenv;use Illuminate\Support\Str;
 
 // $dotenv = new Dotenv();
 // $dotenv->load(__DIR__.'/.env');
@@ -41,17 +41,19 @@ $file = $folder . '/public/package/build/js/widget.js';
 
 
 $host = $_SERVER['HTTP_REFERER'];
-switch ($host) {
-    case 'http://agro.tested.uz/':
-    case 'https://agro.tested.uz/':
-    case 'http://agro.uz/':
-    case 'https://agro.uz/':
-        $before = 'https://my.agro.uz';
-        break;
 
-    default:
-        $before = 'https://my.agro.uz';
-}
+if (empty($host))
+    $before = null;
+else
+    switch ($host) {
+        case Str::contains($host, 'agro.tested.uz'):
+        case Str::contains($host, 'agro.uz'):
+            $before = 'https://my.agro.uz';
+            break;
+
+        default:
+            $before = '';
+    }
 
 /*var_dump($host);
 var_dump($before);
@@ -60,13 +62,10 @@ die;*/
 $content = file_get_contents($file);
 ($d = $settings['chatbot.chat_intro_message']['value']);
 $print = strtr($content, [
+
     '${title}' => $settings['chatbot.chat_title']['value'],
     '${placeholderText}' => $settings['chatbot.placeholder_text']['value'],
     '${ChatIntroText}' => $settings['chatbot.ChatIntroText']['value'],
-
-
-
-
 
     '${aboutText}' => $settings['chatbot.aboutText']['value'],
     '${aboutLink}' => $settings['chatbot.aboutLink']['value'],
