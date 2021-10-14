@@ -16,7 +16,7 @@ ob_end_flush();
 
 // $settings = \Illuminate\Support\Facades\DB::table('settings');
 // $title = $settings->where('key', 'chatbot.chat_title')->first()->value;
-$servername = getenv('DB_HOST');
+$servername = $_SERVER['DB_HOST'];
 $username = $_SERVER['DB_USERNAME'];
 $password = $_SERVER['DB_PASSWORD'];
 $dbname = $_SERVER['DB_DATABASE'];
