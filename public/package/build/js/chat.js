@@ -737,8 +737,8 @@ var inits = true;
 
                                 let myApp = $('div.myApp');
                                 if(myApp[0]?.className.split(" ")[1] == "msgRight") {
-                                    for (let i  in myApp) {
-                                        console.log(i)
+                                    for (let i  of myApp) {
+                                        console.log(i.parentNode.parentNode.parentNode.parentNode)
                                     }
                                     // let innerText = myApp.text();
                                     // console.log("sasaa")
