@@ -737,13 +737,17 @@ var inits = true;
 
                                 let myApp = $('div.myApp');
                                 if(myApp[0]?.className.split(" ")[1] == "msgRight") {
-
-                                    console.log(myApp[0]?.parentNode.parentNode.parentNode.parentNode.classList.add("visitor") )
+                                    for (let i  in myApp) {
+                                        console.log(i)
+                                    }
+                                    // let innerText = myApp.text();
+                                    // console.log("sasaa")
+                                    // myApp[0]?.parentNode.parentNode.parentNode.parentNode.classList.add("visitor")
+                                    // myApp.remove();
                                 }
-                                let innerText = myApp.text();
                                 // console.log('innerText: ', innerText);
 
-                                // myApp.remove();
+
                                 // console.log('innerText Removed: ', innerText);
 
 

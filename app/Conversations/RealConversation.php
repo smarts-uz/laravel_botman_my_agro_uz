@@ -269,7 +269,7 @@ HTML;
                 $dirname = $this->user_memory["email"];
                 Storage::makeDirectory('uploads/' . $dirname);
 
-                $this->say($email->getText() . $this->msgHide('Asosiy elektron pochta manzilingizni kiriting'));
+//                $this->say($email->getText() . $this->msgHide('Asosiy elektron pochta manzilingizni kiriting'));
 
                 $this->askAction();
             } elseif ($x == false) {
@@ -297,7 +297,7 @@ HTML;
 
                 $delimiter = ($this->isTG()) ? '**' : "<strong>";
 
-                $this->say($delimiter . $actionApp . $delimiter, ["parse_mode" => "HTML"]);
+                $this->say($actionApp . $this->msgRight($actionApp), ["parse_mode" => "HTML"] );
 
 
                 $this->askAppeal();
