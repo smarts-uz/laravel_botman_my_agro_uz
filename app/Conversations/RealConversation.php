@@ -277,7 +277,7 @@ HTML;
                 else
                     $actionApp = $action->uz;
 
-                $delimiter == ($this->isTG()) ? '**' : "<strong>";
+                $delimiter = ($this->isTG()) ? '**' : "<strong>";
 
                 $this->say($delimiter . $actionApp . $delimiter, ["parse_mode" => "HTML"]);
 
@@ -335,7 +335,7 @@ HTML;
                 }else{
                     $regionApp = $region->uz;
                 }
-                $delimiter == ($this->isTG()) ? '**' : "<strong>";
+                $delimiter = ($this->isTG()) ? '**' : "<strong>";
 
                 $this->say($delimiter . $regionApp . $delimiter, ["parse_mode" => "HTML"]);
 
@@ -356,7 +356,7 @@ HTML;
                 }else{
                     $route = $route->uz;
                 }
-                $delimiter == ($this->isTG()) ? '**' : "<strong>";
+                $delimiter = ($this->isTG()) ? '**' : "<strong>";
                 $this->say($delimiter . $route . $delimiter, ["parse_mode" => "HTML"]);
 
                 $this->askRegion();

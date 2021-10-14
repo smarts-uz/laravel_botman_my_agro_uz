@@ -1311,10 +1311,10 @@ let apps;
                     (e.prototype.componentDidMount = function () {
                         window.botmanChatWidget = new p.a(this);
 
-                        console.log('botmanChatWidget');
-                        console.log(botmanChatWidget);
+                        console.log('botmanChatWidget Say Start');
+                        botmanChatWidget.say('/start');
 
-                        sessionStorage.setItem("botmanChatWidget",botmanChatWidget);
+                        // sessionStorage.setItem("botmanChatWidget",botmanChatWidget);
 
                     }),
                     (e.prototype.render = function (t, e) {
