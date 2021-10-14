@@ -4,7 +4,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 // var_dump(__DIR__ . '/../vendor/autoload.php');
 // use Symfony\Component\Dotenv\Dotenv;
-use Dotenv\Dotenv;use Illuminate\Support\Str;
+use Dotenv\Dotenv;use Illuminate\Support\Arr;use Illuminate\Support\Str;
 
 // $dotenv = new Dotenv();
 // $dotenv->load(__DIR__.'/.env');
@@ -40,11 +40,11 @@ $file = $folder . '/public/package/build/js/widget.js';
 //echo $file;
 
 
-$host = $_SERVER['HTTP_REFERER'];
+$host = Arr::get($_SERVER, 'HTTP_REFERER');
 
 if (empty($host))
     $before = null;
-else
+else {
     switch ($host) {
         case Str::contains($host, 'agro.tested.uz'):
         case Str::contains($host, 'agro.uz'):
@@ -54,13 +54,13 @@ else
         default:
             $before = '';
     }
-
+}
 /*var_dump($host);
 var_dump($before);
 die;*/
 
 $content = file_get_contents($file);
-($d = $settings['chatbot.chat_intro_message']['value']);
+
 $print = strtr($content, [
 
     '${title}' => $settings['chatbot.chat_title']['value'],
@@ -75,7 +75,6 @@ $print = strtr($content, [
     '${mobileHeight}' => "100%",
     '${desktopWidth}' => 370,
     '${desktopHeight}' => 450,
-
     '${textColor}' => $settings['chatbot.textColor']['value'],
     '${mainColor}' => $settings['chatbot.mainColor']['value'],
     '${frameEndpoint}' => $before . '/uzchat',
