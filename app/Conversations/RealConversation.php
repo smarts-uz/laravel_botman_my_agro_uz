@@ -137,7 +137,9 @@ class RealConversation extends Conversation
                 Button::create(QUESTIONS["NO"]["name"][$this->language])->value(QUESTIONS["NO"]["value"])
             ]);
     }
+    public function getUploadedImages($email){
 
+    }
 
     public function askUploadedFile()
     {

@@ -53,10 +53,10 @@ Route::get('/admin', [ConversationController::class, 'index'])->name('voyager.da
 
 Route::view("form", "form");
 Route::post("/form/send", [FormController::class, "run"]);
-
 // Route::get('/', [FileUpload::class, 'createForm']);
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 Route::post("/upload", [FilepondController::class, "upload"]);
 Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
 
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
+Route::get("/getAll", [HelperController::class, 'getAll']);
