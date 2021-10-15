@@ -741,8 +741,8 @@ var inits = true;
                                        if(i?.className.split(" ")[1] == "msgRight") {
                                       i.parentNode.parentNode.parentNode.parentNode.classList.add("visitor")
                                     }else if(i?.className.split(" ")[1] == "msgHide"){
-                                           console.log(i.parentNode.parentNode.parentNode.parentNode.style.display = "none");
-                                           console.log(i.parentNode.parentNode.parentNode.parentNode.previousElementSibling.style.display = "none")
+                                           i.parentNode.parentNode.parentNode.parentNode.style.display = "none"
+                                           i.parentNode.parentNode.parentNode.parentNode.previousElementSibling.style.display = "none"
                                        }
                                     // let innerText = myApp.text();
                                     // console.log("sasaa")
@@ -759,7 +759,7 @@ var inits = true;
 
 
 
-                            }, 10);
+                            }, 100);
 
                             setTimeout(function () {
 
