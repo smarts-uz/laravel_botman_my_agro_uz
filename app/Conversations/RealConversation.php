@@ -297,7 +297,7 @@ HTML;
                 else
                     $actionApp = $action->uz;
 
-                $delimiter = ($this->isTG()) ? '**' : "<strong>";
+                $delimiter = ($this->isTG()) ? '*' : "<strong>";
 
                 $text = $this->isTG() ? $delimiter . $actionApp . $delimiter : $actionApp . $this->msgRight($actionApp);
                 $this->say($text);
@@ -362,7 +362,7 @@ HTML;
                 } else {
                     $regionApp = $region->uz;
                 }
-                $delimiter = ($this->isTG()) ? '**' : "<strong>";
+                $delimiter = ($this->isTG()) ? '*' : "<strong>";
                 $text = $this->isTG() ? $delimiter . $regionApp . $delimiter : $regionApp . $this->msgRight("right");
                 $this->say($text);
 
@@ -383,7 +383,7 @@ HTML;
                 } else {
                     $route = $route->uz;
                 }
-                $delimiter = ($this->isTG()) ? '**' : "<strong>";
+                $delimiter = ($this->isTG()) ? '*' : "<strong>";
                 $text = $this->isTG() ? $delimiter. $route . $delimiter : $route . $this->msgRight("right");
                 $this->say($text);
 
