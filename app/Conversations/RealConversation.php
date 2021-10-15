@@ -219,7 +219,7 @@ HTML;
                 Button::create($this->questions["ASK_UPLOAD_FINISH"][$this->language])->value('Next'),
             ]), function ($apps) {
             if ($apps->isInteractiveMessageReply()) {
-                $this->say($this->msgHide(" "));
+                if(!$this->isTG()) $this->say($this->msgHide(" "));
                 if ($apps->getValue() === 'Next')
                     $this->sayFileName();
             } else
@@ -341,7 +341,8 @@ HTML;
                         $this->say(" " . $this->msgHide(" "));
                     $this->askWebFile();
                 } else {
-                    $this->say(" " . $this->msgHide(" "));
+                    if (!$this->isTG())
+                        $this->say(" " . $this->msgHide(" "));
                     $this->askRoute();
                 }
             } else $this->repeat();
@@ -581,7 +582,8 @@ HTML;
             if ($usertype->isInteractiveMessageReply()) {
                 $this->user_memory["usertype"] = $usertype->getValue();
 
-                $this->say("" . $this->msgHide(" "));
+               if(!$this->isTG())
+                   $this->say("" . $this->msgHide(" "));
                 $this->askUser();
             } else $this->repeat();
         });
