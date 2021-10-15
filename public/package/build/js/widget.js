@@ -1,5 +1,5 @@
 let apps;
-
+let istrue = false;
 !(function (t) {
     function e(o) {
         if (n[o]) return n[o].exports;
@@ -256,10 +256,12 @@ let apps;
 
 
             setTimeout(function () {
-                console.log('botmanChatWidget');
-                console.log(botmanChatWidget);
-                botmanChatWidget.say('/start');
 
+                if(!istrue) {
+                    console.log(botmanChatWidget);
+                    botmanChatWidget.say('/start');
+                }
+                istrue = true
                 console.log('Start Code');
             }, 1000);
 
@@ -1279,6 +1281,7 @@ let apps;
                         for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && (t[r] = e[r]);
                     }
                     return t;
+
                 };
         e.a = (function (t) {
             function e() {

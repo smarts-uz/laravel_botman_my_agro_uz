@@ -209,7 +209,6 @@ class RealConversation extends Conversation
 
         $code = <<<HTML
 <div class="files" data-email="{$email}"></div>
-<div style="display: none">sadfdsa<div>
 HTML;
 
         $this->say($code);
@@ -219,7 +218,7 @@ HTML;
                 Button::create($this->questions["ASK_UPLOAD_FINISH"][$this->language])->value('Next'),
             ]), function ($apps) {
             if ($apps->isInteractiveMessageReply()) {
-                $this->say("Fefefe" . $this->msgHide("okokd"));
+                $this->say($this->msgHide(" "));
                 if ($apps->getValue() === 'Next')
                     $this->sayFileName();
             } else
@@ -337,10 +336,10 @@ HTML;
                     if ($this->isTG())
                         $this->askImageFile();
                     else
-                        $this->say("Fefefe" . $this->msgHide("okokd"));
+                        $this->say(" " . $this->msgHide(" "));
                     $this->askWebFile();
                 } else {
-                    $this->say("Fefefe" . $this->msgHide("okokd"));
+                    $this->say(" " . $this->msgHide(" "));
                     $this->askRoute();
                 }
             } else $this->repeat();
@@ -496,11 +495,17 @@ HTML;
     public function askPhone()
     {
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
-            $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
-            if ($x == true) {
-                $this->user_memory["phone"] = $phone->getText();
-                $this->verifyPhone($this->user_memory["phone"]);
-            } elseif ($x == false) {
+
+            if (preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) || (preg_match('/^\+9989[012345789][0-9]{7}$/', $phone->getText()))) {
+                if((preg_match('/^\+9989[012345789][0-9]{7}$/', $phone->getText()))) {
+                    $this->user_memory["phone"] = substr($phone->getText(), 4, 9);
+                    $this->verifyPhone($this->user_memory["phone"]);
+                }else {
+                    $this->user_memory["phone"] = $phone->getText();
+                    $this->verifyPhone($this->user_memory["phone"]);
+                }
+
+            } else {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
             }
@@ -573,7 +578,7 @@ HTML;
             if ($usertype->isInteractiveMessageReply()) {
                 $this->user_memory["usertype"] = $usertype->getValue();
 
-                $this->say("Fefefe" . $this->msgHide("okokd"));
+                $this->say(" " . $this->msgHide(" "));
                 $this->askUser();
             } else $this->repeat();
         });
@@ -611,7 +616,6 @@ HTML;
             $routeApp = $route->uz;
         }
 
-        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $actionApp . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $regionApp . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $routeApp . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
 
 
         $dirname = '/uploads/' . $this->user_memory["email"];
@@ -717,7 +721,7 @@ HTML;
                 if ($answer->getValue() == QUESTIONS["HA"]["value"]) {
                     $this->askAction();
             } else{
-                    $this->repeat();
+                    $this->say($answer->getValue(). $this->msgRight($answer->getValue()));
                 }
         }
         });
