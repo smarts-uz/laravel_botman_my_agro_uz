@@ -1174,7 +1174,6 @@ let apps;
 
         function r() {
             var t = document.createElement("div");
-            let isTrust = true
             // let fileUp = document.querySelector("#form")
             let body = document.querySelector("body")
 
@@ -1184,7 +1183,8 @@ let apps;
             //     fileUp.style.display = "none"
             // }
             t.onclick = (e) => {
-
+                console.log("nmadir")
+                botmanChatWidget.say('/start');
             }
             (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
             var e = {};

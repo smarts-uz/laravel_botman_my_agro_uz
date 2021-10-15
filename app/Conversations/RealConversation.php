@@ -148,7 +148,6 @@ class RealConversation extends Conversation
         foreach ($files as $file){
             ;
             $text = $text . str_replace($path, '', $file) . '<br>';
-
         }
         return $text;
     }
