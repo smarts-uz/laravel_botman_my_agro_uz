@@ -385,7 +385,9 @@ HTML;
                 }
                 $delimiter = ($this->isTG()) ? '*' : "<strong>";
                 $text = $this->isTG() ? $delimiter. $route . $delimiter : $route . $this->msgRight("right");
-                $this->say($text);
+                $this->say($text, [
+                    'parse_mode' => 'Markdown',
+                ]);
 
                 $this->askRegion();
             } else $this->repeat();
