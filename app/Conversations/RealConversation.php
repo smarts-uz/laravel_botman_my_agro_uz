@@ -723,7 +723,7 @@ HTML;
                 if ($answer->getValue() == QUESTIONS["HA"]["value"]) {
                     $this->askAction();
             } else{
-                    $this->repeat();
+                    $this->say($answer->getValue(). $this->msgRight($answer->getValue()));
                 }
         }
         });
