@@ -336,10 +336,10 @@ HTML;
                     if ($this->isTG())
                         $this->askImageFile();
                     else
-                        $this->say("Fefefe" . $this->msgHide("okokd"));
+                        $this->say(" " . $this->msgHide(" "));
                     $this->askWebFile();
                 } else {
-                    $this->say("Fefefe" . $this->msgHide("okokd"));
+                    $this->say(" " . $this->msgHide(" "));
                     $this->askRoute();
                 }
             } else $this->repeat();
@@ -578,7 +578,7 @@ HTML;
             if ($usertype->isInteractiveMessageReply()) {
                 $this->user_memory["usertype"] = $usertype->getValue();
 
-                $this->say("Fefefe" . $this->msgHide("okokd"));
+                $this->say(" " . $this->msgHide(" "));
                 $this->askUser();
             } else $this->repeat();
         });
