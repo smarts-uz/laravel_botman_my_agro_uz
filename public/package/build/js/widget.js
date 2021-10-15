@@ -245,7 +245,25 @@ let apps;
         }
 
         function m(t) {
-            return this._listeners[t.type]((T.event && T.event(t)) || t);
+            /* $(".desktop-closed-message-avatar").on("click", function(){
+                    console.log('Start Clicked');
+                    botmanChatWidget.say('/start');
+                  //  x.style.display = "none"
+                });
+    */
+
+            let app = this._listeners[t.type]((T.event && T.event(t)) || t);
+
+
+            setTimeout(function () {
+                console.log('botmanChatWidget');
+                console.log(botmanChatWidget);
+                botmanChatWidget.say('/start');
+
+                console.log('Start Code');
+            }, 1000);
+
+            return app;
         }
 
         function b() {
@@ -1183,9 +1201,15 @@ let apps;
             // }else {
             //     fileUp.style.display = "none"
             // }
-            t.onclick = (e) => {
 
-            }
+            console.log('R Method Called');
+            /*          $(".desktop-closed-message-avatar").on("click", function(){
+                          console.log('Start Clicked');
+                          botmanChatWidget.say('/start');
+                        //  x.style.display = "none"
+                      });*/
+
+
             (t.id = "botmanWidgetRoot"), document.getElementsByTagName("body")[0].appendChild(t);
             var e = {};
             console.log(e);
@@ -1286,9 +1310,9 @@ let apps;
                         console.log('botmanChatWidget Say Start');
 
                         // $('.desktop-closed-message-avatar').click();
-                  //      botmanChatWidget.say('/start');
+                        //      botmanChatWidget.say('/start');
 
-                   //     $()
+                        //     $()
 
                         // sessionStorage.setItem("botmanChatWidget",botmanChatWidget);
 
@@ -1728,7 +1752,7 @@ let apps;
         // ;
         var o = {
 
-            chatServer:`${chatServer}`,
+            chatServer: `${chatServer}`,
             frameEndpoint: `${frameEndpoint}`,
             bubbleAvatarUrl: `${bubbleAvatarUrl}`,
             timeFormat: "HH:MM",
@@ -1747,18 +1771,18 @@ let apps;
             videoHeight: 160,
 
             chatId: "",
-                userId: "",
-                alwaysUseFloatingButton: !1,
-                aboutLink: `${aboutLink}`,
-                aboutText: `${aboutText}`,
-                introMessage: `${ChatIntroText}`,
-                title: `${title}`,
-                placeholderText: `${placeholderText}`,
-            };
-            n.d(e, "a", function () {
-                return o;
-            });
-        },
-    ]);
+            userId: "",
+            alwaysUseFloatingButton: !1,
+            aboutLink: `${aboutLink}`,
+            aboutText: `${aboutText}`,
+            introMessage: `${ChatIntroText}`,
+            title: `${title}`,
+            placeholderText: `${placeholderText}`,
+        };
+        n.d(e, "a", function () {
+            return o;
+        });
+    },
+]);
 
 
