@@ -192,8 +192,8 @@ class RealConversation extends Conversation
             function ($language) {
                 if ($language->isInteractiveMessageReply()) {
                     $this->language = $language->getValue();
-
-                     $this->say($this->language . $this->msgRight('Tilni tanlang | Выберите язык'));
+                    $text = $this->isTG() ? $this->language : $this->language . $this->msgRight('Tilni tanlang | Выберите язык');
+                     $this->say($text);
                     $this->askEmail();
                 } else {
                     return $this->repeat();
@@ -298,7 +298,8 @@ HTML;
 
                 $delimiter = ($this->isTG()) ? '**' : "<strong>";
 
-                $this->say($actionApp . $this->msgRight($actionApp), ["parse_mode" => "HTML"]);
+                $text = $this->isTG() ? $delimiter . $actionApp . $delimiter : $actionApp . $this->msgRight($actionApp);
+                $this->say($text);
 
 
                 $this->askAppeal();
@@ -360,8 +361,8 @@ HTML;
                     $regionApp = $region->uz;
                 }
                 $delimiter = ($this->isTG()) ? '**' : "<strong>";
-
-                $this->say($regionApp . $this->msgRight("right"));
+                $text = $this->isTG() ? $delimiter . $regionApp . $delimiter : $regionApp . $this->msgRight("right");
+                $this->say($text);
 
                 $this->askUserType();
             } else $this->repeat();
@@ -381,7 +382,8 @@ HTML;
                     $route = $route->uz;
                 }
                 $delimiter = ($this->isTG()) ? '**' : "<strong>";
-                $this->say($route . $this->msgRight("right"),);
+                $text = $this->isTG() ? $delimiter. $route . $delimiter : $route . $this->msgRight("right");
+                $this->say($text);
 
                 $this->askRegion();
             } else $this->repeat();
@@ -721,7 +723,8 @@ HTML;
                 if ($answer->getValue() == QUESTIONS["HA"]["value"]) {
                     $this->askAction();
             } else{
-                    $this->say($answer->getValue(). $this->msgRight($answer->getValue()));
+                    $text = $this->isTG() ? $answer->getValue() : $answer->getValue(). $this->msgRight($answer->getValue());
+                    $this->say($text);
                 }
         }
         });
