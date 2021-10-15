@@ -300,7 +300,9 @@ HTML;
                 $delimiter = ($this->isTG()) ? '*' : "<strong>";
 
                 $text = $this->isTG() ? $delimiter . $actionApp . $delimiter : $actionApp . $this->msgRight($actionApp);
-                $this->say($text);
+                $this->say($text, [
+                    'parse_mode' => 'Markdown',
+                ]);
 
 
                 $this->askAppeal();
@@ -364,7 +366,9 @@ HTML;
                 }
                 $delimiter = ($this->isTG()) ? '*' : "<strong>";
                 $text = $this->isTG() ? $delimiter . $regionApp . $delimiter : $regionApp . $this->msgRight("right");
-                $this->say($text);
+                $this->say($text, [
+                    'parse_mode' => 'Markdown',
+                ]);
 
                 $this->askUserType();
             } else $this->repeat();
