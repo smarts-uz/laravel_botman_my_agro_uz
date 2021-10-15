@@ -11,6 +11,7 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\Drivers\Web\WebDriver;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Services\SmsService\SmsService;
@@ -578,7 +579,7 @@ HTML;
             if ($usertype->isInteractiveMessageReply()) {
                 $this->user_memory["usertype"] = $usertype->getValue();
 
-                $this->say(" " . $this->msgHide(" "));
+                $this->say("" . $this->msgHide(" "));
                 $this->askUser();
             } else $this->repeat();
         });
@@ -652,7 +653,7 @@ HTML;
         }
         Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
 
-        $this->say($this->questions["FINISH"][$this->language]);
+        $this->say($this->questions["FINISH"][$this->language], ["parse_mode" => "HTML"]);
         $this->askRepeat();
 
         //question email & phone sms
