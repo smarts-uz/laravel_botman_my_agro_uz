@@ -29,9 +29,9 @@ const QUESTIONS = [
     'YES' => ['name' => ['uz' => 'Fayl biriktirish', 'ru' => 'Прикрепить файл'], 'value' => 'Yes'],
     'NO' => ['name' => ['uz' => 'O\'tkazib yuborish', 'ru' => 'Пропустить'], 'value' => 'No'],
 
+    'HA' => ['name' => ['uz' => 'Ha', 'ru' => 'Да'], 'value' => 'Ha'],
+    'YOQ' => ['name' => ['uz' => 'Yo`q', 'ru' => 'Нет'], 'value' => 'Yoq'],
 
-    'Ha' => ['name' => ['uz' => 'Ha', 'ru' => 'Да'], 'value' => 'Yes'],
-    'Yoq' => ['name' => ['uz' => 'Yo`q', 'ru' => 'Нет'], 'value' => 'No'],
     'ASK_USER_A' => [['uz' => 'Место работы полностью UZ', 'ru' => ' Место работы полностью '], ['uz' => "Название организации UZ", 'ru' => ' Название организации  ']],
     'ASK_USER_B' => [['uz' => 'Nothing UZ', 'ru' => ' Nothing '], ['uz' => 'Направление деятельности UZ', 'ru' => ' Направление деятельности ']],
 ];
@@ -127,6 +127,14 @@ class RealConversation extends Conversation
         }
         return Question::create($this->questions["ASK_ROUTE"][$this->language])
             ->addButtons($ar);
+    }
+    public function keyRepeat()
+    {
+        return Question::create($this->questions["ASK_REPEAT"][$this->language])
+            ->addButtons([
+                Button::create(QUESTIONS["HA"]["name"][$this->language])->value(QUESTIONS["HA"]["value"]),
+                Button::create(QUESTIONS["YOQ"]["name"][$this->language])->value(QUESTIONS["YOQ"]["value"])
+            ]);
     }
 
     public function mediaRoutes()
@@ -641,7 +649,7 @@ HTML;
         Appeal::where('id', $appeal->id)->update(['images' => json_encode($files)]);
 
         $this->say($this->questions["FINISH"][$this->language]);
-
+        $this->askRepeat();
 
         //question email & phone sms
 
@@ -701,7 +709,19 @@ HTML;
         ];
         Mail::to($this->user_memory["email"])->send(new SendMail($details));
     }
+    public function askRepeat()
+    {
+        $this->ask($this->keyRepeat(), function ($answer) {
+            if ($answer->isInteractiveMessageReply()) {
 
+                if ($answer->getValue() == QUESTIONS["HA"]["value"]) {
+                    $this->askAction();
+            } else{
+                    $this->repeat();
+                }
+        }
+        });
+    }
     public function generatePass($length = 4)
     {
         $characters = '0123456789';
