@@ -209,7 +209,6 @@ class RealConversation extends Conversation
 
         $code = <<<HTML
 <div class="files" data-email="{$email}"></div>
-<div style="display: none">sadfdsa<div>
 HTML;
 
         $this->say($code);
@@ -219,7 +218,7 @@ HTML;
                 Button::create($this->questions["ASK_UPLOAD_FINISH"][$this->language])->value('Next'),
             ]), function ($apps) {
             if ($apps->isInteractiveMessageReply()) {
-                $this->say("Fefefe" . $this->msgHide("okokd"));
+                $this->say($this->msgHide(" "));
                 if ($apps->getValue() === 'Next')
                     $this->sayFileName();
             } else
@@ -617,7 +616,6 @@ HTML;
             $routeApp = $route->uz;
         }
 
-        $this->say($this->questions["ASK_NAME"][$this->language] . ': ' . $this->user_memory["name"] . '<br> ' . $this->questions["SAY_ACTION"][$this->language] . ': ' . $actionApp . '<br>  ' . $this->questions["ASK_REGION_TEXT"][$this->language] . ': ' . $regionApp . '<br>' . $this->questions["ASK_ROUTE_TEXT"][$this->language] . ': ' . $routeApp . '<br> E-mail: ' . $this->user_memory["email"] . '<br> Tel: ' . $this->user_memory["phone"] . '<br> ');
 
 
         $dirname = '/uploads/' . $this->user_memory["email"];
