@@ -18,6 +18,6 @@ storage/*.key
 Homestead.yaml
 Homestead.json
 /.vagrant
-.env
 .phpunit.result.cache
 /.idea/workspace.xml
+.env
