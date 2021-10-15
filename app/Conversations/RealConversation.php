@@ -496,11 +496,17 @@ HTML;
     public function askPhone()
     {
         $this->ask($this->questions["ASK_PHONE"][$this->language], function ($phone) {
-            $x = preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) == 1 ? true : false;
-            if ($x == true) {
-                $this->user_memory["phone"] = $phone->getText();
-                $this->verifyPhone($this->user_memory["phone"]);
-            } elseif ($x == false) {
+
+            if (preg_match('/^9[012345789][0-9]{7}$/', $phone->getText()) || (preg_match('/^\+9989[012345789][0-9]{7}$/', $phone->getText()))) {
+                if((preg_match('/^\+9989[012345789][0-9]{7}$/', $phone->getText()))) {
+                    $this->user_memory["phone"] = substr($phone->getText(), 4, 9);
+                    $this->verifyPhone($this->user_memory["phone"]);
+                }else {
+                    $this->user_memory["phone"] = $phone->getText();
+                    $this->verifyPhone($this->user_memory["phone"]);
+                }
+
+            } else {
                 $this->say($this->questions["SAY_INCORRECT_FORMAT"][$this->language]);
                 $this->repeat();
             }
