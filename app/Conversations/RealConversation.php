@@ -296,7 +296,6 @@ HTML;
                     $actionApp = $action->ru;
                 else
                     $actionApp = $action->uz;
-
                 $delimiter = ($this->isTG()) ? '*' : "<strong>";
 
                 $text = $this->isTG() ? $delimiter . $actionApp . $delimiter : $actionApp . $this->msgRight($actionApp);
