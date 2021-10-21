@@ -22,6 +22,7 @@
                 <div class="panel panel-bordered">
                     <!-- form start -->
                     <form class="form-edit-add" role="form"
+                          action="@if(isset($dataTypeContent->id)){{ route('voyager.'.$dataType->slug.'.update', $dataTypeContent->id) }}@else{{ route('voyager.'.$dataType->slug.'.store') }}@endif"
                           method="POST" enctype="multipart/form-data">
 
                         <!-- PUT Method if we are editing -->

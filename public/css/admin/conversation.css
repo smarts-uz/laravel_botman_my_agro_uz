@@ -73,6 +73,7 @@ body {
     height: 100vh;
     background-image: var(--body-bg);
     font-family: Helvetica, sans-serif;
+    padding-bottom: 10px;
 }
 
 .msger {

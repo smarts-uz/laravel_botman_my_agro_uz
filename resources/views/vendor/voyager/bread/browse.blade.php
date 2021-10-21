@@ -101,7 +101,7 @@
                                             @endif
                                         </th>
                                         @endforeach
-                                        <th class="actions text-right dt-not-orderable" style="width: 200px !important;">@lang('generic.actions') </th>
+                                        <th class="actions  dt-not-orderable" style="width: 200px !important;">@lang('generic.actions') </th>
                                     </tr>
                                 </thead>
                                 <tbody>

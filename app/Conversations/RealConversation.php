@@ -52,7 +52,6 @@ class RealConversation extends Conversation
     public function __construct()
     {
         $this->questions = QuestionText::select('name', 'uz', 'ru')->get()->keyBy('name')->toArray();
-
         $this->key_indevidual["ru"][0]["name"] = $this->questions["ASK_YURIDIK"]["ru"];
         $this->key_indevidual["ru"][1]["name"] = $this->questions["ASK_JISMONIY"]["ru"];
         $this->key_indevidual["uz"][0]["name"] = $this->questions["ASK_YURIDIK"]["uz"];
@@ -172,6 +171,8 @@ class RealConversation extends Conversation
     public function run()
     {
         $this->askLanguage();
+        Log::info(setting('sms.AccountUz'));
+
     }
 
 
@@ -440,9 +441,9 @@ HTML;
 
             // $text = $this->language == "uz" ? setting('sms.AccountUz') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Bizning xizmatimizdan foydalanganingiz uchun tashakkur." : setting('sms.AccountRu') . ' <br/><strong>Adress: </strong> https://my.agro.uz/admin ' . '<br/><strong>Email:</strong> ' . $email . ' ' . '<br/><strong>Password:</strong>' . $password . "<br/>Спасибо за пользование нашим сервисом.";
             if ($this->language === "uz") {
-                $text = "My.Agro.Uz portalidagi shaxsiy kabinetingizga kirish ma'lumotlari";
+                $text = setting('email.EmailTitleUz');
             } else {
-                $text = "Ваш доступ к персональному кабинету в портале My.Agro.Uz";
+                $text = setting('email.EmailTitleRu');
             }
             // text title
             if ($this->language === "uz") {
@@ -480,15 +481,32 @@ HTML;
             $password = $this->memory["pass"];
 
             //for phones
-            $textsms = $texttitle . $address . "https://my.agro.uz/admin" . $emailtext . $email . $passwordtext . $password . $textthnks;
+            if ($this->language === "uz") {
+                $replacerSms = setting('sms.AccountUz');
+                $replacerEmail = setting('email.AccountUz');
+
+            } else {
+                $replacerSms = setting('sms.AccountRu');
+                $replacerEmail = setting('email.AccountRu');
+            }
+            $textsms = strtr($replacerSms, [
+                '{email}' => $email,
+                '{parol}' => $password
+                ]);
+            $textEmail = strtr($replacerEmail, [
+                    '{email}' => $email,
+                    '{parol}' => $password
+                ]);
+            // $textsms = $texttitle . $address . "https://my.agro.uz/admin" . $emailtext . $email . $passwordtext . $password . $textthnks;
             $smsSender = new SmsService();
             $smsSender->send('998' . $this->user_memory["phone"], $textsms);
 
             // for emails
+
             $texttoemail = "<br>" . $texttitle . "<br>" . "<b>" . $address . "</b>" . ": http://my.agro.uz/admin" . "<br>" . "<b>" . $emailtext . "</b>: " . $email . "<br>" . "<b>" . $passwordtext . "</b>: " . $password . "<br>";
             $details = [
                 'title' => $text,
-                'body' => $texttoemail . "<br>" . $textthnks
+                'body' => $textEmail . "<br>" . $textthnks
             ];
             Mail::to($this->user_memory["email"])->send(new SendMail($details));
         } else {
