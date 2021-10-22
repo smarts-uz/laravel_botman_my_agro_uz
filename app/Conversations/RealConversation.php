@@ -542,15 +542,23 @@ HTML;
 
     public function verifyPhone($phone)
     {
-        if ($this->language === "uz") {
-            $textverify = "My.Agro.Uz portali uchun tasdiqlash kodi: ";
-        } else {
-            $textverify = "Код подтверждения для портала My.Agro.Uz: ";
-        };
 
+        
         $this->verify = $this->generatePass(4);
+        if ($this->language === "uz") {
+            $replacerSms = setting('sms.VerifySmsUz');
+
+        } else {
+            $replacerSms = setting('sms.VerifySmsRu');
+        }
+        $textverify = strtr($replacerSms, [
+            '{code}' => $this->verify
+            ]);
+        Log::info($textverify);
+        Log::info($this->verify);
+
         $smsSender = new SmsService();
-        $smsSender->send('998' . $phone, $textverify  . $this->verify);
+        $smsSender->send('998' . $phone, $textverify);
         $this->ask($this->questions["ASK_VERIFY_PHONE"][$this->language], function ($verifycode) {
 
             if ($verifycode == $this->verify) {
@@ -687,58 +695,37 @@ HTML;
         //question email & phone sms
 
         // $text = $this->language = "uz" ? " Ваше обращение зарегистрировано в портале My.Agro.Uz номером " . $appeal->id : " ";
+        
+        
         if ($this->language === "uz") {
-            $text = " Sizning murojaatingiz My.Agro.Uz portalida " . $appeal->id . " raqam bilan ro'yxatga olingan. ";
+            $replacerSms = setting('sms.ArizaUz');
+            $replacerEmail = setting('email.ArizaUz');
+            $replacerEmailTitle = setting('email.ArizaTitleUz');
         } else {
-            $text = " Ваше обращение зарегистрировано в портале My.Agro.Uz номером. " . $appeal->id;
-        }
-        // text title
-        if ($this->language === "uz") {
-            $texttitle = " Shaxsiy hisobingizda tegishli javoblarni olishingiz mumkin: ";
-        } else {
-            $texttitle = " Вы можете получать соответствующие ответы в персональном кабинете: ";
-        }
-        // $add = $this->language = "uz" ? " Adress: " : "";
-        if ($this->language === "uz") {
-            $add = " Kabinet manzili: ";
-        } else {
-            $add = " Адрес кабинета: ";
-        }
-        // $email = $this->language = "uz" ? " E-Mail: " : "";
-        if ($this->language === "uz") {
-            $email = " Sizning login: ";
-        } else {
-            $email = " Ваш логин: ";
-        }
-        // password
-        if ($this->language === "uz") {
-            $password = " Parolingiz: ";
-        } else {
-            $password = " Ваш пароль: ";
-        }
-        // password text
-        if ($this->language === "uz") {
-            $passwordtext = " Parol ro'yxatdan o'tish paytida sizga yuborilgan. ";
-        } else {
-            $passwordtext = " Пароль был Вам отправлен при регистрации. ";
-        }
-        // thanks text
-        if ($this->language === "uz") {
-            $textthnks = " Bizning xizmatimizdan foydalanganingiz uchun tashakkur. ";
-        } else {
-            $textthnks = " Спасибо за пользование нашим сервисом. ";
-        }
+            $replacerSms = setting('sms.ArizaRu');
+            $replacerEmail = setting('email.ArizaRu');
+            $replacerEmailTitle = setting('email.ArizaTitleRu');
 
+        }
+        $textFinishSms = strtr($replacerSms, [
+            '{email}' => $this->user_memory["email"],
+            
+            ]);
+        $textFinishEmail = strtr($replacerEmail, [
+                '{email}' => $this->user_memory["email"],
+            ]);
+        $titleFinishEmail = strtr($replacerEmailTitle, [
+            '{id}' => $appeal->id
+
+        ]);
         //for phone
-        $texttosms = $text . $texttitle . $add . "https://my.agro.uz/admin" . $email  . $this->user_memory["email"];
         $smsSender = new SmsService();
-        $smsSender->send('998' . $this->user_memory["phone"], $texttosms);
+        $smsSender->send('998' . $this->user_memory["phone"], $textFinishSms);
 
         //for email
-        $texttoemail = $text . "<br>" . $texttitle . "<br>" . "<b>" . $add . "</b>" . "https://my.agro.uz/admin" . "<br>" . "<b>" . $email  . "</b>" . $this->user_memory["email"] . "<br>" . "<b>" . $password . "</b>" . $passwordtext . "<br>" . $textthnks;
         $details = [
-            'title' => $text,
-            'body' => $texttoemail
+            'title' => $titleFinishEmail,
+            'body' => $textFinishEmail
         ];
         Mail::to($this->user_memory["email"])->send(new SendMail($details));
     }
