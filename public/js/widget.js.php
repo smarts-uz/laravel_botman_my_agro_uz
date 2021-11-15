@@ -65,7 +65,10 @@ $print = strtr($content, [
 
     '${title}' => $settings['chatbot.chat_title']['value'],
     '${placeholderText}' => $settings['chatbot.placeholder_text']['value'],
-    '${ChatIntroText}' => $settings['chatbot.ChatIntroText']['value'],
+    '${ChatIntroText}' => $settings['chatbot.ChatIntroText']['value'] . '<div style="display:flex">
+    <a " style="width:80px;padding:5px;margin:5px;background-color:#065853;text-align:center;border:1px solid white;color:#BECAC9;" href="'.$settings['chatbot.manual_uz']['value'].'"  target="__Blank">Uzbek</a>
+    <a   style="width:80px;padding:5px;margin:5px;background-color:#065853;text-align:center;border:1px solid white;color:#BECAC9;" href="'.$settings['chatbot.manual_ru']['value'].'" target="__Blank">Русский</a>
+    </div>',
 
     '${aboutText}' => $settings['chatbot.aboutText']['value'],
     '${aboutLink}' => $settings['chatbot.aboutLink']['value'],
@@ -85,6 +88,7 @@ $print = strtr($content, [
 echo $print;
 
 echo '
+
 window.addEventListener("scroll", function () {
     console.log("scrol: " + (window.innerHeight + window.scrollY));
     console.log("height: " + document.body.offsetHeight);

@@ -9,6 +9,8 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\FilepondController;
+use App\Http\Controllers\Controller;
+
 use App\Http\Middleware\CustomMiddleware;
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +62,4 @@ Route::post("/fileUpload", [FilepondController::class, "fileUpload"]);
 
 Route::get("/widget/set", [HelperController::class, 'getSetting'])->name('widget');
 Route::get("/getAll", [HelperController::class, 'getAll']);
+Route::get("/test", [Controller::class, 'ok']);
