@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6daf929dc4d9b6271199ffffe47cab37",
+    "content-hash": "e8681e726188684d75f6edeb0d0e2d2d",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -2160,6 +2160,47 @@
                 "source": "https://github.com/laravel/ui/tree/v3.3.0"
             },
             "time": "2021-05-25T16:45:33+00:00"
+        },
+        {
+            "name": "laravelapp/helper",
+            "version": "1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravelapp/helper.git",
+                "reference": "425525b0117a43a9507f1d60b79657782e6c7bcc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravelapp/helper/zipball/425525b0117a43a9507f1d60b79657782e6c7bcc",
+                "reference": "425525b0117a43a9507f1d60b79657782e6c7bcc",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Support\\": ""
+                },
+                "files": [
+                    "App/App.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike Autumn",
+                    "email": "laravelapp@gmail.com"
+                }
+            ],
+            "description": "Laravel helpers package.",
+            "homepage": "https://laravelapp.com",
+            "support": {
+                "issues": "https://github.com/laravelapp/helper/issues",
+                "source": "https://github.com/laravelapp/helper/tree/1.4"
+            },
+            "time": "2021-12-18T15:14:28+00:00"
         },
         {
             "name": "league/commonmark",
@@ -10068,5 +10109,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }

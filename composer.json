@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-json": "*",
         "botman/botman": "2.6.1",
         "botman/driver-telegram": "1.6.2",
         "botman/driver-web": "1.5.1",
@@ -18,14 +19,14 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "v3.3.0",
+        "laravelapp/helper": "1.4",
         "mcamara/laravel-localization": "^1.6",
         "pusher/pusher-php-server": "^7.0",
         "realrashid/sweet-alert": "^4.0",
         "sopamo/laravel-filepond": "^0.6.2",
         "symfony/dotenv": "v5.3.7",
         "tcg/voyager": "v1.5.0",
-        "vlucas/phpdotenv": "v5.3.0",
-      "ext-json": "*"
+        "vlucas/phpdotenv": "v5.3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -49,7 +50,6 @@
     },
     "scripts": {
         "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
